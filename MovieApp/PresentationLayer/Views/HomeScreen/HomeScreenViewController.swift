@@ -2,8 +2,9 @@ import UIKit
 
 class HomeScreenViewController: UIViewController {
 
-    private var homeScreenPresenter: HomeScreenPresenterProtocol!
     var navigationView: NavBarView!
+
+    private var homeScreenPresenter: HomeScreenPresenter!
 
     override func viewDidLoad() {
         super.viewDidLoad()

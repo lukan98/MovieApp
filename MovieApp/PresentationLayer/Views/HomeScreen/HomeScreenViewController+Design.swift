@@ -1,4 +1,3 @@
-import Foundation
 import SnapKit
 import UIKit
 
@@ -24,12 +23,10 @@ extension HomeScreenViewController: ConstructViewsProtocol {
     }
     
     func defineLayoutForViews() {
-        navigationView.snp.makeConstraints({
-            $0.top.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview()
+        navigationView.snp.makeConstraints {
+            $0.top.centerX.width.equalToSuperview()
             $0.height.equalTo(NavBarView.defaultHeight)
-        })
+        }
     }
 
 }

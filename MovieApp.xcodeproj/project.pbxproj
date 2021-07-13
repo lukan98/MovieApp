@@ -14,12 +14,11 @@
 		FC592E45269DAA4300233EFB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FC592E44269DAA4300233EFB /* SnapKit */; };
 		FC592E48269DAAA800233EFB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FC592E47269DAAA800233EFB /* Kingfisher */; };
 		FC592E4F269DAC5700233EFB /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E4E269DAC5700233EFB /* HomeScreenViewController.swift */; };
-		FC592E52269DAC9600233EFB /* HomeScreenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E51269DAC9600233EFB /* HomeScreenDelegate.swift */; };
 		FC592E54269DAFFD00233EFB /* ConstructViewsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E53269DAFFD00233EFB /* ConstructViewsProtocol.swift */; };
 		FC592E56269DB23F00233EFB /* HomeScreenViewController+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E55269DB23F00233EFB /* HomeScreenViewController+Design.swift */; };
 		FC592E58269DBB5B00233EFB /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E57269DBB5B00233EFB /* NavBarView.swift */; };
-		FC592E5A269DD58600233EFB /* HomeScreenPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E59269DD58600233EFB /* HomeScreenPresenterProtocol.swift */; };
 		FC592E5C269DD5A100233EFB /* HomeScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E5B269DD5A100233EFB /* HomeScreenPresenter.swift */; };
+		FC592E5E269DE0E100233EFB /* NavBarView+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E5D269DE0E100233EFB /* NavBarView+Design.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,12 +29,11 @@
 		FC592E3B269D897E00233EFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC592E3D269D897E00233EFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC592E4E269DAC5700233EFB /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
-		FC592E51269DAC9600233EFB /* HomeScreenDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenDelegate.swift; sourceTree = "<group>"; };
 		FC592E53269DAFFD00233EFB /* ConstructViewsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructViewsProtocol.swift; sourceTree = "<group>"; };
 		FC592E55269DB23F00233EFB /* HomeScreenViewController+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeScreenViewController+Design.swift"; sourceTree = "<group>"; };
 		FC592E57269DBB5B00233EFB /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
-		FC592E59269DD58600233EFB /* HomeScreenPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPresenterProtocol.swift; sourceTree = "<group>"; };
 		FC592E5B269DD5A100233EFB /* HomeScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPresenter.swift; sourceTree = "<group>"; };
+		FC592E5D269DE0E100233EFB /* NavBarView+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavBarView+Design.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +97,6 @@
 		FC592E4B269DABD100233EFB /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				FC592E59269DD58600233EFB /* HomeScreenPresenterProtocol.swift */,
 				FC592E5B269DD5A100233EFB /* HomeScreenPresenter.swift */,
 			);
 			path = Presenters;
@@ -120,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				FC592E57269DBB5B00233EFB /* NavBarView.swift */,
+				FC592E5D269DE0E100233EFB /* NavBarView+Design.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -129,7 +127,6 @@
 			children = (
 				FC592E4E269DAC5700233EFB /* HomeScreenViewController.swift */,
 				FC592E55269DB23F00233EFB /* HomeScreenViewController+Design.swift */,
-				FC592E51269DAC9600233EFB /* HomeScreenDelegate.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -216,10 +213,9 @@
 				FC592E32269D897C00233EFB /* SceneDelegate.swift in Sources */,
 				FC592E4F269DAC5700233EFB /* HomeScreenViewController.swift in Sources */,
 				FC592E58269DBB5B00233EFB /* NavBarView.swift in Sources */,
-				FC592E5A269DD58600233EFB /* HomeScreenPresenterProtocol.swift in Sources */,
-				FC592E52269DAC9600233EFB /* HomeScreenDelegate.swift in Sources */,
 				FC592E5C269DD5A100233EFB /* HomeScreenPresenter.swift in Sources */,
 				FC592E56269DB23F00233EFB /* HomeScreenViewController+Design.swift in Sources */,
+				FC592E5E269DE0E100233EFB /* NavBarView+Design.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
