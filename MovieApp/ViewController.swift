@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  MovieApp
-//
-//  Created by Luka Namačinski on 13.07.2021..
-//
-
 import UIKit
 
 class ViewController: UIViewController {
