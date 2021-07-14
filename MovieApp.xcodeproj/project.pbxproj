@@ -107,8 +107,8 @@
 			children = (
 				FC592E53269DAFFD00233EFB /* ConstructViewsProtocol.swift */,
 				FC592E50269DAC8300233EFB /* HomeScreen */,
-				FC592E3A269D897E00233EFB /* LaunchScreen.storyboard */,
 				FC592E4D269DAC1800233EFB /* Components */,
+				FC592E3A269D897E00233EFB /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
