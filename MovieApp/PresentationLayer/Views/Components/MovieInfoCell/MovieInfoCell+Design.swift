@@ -11,19 +11,19 @@ extension MovieInfoCell: ConstructViewsProtocol {
 
     func createViews() {
         contentContainer = UIView()
-        addSubview(contentContainer)
+        contentView.addSubview(contentContainer)
 
-        poster = UIImageView(image: UIImage())
+        poster = UIImageView(image: UIImage(named: posterSource))
         contentContainer.addSubview(poster)
 
         infoContainer = UIView()
         contentContainer.addSubview(infoContainer)
 
-        name = UILabel()
-        infoContainer.addSubview(name)
+        nameLabel = UILabel()
+        infoContainer.addSubview(nameLabel)
 
-        about = UILabel()
-        infoContainer.addSubview(about)
+        aboutLabel = UILabel()
+        infoContainer.addSubview(aboutLabel)
     }
 
     func styleViews() {
@@ -32,29 +32,32 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     private func styleCell() {
-        layer.shadowOffset = CGSize(width: 0, height: 4)
-        layer.shadowRadius = 20
-        layer.shadowOpacity = 0.1
-        clipsToBounds = false
 
-        contentContainer.backgroundColor = .red
+
+        
         contentContainer.layer.cornerRadius = cornerRadius
+        contentContainer.layer.borderWidth = 1
+        contentContainer.layer.borderColor = UIColor.black.cgColor
         contentContainer.clipsToBounds = true
     }
 
     private func styleContents() {
-        poster.backgroundColor = .yellow
+        nameLabel.attributedText = NSAttributedString(
+            string: nameString,
+            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)]
+        )
 
-        name.text = "Placeholder (2021)"
-        name.backgroundColor = .blue
-
-        about.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        about.backgroundColor = .green
+        aboutLabel.attributedText = NSAttributedString(
+            string: aboutString,
+            attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .regular)]
+        )
+        aboutLabel.numberOfLines = 0
     }
 
     func defineLayoutForViews() {
         contentContainer.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(12)
         }
 
         poster.snp.makeConstraints {
@@ -68,13 +71,13 @@ extension MovieInfoCell: ConstructViewsProtocol {
             $0.trailing.bottom.equalToSuperview().offset(-infoInset)
         }
 
-        name.snp.makeConstraints {
+        nameLabel.snp.makeConstraints {
             $0.leading.top.trailing.equalToSuperview()
             $0.height.equalTo(20)
         }
 
-        about.snp.makeConstraints {
-            $0.top.equalTo(name.snp.bottom)
+        aboutLabel.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom)
             $0.bottom.leading.trailing.equalToSuperview()
         }
     }

@@ -6,7 +6,7 @@ class HomeScreenViewController: UIViewController {
     var movieCollection: UICollectionView!
 
     private let widthInset: CGFloat = 36
-    private let cellHeight: CGFloat = 140
+    private let cellHeight: CGFloat = 152
     private var homeScreenPresenter: HomeScreenPresenter!
 
     override func viewDidLoad() {
