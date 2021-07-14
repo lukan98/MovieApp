@@ -6,9 +6,19 @@ class HomeScreenViewController: UIViewController {
     var movieCollection: UICollectionView!
 
     private let widthInset: CGFloat = 36
-    private let cellHeight: CGFloat = 152
-    private var homeScreenPresenter: HomeScreenPresenter!
+    private let cellHeight: CGFloat = 140
+    private var presenter: HomeScreenPresenter!
 
+    init(presenter: HomeScreenPresenter) {
+        super .init(nibName: nil, bundle: nil)
+
+        self.presenter = presenter
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,20 +38,26 @@ class HomeScreenViewController: UIViewController {
 extension HomeScreenViewController: UICollectionViewDataSource {
 
     func collectionView(
-        _ collectionView: UICollectionView
-        , numberOfItemsInSection section: Int
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
     ) -> Int {
-        20
+        presenter.getNumberOfMovies()
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let cell = movieCollection.dequeueReusableCell(
-            withReuseIdentifier: MovieInfoCell.cellIdentifier,
-            for: indexPath
-        )
+        guard
+            let cell = movieCollection.dequeueReusableCell(
+                withReuseIdentifier: MovieInfoCell.cellIdentifier,
+                for: indexPath
+            ) as? MovieInfoCell,
+            let movie = presenter.getMovieAt(index: indexPath.row)
+        else {
+            return MovieInfoCell()
+        }
+        cell.setData(for: movie)
         return cell
     }
 
@@ -64,7 +80,7 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 22, left: 0, bottom: 6, right: 0)
+        UIEdgeInsets(top: 22, left: 0, bottom: 0, right: 0)
     }
 
 }

@@ -4,18 +4,14 @@ class MovieInfoCell: UICollectionViewCell {
 
     static let cellIdentifier = "movieInfoCell"
 
-    var contentContainer: UIView!
-    var posterSource: String = "IronMan1"
-    var poster: UIImageView!
-    var infoContainer: UIView!
-    var nameString: String = "Iron Man (2008)"
-    var nameLabel: UILabel!
-    var aboutString: String = "After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil."
-    var aboutLabel: UILabel!
-
     let infoInset: CGFloat = 15
     let posterWidth: CGFloat = 100
     let cornerRadius: CGFloat = 10
+    var contentContainer: UIView!
+    var poster: UIImageView!
+    var infoContainer: UIView!
+    var nameLabel: UILabel!
+    var aboutLabel: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,13 +23,27 @@ class MovieInfoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setData(for movie: Movie) {
+        poster.image = UIImage(named: movie.posterSource)
+
+        nameLabel.attributedText = NSMutableAttributedString(
+            string: movie.name,
+            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)]
+        )
+
+        aboutLabel.attributedText = NSMutableAttributedString(
+            string: movie.about,
+            attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .regular)]
+        )
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.layer.shadowOffset = CGSize(width: 4, height: 20)
-        contentView.layer.shadowRadius = 10
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        contentView.layer.shadowRadius = 20
         contentView.layer.shadowOpacity = 0.1
-        contentView.layer.shadowColor = UIColor.red.cgColor
+        contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowPath = UIBezierPath(rect: contentContainer.bounds).cgPath
     }
 

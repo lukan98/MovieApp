@@ -13,7 +13,7 @@ extension MovieInfoCell: ConstructViewsProtocol {
         contentContainer = UIView()
         contentView.addSubview(contentContainer)
 
-        poster = UIImageView(image: UIImage(named: posterSource))
+        poster = UIImageView()
         contentContainer.addSubview(poster)
 
         infoContainer = UIView()
@@ -32,23 +32,19 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     private func styleCell() {
-
-
-        
         contentContainer.layer.cornerRadius = cornerRadius
-        contentContainer.layer.borderWidth = 1
-        contentContainer.layer.borderColor = UIColor.black.cgColor
+        contentContainer.backgroundColor = .white
         contentContainer.clipsToBounds = true
     }
 
     private func styleContents() {
-        nameLabel.attributedText = NSAttributedString(
-            string: nameString,
+        nameLabel.attributedText = NSMutableAttributedString(
+            string: "",
             attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)]
         )
 
-        aboutLabel.attributedText = NSAttributedString(
-            string: aboutString,
+        aboutLabel.attributedText = NSMutableAttributedString(
+            string: "",
             attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .regular)]
         )
         aboutLabel.numberOfLines = 0
