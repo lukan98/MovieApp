@@ -24,12 +24,18 @@ extension HomeScreenViewController: ConstructViewsProtocol {
     private func createCollectionView() -> UICollectionView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+
         return collectionView
     }
     
     func styleViews() {
         view.backgroundColor = .white
+
         movieCollection.backgroundColor = .none
     }
     
@@ -41,7 +47,7 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         
         movieCollection.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom)
-            $0.width.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 

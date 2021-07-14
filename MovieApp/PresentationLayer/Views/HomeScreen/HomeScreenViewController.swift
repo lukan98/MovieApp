@@ -5,23 +5,19 @@ class HomeScreenViewController: UIViewController {
     var navigationView: NavBarView!
     var movieCollection: UICollectionView!
 
+    private let widthInset: CGFloat = 36
+    private let cellHeight: CGFloat = 140
     private var homeScreenPresenter: HomeScreenPresenter!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         buildViews()
-        setUpCollectionView()
-    }
-
-    private func setUpCollectionView() {
-        movieCollection.dataSource = self
-        movieCollection.delegate = self
-        movieCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+
         movieCollection.collectionViewLayout.invalidateLayout()
     }
 
@@ -52,7 +48,7 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return CGSize(width: collectionView.bounds.width - 36, height: 140)
+        CGSize(width: collectionView.bounds.width - widthInset, height: cellHeight)
     }
 
     func collectionView(
