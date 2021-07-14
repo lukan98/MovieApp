@@ -10,11 +10,14 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     func createViews() {
+        contentContainer = UIView()
+        addSubview(contentContainer)
+
         poster = UIImageView(image: UIImage())
-        contentView.addSubview(poster)
+        contentContainer.addSubview(poster)
 
         infoContainer = UIView()
-        contentView.addSubview(infoContainer)
+        contentContainer.addSubview(infoContainer)
 
         name = UILabel()
         infoContainer.addSubview(name)
@@ -24,8 +27,22 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     func styleViews() {
-        backgroundColor = .red
+        styleCell()
+        styleContents()
+    }
 
+    private func styleCell() {
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowRadius = 20
+        layer.shadowOpacity = 0.1
+        clipsToBounds = false
+
+        contentContainer.backgroundColor = .red
+        contentContainer.layer.cornerRadius = cornerRadius
+        contentContainer.clipsToBounds = true
+    }
+
+    private func styleContents() {
         poster.backgroundColor = .yellow
 
         name.text = "Placeholder (2021)"
@@ -36,9 +53,13 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     func defineLayoutForViews() {
+        contentContainer.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+
         poster.snp.makeConstraints {
             $0.leading.top.bottom.equalToSuperview()
-            $0.trailing.equalTo(contentView.snp.leading).offset(posterWidth)
+            $0.width.equalTo(posterWidth)
         }
 
         infoContainer.snp.makeConstraints {
@@ -49,7 +70,7 @@ extension MovieInfoCell: ConstructViewsProtocol {
 
         name.snp.makeConstraints {
             $0.leading.top.trailing.equalToSuperview()
-            $0.bottom.equalTo(infoContainer.snp.top).offset(20)
+            $0.height.equalTo(20)
         }
 
         about.snp.makeConstraints {
