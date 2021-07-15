@@ -37,9 +37,9 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     private func styleContents() {
-        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        nameLabel.font = .systemFont(ofSize: 16, weight: .bold)
 
-        aboutLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        aboutLabel.font = .systemFont(ofSize: 14, weight: .regular)
         aboutLabel.numberOfLines = 0
     }
 
