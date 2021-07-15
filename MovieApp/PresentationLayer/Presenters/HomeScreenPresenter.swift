@@ -6,7 +6,7 @@ class HomeScreenPresenter {
         movies.count
     }
 
-    func getMovie(at index: Int) -> Movie? {
+    func getMovie(at index: Int) -> MovieViewModel? {
         movies[index]
     }
 

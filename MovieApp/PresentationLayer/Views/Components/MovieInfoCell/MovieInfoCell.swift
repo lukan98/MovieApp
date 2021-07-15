@@ -24,7 +24,7 @@ class MovieInfoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setData(for movie: Movie) {
+    func setData(for movie: MovieViewModel) {
         poster.image = UIImage(named: movie.posterSource)
 
         nameLabel.text = movie.name
