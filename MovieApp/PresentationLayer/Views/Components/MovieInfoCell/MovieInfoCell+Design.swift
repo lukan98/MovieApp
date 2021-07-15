@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 extension MovieInfoCell: ConstructViewsProtocol {
@@ -38,22 +37,16 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     private func styleContents() {
-        nameLabel.attributedText = NSMutableAttributedString(
-            string: "",
-            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)]
-        )
+        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
 
-        aboutLabel.attributedText = NSMutableAttributedString(
-            string: "",
-            attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .regular)]
-        )
+        aboutLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         aboutLabel.numberOfLines = 0
     }
 
     func defineLayoutForViews() {
         contentContainer.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview()
         }
 
         poster.snp.makeConstraints {

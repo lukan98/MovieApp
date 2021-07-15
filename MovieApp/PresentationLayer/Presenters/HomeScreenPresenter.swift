@@ -2,11 +2,11 @@ class HomeScreenPresenter {
 
     private let movies = MockDataService.movies
 
-    func getNumberOfMovies() -> Int {
+    public var numberOfMovies: Int {
         movies.count
     }
 
-    func getMovieAt(index: Int) -> Movie? {
+    func getMovie(at index: Int) -> Movie? {
         movies[index]
     }
 

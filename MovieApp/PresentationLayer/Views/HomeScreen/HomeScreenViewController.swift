@@ -7,6 +7,7 @@ class HomeScreenViewController: UIViewController {
 
     private let widthInset: CGFloat = 36
     private let cellHeight: CGFloat = 140
+
     private var presenter: HomeScreenPresenter!
 
     init(presenter: HomeScreenPresenter) {
@@ -41,7 +42,7 @@ extension HomeScreenViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        presenter.getNumberOfMovies()
+        presenter.numberOfMovies
     }
 
     func collectionView(
@@ -51,12 +52,12 @@ extension HomeScreenViewController: UICollectionViewDataSource {
         guard
             let cell = movieCollection.dequeueReusableCell(
                 withReuseIdentifier: MovieInfoCell.cellIdentifier,
-                for: indexPath
-            ) as? MovieInfoCell,
-            let movie = presenter.getMovieAt(index: indexPath.row)
+                for: indexPath) as? MovieInfoCell,
+            let movie = presenter.getMovie(at: indexPath.row)
         else {
             return MovieInfoCell()
         }
+        
         cell.setData(for: movie)
         return cell
     }

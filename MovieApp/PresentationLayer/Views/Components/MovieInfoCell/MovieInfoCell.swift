@@ -2,11 +2,12 @@ import UIKit
 
 class MovieInfoCell: UICollectionViewCell {
 
-    static let cellIdentifier = "movieInfoCell"
+    static let cellIdentifier = String(describing: MovieInfoCell.self)
 
     let infoInset: CGFloat = 15
     let posterWidth: CGFloat = 100
     let cornerRadius: CGFloat = 10
+
     var contentContainer: UIView!
     var poster: UIImageView!
     var infoContainer: UIView!
@@ -26,15 +27,9 @@ class MovieInfoCell: UICollectionViewCell {
     func setData(for movie: Movie) {
         poster.image = UIImage(named: movie.posterSource)
 
-        nameLabel.attributedText = NSMutableAttributedString(
-            string: movie.name,
-            attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)]
-        )
+        nameLabel.text = movie.name
 
-        aboutLabel.attributedText = NSMutableAttributedString(
-            string: movie.about,
-            attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .regular)]
-        )
+        aboutLabel.text = movie.about
     }
 
     override func layoutSubviews() {
@@ -46,7 +41,5 @@ class MovieInfoCell: UICollectionViewCell {
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowPath = UIBezierPath(rect: contentContainer.bounds).cgPath
     }
-
-    
 
 }
