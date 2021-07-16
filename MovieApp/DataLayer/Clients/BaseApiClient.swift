@@ -2,8 +2,8 @@ import Foundation
 
 class BaseApiClient {
 
+    private let apiKey = "e24dd8d2f3822e3917d10c6570d7f574"
     private let baseUrl: String
-    let apiKey = "e24dd8d2f3822e3917d10c6570d7f574"
 
     init(baseUrl: String) {
         self.baseUrl = baseUrl
@@ -14,25 +14,24 @@ class BaseApiClient {
         queryParameters: [String: String?]? = nil,
         completionHandler: @escaping (Result<T, RequestError>) -> Void
     ) {
-        var urlString = "\(baseUrl)\(path)"
+        let urlString = "\(baseUrl)\(path)"
+
+        var urlComponents = URLComponents(string: urlString)
+        urlComponents?.queryItems = [URLQueryItem(name: "api_key", value: apiKey)]
 
         if let parameters = queryParameters {
-            var parameterString = "?"
-            for (index, (key, value)) in parameters.enumerated() {
-                parameterString += "\(key)=\(value ?? "")"
-                if index != parameters.count-1 {
-                    parameterString.append("&")
-                }
+            for parameter in parameters {
+                urlComponents?.queryItems?.append(URLQueryItem(name: parameter.key, value: parameter.value))
             }
-            urlString.append(parameterString)
         }
 
-        guard let url = URL(string: urlString) else {
+        guard let url = urlComponents?.url else {
             completionHandler(.failure(.invalidURLError))
             return
         }
 
-        let urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
 
         return executeURLRequest(urlRequest, completionHandler: completionHandler)
     }

@@ -11,8 +11,7 @@ class MovieClient: MovieClientProtocol {
     func fetchPopularMovies(completionHandler: @escaping (Result<PopularMoviesModel, RequestError>) -> Void) {
         let queryParameters = [
             "language": "en-US",
-            "page": "1",
-            "api_key": baseApiClient.apiKey
+            "page": "1"
         ]
 
         baseApiClient
