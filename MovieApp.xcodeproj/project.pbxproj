@@ -30,6 +30,9 @@
 		FCB63A5026A0616800E049A2 /* MovieClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A4F26A0616800E049A2 /* MovieClientProtocol.swift */; };
 		FCB63A5426A069E300E049A2 /* MovieClientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A5326A069E300E049A2 /* MovieClientModel.swift */; };
 		FCB63A5626A06BB500E049A2 /* PopularMoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A5526A06BB500E049A2 /* PopularMoviesModel.swift */; };
+		FCB63A5F26A1879400E049A2 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCB63A5C26A1879400E049A2 /* ProximaNova-Bold.otf */; };
+		FCB63A6026A1879400E049A2 /* ProximaNova-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCB63A5D26A1879400E049A2 /* ProximaNova-Medium.otf */; };
+		FCB63A6126A1879400E049A2 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCB63A5E26A1879400E049A2 /* ProximaNova-Semibold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,9 @@
 		FCB63A4F26A0616800E049A2 /* MovieClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClientProtocol.swift; sourceTree = "<group>"; };
 		FCB63A5326A069E300E049A2 /* MovieClientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClientModel.swift; sourceTree = "<group>"; };
 		FCB63A5526A06BB500E049A2 /* PopularMoviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesModel.swift; sourceTree = "<group>"; };
+		FCB63A5C26A1879400E049A2 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Bold.otf"; path = "../../../../MovieAppAssets/ProximaNova-Bold.otf"; sourceTree = "<group>"; };
+		FCB63A5D26A1879400E049A2 /* ProximaNova-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Medium.otf"; path = "../../../../MovieAppAssets/ProximaNova-Medium.otf"; sourceTree = "<group>"; };
+		FCB63A5E26A1879400E049A2 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Semibold.otf"; path = "../../../../MovieAppAssets/ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,7 @@
 		FC592E4A269DAB8800233EFB /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				FCB63A5B26A1877D00E049A2 /* Fonts */,
 				FC592E2F269D897C00233EFB /* AppDelegate.swift */,
 				FC592E31269D897C00233EFB /* SceneDelegate.swift */,
 				FC592E38269D897E00233EFB /* Assets.xcassets */,
@@ -228,6 +235,16 @@
 			path = ClientModels;
 			sourceTree = "<group>";
 		};
+		FCB63A5B26A1877D00E049A2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FCB63A5C26A1879400E049A2 /* ProximaNova-Bold.otf */,
+				FCB63A5D26A1879400E049A2 /* ProximaNova-Medium.otf */,
+				FCB63A5E26A1879400E049A2 /* ProximaNova-Semibold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -293,8 +310,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCB63A5F26A1879400E049A2 /* ProximaNova-Bold.otf in Resources */,
 				FC592E3C269D897E00233EFB /* LaunchScreen.storyboard in Resources */,
+				FCB63A6126A1879400E049A2 /* ProximaNova-Semibold.otf in Resources */,
 				FC592E39269D897E00233EFB /* Assets.xcassets in Resources */,
+				FCB63A6026A1879400E049A2 /* ProximaNova-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
