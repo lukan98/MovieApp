@@ -14,6 +14,7 @@ class HomeScreenViewController: UIViewController {
         super .init(nibName: nil, bundle: nil)
 
         self.presenter = presenter
+        presenter.fetchMovies()
     }
     
     required init?(coder: NSCoder) {
