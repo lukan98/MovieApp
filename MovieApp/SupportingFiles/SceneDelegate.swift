@@ -13,7 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
 
-        let presenter = HomeScreenPresenter(baseUrl: "https://api.themoviedb.org/3")
+        let movieClient = MovieClient(baseApiClient: BaseApiClient(baseUrl: "https://api.themoviedb.org/3"))
+        let presenter = HomeScreenPresenter(movieClient: movieClient)
         window?.rootViewController = HomeScreenViewController(presenter: presenter)
 
         window?.makeKeyAndVisible()
