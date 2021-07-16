@@ -21,5 +21,5 @@ class MovieClient: MovieClientProtocol {
                 completionHandler: completionHandler
             )
     }
-
+    
 }

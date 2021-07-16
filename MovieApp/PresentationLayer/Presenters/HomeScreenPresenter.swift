@@ -21,7 +21,8 @@ class HomeScreenPresenter {
             switch result {
             case .success(let popularMovieCollection):
                 self.movies = popularMovieCollection.movies.map {
-                    MovieViewModel(name: $0.name, about: $0.about, posterSource: "IronMan1")
+                    let posterSource = "https://image.tmdb.org/t/p/w185"+$0.posterSource
+                    return MovieViewModel(name: $0.name, about: $0.about, posterSource: posterSource)
                 }
             case .failure:
                 print("Failed to fetch movies")
