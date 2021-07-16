@@ -1,4 +1,4 @@
-struct Movie {
+struct MovieViewModel {
 
     let name: String
     let about: String
