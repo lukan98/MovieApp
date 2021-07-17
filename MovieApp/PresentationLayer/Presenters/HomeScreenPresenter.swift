@@ -15,8 +15,8 @@ class HomeScreenPresenter {
                     return MovieViewModel(name: $0.name, about: $0.about, posterSource: posterSource)
                 }
                 completion(.success(movies))
-            case .failure:
-                print("Failed to fetch movies")
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
