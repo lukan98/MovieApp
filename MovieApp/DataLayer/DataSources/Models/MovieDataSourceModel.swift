@@ -1,7 +1,7 @@
 struct MovieDataSourceModel {
 
-    let about: String
     let id: Int
+    let about: String
     let name: String
     let posterSource: String
 
@@ -12,8 +12,8 @@ struct MovieDataSourceModel {
 extension MovieDataSourceModel {
 
     init(from model: MovieClientModel) {
-        about = model.about
         id = model.id
+        about = model.about
         name = model.name
         posterSource = model.posterSource
     }

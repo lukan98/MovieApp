@@ -5,7 +5,7 @@ class NetworkDataSource: NetworkDataSourceProtocol {
     init(movieClient: MovieClientProtocol) {
         self.movieClient = movieClient
     }
-    
+
     func fetchPopularMovies(
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     ) {

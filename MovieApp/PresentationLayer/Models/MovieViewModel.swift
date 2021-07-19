@@ -10,7 +10,7 @@ struct MovieViewModel {
 
 extension MovieViewModel {
 
-    init(from model: Movie) {
+    init(from model: MovieModel) {
         about = model.about
         name = model.name
         posterSource = "https://image.tmdb.org/t/p/w185" + model.posterSource

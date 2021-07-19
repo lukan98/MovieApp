@@ -8,6 +8,28 @@ class MovieRepository: MovieRepositoryProtocol {
         self.storedPopularMovies = []
     }
 
+    func getPopularMovies(
+        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+    ) {
+        getPopularMoviesFromLocal { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let localMovies):
+                completionHandler(.success(localMovies))
+            case .failure:
+                self.getPopularMoviesFromNetwork { result in
+                    switch result {
+                    case .success(let remoteMovies):
+                        completionHandler(.success(remoteMovies))
+                    case .failure(let remoteError):
+                        completionHandler(.failure(remoteError))
+                    }
+                }
+            }
+        }
+    }
+
     private func getPopularMoviesFromNetwork(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
@@ -32,28 +54,6 @@ class MovieRepository: MovieRepositoryProtocol {
             completionHandler(.success(storedPopularMovies))
         } else {
             completionHandler(.failure(RequestError.noDataError))
-        }
-    }
-
-    func getPopularMovies(
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    ) {
-        getPopularMoviesFromLocal { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-            case .success(let localMovies):
-                completionHandler(.success(localMovies))
-            case .failure:
-                self.getPopularMoviesFromNetwork { result in
-                    switch result {
-                    case .success(let remoteMovies):
-                        completionHandler(.success(remoteMovies))
-                    case .failure(let remoteError):
-                        completionHandler(.failure(remoteError))
-                    }
-                }
-            }
         }
     }
 }

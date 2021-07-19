@@ -1,7 +1,7 @@
-struct Movie {
+struct MovieModel {
 
-    let about: String
     let id: Int
+    let about: String
     let name: String
     let posterSource: String
 
@@ -9,11 +9,11 @@ struct Movie {
 
 // MARK: RepositoryModel to Model conversion
 
-extension Movie {
+extension MovieModel {
 
     init(from model: MovieRepositoryModel) {
-        about = model.about
         id = model.id
+        about = model.about
         name = model.name
         posterSource = model.posterSource
     }
