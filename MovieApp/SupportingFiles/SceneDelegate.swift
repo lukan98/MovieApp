@@ -13,11 +13,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
 
-        let movieClient = MovieClient(baseApiClient: BaseApiClient(baseUrl: "https://api.themoviedb.org/3"))
-        let presenter = HomeScreenPresenter(movieClient: movieClient)
+        let presenter = setUpPresenter()
         window?.rootViewController = HomeScreenViewController(presenter: presenter)
 
         window?.makeKeyAndVisible()
+    }
+
+    func setUpPresenter() -> HomeScreenPresenter {
+        let movieClient = MovieClient(baseApiClient: BaseApiClient(baseUrl: "https://api.themoviedb.org/3"))
+        let movieDataSource = NetworkDataSource(movieClient: movieClient)
+        let movieRepository = MovieRepository(networkDataSource: movieDataSource)
+        let movieUseCase = MovieUseCase(movieRepository: movieRepository)
+        return HomeScreenPresenter(movieUseCase: movieUseCase)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

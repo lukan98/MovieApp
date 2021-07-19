@@ -1,5 +1,5 @@
 protocol MovieUseCaseProtocol {
 
-    func getRemotePopularMovies(_ completionHandler: @escaping (Result<[Movie], RequestError>) -> Void)
+    func getPopularMovies(_ completionHandler: @escaping (Result<[Movie], RequestError>) -> Void)
 
 }

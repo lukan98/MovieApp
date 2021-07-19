@@ -6,8 +6,8 @@ class MovieUseCase: MovieUseCaseProtocol {
         self.movieRepository = movieRepository
     }
 
-    func getRemotePopularMovies(_ completionHandler: @escaping (Result<[Movie], RequestError>) -> Void) {
-        movieRepository.getPopularMoviesFromNetwork { result in
+    func getPopularMovies(_ completionHandler: @escaping (Result<[Movie], RequestError>) -> Void) {
+        movieRepository.getPopularMovies { result in
             switch result {
             case .success(let repositoryMovies):
                 let movies = repositoryMovies.map { Movie(from: $0) }
