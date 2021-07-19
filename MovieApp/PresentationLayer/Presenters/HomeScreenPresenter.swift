@@ -1,13 +1,23 @@
 class HomeScreenPresenter {
 
-    private let movies = MockDataService.movies
+    private let movieClient: MovieClient
 
-    public var numberOfMovies: Int {
-        movies.count
+    init(movieClient: MovieClient) {
+        self.movieClient = movieClient
     }
 
-    func getMovie(at index: Int) -> MovieViewModel? {
-        movies[index]
+    func fetchMovies(_ completion: @escaping (Result<[MovieViewModel], Error>) -> Void) {
+        movieClient.fetchPopularMovies { result in
+            switch result {
+            case .success(let popularMovieCollection):
+                let movies: [MovieViewModel] = popularMovieCollection.movies.map {
+                    let posterSource = "https://image.tmdb.org/t/p/w185" + $0.posterSource
+                    return MovieViewModel(name: $0.name, about: $0.about, posterSource: posterSource)
+                }
+                completion(.success(movies))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
-
 }

@@ -22,7 +22,6 @@
 		FCB63A37269F0C0500E049A2 /* MovieInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A36269F0C0500E049A2 /* MovieInfoCell.swift */; };
 		FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A38269F0DB300E049A2 /* MovieInfoCell+Design.swift */; };
 		FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A3D269F375A00E049A2 /* MovieViewModel.swift */; };
-		FCB63A40269F37AA00E049A2 /* MockDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A3F269F37AA00E049A2 /* MockDataService.swift */; };
 		FCB63A4426A0562500E049A2 /* MovieClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A4326A0562500E049A2 /* MovieClient.swift */; };
 		FCB63A4626A0563100E049A2 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A4526A0563100E049A2 /* Result.swift */; };
 		FCB63A4A26A05DC900E049A2 /* BaseApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A4926A05DC900E049A2 /* BaseApiClient.swift */; };
@@ -30,6 +29,9 @@
 		FCB63A5026A0616800E049A2 /* MovieClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A4F26A0616800E049A2 /* MovieClientProtocol.swift */; };
 		FCB63A5426A069E300E049A2 /* MovieClientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A5326A069E300E049A2 /* MovieClientModel.swift */; };
 		FCB63A5626A06BB500E049A2 /* PopularMoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A5526A06BB500E049A2 /* PopularMoviesModel.swift */; };
+		FCB63A5F26A1879400E049A2 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCB63A5C26A1879400E049A2 /* ProximaNova-Bold.otf */; };
+		FCB63A6026A1879400E049A2 /* ProximaNova-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCB63A5D26A1879400E049A2 /* ProximaNova-Medium.otf */; };
+		FCB63A6126A1879400E049A2 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCB63A5E26A1879400E049A2 /* ProximaNova-Semibold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +50,6 @@
 		FCB63A36269F0C0500E049A2 /* MovieInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoCell.swift; sourceTree = "<group>"; };
 		FCB63A38269F0DB300E049A2 /* MovieInfoCell+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieInfoCell+Design.swift"; sourceTree = "<group>"; };
 		FCB63A3D269F375A00E049A2 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
-		FCB63A3F269F37AA00E049A2 /* MockDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataService.swift; sourceTree = "<group>"; };
 		FCB63A4326A0562500E049A2 /* MovieClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClient.swift; sourceTree = "<group>"; };
 		FCB63A4526A0563100E049A2 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		FCB63A4926A05DC900E049A2 /* BaseApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiClient.swift; sourceTree = "<group>"; };
@@ -56,6 +57,9 @@
 		FCB63A4F26A0616800E049A2 /* MovieClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClientProtocol.swift; sourceTree = "<group>"; };
 		FCB63A5326A069E300E049A2 /* MovieClientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClientModel.swift; sourceTree = "<group>"; };
 		FCB63A5526A06BB500E049A2 /* PopularMoviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesModel.swift; sourceTree = "<group>"; };
+		FCB63A5C26A1879400E049A2 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Bold.otf"; path = "../../../../MovieAppAssets/ProximaNova-Bold.otf"; sourceTree = "<group>"; };
+		FCB63A5D26A1879400E049A2 /* ProximaNova-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Medium.otf"; path = "../../../../MovieAppAssets/ProximaNova-Medium.otf"; sourceTree = "<group>"; };
+		FCB63A5E26A1879400E049A2 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ProximaNova-Semibold.otf"; path = "../../../../MovieAppAssets/ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 		FC592E4A269DAB8800233EFB /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				FCB63A5B26A1877D00E049A2 /* Fonts */,
 				FC592E2F269D897C00233EFB /* AppDelegate.swift */,
 				FC592E31269D897C00233EFB /* SceneDelegate.swift */,
 				FC592E38269D897E00233EFB /* Assets.xcassets */,
@@ -122,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				FC592E5B269DD5A100233EFB /* HomeScreenPresenter.swift */,
-				FCB63A3F269F37AA00E049A2 /* MockDataService.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -228,6 +232,16 @@
 			path = ClientModels;
 			sourceTree = "<group>";
 		};
+		FCB63A5B26A1877D00E049A2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FCB63A5C26A1879400E049A2 /* ProximaNova-Bold.otf */,
+				FCB63A5D26A1879400E049A2 /* ProximaNova-Medium.otf */,
+				FCB63A5E26A1879400E049A2 /* ProximaNova-Semibold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -293,8 +307,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCB63A5F26A1879400E049A2 /* ProximaNova-Bold.otf in Resources */,
 				FC592E3C269D897E00233EFB /* LaunchScreen.storyboard in Resources */,
+				FCB63A6126A1879400E049A2 /* ProximaNova-Semibold.otf in Resources */,
 				FC592E39269D897E00233EFB /* Assets.xcassets in Resources */,
+				FCB63A6026A1879400E049A2 /* ProximaNova-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +326,6 @@
 				FCB63A5026A0616800E049A2 /* MovieClientProtocol.swift in Sources */,
 				FC592E30269D897C00233EFB /* AppDelegate.swift in Sources */,
 				FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */,
-				FCB63A40269F37AA00E049A2 /* MockDataService.swift in Sources */,
 				FCB63A4626A0563100E049A2 /* Result.swift in Sources */,
 				FCB63A4A26A05DC900E049A2 /* BaseApiClient.swift in Sources */,
 				FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */,

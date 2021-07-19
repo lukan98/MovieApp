@@ -1,5 +1,5 @@
 protocol MovieClientProtocol {
 
-    func fetchPopularMovies(completionHandler: @escaping (Result<PopularMoviesModel, RequestError>) -> Void)
+    func fetchPopularMovies(_ completionHandler: @escaping (Result<PopularMoviesModel, RequestError>) -> Void)
 
 }

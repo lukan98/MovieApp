@@ -9,13 +9,14 @@ class HomeScreenViewController: UIViewController {
     private let cellHeight: CGFloat = 140
 
     private var presenter: HomeScreenPresenter!
+    private var movies: [MovieViewModel] = []
 
     init(presenter: HomeScreenPresenter) {
-        super .init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
 
         self.presenter = presenter
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -24,6 +25,23 @@ class HomeScreenViewController: UIViewController {
         super.viewDidLoad()
 
         buildViews()
+        loadData()
+    }
+
+    private func loadData() {
+        presenter.fetchMovies { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let movies):
+                self.movies = movies
+                DispatchQueue.main.async {
+                    self.movieCollection.reloadData()
+                }
+            case .failure:
+                print("Failed to load data")
+            }
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -42,7 +60,7 @@ extension HomeScreenViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        presenter.numberOfMovies
+        movies.count
     }
 
     func collectionView(
@@ -52,12 +70,12 @@ extension HomeScreenViewController: UICollectionViewDataSource {
         guard
             let cell = movieCollection.dequeueReusableCell(
                 withReuseIdentifier: MovieInfoCell.cellIdentifier,
-                for: indexPath) as? MovieInfoCell,
-            let movie = presenter.getMovie(at: indexPath.row)
+                for: indexPath) as? MovieInfoCell
         else {
             return MovieInfoCell()
         }
-        
+
+        let movie = movies[indexPath.row]
         cell.setData(for: movie)
         return cell
     }

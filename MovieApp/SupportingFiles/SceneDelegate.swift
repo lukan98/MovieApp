@@ -12,25 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = HomeScreenViewController(presenter: HomeScreenPresenter())
+
+        let movieClient = MovieClient(baseApiClient: BaseApiClient(baseUrl: "https://api.themoviedb.org/3"))
+        let presenter = HomeScreenPresenter(movieClient: movieClient)
+        window?.rootViewController = HomeScreenViewController(presenter: presenter)
+
         window?.makeKeyAndVisible()
-
-        testNetwork()
-    }
-
-    func testNetwork() {
-        let baseApiClient = BaseApiClient(baseUrl: "https://api.themoviedb.org/3")
-        let movieClient = MovieClient(baseApiClient: baseApiClient)
-        movieClient.fetchPopularMovies(completionHandler: {
-            (result: Result<PopularMoviesModel, RequestError>) -> Void in
-
-            switch result {
-            case .success(let popularMovieCollection):
-                print(popularMovieCollection.movies)
-            case .failure:
-                print("oooops")
-            }
-        })
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
