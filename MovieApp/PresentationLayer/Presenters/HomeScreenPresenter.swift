@@ -1,22 +1,19 @@
 class HomeScreenPresenter {
 
-    private let movieClient: MovieClient
+    private let movieUseCase: MovieUseCaseProtocol
 
-    init(movieClient: MovieClient) {
-        self.movieClient = movieClient
+    init(movieUseCase: MovieUseCaseProtocol) {
+        self.movieUseCase = movieUseCase
     }
 
-    func fetchMovies(_ completion: @escaping (Result<[MovieViewModel], Error>) -> Void) {
-        movieClient.fetchPopularMovies { result in
+    func fetchMovies(_ completionHandler: @escaping (Result<[MovieViewModel], Error>) -> Void) {
+        movieUseCase.getRemotePopularMovies { result in
             switch result {
-            case .success(let popularMovieCollection):
-                let movies: [MovieViewModel] = popularMovieCollection.movies.map {
-                    let posterSource = "https://image.tmdb.org/t/p/w185" + $0.posterSource
-                    return MovieViewModel(name: $0.name, about: $0.about, posterSource: posterSource)
-                }
-                completion(.success(movies))
+            case .success(let movies):
+                let movieViewModels = movies.map { MovieViewModel(from: $0) }
+                completionHandler(.success(movieViewModels))
             case .failure(let error):
-                completion(.failure(error))
+                completionHandler(.failure(error))
             }
         }
     }
