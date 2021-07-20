@@ -17,11 +17,11 @@ extension MovieListViewController: ConstructViewsProtocol {
         navigationView = NavBarView()
         view.addSubview(navigationView)
 
-        movieCollection = createCollectionView()
+        movieCollection = makeCollectionView()
         view.addSubview(movieCollection)
     }
 
-    private func createCollectionView() -> UICollectionView {
+    private func makeCollectionView() -> UICollectionView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
