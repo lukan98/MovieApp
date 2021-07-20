@@ -8,7 +8,7 @@ class MovieClient: MovieClientProtocol {
         self.baseApiClient = baseApiClient
     }
 
-    func fetchPopularMovies(_ completionHandler: @escaping (Result<PopularMoviesModel, RequestError>) -> Void) {
+    func fetchPopularMovies(_ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void) {
         let queryParameters = [
             "language": "en-US",
             "page": "1"

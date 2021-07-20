@@ -8,8 +8,8 @@ class HomeScreenViewController: UIViewController {
     private let widthInset: CGFloat = 36
     private let cellHeight: CGFloat = 140
 
-    private var presenter: HomeScreenPresenter!
     private var movies: [MovieViewModel] = []
+    private var presenter: HomeScreenPresenter!
 
     init(presenter: HomeScreenPresenter) {
         super.init(nibName: nil, bundle: nil)
@@ -30,17 +30,19 @@ class HomeScreenViewController: UIViewController {
 
     private func loadData() {
         presenter.fetchMovies { [weak self] result in
-            guard let self = self else { return }
+            self?.onDataLoaded(result)
+        }
+    }
 
-            switch result {
-            case .success(let movies):
-                self.movies = movies
-                DispatchQueue.main.async {
-                    self.movieCollection.reloadData()
-                }
-            case .failure:
-                print("Failed to load data")
+    private func onDataLoaded(_ result: Result<[MovieViewModel], Error>) {
+        switch result {
+        case .success(let movies):
+            self.movies = movies
+            DispatchQueue.main.async { [weak self] in
+                self?.movieCollection.reloadData()
             }
+        case .failure:
+            print("Failed to load data")
         }
     }
 

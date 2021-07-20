@@ -1,4 +1,4 @@
-struct PopularMoviesModel: Codable {
+struct MovieListClientModel: Codable {
 
     let movies: [MovieClientModel]
 
