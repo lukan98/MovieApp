@@ -1,7 +1,4 @@
-import SnapKit
-import UIKit
-
-extension HomeScreenViewController: ConstructViewsProtocol {
+extension FavoritesViewController: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()

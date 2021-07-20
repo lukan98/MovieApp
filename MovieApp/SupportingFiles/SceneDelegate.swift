@@ -11,12 +11,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let presenter = HomeScreenPresenter(movieUseCase: appDependencies.movieUseCase)
-
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = HomeScreenViewController(presenter: presenter)
+        window?.rootViewController = makeUITabBarController()
         window?.makeKeyAndVisible()
+    }
+
+    private func makeUITabBarController() -> UITabBarController {
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.tintColor = UIColor(named: "DarkBlue")
+        tabBarController.tabBar.isTranslucent = false
+
+        let styledFont = UIFont(name: "ProximaNova-Medium", size: 10)
+
+        let homeScreen = HomeScreenViewController()
+        homeScreen.styleForTabBar(
+            title: "Home",
+            image: UIImage(named: "Home-outline"),
+            selectedImage: UIImage(named: "Home-fill"),
+            font: styledFont)
+
+        let favorites = FavoritesViewController()
+        favorites.styleForTabBar(
+            title: "Favorites",
+            image: UIImage(named: "Favorites-outline"),
+            selectedImage: UIImage(named: "Favorites-fill"),
+            font: styledFont)
+
+        tabBarController.viewControllers = [homeScreen, favorites]
+
+        return tabBarController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

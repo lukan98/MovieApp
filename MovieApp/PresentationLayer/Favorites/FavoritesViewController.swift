@@ -1,6 +1,6 @@
 import UIKit
 
-class HomeScreenViewController: UIViewController {
+class FavoritesViewController: UIViewController {
 
     var navigationView: NavBarView!
 
