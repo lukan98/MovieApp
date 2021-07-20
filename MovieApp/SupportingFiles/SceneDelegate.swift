@@ -13,11 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = createUITabBarController()
+        window?.rootViewController = makeUITabBarController()
         window?.makeKeyAndVisible()
     }
 
-    private func createUITabBarController() -> UITabBarController {
+    private func makeUITabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
         tabBarController.tabBar.tintColor = UIColor(named: "DarkBlue")
         tabBarController.tabBar.isTranslucent = false
@@ -26,19 +26,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let homeScreen = HomeScreenViewController()
         homeScreen.styleForTabBar(
-            "Home",
-            UIImage(named: "Home-outline"),
-            UIImage(named: "Home-fill"),
-            styledFont
-        )
+            title: "Home",
+            image: UIImage(named: "Home-outline"),
+            selectedImage: UIImage(named: "Home-fill"),
+            font: styledFont)
 
         let favorites = FavoritesViewController()
         favorites.styleForTabBar(
-            "Favorites",
-            UIImage(named: "Favorites-outline"),
-            UIImage(named: "Favorites-fill"),
-            styledFont
-        )
+            title: "Favorites",
+            image: UIImage(named: "Favorites-outline"),
+            selectedImage: UIImage(named: "Favorites-fill"),
+            font: styledFont)
 
         tabBarController.viewControllers = [homeScreen, favorites]
 

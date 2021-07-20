@@ -41,7 +41,7 @@ extension MovieListViewController: ConstructViewsProtocol {
     
     func defineLayoutForViews() {
         navigationView.snp.makeConstraints {
-            $0.top.centerX.width.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(NavBarView.defaultHeight)
         }
         
