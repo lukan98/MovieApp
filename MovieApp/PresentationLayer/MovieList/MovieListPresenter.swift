@@ -1,4 +1,4 @@
-class HomeScreenPresenter {
+class MovieListPresenter {
 
     private let movieUseCase: MovieUseCaseProtocol
 
