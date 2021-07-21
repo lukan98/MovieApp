@@ -14,7 +14,8 @@ class NavBarView: UIView {
     }
 
     init() {
-        super.init(frame: CGRect())
+        super.init(frame: .zero)
+        
         buildViews()
     }
 
