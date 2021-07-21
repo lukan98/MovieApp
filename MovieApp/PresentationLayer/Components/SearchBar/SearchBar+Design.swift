@@ -35,11 +35,14 @@ extension SearchBar: ConstructViewsProtocol {
         searchField.leftViewMode = .always
         searchField.rightViewMode = .always
 
+        let font = UIFont(name: "ProximaNova-Medium", size: SearchBar.fontSize)
+        let color = UIColor(named: "DarkBlue")
+
         let placeholder = NSAttributedString(
             string: "Search",
             attributes: [
-                NSAttributedString.Key.font: UIFont(name: "ProximaNova-Medium", size: SearchBar.fontSize) as Any,
-                NSAttributedString.Key.foregroundColor: UIColor(named: "DarkBlue")?.withAlphaComponent(0.5) as Any])
+                NSAttributedString.Key.font: font as Any,
+                NSAttributedString.Key.foregroundColor: color?.withAlphaComponent(0.5) as Any])
         searchField.attributedPlaceholder = placeholder
 
         searchField.font = UIFont(name: "ProximaNova-Medium", size: SearchBar.fontSize)
@@ -48,8 +51,8 @@ extension SearchBar: ConstructViewsProtocol {
         let attributedTitle = NSAttributedString(
             string: "Cancel",
             attributes: [
-                NSAttributedString.Key.font: UIFont(name: "ProximaNova-Medium", size: SearchBar.fontSize) as Any,
-                NSAttributedString.Key.foregroundColor: UIColor(named: "DarkBlue") as Any])
+                NSAttributedString.Key.font: font as Any,
+                NSAttributedString.Key.foregroundColor: color as Any])
         cancelButton.setAttributedTitle(attributedTitle, for: .normal)
         cancelButton.isHidden = true
         cancelButton.alpha = 0

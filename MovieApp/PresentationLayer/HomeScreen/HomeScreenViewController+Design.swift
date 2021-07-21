@@ -33,8 +33,7 @@ extension HomeScreenViewController: ConstructViewsProtocol {
 
         searchBar.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(SearchBar.defaultHeight)
         }
     }

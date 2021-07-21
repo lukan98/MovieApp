@@ -2,15 +2,15 @@ import UIKit
 
 class BaseSearchField: UITextField {
 
-    static let defaultHeight = 40
+    static let defaultSize = CGSize(width: 40, height: 40)
 
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-        CGRect(x: 0, y: 0, width: BaseSearchField.defaultHeight, height: BaseSearchField.defaultHeight)
+        CGRect(origin: .zero, size: BaseSearchField.defaultSize)
     }
 
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-        let dimension = BaseSearchField.defaultHeight
-        return CGRect(x: Int(bounds.maxX) - dimension, y: 0, width: dimension, height: dimension)
+        let dimension = BaseSearchField.defaultSize.height
+        return CGRect(origin: CGPoint(x: bounds.maxX - CGFloat(dimension), y: 0), size: BaseSearchField.defaultSize)
     }
 
 }
