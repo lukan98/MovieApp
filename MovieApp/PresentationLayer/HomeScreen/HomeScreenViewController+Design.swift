@@ -3,6 +3,10 @@ import UIKit
 
 extension HomeScreenViewController: ConstructViewsProtocol {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
     func buildViews() {
         createViews()
         styleViews()
@@ -12,6 +16,9 @@ extension HomeScreenViewController: ConstructViewsProtocol {
     func createViews() {
         navigationView = NavBarView()
         view.addSubview(navigationView)
+
+        searchBar = SearchBar()
+        view.addSubview(searchBar)
     }
 
     func styleViews() {
@@ -22,6 +29,12 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         navigationView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(NavBarView.defaultHeight)
+        }
+
+        searchBar.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(SearchBar.defaultHeight)
         }
     }
 
