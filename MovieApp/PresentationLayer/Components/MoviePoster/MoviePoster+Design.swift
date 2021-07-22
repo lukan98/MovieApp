@@ -38,13 +38,13 @@ extension MoviePoster: ConstructViewsProtocol {
 
         favoriteButton.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(10)
-            $0.width.height.equalTo(buttonSize)
+            $0.size.equalTo(buttonSize)
         }
     }
 
     @objc
     func toggleFavorite() {
-        favorited = !favorited
+        isFavorited = !isFavorited
     }
 
 }

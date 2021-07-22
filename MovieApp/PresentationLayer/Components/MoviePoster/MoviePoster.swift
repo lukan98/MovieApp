@@ -3,17 +3,18 @@ import UIKit
 class MoviePoster: UIView {
 
     let cornerRadius: CGFloat = 10
-    let buttonSize: CGFloat = 32
+    let buttonSize = CGSize(width: 32, height: 32)
 
-    var favorited: Bool = false {
+    var isFavorited: Bool = false {
         didSet {
-            if favorited {
+            if isFavorited {
                 favoriteButton.setImage(UIImage(named: "Favorites-fill"), for: .normal)
             } else {
                 favoriteButton.setImage(UIImage(named: "Favorites-outline"), for: .normal)
             }
         }
     }
+    
     var favoriteButton: UIButton!
     var posterImage: UIImageView!
 
