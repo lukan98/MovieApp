@@ -24,6 +24,8 @@ class NavBarView: UIView {
     }
 
     override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
         defineLayoutForViews()
     }
 

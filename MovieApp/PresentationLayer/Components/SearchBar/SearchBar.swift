@@ -21,6 +21,8 @@ class SearchBar: UIView {
     }
 
     override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
         defineLayoutForViews()
     }
 

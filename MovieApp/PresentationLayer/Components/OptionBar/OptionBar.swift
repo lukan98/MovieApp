@@ -18,6 +18,8 @@ class OptionBar: UIView {
     }
 
     override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
         defineLayoutForViews()
     }
 
