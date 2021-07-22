@@ -53,8 +53,7 @@ extension OptionBar: ConstructViewsProtocol {
         }
 
         optionButtonStack.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.bottom.equalToSuperview()
+            $0.top.bottom.leading.trailing.equalToSuperview()
         }
     }
 
