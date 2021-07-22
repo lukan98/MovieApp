@@ -1,21 +1,15 @@
 import UIKit
 
-class NavBarView: UIView {
+class OptionBar: UIView {
 
-    static let defaultHeight = 80
-
-    var backButton: UIImageView!
-    var logo: UIImageView!
-
-    var isBackButtonHidden = true {
-        didSet {
-            backButton.isHidden = isBackButtonHidden
-        }
-    }
+    var selectedCategory = 0
+    var scrollView: UIScrollView!
+    var contentView: UIView!
+    var optionButtonStack: UIStackView!
 
     init() {
         super.init(frame: .zero)
-        
+
         buildViews()
     }
 

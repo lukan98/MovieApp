@@ -50,6 +50,8 @@
 		FCB63AA726A6F69B00E049A2 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AA626A6F69B00E049A2 /* SearchBar.swift */; };
 		FCB63AA926A6F70B00E049A2 /* SearchBar+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AA826A6F70B00E049A2 /* SearchBar+Design.swift */; };
 		FCB63AAC26A701E100E049A2 /* BaseSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AAB26A701E100E049A2 /* BaseSearchField.swift */; };
+		FCB63AAF26A8183300E049A2 /* OptionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AAE26A8183300E049A2 /* OptionBar.swift */; };
+		FCB63AB126A8184B00E049A2 /* OptionBar+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB026A8184B00E049A2 /* OptionBar+Design.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +98,8 @@
 		FCB63AA626A6F69B00E049A2 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		FCB63AA826A6F70B00E049A2 /* SearchBar+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchBar+Design.swift"; sourceTree = "<group>"; };
 		FCB63AAB26A701E100E049A2 /* BaseSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchField.swift; sourceTree = "<group>"; };
+		FCB63AAE26A8183300E049A2 /* OptionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionBar.swift; sourceTree = "<group>"; };
+		FCB63AB026A8184B00E049A2 /* OptionBar+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OptionBar+Design.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,9 +148,9 @@
 			children = (
 				FCB63A9926A6CCE000E049A2 /* Favorites */,
 				FCB63A9826A6CCDA00E049A2 /* HomeScreen */,
+				FCB63A9526A5C1BA00E049A2 /* MovieList */,
 				FC592E4D269DAC1800233EFB /* Components */,
 				FC592E53269DAFFD00233EFB /* ConstructViewsProtocol.swift */,
-				FCB63A9526A5C1BA00E049A2 /* MovieList */,
 				FC592E3A269D897E00233EFB /* LaunchScreen.storyboard */,
 				FCB63A3C269F374800E049A2 /* Models */,
 			);
@@ -170,8 +174,9 @@
 			isa = PBXGroup;
 			children = (
 				FCB63AAA26A701B600E049A2 /* BaseSearchField */,
-				FCB63AA526A6F67E00E049A2 /* SearchBar */,
 				FCB63A34269F0B3400E049A2 /* NavBar */,
+				FCB63AAD26A80DBD00E049A2 /* OptionBar */,
+				FCB63AA526A6F67E00E049A2 /* SearchBar */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -352,6 +357,15 @@
 			path = BaseSearchField;
 			sourceTree = "<group>";
 		};
+		FCB63AAD26A80DBD00E049A2 /* OptionBar */ = {
+			isa = PBXGroup;
+			children = (
+				FCB63AAE26A8183300E049A2 /* OptionBar.swift */,
+				FCB63AB026A8184B00E049A2 /* OptionBar+Design.swift */,
+			);
+			path = OptionBar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -438,6 +452,7 @@
 				FCB63A7726A56EE800E049A2 /* NetworkDataSourceProtocol.swift in Sources */,
 				FC592E30269D897C00233EFB /* AppDelegate.swift in Sources */,
 				FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */,
+				FCB63AAF26A8183300E049A2 /* OptionBar.swift in Sources */,
 				FCB63A4626A0563100E049A2 /* Result.swift in Sources */,
 				FCB63A4A26A05DC900E049A2 /* BaseApiClient.swift in Sources */,
 				FCB63A7926A56EF900E049A2 /* NetworkDataSource.swift in Sources */,
@@ -457,6 +472,7 @@
 				FCB63A5426A069E300E049A2 /* MovieClientModel.swift in Sources */,
 				FC592E58269DBB5B00233EFB /* NavBarView.swift in Sources */,
 				FCB63A8326A5782800E049A2 /* MovieDataSourceModel.swift in Sources */,
+				FCB63AB126A8184B00E049A2 /* OptionBar+Design.swift in Sources */,
 				FC592E5C269DD5A100233EFB /* MovieListPresenter.swift in Sources */,
 				FCB63A9F26A6CDA000E049A2 /* HomeScreenViewController+Design.swift in Sources */,
 				FCB63A9B26A6CCFE00E049A2 /* FavoritesViewController.swift in Sources */,

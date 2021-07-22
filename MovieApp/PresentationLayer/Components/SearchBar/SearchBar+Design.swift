@@ -5,10 +5,13 @@ extension SearchBar: ConstructViewsProtocol {
     func buildViews() {
         createViews()
         styleViews()
-        defineLayoutForViews()
     }
 
     func createViews() {
+        stackView = UIStackView()
+        stackView.axis = .horizontal
+        addSubview(stackView)
+
         searchField = BaseSearchField()
         searchField.addTarget(self, action: #selector(showCancelButton), for: .editingDidBegin)
 
@@ -22,11 +25,11 @@ extension SearchBar: ConstructViewsProtocol {
         deleteButton.addTarget(self, action: #selector(clearSearchBar), for: .touchUpInside)
         searchField.rightView = deleteButton
         deleteButton.isHidden = true
-        addArrangedSubview(searchField)
+        stackView.addArrangedSubview(searchField)
 
         cancelButton = UIButton()
         cancelButton.addTarget(self, action: #selector(hideCancelButton), for: .touchUpInside)
-        addArrangedSubview(cancelButton)
+        stackView.addArrangedSubview(cancelButton)
     }
 
     func styleViews() {
@@ -59,7 +62,12 @@ extension SearchBar: ConstructViewsProtocol {
     }
 
     func defineLayoutForViews() {
-        spacing = SearchBar.defaultSpacing
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.height.equalTo(SearchBar.defaultHeight)
+        }
+
+        stackView.spacing = SearchBar.defaultSpacing
     }
 
     @objc
