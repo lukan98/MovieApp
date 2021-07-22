@@ -34,4 +34,10 @@ class MoviePoster: UIView {
         defineLayoutForViews()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        favoriteButton.layer.cornerRadius = favoriteButton.frame.height * 0.5
+    }
+
 }

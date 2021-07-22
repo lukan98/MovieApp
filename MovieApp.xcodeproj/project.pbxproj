@@ -56,8 +56,11 @@
 		FCB63AB626A95C6500E049A2 /* UnderlinedButton+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB526A95C6500E049A2 /* UnderlinedButton+Design.swift */; };
 		FCB63AB926A9917100E049A2 /* MoviePoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB826A9917100E049A2 /* MoviePoster.swift */; };
 		FCB63ABB26A9921E00E049A2 /* MoviePoster+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ABA26A9921E00E049A2 /* MoviePoster+Design.swift */; };
-		FCB63ACA26A9ACBA00E049A2 /* CategoryCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AC826A9ACBA00E049A2 /* CategoryCollection.swift */; };
-		FCB63ACB26A9ACBA00E049A2 /* CategoryCollection+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AC926A9ACBA00E049A2 /* CategoryCollection+Design.swift */; };
+		FCB63ACA26A9ACBA00E049A2 /* CategoryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AC826A9ACBA00E049A2 /* CategoryCollectionView.swift */; };
+		FCB63ACB26A9ACBA00E049A2 /* CategoryCollectionView+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AC926A9ACBA00E049A2 /* CategoryCollectionView+Design.swift */; };
+		FCB63ACE26A9AFF800E049A2 /* MoviePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ACD26A9AFF800E049A2 /* MoviePosterCell.swift */; };
+		FCB63AD026A9B2E100E049A2 /* MoviePosterCell+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ACF26A9B2E100E049A2 /* MoviePosterCell+Design.swift */; };
+		FCB63AD226A9BFE900E049A2 /* MockHomeScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,8 +113,11 @@
 		FCB63AB526A95C6500E049A2 /* UnderlinedButton+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnderlinedButton+Design.swift"; sourceTree = "<group>"; };
 		FCB63AB826A9917100E049A2 /* MoviePoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePoster.swift; sourceTree = "<group>"; };
 		FCB63ABA26A9921E00E049A2 /* MoviePoster+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviePoster+Design.swift"; sourceTree = "<group>"; };
-		FCB63AC826A9ACBA00E049A2 /* CategoryCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollection.swift; sourceTree = "<group>"; };
-		FCB63AC926A9ACBA00E049A2 /* CategoryCollection+Design.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CategoryCollection+Design.swift"; sourceTree = "<group>"; };
+		FCB63AC826A9ACBA00E049A2 /* CategoryCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionView.swift; sourceTree = "<group>"; };
+		FCB63AC926A9ACBA00E049A2 /* CategoryCollectionView+Design.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CategoryCollectionView+Design.swift"; sourceTree = "<group>"; };
+		FCB63ACD26A9AFF800E049A2 /* MoviePosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCell.swift; sourceTree = "<group>"; };
+		FCB63ACF26A9B2E100E049A2 /* MoviePosterCell+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviePosterCell+Design.swift"; sourceTree = "<group>"; };
+		FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeScreenData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,13 +191,9 @@
 		FC592E4D269DAC1800233EFB /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				FCB63AC726A9ACA600E049A2 /* CategoryCollection */,
 				FCB63AB726A9915100E049A2 /* MoviePoster */,
-				FCB63AAA26A701B600E049A2 /* BaseSearchField */,
 				FCB63A34269F0B3400E049A2 /* NavBar */,
-				FCB63AAD26A80DBD00E049A2 /* OptionBar */,
 				FCB63AA526A6F67E00E049A2 /* SearchBar */,
-				FCB63AB226A95B6400E049A2 /* UnderlinedButton */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -332,8 +334,11 @@
 		FCB63A9826A6CCDA00E049A2 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
+				FCB63AAA26A701B600E049A2 /* BaseSearchField */,
+				FCB63AC726A9ACA600E049A2 /* CategoryCollection */,
 				FCB63A9C26A6CD2600E049A2 /* HomeScreenViewController.swift */,
 				FCB63A9E26A6CDA000E049A2 /* HomeScreenViewController+Design.swift */,
+				FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -402,10 +407,22 @@
 		FCB63AC726A9ACA600E049A2 /* CategoryCollection */ = {
 			isa = PBXGroup;
 			children = (
-				FCB63AC826A9ACBA00E049A2 /* CategoryCollection.swift */,
-				FCB63AC926A9ACBA00E049A2 /* CategoryCollection+Design.swift */,
+				FCB63AB226A95B6400E049A2 /* UnderlinedButton */,
+				FCB63AAD26A80DBD00E049A2 /* OptionBar */,
+				FCB63ACC26A9AFD400E049A2 /* MoviePosterCell */,
+				FCB63AC826A9ACBA00E049A2 /* CategoryCollectionView.swift */,
+				FCB63AC926A9ACBA00E049A2 /* CategoryCollectionView+Design.swift */,
 			);
 			path = CategoryCollection;
+			sourceTree = "<group>";
+		};
+		FCB63ACC26A9AFD400E049A2 /* MoviePosterCell */ = {
+			isa = PBXGroup;
+			children = (
+				FCB63ACD26A9AFF800E049A2 /* MoviePosterCell.swift */,
+				FCB63ACF26A9B2E100E049A2 /* MoviePosterCell+Design.swift */,
+			);
+			path = MoviePosterCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -491,12 +508,14 @@
 				FC592E54269DAFFD00233EFB /* ConstructViewsProtocol.swift in Sources */,
 				FCB63A8C26A5834700E049A2 /* MovieUseCase.swift in Sources */,
 				FCB63A5026A0616800E049A2 /* MovieClientProtocol.swift in Sources */,
+				FCB63AD226A9BFE900E049A2 /* MockHomeScreenData.swift in Sources */,
 				FCB63A7726A56EE800E049A2 /* NetworkDataSourceProtocol.swift in Sources */,
 				FC592E30269D897C00233EFB /* AppDelegate.swift in Sources */,
 				FCB63AB426A95B7A00E049A2 /* UnderlinedButton.swift in Sources */,
 				FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */,
 				FCB63AAF26A8183300E049A2 /* OptionBar.swift in Sources */,
 				FCB63A4626A0563100E049A2 /* Result.swift in Sources */,
+				FCB63ACE26A9AFF800E049A2 /* MoviePosterCell.swift in Sources */,
 				FCB63A4A26A05DC900E049A2 /* BaseApiClient.swift in Sources */,
 				FCB63A7926A56EF900E049A2 /* NetworkDataSource.swift in Sources */,
 				FCB63AB626A95C6500E049A2 /* UnderlinedButton+Design.swift in Sources */,
@@ -517,17 +536,18 @@
 				FC592E58269DBB5B00233EFB /* NavBarView.swift in Sources */,
 				FCB63A8326A5782800E049A2 /* MovieDataSourceModel.swift in Sources */,
 				FCB63AB126A8184B00E049A2 /* OptionBar+Design.swift in Sources */,
-				FCB63ACB26A9ACBA00E049A2 /* CategoryCollection+Design.swift in Sources */,
+				FCB63ACB26A9ACBA00E049A2 /* CategoryCollectionView+Design.swift in Sources */,
 				FC592E5C269DD5A100233EFB /* MovieListPresenter.swift in Sources */,
 				FCB63A9F26A6CDA000E049A2 /* HomeScreenViewController+Design.swift in Sources */,
 				FCB63AB926A9917100E049A2 /* MoviePoster.swift in Sources */,
 				FCB63A9B26A6CCFE00E049A2 /* FavoritesViewController.swift in Sources */,
 				FC592E56269DB23F00233EFB /* MovieListViewController+Design.swift in Sources */,
 				FCB63AA426A6D45000E049A2 /* FavoritesViewController+Design.swift in Sources */,
+				FCB63AD026A9B2E100E049A2 /* MoviePosterCell+Design.swift in Sources */,
 				FCB63A4426A0562500E049A2 /* MovieClient.swift in Sources */,
 				FCB63A4E26A05F6C00E049A2 /* RequestError.swift in Sources */,
 				FCB63ABB26A9921E00E049A2 /* MoviePoster+Design.swift in Sources */,
-				FCB63ACA26A9ACBA00E049A2 /* CategoryCollection.swift in Sources */,
+				FCB63ACA26A9ACBA00E049A2 /* CategoryCollectionView.swift in Sources */,
 				FCB63AA226A6D2EE00E049A2 /* UIViewController+Extensions.swift in Sources */,
 				FCB63A7F26A571E400E049A2 /* MovieRepositoryProtocol.swift in Sources */,
 				FC592E5E269DE0E100233EFB /* NavBarView+Design.swift in Sources */,

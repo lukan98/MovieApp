@@ -27,10 +27,6 @@ extension MoviePoster: ConstructViewsProtocol {
         favoriteButton.setImage(UIImage(named: "Favorites-outline"), for: .normal)
     }
 
-    func roundButton() {
-        favoriteButton.layer.cornerRadius = favoriteButton.frame.height * 0.5
-    }
-
     func defineLayoutForViews() {
         posterImage.snp.makeConstraints {
             $0.edges.equalToSuperview()
