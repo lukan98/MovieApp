@@ -52,6 +52,8 @@
 		FCB63AAC26A701E100E049A2 /* BaseSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AAB26A701E100E049A2 /* BaseSearchField.swift */; };
 		FCB63AAF26A8183300E049A2 /* OptionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AAE26A8183300E049A2 /* OptionBar.swift */; };
 		FCB63AB126A8184B00E049A2 /* OptionBar+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB026A8184B00E049A2 /* OptionBar+Design.swift */; };
+		FCB63AB426A95B7A00E049A2 /* UnderlinedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB326A95B7A00E049A2 /* UnderlinedButton.swift */; };
+		FCB63AB626A95C6500E049A2 /* UnderlinedButton+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB526A95C6500E049A2 /* UnderlinedButton+Design.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		FCB63AAB26A701E100E049A2 /* BaseSearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchField.swift; sourceTree = "<group>"; };
 		FCB63AAE26A8183300E049A2 /* OptionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionBar.swift; sourceTree = "<group>"; };
 		FCB63AB026A8184B00E049A2 /* OptionBar+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OptionBar+Design.swift"; sourceTree = "<group>"; };
+		FCB63AB326A95B7A00E049A2 /* UnderlinedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlinedButton.swift; sourceTree = "<group>"; };
+		FCB63AB526A95C6500E049A2 /* UnderlinedButton+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnderlinedButton+Design.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,7 @@
 				FCB63A34269F0B3400E049A2 /* NavBar */,
 				FCB63AAD26A80DBD00E049A2 /* OptionBar */,
 				FCB63AA526A6F67E00E049A2 /* SearchBar */,
+				FCB63AB226A95B6400E049A2 /* UnderlinedButton */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -366,6 +371,15 @@
 			path = OptionBar;
 			sourceTree = "<group>";
 		};
+		FCB63AB226A95B6400E049A2 /* UnderlinedButton */ = {
+			isa = PBXGroup;
+			children = (
+				FCB63AB326A95B7A00E049A2 /* UnderlinedButton.swift */,
+				FCB63AB526A95C6500E049A2 /* UnderlinedButton+Design.swift */,
+			);
+			path = UnderlinedButton;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -451,11 +465,13 @@
 				FCB63A5026A0616800E049A2 /* MovieClientProtocol.swift in Sources */,
 				FCB63A7726A56EE800E049A2 /* NetworkDataSourceProtocol.swift in Sources */,
 				FC592E30269D897C00233EFB /* AppDelegate.swift in Sources */,
+				FCB63AB426A95B7A00E049A2 /* UnderlinedButton.swift in Sources */,
 				FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */,
 				FCB63AAF26A8183300E049A2 /* OptionBar.swift in Sources */,
 				FCB63A4626A0563100E049A2 /* Result.swift in Sources */,
 				FCB63A4A26A05DC900E049A2 /* BaseApiClient.swift in Sources */,
 				FCB63A7926A56EF900E049A2 /* NetworkDataSource.swift in Sources */,
+				FCB63AB626A95C6500E049A2 /* UnderlinedButton+Design.swift in Sources */,
 				FCB63A8126A577B200E049A2 /* MovieRepositoryModel.swift in Sources */,
 				FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */,
 				FCB63A8826A581B000E049A2 /* MovieModel.swift in Sources */,
