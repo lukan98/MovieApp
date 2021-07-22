@@ -10,8 +10,4 @@ class FavoritesViewController: UIViewController {
         buildViews()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-
 }
