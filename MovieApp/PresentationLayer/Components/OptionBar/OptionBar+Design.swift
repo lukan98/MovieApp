@@ -17,12 +17,9 @@ extension OptionBar: ConstructViewsProtocol {
         optionButtonStack = UIStackView()
         contentView.addSubview(optionButtonStack)
 
-        let placeholderData = ["Streaming", "On TV", "For Rent", "In theatres", "Showing near you"]
-
-        for (id, title) in placeholderData.enumerated() {
+        for title in placeholderData {
             let underlinedButton = UnderlinedButton(title: title)
             optionButtonStack.addArrangedSubview(underlinedButton)
-            underlinedButton.button.tag = id
             underlinedButton.addTarget(self, action: #selector(onCategorySelection), for: .touchUpInside)
         }
     }
@@ -34,10 +31,10 @@ extension OptionBar: ConstructViewsProtocol {
         optionButtonStack.alignment = .center
         optionButtonStack.spacing = 22
 
-        for subview in optionButtonStack.arrangedSubviews {
+        for (index, subview) in optionButtonStack.arrangedSubviews.enumerated() {
             guard let underlinedButton = subview as? UnderlinedButton else { return }
 
-            if underlinedButton.button.tag == selectedCategory {
+            if index == selectedCategoryIndex {
                 underlinedButton.styleSelected()
             } else {
                 underlinedButton.styleUnselected()
@@ -63,15 +60,24 @@ extension OptionBar: ConstructViewsProtocol {
 
     @objc
     private func onCategorySelection(sender: UIButton) {
+        let view = optionButtonStack.arrangedSubviews.first(
+            where: { view in
+                guard let underlinedButton = view as? UnderlinedButton
+                else {
+                    return false
+                }
+                return underlinedButton.button == sender})
+
         guard
-            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategory] as? UnderlinedButton,
-            let newlySelected = optionButtonStack.arrangedSubviews[sender.tag] as? UnderlinedButton
+            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategoryIndex] as? UnderlinedButton,
+            let newlySelected = view as? UnderlinedButton,
+            let newlySelectedIndex = optionButtonStack.arrangedSubviews.firstIndex(of: newlySelected)
         else {
             return
         }
 
         previouslySelected.styleUnselected()
-        selectedCategory = sender.tag
+        selectedCategoryIndex = newlySelectedIndex
         newlySelected.styleSelected()
     }
 

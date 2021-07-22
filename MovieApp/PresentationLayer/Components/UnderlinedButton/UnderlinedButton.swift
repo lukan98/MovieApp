@@ -2,7 +2,7 @@ import UIKit
 
 class UnderlinedButton: UIView {
 
-    static let underlineThickness = 3
+    let underlineThickness = 3
 
     let title: String!
 

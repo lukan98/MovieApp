@@ -2,7 +2,9 @@ import UIKit
 
 class OptionBar: UIView {
 
-    var selectedCategory = 0
+    let placeholderData = ["Streaming", "On TV", "For Rent", "In theatres", "Showing near you"]
+
+    var selectedCategoryIndex = 0
     var scrollView: UIScrollView!
     var contentView: UIView!
     var optionButtonStack: UIStackView!

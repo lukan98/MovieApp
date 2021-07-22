@@ -26,38 +26,38 @@ extension UnderlinedButton: ConstructViewsProtocol {
         }
 
         underline.snp.makeConstraints {
-            $0.height.equalTo(UnderlinedButton.underlineThickness)
             $0.top.equalTo(button.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(underlineThickness)
         }
     }
 
     func styleSelected() {
         let font = UIFont(name: "ProximaNova-Bold", size: 16)
         let attributedTitle = NSAttributedString(
-            string: self.title,
+            string: title,
             attributes: [NSAttributedString.Key.font: font as Any])
 
-        UIView.animate(withDuration: 0.2,
-                       animations: {
-                        self.button.setAttributedTitle(attributedTitle, for: .normal)
-                        self.button.setTitleColor(.black, for: .normal)
-                        self.underline.alpha = 1
-                       })
+        UIView.animate(
+            withDuration: 0.2,
+            animations: {
+                self.button.setAttributedTitle(attributedTitle, for: .normal)
+                self.button.setTitleColor(.black, for: .normal)
+                self.underline.alpha = 1})
     }
 
     func styleUnselected() {
         let font = UIFont(name: "ProximaNova-Medium", size: 16)
         let attributedTitle = NSAttributedString(
-            string: self.title,
+            string: title,
             attributes: [NSAttributedString.Key.font: font as Any])
 
-        UIView.animate(withDuration: 0.2,
-                       animations: {
-                        self.button.setAttributedTitle(attributedTitle, for: .normal)
-                        self.button.setTitleColor(UIColor(named: "Gray3"), for: .normal)
-                        self.underline.alpha = 0
-                       })
+        UIView.animate(
+            withDuration: 0.2,
+            animations: {
+                self.button.setAttributedTitle(attributedTitle, for: .normal)
+                self.button.setTitleColor(UIColor(named: "Gray3"), for: .normal)
+                self.underline.alpha = 0})
     }
 
 }
