@@ -6,7 +6,6 @@ extension NavBarView: ConstructViewsProtocol {
     func buildViews() {
         createViews()
         styleViews()
-        defineLayoutForViews()
     }
 
     func createViews() {

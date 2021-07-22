@@ -3,6 +3,8 @@ import UIKit
 
 extension HomeScreenViewController: ConstructViewsProtocol {
 
+    static let defaultHeight = 40
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
@@ -37,13 +39,12 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         searchBar.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(SearchBar.defaultHeight)
         }
 
         optionView.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(40)
+            $0.height.equalTo(HomeScreenViewController.defaultHeight)
         }
     }
 

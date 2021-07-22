@@ -148,9 +148,9 @@
 			children = (
 				FCB63A9926A6CCE000E049A2 /* Favorites */,
 				FCB63A9826A6CCDA00E049A2 /* HomeScreen */,
+				FCB63A9526A5C1BA00E049A2 /* MovieList */,
 				FC592E4D269DAC1800233EFB /* Components */,
 				FC592E53269DAFFD00233EFB /* ConstructViewsProtocol.swift */,
-				FCB63A9526A5C1BA00E049A2 /* MovieList */,
 				FC592E3A269D897E00233EFB /* LaunchScreen.storyboard */,
 				FCB63A3C269F374800E049A2 /* Models */,
 			);
@@ -173,10 +173,10 @@
 		FC592E4D269DAC1800233EFB /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				FCB63AAD26A80DBD00E049A2 /* OptionBar */,
 				FCB63AAA26A701B600E049A2 /* BaseSearchField */,
-				FCB63AA526A6F67E00E049A2 /* SearchBar */,
 				FCB63A34269F0B3400E049A2 /* NavBar */,
+				FCB63AAD26A80DBD00E049A2 /* OptionBar */,
+				FCB63AA526A6F67E00E049A2 /* SearchBar */,
 			);
 			path = Components;
 			sourceTree = "<group>";

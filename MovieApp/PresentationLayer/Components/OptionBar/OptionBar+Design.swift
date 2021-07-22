@@ -5,7 +5,6 @@ extension OptionBar: ConstructViewsProtocol {
     func buildViews() {
         createViews()
         styleViews()
-        defineLayoutForViews()
     }
 
     func createViews() {
@@ -36,7 +35,7 @@ extension OptionBar: ConstructViewsProtocol {
         for subview in optionButtonStack.arrangedSubviews {
             guard let button = subview as? UIButton else { return }
 
-            if button.tag == currentlySelectedCategory {
+            if button.tag == selectedCategory {
                 styleSelectedButton(sender: button)
             } else {
                 styleUnselectedButton(sender: button)
@@ -60,7 +59,6 @@ extension OptionBar: ConstructViewsProtocol {
         }
     }
 
-    @objc
     private func styleUnselectedButton(sender: UIButton) {
         guard let button = optionButtonStack.arrangedSubviews[sender.tag] as? UIButton else { return }
 
@@ -89,11 +87,13 @@ extension OptionBar: ConstructViewsProtocol {
     @objc
     private func onCategorySelection(sender: UIButton) {
         guard
-            let previouslySelected = optionButtonStack.arrangedSubviews[currentlySelectedCategory] as? UIButton
-        else { return }
+            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategory] as? UIButton
+        else {
+            return
+        }
 
         styleUnselectedButton(sender: previouslySelected)
-        currentlySelectedCategory = sender.tag
+        selectedCategory = sender.tag
         styleSelectedButton(sender: sender)
     }
 
