@@ -15,6 +15,9 @@ extension FavoritesViewController: ConstructViewsProtocol {
     func createViews() {
         navigationView = NavBarView()
         view.addSubview(navigationView)
+
+        moviePoster = MoviePoster()
+        view.addSubview(moviePoster)
     }
 
     func styleViews() {
@@ -25,6 +28,11 @@ extension FavoritesViewController: ConstructViewsProtocol {
         navigationView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(NavBarView.defaultHeight)
+        }
+
+        moviePoster.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom).offset(10)
+            $0.leading.equalToSuperview().offset(10)
         }
     }
 
