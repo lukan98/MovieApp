@@ -54,6 +54,8 @@
 		FCB63AB126A8184B00E049A2 /* OptionBar+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB026A8184B00E049A2 /* OptionBar+Design.swift */; };
 		FCB63AB426A95B7A00E049A2 /* UnderlinedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB326A95B7A00E049A2 /* UnderlinedButton.swift */; };
 		FCB63AB626A95C6500E049A2 /* UnderlinedButton+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB526A95C6500E049A2 /* UnderlinedButton+Design.swift */; };
+		FCB63AB926A9917100E049A2 /* MoviePoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AB826A9917100E049A2 /* MoviePoster.swift */; };
+		FCB63ABB26A9921E00E049A2 /* MoviePoster+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ABA26A9921E00E049A2 /* MoviePoster+Design.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +106,8 @@
 		FCB63AB026A8184B00E049A2 /* OptionBar+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OptionBar+Design.swift"; sourceTree = "<group>"; };
 		FCB63AB326A95B7A00E049A2 /* UnderlinedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlinedButton.swift; sourceTree = "<group>"; };
 		FCB63AB526A95C6500E049A2 /* UnderlinedButton+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnderlinedButton+Design.swift"; sourceTree = "<group>"; };
+		FCB63AB826A9917100E049A2 /* MoviePoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePoster.swift; sourceTree = "<group>"; };
+		FCB63ABA26A9921E00E049A2 /* MoviePoster+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviePoster+Design.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,7 @@
 		FC592E4D269DAC1800233EFB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				FCB63AB726A9915100E049A2 /* MoviePoster */,
 				FCB63AAA26A701B600E049A2 /* BaseSearchField */,
 				FCB63A34269F0B3400E049A2 /* NavBar */,
 				FCB63AAD26A80DBD00E049A2 /* OptionBar */,
@@ -380,6 +385,15 @@
 			path = UnderlinedButton;
 			sourceTree = "<group>";
 		};
+		FCB63AB726A9915100E049A2 /* MoviePoster */ = {
+			isa = PBXGroup;
+			children = (
+				FCB63AB826A9917100E049A2 /* MoviePoster.swift */,
+				FCB63ABA26A9921E00E049A2 /* MoviePoster+Design.swift */,
+			);
+			path = MoviePoster;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -491,11 +505,13 @@
 				FCB63AB126A8184B00E049A2 /* OptionBar+Design.swift in Sources */,
 				FC592E5C269DD5A100233EFB /* MovieListPresenter.swift in Sources */,
 				FCB63A9F26A6CDA000E049A2 /* HomeScreenViewController+Design.swift in Sources */,
+				FCB63AB926A9917100E049A2 /* MoviePoster.swift in Sources */,
 				FCB63A9B26A6CCFE00E049A2 /* FavoritesViewController.swift in Sources */,
 				FC592E56269DB23F00233EFB /* MovieListViewController+Design.swift in Sources */,
 				FCB63AA426A6D45000E049A2 /* FavoritesViewController+Design.swift in Sources */,
 				FCB63A4426A0562500E049A2 /* MovieClient.swift in Sources */,
 				FCB63A4E26A05F6C00E049A2 /* RequestError.swift in Sources */,
+				FCB63ABB26A9921E00E049A2 /* MoviePoster+Design.swift in Sources */,
 				FCB63AA226A6D2EE00E049A2 /* UIViewController+Extensions.swift in Sources */,
 				FCB63A7F26A571E400E049A2 /* MovieRepositoryProtocol.swift in Sources */,
 				FC592E5E269DE0E100233EFB /* NavBarView+Design.swift in Sources */,
