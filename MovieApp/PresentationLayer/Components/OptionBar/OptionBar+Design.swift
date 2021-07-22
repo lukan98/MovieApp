@@ -17,11 +17,10 @@ extension OptionBar: ConstructViewsProtocol {
         optionButtonStack = UIStackView()
         contentView.addSubview(optionButtonStack)
 
-        for id in 0..<10 {
-            let button = UIButton()
-            button.tag = id
-            button.addTarget(self, action: #selector(onCategorySelection), for: .touchUpInside)
-            optionButtonStack.addArrangedSubview(button)
+        for title in placeholderData {
+            let underlinedButton = UnderlinedButton(title: title)
+            optionButtonStack.addArrangedSubview(underlinedButton)
+            underlinedButton.addTarget(self, action: #selector(onCategorySelection), for: .touchUpInside)
         }
     }
 
@@ -32,13 +31,13 @@ extension OptionBar: ConstructViewsProtocol {
         optionButtonStack.alignment = .center
         optionButtonStack.spacing = 22
 
-        for subview in optionButtonStack.arrangedSubviews {
-            guard let button = subview as? UIButton else { return }
+        for (index, subview) in optionButtonStack.arrangedSubviews.enumerated() {
+            guard let underlinedButton = subview as? UnderlinedButton else { return }
 
-            if button.tag == selectedCategory {
-                styleSelectedButton(sender: button)
+            if index == selectedCategoryIndex {
+                underlinedButton.styleSelected()
             } else {
-                styleUnselectedButton(sender: button)
+                underlinedButton.styleUnselected()
             }
         }
     }
@@ -59,42 +58,27 @@ extension OptionBar: ConstructViewsProtocol {
         }
     }
 
-    private func styleUnselectedButton(sender: UIButton) {
-        guard let button = optionButtonStack.arrangedSubviews[sender.tag] as? UIButton else { return }
-
-        let font = UIFont(name: "ProximaNova-Medium", size: 16)
-        let attributedTitle = NSAttributedString(
-            string: "Placeholder",
-            attributes: [NSAttributedString.Key.font: font as Any])
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.setTitleColor(UIColor(named: "Gray3"), for: .normal)
-    }
-
-    private func styleSelectedButton(sender: UIButton) {
-        guard let button = optionButtonStack.arrangedSubviews[sender.tag] as? UIButton else { return }
-
-        let font = UIFont(name: "ProximaNova-Bold", size: 16)
-        let underlineColor = UIColor(named: "DarkBlue")
-        let attributedTitle = NSAttributedString(
-            string: "Placeholder",
-            attributes: [NSAttributedString.Key.font: font as Any,
-                         NSAttributedString.Key.underlineColor : underlineColor as Any,
-                         NSAttributedString.Key.underlineStyle: NSUnderlineStyle.thick.rawValue])
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-    }
-
     @objc
     private func onCategorySelection(sender: UIButton) {
+        let view = optionButtonStack.arrangedSubviews.first(
+            where: { view in
+                guard let underlinedButton = view as? UnderlinedButton
+                else {
+                    return false
+                }
+                return underlinedButton.button == sender})
+
         guard
-            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategory] as? UIButton
+            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategoryIndex] as? UnderlinedButton,
+            let newlySelected = view as? UnderlinedButton,
+            let newlySelectedIndex = optionButtonStack.arrangedSubviews.firstIndex(of: newlySelected)
         else {
             return
         }
 
-        styleUnselectedButton(sender: previouslySelected)
-        selectedCategory = sender.tag
-        styleSelectedButton(sender: sender)
+        previouslySelected.styleUnselected()
+        selectedCategoryIndex = newlySelectedIndex
+        newlySelected.styleSelected()
     }
 
 }
