@@ -23,8 +23,6 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         view.addSubview(searchBar)
 
         categoryCollection = CategoryCollectionView()
-        categoryCollection.setDelegate(self)
-
         view.addSubview(categoryCollection)
     }
 
@@ -45,8 +43,7 @@ extension HomeScreenViewController: ConstructViewsProtocol {
 
         categoryCollection.snp.makeConstraints {
             $0.top.equalTo(searchBar.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 

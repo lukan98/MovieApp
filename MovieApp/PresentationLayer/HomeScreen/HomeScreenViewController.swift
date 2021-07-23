@@ -16,25 +16,3 @@ class HomeScreenViewController: UIViewController {
     }
 
 }
-
-// MARK: UICollectionViewDelegateFlowLayout
-
-extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        CGSize(width: 122, height: 180)
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: categoryCollection.defaultInset, bottom: 0, right: categoryCollection.defaultInset)
-    }
-
-}

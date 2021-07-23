@@ -35,6 +35,7 @@ extension CategoryCollectionView: ConstructViewsProtocol {
         collectionView.backgroundColor = .white
         collectionView.register(MoviePosterCell.self, forCellWithReuseIdentifier: MoviePosterCell.cellIdentifier)
         collectionView.dataSource = self
+        collectionView.delegate = self
 
         return collectionView
     }
@@ -50,9 +51,8 @@ extension CategoryCollectionView: ConstructViewsProtocol {
         }
 
         filmCollection.snp.makeConstraints {
-            $0.top.equalTo(options.snp.bottom).offset(2*defaultSpacing)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(180)
+            $0.top.equalTo(options.snp.bottom).offset(2 * defaultSpacing)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 
