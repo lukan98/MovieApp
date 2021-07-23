@@ -26,6 +26,8 @@ class CategoryCollectionView: UIView {
     }
 
     override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+
         defineLayoutForViews()
     }
 
@@ -81,7 +83,7 @@ extension CategoryCollectionView: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: defaultInset, bottom: 0, right: defaultInset)
+        UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset)
     }
 
 }

@@ -8,7 +8,7 @@ extension OptionBarView: ConstructViewsProtocol {
     }
 
     func createViews() {
-        scrollView = UIScrollView()
+        scrollView = BaseScrollView()
         addSubview(scrollView)
 
         contentView = UIView()

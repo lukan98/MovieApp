@@ -6,13 +6,25 @@ class HomeScreenViewController: UIViewController {
 
     var navigationView: NavBarView!
     var searchBar: SearchBarView!
-    var categoryCollection: CategoryCollectionView!
+    var scrollView: UIScrollView!
+    var stackView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         buildViews()
-        categoryCollection.setData(movies: movies)
+        setData()
+    }
+
+    private func setData() {
+        for subview in stackView.subviews {
+            guard let categoryCollection = subview as? CategoryCollectionView
+            else {
+                return
+            }
+
+            categoryCollection.setData(movies: movies)
+        }
     }
 
 }
