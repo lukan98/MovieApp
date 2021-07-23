@@ -1,17 +1,18 @@
 import UIKit
 
 class OptionBarView: UIView {
-
-    let placeholderData = ["Streaming", "On TV", "For Rent", "In theatres", "Showing near you"]
-
+    
     var selectedCategoryIndex = 0
     var scrollView: BaseScrollView!
     var contentView: UIView!
     var optionButtonStack: UIStackView!
+    
+    weak var categoryCollection: CategoryCollectionView!
 
-    init() {
+    init(categoryCollection: CategoryCollectionView!) {
         super.init(frame: .zero)
 
+        self.categoryCollection = categoryCollection
         buildViews()
     }
 

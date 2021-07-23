@@ -24,7 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let styledFont = UIFont(name: "ProximaNova-Medium", size: 10)
 
-        let homeScreen = HomeScreenViewController()
+        let homeScreen = HomeScreenViewController(
+            presenter: HomeScreenPresenter(movieUseCase: appDependencies.movieUseCase))
         homeScreen.styleForTabBar(
             title: "Home",
             image: UIImage(named: "Home-outline"),

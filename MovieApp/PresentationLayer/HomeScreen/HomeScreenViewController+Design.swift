@@ -28,7 +28,7 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         stackView = UIStackView()
         scrollView.addSubview(stackView)
 
-        for _ in 0...3 {
+        for _ in 0...2 {
             stackView.addArrangedSubview(CategoryCollectionView())
         }
     }

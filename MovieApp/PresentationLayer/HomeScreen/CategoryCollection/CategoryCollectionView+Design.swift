@@ -11,20 +11,47 @@ extension CategoryCollectionView: ConstructViewsProtocol {
         title = UILabel()
         addSubview(title)
 
-        options = OptionBarView()
+        options = OptionBarView(categoryCollection: self)
         addSubview(options)
         bringSubviewToFront(options)
 
-        filmCollection = makeCollectionView()
-        addSubview(filmCollection)
+        movieCollection = makeCollectionView()
+        addSubview(movieCollection)
     }
 
     func styleViews() {
-        title.text = "What's popular"
         title.font = UIFont(name: "ProximaNova-Bold", size: 20)
         title.textColor = UIColor(named: "DarkBlue")
 
-        filmCollection.showsHorizontalScrollIndicator = false
+        movieCollection.showsHorizontalScrollIndicator = false
+    }
+
+    func defineLayoutForViews() {
+        title.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview().inset(defaultInset)
+        }
+
+        options.snp.makeConstraints {
+            $0.top.equalTo(title.snp.bottom).offset(defaultSpacing)
+            $0.leading.trailing.equalToSuperview().inset(defaultInset)
+        }
+
+        movieCollection.snp.makeConstraints {
+            $0.top.equalTo(options.snp.bottom).offset(2 * defaultSpacing)
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(180 + defaultInset)
+        }
+    }
+
+    func reloadData() {
+        UIView.animate(
+            withDuration: 0.4,
+            animations: {
+                self.movieCollection.alpha = 0.5
+                self.movieCollection.reloadData()
+                self.movieCollection.setContentOffset(.zero, animated: true)
+                self.movieCollection.alpha = 1
+            })
     }
 
     private func makeCollectionView() -> UICollectionView {
@@ -38,23 +65,6 @@ extension CategoryCollectionView: ConstructViewsProtocol {
         collectionView.delegate = self
 
         return collectionView
-    }
-
-    func defineLayoutForViews() {
-        title.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(defaultInset)
-        }
-
-        options.snp.makeConstraints {
-            $0.top.equalTo(title.snp.bottom).offset(defaultSpacing)
-            $0.leading.trailing.equalToSuperview().inset(defaultInset)
-        }
-
-        filmCollection.snp.makeConstraints {
-            $0.top.equalTo(options.snp.bottom).offset(2 * defaultSpacing)
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(180 + defaultInset)
-        }
     }
 
 }

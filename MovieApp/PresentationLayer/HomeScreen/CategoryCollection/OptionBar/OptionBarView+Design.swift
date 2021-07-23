@@ -16,12 +16,15 @@ extension OptionBarView: ConstructViewsProtocol {
 
         optionButtonStack = UIStackView()
         contentView.addSubview(optionButtonStack)
+    }
 
-        for title in placeholderData {
+    func setData(optionTitles: [String]) {
+        for title in optionTitles {
             let underlinedButton = UnderlinedButtonView(title: title)
             optionButtonStack.addArrangedSubview(underlinedButton)
             underlinedButton.addTarget(self, action: #selector(onCategorySelection), for: .touchUpInside)
         }
+        styleButtons()
     }
 
     func styleViews() {
@@ -31,6 +34,10 @@ extension OptionBarView: ConstructViewsProtocol {
         optionButtonStack.alignment = .center
         optionButtonStack.spacing = 22
 
+        styleButtons()
+    }
+
+    func styleButtons() {
         for (index, subview) in optionButtonStack.arrangedSubviews.enumerated() {
             guard let underlinedButton = subview as? UnderlinedButtonView else { return }
 
@@ -77,6 +84,7 @@ extension OptionBarView: ConstructViewsProtocol {
 
         previouslySelected.styleUnselected()
         selectedCategoryIndex = newlySelectedIndex
+        categoryCollection.currentlySelectedIndex = selectedCategoryIndex
         newlySelected.styleSelected()
     }
 

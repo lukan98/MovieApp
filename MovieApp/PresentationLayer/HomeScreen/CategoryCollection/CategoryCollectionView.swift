@@ -7,11 +7,12 @@ class CategoryCollectionView: UIView {
 
     var title: UILabel!
     var options: OptionBarView!
-    var filmCollection: UICollectionView!
+    var movieCollection: UICollectionView!
 
-    private var movies: [MovieViewModel] = [] {
+    private var movies: [[MovieViewModel]] = []
+    var currentlySelectedIndex = 0 {
         didSet {
-            filmCollection.reloadData()
+            reloadData()
         }
     }
 
@@ -31,7 +32,11 @@ class CategoryCollectionView: UIView {
         defineLayoutForViews()
     }
 
-    func setData(movies: [MovieViewModel]) {
+    func setData(title: String, options: [String], movies: [[MovieViewModel]]) {
+        self.title.text = title
+
+        self.options.setData(optionTitles: options)
+
         self.movies = movies
     }
     
@@ -45,7 +50,7 @@ extension CategoryCollectionView: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        movies.count
+        movies[currentlySelectedIndex].count
     }
 
     func collectionView(
@@ -53,14 +58,14 @@ extension CategoryCollectionView: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard
-            let cell = filmCollection.dequeueReusableCell(
+            let cell = movieCollection.dequeueReusableCell(
                 withReuseIdentifier: MoviePosterCell.cellIdentifier,
                 for: indexPath) as? MoviePosterCell
         else {
             return MoviePosterCell()
         }
 
-        cell.setData(for: movies[indexPath.row])
+        cell.setData(for: movies[currentlySelectedIndex][indexPath.row])
         return cell
     }
 

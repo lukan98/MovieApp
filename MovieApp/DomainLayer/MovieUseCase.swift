@@ -18,4 +18,16 @@ class MovieUseCase: MovieUseCaseProtocol {
         }
     }
 
+    func getPopularMoviesCategorised() -> [String : [MovieModel]] {
+        MockData.popularData
+    }
+
+    func getTrendingMoviesCategorised() -> [String : [MovieModel]] {
+        MockData.trendingData
+    }
+
+    func getFreeToWatchMoviesCategorised() -> [String : [MovieModel]] {
+        MockData.freeToWatch
+    }
+
 }

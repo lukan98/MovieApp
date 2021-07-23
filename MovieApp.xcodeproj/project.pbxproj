@@ -60,8 +60,9 @@
 		FCB63ACB26A9ACBA00E049A2 /* CategoryCollectionView+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AC926A9ACBA00E049A2 /* CategoryCollectionView+Design.swift */; };
 		FCB63ACE26A9AFF800E049A2 /* MoviePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ACD26A9AFF800E049A2 /* MoviePosterCell.swift */; };
 		FCB63AD026A9B2E100E049A2 /* MoviePosterCell+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ACF26A9B2E100E049A2 /* MoviePosterCell+Design.swift */; };
-		FCB63AD226A9BFE900E049A2 /* MockHomeScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */; };
 		FCE5E51D26AADF940015ED14 /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5E51C26AADF940015ED14 /* BaseScrollView.swift */; };
+		FCE5E51F26AAE7C80015ED14 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5E51E26AAE7C80015ED14 /* MockData.swift */; };
+		FCE5E52126AAEAE00015ED14 /* HomeScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5E52026AAEAE00015ED14 /* HomeScreenPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,8 +119,9 @@
 		FCB63AC926A9ACBA00E049A2 /* CategoryCollectionView+Design.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CategoryCollectionView+Design.swift"; sourceTree = "<group>"; };
 		FCB63ACD26A9AFF800E049A2 /* MoviePosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCell.swift; sourceTree = "<group>"; };
 		FCB63ACF26A9B2E100E049A2 /* MoviePosterCell+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviePosterCell+Design.swift"; sourceTree = "<group>"; };
-		FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeScreenData.swift; sourceTree = "<group>"; };
 		FCE5E51C26AADF940015ED14 /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
+		FCE5E51E26AAE7C80015ED14 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		FCE5E52026AAEAE00015ED14 /* HomeScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +312,7 @@
 				FCB63A8526A5812800E049A2 /* Models */,
 				FCB63A8B26A5834700E049A2 /* MovieUseCase.swift */,
 				FCB63A8926A5833F00E049A2 /* MovieUseCaseProtocol.swift */,
+				FCE5E51E26AAE7C80015ED14 /* MockData.swift */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -338,9 +341,9 @@
 			children = (
 				FCB63AAA26A701B600E049A2 /* BaseSearchTextField */,
 				FCB63AC726A9ACA600E049A2 /* CategoryCollection */,
+				FCE5E52026AAEAE00015ED14 /* HomeScreenPresenter.swift */,
 				FCB63A9C26A6CD2600E049A2 /* HomeScreenViewController.swift */,
 				FCB63A9E26A6CDA000E049A2 /* HomeScreenViewController+Design.swift */,
-				FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -511,7 +514,6 @@
 				FC592E54269DAFFD00233EFB /* ConstructViewsProtocol.swift in Sources */,
 				FCB63A8C26A5834700E049A2 /* MovieUseCase.swift in Sources */,
 				FCB63A5026A0616800E049A2 /* MovieClientProtocol.swift in Sources */,
-				FCB63AD226A9BFE900E049A2 /* MockHomeScreenData.swift in Sources */,
 				FCB63A7726A56EE800E049A2 /* NetworkDataSourceProtocol.swift in Sources */,
 				FC592E30269D897C00233EFB /* AppDelegate.swift in Sources */,
 				FCB63AB426A95B7A00E049A2 /* UnderlinedButtonView.swift in Sources */,
@@ -520,10 +522,12 @@
 				FCB63A4626A0563100E049A2 /* Result.swift in Sources */,
 				FCB63ACE26A9AFF800E049A2 /* MoviePosterCell.swift in Sources */,
 				FCB63A4A26A05DC900E049A2 /* BaseApiClient.swift in Sources */,
+				FCE5E51F26AAE7C80015ED14 /* MockData.swift in Sources */,
 				FCB63A7926A56EF900E049A2 /* NetworkDataSource.swift in Sources */,
 				FCB63AB626A95C6500E049A2 /* UnderlinedButtonView+Design.swift in Sources */,
 				FCB63A8126A577B200E049A2 /* MovieRepositoryModel.swift in Sources */,
 				FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */,
+				FCE5E52126AAEAE00015ED14 /* HomeScreenPresenter.swift in Sources */,
 				FCB63A8826A581B000E049A2 /* MovieModel.swift in Sources */,
 				FC592E32269D897C00233EFB /* SceneDelegate.swift in Sources */,
 				FCB63A37269F0C0500E049A2 /* MovieInfoCell.swift in Sources */,
