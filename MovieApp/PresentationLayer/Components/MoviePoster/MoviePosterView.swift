@@ -1,6 +1,6 @@
 import UIKit
 
-class MoviePoster: UIView {
+class MoviePosterView: UIView {
 
     let cornerRadius: CGFloat = 10
     let buttonSize = CGSize(width: 32, height: 32)
@@ -32,6 +32,12 @@ class MoviePoster: UIView {
         super.didMoveToSuperview()
 
         defineLayoutForViews()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        favoriteButton.layer.cornerRadius = favoriteButton.frame.height * 0.5
     }
 
 }

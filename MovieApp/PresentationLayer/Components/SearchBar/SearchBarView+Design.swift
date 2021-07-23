@@ -1,6 +1,6 @@
 import UIKit
 
-extension SearchBar: ConstructViewsProtocol {
+extension SearchBarView: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()
@@ -12,7 +12,7 @@ extension SearchBar: ConstructViewsProtocol {
         stackView.axis = .horizontal
         addSubview(stackView)
 
-        searchField = BaseSearchField()
+        searchField = BaseSearchTextField()
         searchField.addTarget(self, action: #selector(showCancelButton), for: .editingDidBegin)
 
         let searchIcon = UIImageView(image: UIImage(named: "Search"))
@@ -38,7 +38,7 @@ extension SearchBar: ConstructViewsProtocol {
         searchField.leftViewMode = .always
         searchField.rightViewMode = .always
 
-        let font = UIFont(name: "ProximaNova-Medium", size: SearchBar.fontSize)
+        let font = UIFont(name: "ProximaNova-Medium", size: SearchBarView.fontSize)
         let color = UIColor(named: "DarkBlue")
 
         let placeholder = NSAttributedString(
@@ -48,7 +48,7 @@ extension SearchBar: ConstructViewsProtocol {
                 NSAttributedString.Key.foregroundColor: color?.withAlphaComponent(0.5) as Any])
         searchField.attributedPlaceholder = placeholder
 
-        searchField.font = UIFont(name: "ProximaNova-Medium", size: SearchBar.fontSize)
+        searchField.font = UIFont(name: "ProximaNova-Medium", size: SearchBarView.fontSize)
         searchField.textColor = UIColor(named: "DarkBlue")
 
         let attributedTitle = NSAttributedString(
@@ -64,10 +64,10 @@ extension SearchBar: ConstructViewsProtocol {
     func defineLayoutForViews() {
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(SearchBar.defaultHeight)
+            $0.height.equalTo(SearchBarView.defaultHeight)
         }
 
-        stackView.spacing = SearchBar.defaultSpacing
+        stackView.spacing = SearchBarView.defaultSpacing
     }
 
     @objc

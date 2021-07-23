@@ -1,13 +1,13 @@
 import UIKit
 
-class SearchBar: UIView {
+class SearchBarView: UIView {
 
     static let defaultHeight = 40
     static let defaultSpacing: CGFloat = 20
     static let fontSize: CGFloat = 16
 
     var stackView: UIStackView!
-    var searchField: BaseSearchField!
+    var searchField: BaseSearchTextField!
     var cancelButton: UIButton!
 
     init() {

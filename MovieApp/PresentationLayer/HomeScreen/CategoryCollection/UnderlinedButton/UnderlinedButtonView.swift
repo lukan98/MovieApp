@@ -1,6 +1,6 @@
 import UIKit
 
-class UnderlinedButton: UIView {
+class UnderlinedButtonView: UIView {
 
     let underlineThickness = 3
 

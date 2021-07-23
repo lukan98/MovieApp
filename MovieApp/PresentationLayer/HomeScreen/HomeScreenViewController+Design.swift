@@ -19,11 +19,11 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         navigationView = NavBarView()
         view.addSubview(navigationView)
 
-        searchBar = SearchBar()
+        searchBar = SearchBarView()
         view.addSubview(searchBar)
 
-        optionView = OptionBar()
-        view.addSubview(optionView)
+        categoryCollection = CategoryCollectionView()
+        view.addSubview(categoryCollection)
     }
 
     func styleViews() {
@@ -41,10 +41,10 @@ extension HomeScreenViewController: ConstructViewsProtocol {
             $0.leading.trailing.equalToSuperview().inset(20)
         }
 
-        optionView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom)
+        categoryCollection.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(HomeScreenViewController.defaultHeight)
+            $0.bottom.lessThanOrEqualToSuperview()
         }
     }
 

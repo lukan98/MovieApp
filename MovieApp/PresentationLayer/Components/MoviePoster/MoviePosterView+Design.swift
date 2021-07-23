@@ -1,6 +1,6 @@
 import UIKit
 
-extension MoviePoster: ConstructViewsProtocol {
+extension MoviePosterView: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()
@@ -25,10 +25,6 @@ extension MoviePoster: ConstructViewsProtocol {
         favoriteButton.backgroundColor = UIColor(named: "DarkBlue")?.withAlphaComponent(0.6)
         favoriteButton.tintColor = .white
         favoriteButton.setImage(UIImage(named: "Favorites-outline"), for: .normal)
-    }
-
-    func roundButton() {
-        favoriteButton.layer.cornerRadius = favoriteButton.frame.height * 0.5
     }
 
     func defineLayoutForViews() {
