@@ -22,12 +22,23 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         searchBar = SearchBarView()
         view.addSubview(searchBar)
 
-        categoryCollection = CategoryCollectionView()
-        view.addSubview(categoryCollection)
+        scrollView = UIScrollView()
+        view.addSubview(scrollView)
+
+        stackView = UIStackView()
+        scrollView.addSubview(stackView)
+
+        for _ in 0...3 {
+            stackView.addArrangedSubview(CategoryCollectionView())
+        }
     }
 
     func styleViews() {
         view.backgroundColor = .white
+
+        scrollView.showsVerticalScrollIndicator = false
+
+        stackView.axis = .vertical
     }
 
     func defineLayoutForViews() {
@@ -41,10 +52,14 @@ extension HomeScreenViewController: ConstructViewsProtocol {
             $0.leading.trailing.equalToSuperview().inset(20)
         }
 
-        categoryCollection.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.lessThanOrEqualToSuperview()
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
         }
     }
 

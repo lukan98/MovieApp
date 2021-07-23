@@ -6,13 +6,16 @@ class HomeScreenViewController: UIViewController {
 
     var navigationView: NavBarView!
     var searchBar: SearchBarView!
-    var categoryCollection: CategoryCollectionView!
+    var scrollView: UIScrollView!
+    var stackView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         buildViews()
-        categoryCollection.setData(movies: movies)
+        stackView.subviews
+            .compactMap { $0 as? CategoryCollectionView }
+            .forEach { $0.setData(movies: movies) }
     }
 
 }

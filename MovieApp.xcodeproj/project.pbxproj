@@ -61,6 +61,7 @@
 		FCB63ACE26A9AFF800E049A2 /* MoviePosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ACD26A9AFF800E049A2 /* MoviePosterCell.swift */; };
 		FCB63AD026A9B2E100E049A2 /* MoviePosterCell+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63ACF26A9B2E100E049A2 /* MoviePosterCell+Design.swift */; };
 		FCB63AD226A9BFE900E049A2 /* MockHomeScreenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */; };
+		FCE5E51D26AADF940015ED14 /* BaseScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE5E51C26AADF940015ED14 /* BaseScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +119,7 @@
 		FCB63ACD26A9AFF800E049A2 /* MoviePosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCell.swift; sourceTree = "<group>"; };
 		FCB63ACF26A9B2E100E049A2 /* MoviePosterCell+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoviePosterCell+Design.swift"; sourceTree = "<group>"; };
 		FCB63AD126A9BFE900E049A2 /* MockHomeScreenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHomeScreenData.swift; sourceTree = "<group>"; };
+		FCE5E51C26AADF940015ED14 /* BaseScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +384,7 @@
 			children = (
 				FCB63AAE26A8183300E049A2 /* OptionBarView.swift */,
 				FCB63AB026A8184B00E049A2 /* OptionBarView+Design.swift */,
+				FCE5E51C26AADF940015ED14 /* BaseScrollView.swift */,
 			);
 			path = OptionBar;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				FCB63A9F26A6CDA000E049A2 /* HomeScreenViewController+Design.swift in Sources */,
 				FCB63AB926A9917100E049A2 /* MoviePosterView.swift in Sources */,
 				FCB63A9B26A6CCFE00E049A2 /* FavoritesViewController.swift in Sources */,
+				FCE5E51D26AADF940015ED14 /* BaseScrollView.swift in Sources */,
 				FC592E56269DB23F00233EFB /* MovieListViewController+Design.swift in Sources */,
 				FCB63AA426A6D45000E049A2 /* FavoritesViewController+Design.swift in Sources */,
 				FCB63AD026A9B2E100E049A2 /* MoviePosterCell+Design.swift in Sources */,

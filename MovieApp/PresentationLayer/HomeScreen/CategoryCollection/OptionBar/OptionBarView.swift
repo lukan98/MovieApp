@@ -5,7 +5,7 @@ class OptionBarView: UIView {
     let placeholderData = ["Streaming", "On TV", "For Rent", "In theatres", "Showing near you"]
 
     var selectedCategoryIndex = 0
-    var scrollView: UIScrollView!
+    var scrollView: BaseScrollView!
     var contentView: UIView!
     var optionButtonStack: UIStackView!
 
