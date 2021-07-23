@@ -1,6 +1,6 @@
 import UIKit
 
-class OptionBar: UIView {
+class OptionBarView: UIView {
 
     let placeholderData = ["Streaming", "On TV", "For Rent", "In theatres", "Showing near you"]
 

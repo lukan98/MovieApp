@@ -6,7 +6,7 @@ extension MoviePosterCell: ConstructViewsProtocol {
     }
 
     func createViews() {
-        moviePoster = MoviePoster()
+        moviePoster = MoviePosterView()
         addSubview(moviePoster)
     }
 

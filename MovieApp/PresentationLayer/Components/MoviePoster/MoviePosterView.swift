@@ -1,6 +1,6 @@
 import UIKit
 
-class MoviePoster: UIView {
+class MoviePosterView: UIView {
 
     let cornerRadius: CGFloat = 10
     let buttonSize = CGSize(width: 32, height: 32)

@@ -6,7 +6,7 @@ class CategoryCollectionView: UIView {
     let defaultSpacing: CGFloat = 10
 
     var title: UILabel!
-    var options: OptionBar!
+    var options: OptionBarView!
     var filmCollection: UICollectionView!
 
     private var movies: [MovieViewModel] = [] {
@@ -31,10 +31,6 @@ class CategoryCollectionView: UIView {
 
     func setData(movies: [MovieViewModel]) {
         self.movies = movies
-    }
-    
-    func setDelegate(_ collectionViewFlowDelegateFlowLayout: UICollectionViewDelegateFlowLayout) {
-        filmCollection.delegate = collectionViewFlowDelegateFlowLayout
     }
     
 }

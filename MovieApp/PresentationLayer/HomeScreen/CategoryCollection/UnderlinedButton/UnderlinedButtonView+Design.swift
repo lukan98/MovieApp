@@ -1,6 +1,6 @@
 import UIKit
 
-extension UnderlinedButton: ConstructViewsProtocol {
+extension UnderlinedButtonView: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()

@@ -1,6 +1,6 @@
 import UIKit
 
-extension MoviePoster: ConstructViewsProtocol {
+extension MoviePosterView: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()

@@ -1,6 +1,6 @@
 import UIKit
 
-extension OptionBar: ConstructViewsProtocol {
+extension OptionBarView: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()
@@ -18,7 +18,7 @@ extension OptionBar: ConstructViewsProtocol {
         contentView.addSubview(optionButtonStack)
 
         for title in placeholderData {
-            let underlinedButton = UnderlinedButton(title: title)
+            let underlinedButton = UnderlinedButtonView(title: title)
             optionButtonStack.addArrangedSubview(underlinedButton)
             underlinedButton.addTarget(self, action: #selector(onCategorySelection), for: .touchUpInside)
         }
@@ -32,7 +32,7 @@ extension OptionBar: ConstructViewsProtocol {
         optionButtonStack.spacing = 22
 
         for (index, subview) in optionButtonStack.arrangedSubviews.enumerated() {
-            guard let underlinedButton = subview as? UnderlinedButton else { return }
+            guard let underlinedButton = subview as? UnderlinedButtonView else { return }
 
             if index == selectedCategoryIndex {
                 underlinedButton.styleSelected()
@@ -61,15 +61,15 @@ extension OptionBar: ConstructViewsProtocol {
     private func onCategorySelection(sender: UIButton) {
         let view = optionButtonStack.arrangedSubviews.first(
             where: { view in
-                guard let underlinedButton = view as? UnderlinedButton
+                guard let underlinedButton = view as? UnderlinedButtonView
                 else {
                     return false
                 }
                 return underlinedButton.button == sender})
 
         guard
-            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategoryIndex] as? UnderlinedButton,
-            let newlySelected = view as? UnderlinedButton,
+            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategoryIndex] as? UnderlinedButtonView,
+            let newlySelected = view as? UnderlinedButtonView,
             let newlySelectedIndex = optionButtonStack.arrangedSubviews.firstIndex(of: newlySelected)
         else {
             return

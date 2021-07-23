@@ -5,7 +5,7 @@ class HomeScreenViewController: UIViewController {
     let movies = MockHomeScreenData.data
 
     var navigationView: NavBarView!
-    var searchBar: SearchBar!
+    var searchBar: SearchBarView!
     var categoryCollection: CategoryCollectionView!
 
     override func viewDidLoad() {

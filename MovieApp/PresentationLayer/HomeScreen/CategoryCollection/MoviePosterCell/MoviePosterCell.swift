@@ -4,7 +4,7 @@ class MoviePosterCell: UICollectionViewCell {
 
     static let cellIdentifier = String(describing: MoviePosterCell.self)
 
-    var moviePoster: MoviePoster!
+    var moviePoster: MoviePosterView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)

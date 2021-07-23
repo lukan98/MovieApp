@@ -11,7 +11,7 @@ extension CategoryCollectionView: ConstructViewsProtocol {
         title = UILabel()
         addSubview(title)
 
-        options = OptionBar()
+        options = OptionBarView()
         addSubview(options)
         bringSubviewToFront(options)
 
@@ -53,6 +53,7 @@ extension CategoryCollectionView: ConstructViewsProtocol {
         filmCollection.snp.makeConstraints {
             $0.top.equalTo(options.snp.bottom).offset(2 * defaultSpacing)
             $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(180)
         }
     }
 
