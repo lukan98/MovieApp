@@ -53,7 +53,7 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         }
 
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom)
+            $0.top.equalTo(searchBar.snp.bottom).offset(5)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
