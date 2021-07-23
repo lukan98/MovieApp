@@ -13,18 +13,9 @@ class HomeScreenViewController: UIViewController {
         super.viewDidLoad()
 
         buildViews()
-        setData()
-    }
-
-    private func setData() {
-        for subview in stackView.subviews {
-            guard let categoryCollection = subview as? CategoryCollectionView
-            else {
-                return
-            }
-
-            categoryCollection.setData(movies: movies)
-        }
+        stackView.subviews
+            .compactMap { $0 as? CategoryCollectionView }
+            .forEach { $0.setData(movies: movies) }
     }
 
 }
