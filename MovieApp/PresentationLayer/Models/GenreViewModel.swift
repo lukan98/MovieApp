@@ -6,7 +6,6 @@ struct GenreViewModel {
 }
 
 // MARK: Model to ViewModel conversion
-
 extension GenreViewModel {
 
     init(from model: GenreModel) {

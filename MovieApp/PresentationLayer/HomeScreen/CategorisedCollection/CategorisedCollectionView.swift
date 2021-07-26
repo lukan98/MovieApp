@@ -61,7 +61,6 @@ class CategorisedCollectionView: UIView {
 }
 
 // MARK: UICollectionViewDataSource
-
 extension CategorisedCollectionView: UICollectionViewDataSource {
 
     func collectionView(
@@ -91,7 +90,6 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-
 extension CategorisedCollectionView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(

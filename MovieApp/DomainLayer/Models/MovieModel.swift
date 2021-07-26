@@ -9,7 +9,6 @@ struct MovieModel {
 }
 
 // MARK: RepositoryModel to Model conversion
-
 extension MovieModel {
 
     init(from model: MovieRepositoryModel) {

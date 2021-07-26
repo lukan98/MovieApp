@@ -6,7 +6,6 @@ struct GenreModel {
 }
 
 // MARK: RepositoryModel to Model conversion
-
 extension GenreModel {
 
     init(from model: GenreRepositoryModel) {

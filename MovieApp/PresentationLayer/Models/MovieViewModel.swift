@@ -8,7 +8,6 @@ struct MovieViewModel {
 }
 
 // MARK: Model to ViewModel conversion
-
 extension MovieViewModel {
 
     init(from model: MovieModel) {
