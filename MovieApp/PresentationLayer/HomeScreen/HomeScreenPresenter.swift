@@ -31,4 +31,13 @@ class HomeScreenPresenter {
             completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
         }
     }
+
+    func getTrendingMovies(
+        for timeWindowId: Int,
+        _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
+    ) {
+        movieUseCase.getTrendingMovies(for: timeWindowId) { result in
+            completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+        }
+    }
 }

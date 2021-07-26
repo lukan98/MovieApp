@@ -14,4 +14,9 @@ protocol MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     )
 
+    func getTrendingMovies(
+        for timeWindowId: Int,
+        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+    )
+
 }

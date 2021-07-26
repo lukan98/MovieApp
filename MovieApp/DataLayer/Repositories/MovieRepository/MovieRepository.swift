@@ -55,6 +55,23 @@ class MovieRepository: MovieRepositoryProtocol {
         }
     }
 
+    func getTrendingMovies(
+        for timeWindowId: Int,
+        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+    ) {
+        var keyString: String
+        if timeWindowId == 1 {
+            keyString = "week"
+        } else {
+            keyString = "day"
+        }
+
+        if let trendingMovies = MockMovieData.trendingData[keyString] {
+            completionHandler(.success(trendingMovies))
+        } else {
+            completionHandler(.failure(.noDataError))
+        }
+    }
 
     private func getPopularMoviesFromNetwork(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
