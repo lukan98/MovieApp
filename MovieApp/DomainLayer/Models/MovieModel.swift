@@ -4,6 +4,7 @@ struct MovieModel {
     let about: String
     let name: String
     let posterSource: String
+    let genres: [Int]
 
 }
 
@@ -16,6 +17,7 @@ extension MovieModel {
         about = model.about
         name = model.name
         posterSource = model.posterSource
+        genres = model.genres
     }
 
 }

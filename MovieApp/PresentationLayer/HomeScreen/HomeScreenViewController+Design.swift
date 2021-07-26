@@ -19,8 +19,8 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         navigationView = NavBarView()
         view.addSubview(navigationView)
 
-        searchBar = SearchBarView()
-        view.addSubview(searchBar)
+        searchBarView = SearchBarView()
+        view.addSubview(searchBarView)
 
         scrollView = UIScrollView()
         view.addSubview(scrollView)
@@ -28,9 +28,8 @@ extension HomeScreenViewController: ConstructViewsProtocol {
         stackView = UIStackView()
         scrollView.addSubview(stackView)
 
-        for _ in 0...2 {
-            stackView.addArrangedSubview(CategoryCollectionView())
-        }
+        popularMoviesCollectionView = CategorisedCollectionView()
+        stackView.addArrangedSubview(popularMoviesCollectionView)
     }
 
     func styleViews() {
@@ -47,13 +46,13 @@ extension HomeScreenViewController: ConstructViewsProtocol {
             $0.height.equalTo(NavBarView.defaultHeight)
         }
 
-        searchBar.snp.makeConstraints {
+        searchBarView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
 
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(searchBar.snp.bottom).offset(5)
+            $0.top.equalTo(searchBarView.snp.bottom).offset(5)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 

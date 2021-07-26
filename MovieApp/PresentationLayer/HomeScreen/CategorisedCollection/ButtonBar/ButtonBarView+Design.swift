@@ -1,6 +1,6 @@
 import UIKit
 
-extension OptionBarView: ConstructViewsProtocol {
+extension ButtonBarView: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()
@@ -14,34 +14,37 @@ extension OptionBarView: ConstructViewsProtocol {
         contentView = UIView()
         scrollView.addSubview(contentView)
 
-        optionButtonStack = UIStackView()
-        contentView.addSubview(optionButtonStack)
+        buttonStack = UIStackView()
+        contentView.addSubview(buttonStack)
     }
 
     func setData(optionTitles: [String]) {
         for title in optionTitles {
             let underlinedButton = UnderlinedButtonView(title: title)
-            optionButtonStack.addArrangedSubview(underlinedButton)
+            buttonStack.addArrangedSubview(underlinedButton)
             underlinedButton.addTarget(self, action: #selector(onCategorySelection), for: .touchUpInside)
         }
         styleButtons()
+        if !optionTitles.isEmpty {
+            onButtonSelected(0)
+        }
     }
 
     func styleViews() {
         scrollView.showsHorizontalScrollIndicator = false
 
-        optionButtonStack.axis = .horizontal
-        optionButtonStack.alignment = .center
-        optionButtonStack.spacing = 22
+        buttonStack.axis = .horizontal
+        buttonStack.alignment = .center
+        buttonStack.spacing = 22
 
         styleButtons()
     }
 
     func styleButtons() {
-        for (index, subview) in optionButtonStack.arrangedSubviews.enumerated() {
+        for (index, subview) in buttonStack.arrangedSubviews.enumerated() {
             guard let underlinedButton = subview as? UnderlinedButtonView else { return }
 
-            if index == selectedCategoryIndex {
+            if index == selectedButtonIndex {
                 underlinedButton.styleSelected()
             } else {
                 underlinedButton.styleUnselected()
@@ -59,14 +62,14 @@ extension OptionBarView: ConstructViewsProtocol {
             $0.height.equalToSuperview()
         }
 
-        optionButtonStack.snp.makeConstraints {
+        buttonStack.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
     }
 
     @objc
     private func onCategorySelection(sender: UIButton) {
-        let view = optionButtonStack.arrangedSubviews.first(
+        let view = buttonStack.arrangedSubviews.first(
             where: { view in
                 guard let underlinedButton = view as? UnderlinedButtonView
                 else {
@@ -75,16 +78,16 @@ extension OptionBarView: ConstructViewsProtocol {
                 return underlinedButton.button == sender})
 
         guard
-            let previouslySelected = optionButtonStack.arrangedSubviews[selectedCategoryIndex] as? UnderlinedButtonView,
+            let previouslySelected = buttonStack.arrangedSubviews[selectedButtonIndex] as? UnderlinedButtonView,
             let newlySelected = view as? UnderlinedButtonView,
-            let newlySelectedIndex = optionButtonStack.arrangedSubviews.firstIndex(of: newlySelected)
+            let newlySelectedIndex = buttonStack.arrangedSubviews.firstIndex(of: newlySelected)
         else {
             return
         }
 
         previouslySelected.styleUnselected()
-        selectedCategoryIndex = newlySelectedIndex
-        categoryCollection.currentlySelectedIndex = selectedCategoryIndex
+        selectedButtonIndex = newlySelectedIndex
+        onButtonSelected(selectedButtonIndex)
         newlySelected.styleSelected()
     }
 

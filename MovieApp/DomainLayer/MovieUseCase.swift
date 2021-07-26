@@ -8,26 +8,16 @@ class MovieUseCase: MovieUseCaseProtocol {
 
     func getPopularMovies(_ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void) {
         movieRepository.getPopularMovies { result in
-            switch result {
-            case .success(let repositoryMovies):
-                let movies = repositoryMovies.map { MovieModel(from: $0) }
-                completionHandler(.success(movies))
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
+            completionHandler(result.map { $0.map { MovieModel(from: $0) } })
         }
     }
 
-    func getPopularMoviesCategorised() -> [String : [MovieModel]] {
-        MockData.popularData
+    func getPopularMovies(
+        for genreId: Int,
+        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
+    ) {
+        movieRepository.getPopularMovies(for: genreId) { result in
+            completionHandler(result.map { $0.map { MovieModel(from: $0) } })
+        }
     }
-
-    func getTrendingMoviesCategorised() -> [String : [MovieModel]] {
-        MockData.trendingData
-    }
-
-    func getFreeToWatchMoviesCategorised() -> [String : [MovieModel]] {
-        MockData.freeToWatch
-    }
-
 }

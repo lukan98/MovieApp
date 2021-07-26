@@ -1,6 +1,6 @@
 import UIKit
 
-extension CategoryCollectionView: ConstructViewsProtocol {
+extension CategorisedCollectionView: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()
@@ -8,49 +8,49 @@ extension CategoryCollectionView: ConstructViewsProtocol {
     }
 
     func createViews() {
-        title = UILabel()
-        addSubview(title)
+        titleLabel = UILabel()
+        addSubview(titleLabel)
 
-        options = OptionBarView(categoryCollection: self)
-        addSubview(options)
-        bringSubviewToFront(options)
+        optionsView = ButtonBarView()
+        addSubview(optionsView)
+        bringSubviewToFront(optionsView)
 
-        movieCollection = makeCollectionView()
-        addSubview(movieCollection)
+        movieCollectionView = makeCollectionView()
+        addSubview(movieCollectionView)
     }
 
     func styleViews() {
-        title.font = UIFont(name: "ProximaNova-Bold", size: 20)
-        title.textColor = UIColor(named: "DarkBlue")
+        titleLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
+        titleLabel.textColor = UIColor(named: "DarkBlue")
 
-        movieCollection.showsHorizontalScrollIndicator = false
+        movieCollectionView.showsHorizontalScrollIndicator = false
     }
 
     func defineLayoutForViews() {
-        title.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview().inset(defaultInset)
         }
 
-        options.snp.makeConstraints {
-            $0.top.equalTo(title.snp.bottom).offset(defaultSpacing)
+        optionsView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(defaultSpacing)
             $0.leading.trailing.equalToSuperview().inset(defaultInset)
         }
 
-        movieCollection.snp.makeConstraints {
-            $0.top.equalTo(options.snp.bottom).offset(2 * defaultSpacing)
+        movieCollectionView.snp.makeConstraints {
+            $0.top.equalTo(optionsView.snp.bottom).offset(2 * defaultSpacing)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(180 + defaultInset)
         }
     }
 
-    func reloadData() {
+    func animatedDataReload() {
         UIView.animate(
             withDuration: 0.4,
             animations: {
-                self.movieCollection.alpha = 0.5
-                self.movieCollection.reloadData()
-                self.movieCollection.setContentOffset(.zero, animated: true)
-                self.movieCollection.alpha = 1
+                self.movieCollectionView.alpha = 0.5
+                self.movieCollectionView.reloadData()
+                self.movieCollectionView.setContentOffset(.zero, animated: true)
+                self.movieCollectionView.alpha = 1
             })
     }
 

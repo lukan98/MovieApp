@@ -1,18 +1,17 @@
 import UIKit
 
-class OptionBarView: UIView {
+class ButtonBarView: UIView {
     
-    var selectedCategoryIndex = 0
+    var selectedButtonIndex = 0
     var scrollView: BaseScrollView!
     var contentView: UIView!
-    var optionButtonStack: UIStackView!
-    
-    weak var categoryCollection: CategoryCollectionView!
+    var buttonStack: UIStackView!
 
-    init(categoryCollection: CategoryCollectionView!) {
+    var onButtonSelected: (Int) -> Void = { _ in }
+
+    init() {
         super.init(frame: .zero)
 
-        self.categoryCollection = categoryCollection
         buildViews()
     }
 
