@@ -30,6 +30,18 @@ class MovieRepository: MovieRepositoryProtocol {
         }
     }
 
+    func getPopularMovies(
+        for genreId: Int, _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+    ) {
+        let popularMovies = MockMovieData.popularData
+        let popularMoviesForGenre = popularMovies.filter { $0.genres.contains(genreId) }
+        if popularMoviesForGenre.isEmpty {
+            completionHandler(.failure(.noDataError))
+        } else {
+            completionHandler(.success(popularMoviesForGenre))
+        }
+    }
+
     private func getPopularMoviesFromNetwork(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {

@@ -1,24 +1,24 @@
 import UIKit
 
-class CategoryCollectionView: UIView {
+class CategorisedCollectionView: UIView {
 
     let defaultInset: CGFloat = 20
     let defaultSpacing: CGFloat = 10
 
-    var title: UILabel!
-    var options: OptionBarView!
-    var filmCollection: UICollectionView!
+    var onCategoryChanged: (Int) -> Void = { _ in }
 
-    private var movies: [MovieViewModel] = [] {
-        didSet {
-            filmCollection.reloadData()
-        }
-    }
+    var titleLabel: UILabel!
+    var optionsView: ButtonBarView!
+    var movieCollectionView: UICollectionView!
+
+    private var genres: [GenreViewModel] = []
+    private var movies: [MovieViewModel] = []
 
     init() {
         super.init(frame: .zero)
 
         buildViews()
+        bindViews()
     }
     
     required init?(coder: NSCoder) {
@@ -31,15 +31,37 @@ class CategoryCollectionView: UIView {
         defineLayoutForViews()
     }
 
-    func setData(movies: [MovieViewModel]) {
-        self.movies = movies
+    func setInitialData(title: String, genres: [GenreViewModel]) {
+        self.titleLabel.text = title
+        self.genres = genres
+        optionsView.setData(optionTitles: genres.map { $0.name })
     }
+
+    func setData(_ data: [MovieViewModel]) {
+        self.movies = data
+        animatedDataReload()
+    }
+
+    private func bindViews() {
+        optionsView.onButtonSelected = { [weak self] index in
+            guard
+                let self = self,
+                index >= 0,
+                index < self.genres.count
+            else {
+                return
+            }
+
+            let genreId = self.genres[index].id
+            self.onCategoryChanged(genreId)
+        }
+    }
+
     
 }
 
 // MARK: UICollectionViewDataSource
-
-extension CategoryCollectionView: UICollectionViewDataSource {
+extension CategorisedCollectionView: UICollectionViewDataSource {
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -53,22 +75,22 @@ extension CategoryCollectionView: UICollectionViewDataSource {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard
-            let cell = filmCollection.dequeueReusableCell(
+            let cell = movieCollectionView.dequeueReusableCell(
                 withReuseIdentifier: MoviePosterCell.cellIdentifier,
                 for: indexPath) as? MoviePosterCell
         else {
             return MoviePosterCell()
         }
 
-        cell.setData(for: movies[indexPath.row])
+        let movie = movies[indexPath.row]
+        cell.setData(for: movie)
         return cell
     }
 
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-
-extension CategoryCollectionView: UICollectionViewDelegateFlowLayout {
+extension CategorisedCollectionView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(
         _ collectionView: UICollectionView,

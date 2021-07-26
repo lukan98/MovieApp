@@ -4,11 +4,11 @@ struct MovieRepositoryModel {
     let about: String
     let name: String
     let posterSource: String
+    let genres: [Int]
 
 }
 
 // MARK: DataSourceModel to RepositoryModel conversion
-
 extension MovieRepositoryModel {
 
     init(from model: MovieDataSourceModel) {
@@ -16,6 +16,7 @@ extension MovieRepositoryModel {
         about = model.about
         name = model.name
         posterSource = model.posterSource
+        genres = []
     }
 
 }

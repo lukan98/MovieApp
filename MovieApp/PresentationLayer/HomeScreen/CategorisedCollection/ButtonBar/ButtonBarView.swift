@@ -1,13 +1,13 @@
 import UIKit
 
-class OptionBarView: UIView {
-
-    let placeholderData = ["Streaming", "On TV", "For Rent", "In theatres", "Showing near you"]
-
-    var selectedCategoryIndex = 0
+class ButtonBarView: UIView {
+    
+    var selectedButtonIndex = 0
     var scrollView: BaseScrollView!
     var contentView: UIView!
-    var optionButtonStack: UIStackView!
+    var buttonStack: UIStackView!
+
+    var onButtonSelected: (Int) -> Void = { _ in }
 
     init() {
         super.init(frame: .zero)
