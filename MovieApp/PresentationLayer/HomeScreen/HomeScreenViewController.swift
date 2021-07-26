@@ -7,6 +7,7 @@ class HomeScreenViewController: UIViewController {
     var scrollView: UIScrollView!
     var stackView: UIStackView!
     var popularMoviesCollectionView: CategorisedCollectionView!
+    var topRatedMoviesCollectionView: CategorisedCollectionView!
 
     private var presenter: HomeScreenPresenter!
 
@@ -25,14 +26,15 @@ class HomeScreenViewController: UIViewController {
 
         buildViews()
         bindViews()
-        loadPopularMovieGenres()
+        loadMovieGenres()
     }
 
-    private func loadPopularMovieGenres() {
+    private func loadMovieGenres() {
         presenter
             .getGenres { [weak self] result in
                 if case .success(let genres) = result {
-                    self?.popularMoviesCollectionView.setInitialData(title: "Popular movies", genres: genres)
+                    self?.popularMoviesCollectionView.setInitialData(title: "What's Popular", genres: genres)
+                    self?.topRatedMoviesCollectionView.setInitialData(title: "Top Rated", genres: genres)
                 }
             }
     }
@@ -40,6 +42,10 @@ class HomeScreenViewController: UIViewController {
     private func bindViews() {
         popularMoviesCollectionView.onCategoryChanged = { [weak self] genreId in
             self?.loadPopularMovies(for: genreId)
+        }
+
+        topRatedMoviesCollectionView.onCategoryChanged = { [weak self] genreId in
+            self?.loadTopRatedMovies(for: genreId)
         }
     }
 
@@ -52,6 +58,16 @@ class HomeScreenViewController: UIViewController {
             }
         }
 
+    }
+
+    private func loadTopRatedMovies(for genreId: Int) {
+        presenter.getTopRatedMovies(for: genreId) { [weak self] result in
+            if case .success(let movies) = result {
+                self?.topRatedMoviesCollectionView.setData(movies)
+            } else {
+                self?.topRatedMoviesCollectionView.setData([])
+            }
+        }
     }
     
 }

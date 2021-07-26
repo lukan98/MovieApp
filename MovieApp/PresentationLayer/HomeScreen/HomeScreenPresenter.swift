@@ -22,4 +22,13 @@ class HomeScreenPresenter {
             completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
         }
     }
+
+    func getTopRatedMovies(
+        for genreId: Int,
+        _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
+    ) {
+        movieUseCase.getTopRatedMovies(for: genreId) { result in
+            completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+        }
+    }
 }

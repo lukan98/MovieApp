@@ -30,6 +30,9 @@ extension HomeScreenViewController: ConstructViewsProtocol {
 
         popularMoviesCollectionView = CategorisedCollectionView()
         stackView.addArrangedSubview(popularMoviesCollectionView)
+
+        topRatedMoviesCollectionView = CategorisedCollectionView()
+        stackView.addArrangedSubview(topRatedMoviesCollectionView)
     }
 
     func styleViews() {

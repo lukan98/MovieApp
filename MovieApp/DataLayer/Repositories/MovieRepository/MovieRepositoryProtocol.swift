@@ -9,4 +9,9 @@ protocol MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     )
 
+    func getTopRatedMovies(
+        for genreId: Int,
+        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+    )
+
 }

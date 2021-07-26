@@ -7,4 +7,9 @@ protocol MovieUseCaseProtocol {
         _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
     )
 
+    func getTopRatedMovies(
+        for genreId: Int,
+        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
+    )
+
 }

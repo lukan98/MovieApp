@@ -22,7 +22,7 @@ extension ButtonBarView: ConstructViewsProtocol {
         for title in optionTitles {
             let underlinedButton = UnderlinedButtonView(title: title)
             buttonStack.addArrangedSubview(underlinedButton)
-            underlinedButton.addTarget(self, action: #selector(onCategorySelection), for: .touchUpInside)
+            underlinedButton.addTarget(self, action: #selector(onButtonTapped), for: .touchUpInside)
         }
         styleButtons()
         if !optionTitles.isEmpty {
@@ -68,7 +68,7 @@ extension ButtonBarView: ConstructViewsProtocol {
     }
 
     @objc
-    private func onCategorySelection(sender: UIButton) {
+    private func onButtonTapped(sender: UIButton) {
         let view = buttonStack.arrangedSubviews.first(
             where: { view in
                 guard let underlinedButton = view as? UnderlinedButtonView
