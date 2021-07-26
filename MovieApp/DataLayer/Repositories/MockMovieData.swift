@@ -42,26 +42,6 @@ class MockMovieData {
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [9])
     ]
 
-//    static let trendingData = [
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-//        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7])
-//    ]
     static let trendingData = [
         "day": [
             MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
