@@ -26,7 +26,9 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
         for timeWindowId: Int,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     ) {
-
+        movieClient.fetchTrendingMovies(for: timeWindowId) { result in
+            completionHandler(result.map { $0.movies.map { MovieDataSourceModel(from: $0) } })
+        }
     }
 
 }

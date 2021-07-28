@@ -41,7 +41,18 @@ class MovieClient: MovieClientProtocol {
         for timeWindowId: Int,
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     ) {
+        let timeWindowParameter = timeWindowId == 0 ? "day" : "week"
 
+        let queryParameters = [
+            "language": "en-US",
+            "page": "1",
+        ]
+
+        baseApiClient
+            .get(
+                path: "/trending/movie/"+timeWindowParameter,
+                queryParameters: queryParameters,
+                completionHandler: completionHandler)
     }
 
 }
