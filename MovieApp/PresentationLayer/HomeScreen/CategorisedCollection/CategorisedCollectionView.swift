@@ -11,7 +11,7 @@ class CategorisedCollectionView: UIView {
     var optionsView: ButtonBarView!
     var movieCollectionView: UICollectionView!
 
-    private var genres: [GenreViewModel] = []
+    private var options: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
 
     init() {
@@ -31,10 +31,10 @@ class CategorisedCollectionView: UIView {
         defineLayoutForViews()
     }
 
-    func setInitialData(title: String, genres: [GenreViewModel]) {
+    func setInitialData(title: String, options: [OptionViewModel]) {
         self.titleLabel.text = title
-        self.genres = genres
-        optionsView.setData(optionTitles: genres.map { $0.name })
+        self.options = options
+        optionsView.setData(optionTitles: options.map { $0.name })
     }
 
     func setData(_ data: [MovieViewModel]) {
@@ -47,13 +47,13 @@ class CategorisedCollectionView: UIView {
             guard
                 let self = self,
                 index >= 0,
-                index < self.genres.count
+                index < self.options.count
             else {
                 return
             }
 
-            let genreId = self.genres[index].id
-            self.onCategoryChanged(genreId)
+            let optionId = self.options[index].id
+            self.onCategoryChanged(optionId)
         }
     }
 

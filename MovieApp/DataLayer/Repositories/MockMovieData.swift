@@ -21,7 +21,7 @@ class MockMovieData {
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [3])
     ]
 
-    static let freeToWatchData = [
+    static let topRatedData = [
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [1]),
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [1]),
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [5]),
@@ -34,33 +34,36 @@ class MockMovieData {
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [5]),
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [5]),
         MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [5]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [6]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [6]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [6]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [6]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [6]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [6])
+        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [9]),
+        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [9]),
+        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [9]),
+        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [9]),
+        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [9]),
+        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [9])
     ]
 
     static let trendingData = [
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
-        MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7])
-    ]
+        "day": [
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan1", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [8])
+        ],
+        "week": [
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan2", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7]),
+            MovieRepositoryModel(id: 1, about: "", name: "", posterSource: "IronMan3", genres: [7])
+        ]]
 
 }

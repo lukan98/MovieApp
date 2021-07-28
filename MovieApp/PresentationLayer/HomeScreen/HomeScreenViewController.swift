@@ -7,6 +7,8 @@ class HomeScreenViewController: UIViewController {
     var scrollView: UIScrollView!
     var stackView: UIStackView!
     var popularMoviesCollectionView: CategorisedCollectionView!
+    var topRatedMoviesCollectionView: CategorisedCollectionView!
+    var trendingMoviesCollectionView: CategorisedCollectionView!
 
     private var presenter: HomeScreenPresenter!
 
@@ -25,33 +27,72 @@ class HomeScreenViewController: UIViewController {
 
         buildViews()
         bindViews()
-        loadPopularMovieGenres()
+        loadMovieOptions()
     }
 
-    private func loadPopularMovieGenres() {
+    private func loadMovieOptions() {
         presenter
             .getGenres { [weak self] result in
                 if case .success(let genres) = result {
-                    self?.popularMoviesCollectionView.setInitialData(title: "Popular movies", genres: genres)
+                    self?.popularMoviesCollectionView.setInitialData(
+                        title: "What's Popular",
+                        options: genres.map { OptionViewModel(from: $0) })
+                    self?.topRatedMoviesCollectionView.setInitialData(
+                        title: "Top Rated",
+                        options: genres.map { OptionViewModel(from: $0) })
                 }
             }
+
+        let todayOption = OptionViewModel(id: 0, name: "Today")
+        let thisWeekOption = OptionViewModel(id: 1, name: "This Week")
+        trendingMoviesCollectionView.setInitialData(title: "Trending", options: [todayOption, thisWeekOption])
     }
 
     private func bindViews() {
-        popularMoviesCollectionView.onCategoryChanged = { [weak self] genreId in
-            self?.loadPopularMovies(for: genreId)
+        popularMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
+            self?.loadPopularMovies(for: optionId)
+        }
+
+        topRatedMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
+            self?.loadTopRatedMovies(for: optionId)
+        }
+
+        trendingMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
+            self?.loadTrendingMovies(for: optionId)
         }
     }
 
-    private func loadPopularMovies(for genreId: Int) {
-        presenter.getPopularMovies(for: genreId) { [weak self] result in
+    private func loadPopularMovies(for optionId: Int) {
+        presenter.getPopularMovies(for: optionId) { [weak self] result in
+            guard let self = self else { return }
+
             if case .success(let movies) = result {
-                self?.popularMoviesCollectionView.setData(movies)
+                self.popularMoviesCollectionView.setData(movies)
             } else {
-                self?.popularMoviesCollectionView.setData([])
+                self.popularMoviesCollectionView.setData([])
             }
         }
 
+    }
+
+    private func loadTopRatedMovies(for optionId: Int) {
+        presenter.getTopRatedMovies(for: optionId) { [weak self] result in
+            if case .success(let movies) = result {
+                self?.topRatedMoviesCollectionView.setData(movies)
+            } else {
+                self?.topRatedMoviesCollectionView.setData([])
+            }
+        }
+    }
+
+    private func loadTrendingMovies(for optionId: Int) {
+        presenter.getTrendingMovies(for: optionId) { [weak self] result in
+            if case .success(let movies) = result {
+                self?.trendingMoviesCollectionView.setData(movies)
+            } else {
+                self?.trendingMoviesCollectionView.setData([])
+            }
+        }
     }
     
 }
