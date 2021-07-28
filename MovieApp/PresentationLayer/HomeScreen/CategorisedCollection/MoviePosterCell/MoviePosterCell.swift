@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 class MoviePosterCell: UICollectionViewCell {
 
@@ -21,6 +22,7 @@ class MoviePosterCell: UICollectionViewCell {
     }
 
     func setData(for movie: MovieViewModel) {
-        moviePoster.posterImage.image = UIImage(named: movie.posterSource)
+        let imageUrl = URL(string: "https://image.tmdb.org/t/p/w154"+movie.posterSource)
+        moviePoster.posterImage.kf.setImage(with: imageUrl)
     }
 }

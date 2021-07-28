@@ -19,14 +19,16 @@ extension ButtonBarView: ConstructViewsProtocol {
     }
 
     func setData(optionTitles: [String]) {
-        for title in optionTitles {
-            let underlinedButton = UnderlinedButtonView(title: title)
-            buttonStack.addArrangedSubview(underlinedButton)
-            underlinedButton.addTarget(self, action: #selector(onButtonTapped), for: .touchUpInside)
-        }
-        styleButtons()
-        if !optionTitles.isEmpty {
-            onButtonSelected(0)
+        DispatchQueue.main.async { [self] in
+            for title in optionTitles {
+                let underlinedButton = UnderlinedButtonView(title: title)
+                buttonStack.addArrangedSubview(underlinedButton)
+                underlinedButton.addTarget(self, action: #selector(onButtonTapped), for: .touchUpInside)
+            }
+            self.styleButtons()
+            if !optionTitles.isEmpty {
+                onButtonSelected(0)
+            }
         }
     }
 

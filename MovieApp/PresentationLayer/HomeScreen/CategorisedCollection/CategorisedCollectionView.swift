@@ -32,7 +32,7 @@ class CategorisedCollectionView: UIView {
     }
 
     func setInitialData(title: String, options: [OptionViewModel]) {
-        self.titleLabel.text = title
+        DispatchQueue.main.async { self.titleLabel.text = title }
         self.options = options
         optionsView.setData(optionTitles: options.map { $0.name })
     }

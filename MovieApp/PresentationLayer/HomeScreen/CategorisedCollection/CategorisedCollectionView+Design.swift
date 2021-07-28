@@ -44,14 +44,16 @@ extension CategorisedCollectionView: ConstructViewsProtocol {
     }
 
     func animatedDataReload() {
-        UIView.animate(
-            withDuration: 0.4,
-            animations: {
-                self.movieCollectionView.alpha = 0.5
-                self.movieCollectionView.reloadData()
-                self.movieCollectionView.setContentOffset(.zero, animated: true)
-                self.movieCollectionView.alpha = 1
-            })
+        DispatchQueue.main.async {
+            UIView.animate(
+                withDuration: 0.4,
+                animations: {
+                    self.movieCollectionView.alpha = 0.5
+                    self.movieCollectionView.reloadData()
+                    self.movieCollectionView.setContentOffset(.zero, animated: true)
+                    self.movieCollectionView.alpha = 1
+                })
+        }
     }
 
     private func makeCollectionView() -> UICollectionView {

@@ -1,9 +1,10 @@
 class MovieRepository: MovieRepositoryProtocol {
 
-    private let networkDataSource: NetworkDataSourceProtocol
+    private let networkDataSource: MovieNetworkDataSourceProtocol
+    
     private var storedPopularMovies: [MovieRepositoryModel]
 
-    init(networkDataSource: NetworkDataSourceProtocol) {
+    init(networkDataSource: MovieNetworkDataSourceProtocol) {
         self.networkDataSource = networkDataSource
         self.storedPopularMovies = []
     }
@@ -31,15 +32,25 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     func getPopularMovies(
-        for genreId: Int, _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+        for genreId: Int,
+        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
-        let popularMovies = MockMovieData.popularData
-        let popularMoviesForGenre = popularMovies.filter { $0.genres.contains(genreId) }
-        if popularMoviesForGenre.isEmpty {
-            completionHandler(.failure(.noDataError))
-        } else {
-            completionHandler(.success(popularMoviesForGenre))
+        getPopularMovies { result in
+            switch result {
+            case .success(let movieRepositoryModels):
+                let filteredMovieRepositoryModels = movieRepositoryModels.filter { $0.genres.contains(genreId) }
+                completionHandler(.success(filteredMovieRepositoryModels))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
         }
+//        let popularMovies = MockMovieData.popularData
+//        let popularMoviesForGenre = popularMovies.filter { $0.genres.contains(genreId) }
+//        if popularMoviesForGenre.isEmpty {
+//            completionHandler(.failure(.noDataError))
+//        } else {
+//            completionHandler(.success(popularMoviesForGenre))
+//        }
     }
 
     func getTopRatedMovies(
@@ -93,10 +104,10 @@ class MovieRepository: MovieRepositoryProtocol {
     private func getPopularMoviesFromLocal(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
-        if !storedPopularMovies.isEmpty {
-            completionHandler(.success(storedPopularMovies))
+        if storedPopularMovies.isEmpty {
+            completionHandler(.failure(.noDataError))
         } else {
-            completionHandler(.failure(RequestError.noDataError))
+            completionHandler(.success(storedPopularMovies))
         }
     }
 }
