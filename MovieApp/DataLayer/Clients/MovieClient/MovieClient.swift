@@ -22,37 +22,23 @@ class MovieClient: MovieClientProtocol {
             )
     }
 
-    func fetchPopularMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    ) {
-        fetchPopularMovies { result in
-            switch result {
-            case .success(let movieListModel):
-                print(movieListModel.movies)
-                completionHandler(.success(movieListModel))
-            case .failure(let error):
-                print(error)
-                completionHandler(.failure(error))
-            }
-        }
-    }
-
     func fetchTopRatedMovies(
-        for genreId: Int,
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     ) {
-        
+        let queryParameters = [
+            "language": "en-US",
+            "page": "1"
+        ]
+
+        baseApiClient
+            .get(
+                path: "/movie/top_rated",
+                queryParameters: queryParameters,
+                completionHandler: completionHandler)
     }
 
     func fetchTrendingMovies(
         for timeWindowId: Int,
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    ) {
-
-    }
-
-    private func fetchTopRatedMovies(
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     ) {
 

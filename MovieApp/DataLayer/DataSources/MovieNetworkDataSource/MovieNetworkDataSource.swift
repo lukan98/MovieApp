@@ -14,26 +14,12 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
         }
     }
 
-    func fetchPopularMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    ) {
-        fetchPopularMovies { result in
-            switch result {
-            case .success(let movieDataSourceModels):
-                let filteredMovieDataSourceModels = movieDataSourceModels.filter { $0.genres.contains(genreId) }
-                completionHandler(.success(filteredMovieDataSourceModels))
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
-        }
-    }
-
     func fetchTopRatedMovies(
-        for genreId: Int,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     ) {
-
+        movieClient.fetchTopRatedMovies { result in
+            completionHandler(result.map { $0.movies.map { MovieDataSourceModel(from: $0) } })
+        }
     }
 
     func fetchTrendingMovies(

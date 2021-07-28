@@ -68,12 +68,10 @@ class HomeScreenViewController: UIViewController {
 
     private func loadPopularMovies(for optionId: Int) {
         presenter.getPopularMovies(for: optionId) { [weak self] result in
-            guard let self = self else { return }
-
             if case .success(let movies) = result {
-                self.popularMoviesCollectionView.setData(movies)
+                self?.popularMoviesCollectionView.setData(movies)
             } else {
-                self.popularMoviesCollectionView.setData([])
+                self?.popularMoviesCollectionView.setData([])
             }
         }
 

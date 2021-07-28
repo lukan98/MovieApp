@@ -4,13 +4,7 @@ protocol MovieNetworkDataSourceProtocol {
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     )
 
-    func fetchPopularMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    )
-
     func fetchTopRatedMovies(
-        for genreId: Int,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     )
 
