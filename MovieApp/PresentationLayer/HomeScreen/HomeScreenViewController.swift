@@ -88,7 +88,9 @@ class HomeScreenViewController: UIViewController {
     }
 
     private func loadTrendingMovies(for optionId: Int) {
-        presenter.getTrendingMovies(for: optionId) { [weak self] result in
+        guard let timeWindow = TimeWindow(rawValue: optionId) else { return }
+
+        presenter.getTrendingMovies(for: timeWindow) { [weak self] result in
             if case .success(let movies) = result {
                 self?.trendingMoviesCollectionView.setData(movies)
             } else {

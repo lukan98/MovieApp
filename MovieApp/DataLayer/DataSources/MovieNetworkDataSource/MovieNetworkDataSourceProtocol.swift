@@ -9,7 +9,7 @@ protocol MovieNetworkDataSourceProtocol {
     )
 
     func fetchTrendingMovies(
-        for timeWindowId: Int,
+        for timeWindow: TimeWindow,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     )
 

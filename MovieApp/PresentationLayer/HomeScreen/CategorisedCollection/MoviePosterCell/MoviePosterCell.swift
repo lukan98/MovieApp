@@ -22,7 +22,7 @@ class MoviePosterCell: UICollectionViewCell {
     }
 
     func setData(for movie: MovieViewModel) {
-        let imageUrl = URL(string: "https://image.tmdb.org/t/p/w154"+movie.posterSource)
+        let imageUrl = URL(string: "https://image.tmdb.org/t/p/w154" + movie.posterSource)
         moviePoster.posterImage.kf.setImage(with: imageUrl)
     }
 }

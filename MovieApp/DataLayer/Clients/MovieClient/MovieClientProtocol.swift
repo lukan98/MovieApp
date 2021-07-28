@@ -9,7 +9,7 @@ protocol MovieClientProtocol {
     )
 
     func fetchTrendingMovies(
-        for timeWindowId: Int,
+        for timeWindow: TimeWindow,
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     )
     
