@@ -23,10 +23,10 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
     }
 
     func fetchTrendingMovies(
-        for timeWindow: TimeWindow,
+        for timeWindow: TimeWindowDataSourceModel,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     ) {
-        movieClient.fetchTrendingMovies(for: timeWindow) { result in
+        movieClient.fetchTrendingMovies(for: TimeWindowClientModel(from: timeWindow)) { result in
             completionHandler(result.map { $0.movies.map { MovieDataSourceModel(from: $0) } })
         }
     }

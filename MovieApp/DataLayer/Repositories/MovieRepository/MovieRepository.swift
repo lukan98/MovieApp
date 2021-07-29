@@ -4,7 +4,7 @@ class MovieRepository: MovieRepositoryProtocol {
     
     private var storedPopularMovies: [MovieRepositoryModel]
     private var storedTopRatedMovies: [MovieRepositoryModel]
-    private var storedTrendingMovies: [TimeWindow: [MovieRepositoryModel]]
+    private var storedTrendingMovies: [TimeWindowRepositoryModel: [MovieRepositoryModel]]
 
     init(networkDataSource: MovieNetworkDataSourceProtocol) {
         self.networkDataSource = networkDataSource
@@ -67,7 +67,7 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     func getTrendingMovies(
-        for timeWindow: TimeWindow,
+        for timeWindow: TimeWindowRepositoryModel,
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
         getTrendingMoviesFromLocal(for: timeWindow) { [weak self] result in
@@ -166,7 +166,7 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     private func getTrendingMoviesFromLocal(
-        for timeWindow: TimeWindow,
+        for timeWindow: TimeWindowRepositoryModel,
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
         if let storedTrendingMovies = storedTrendingMovies[timeWindow] {
@@ -177,10 +177,10 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     private func getTrendingMoviesFromNetwork(
-        for timeWindow: TimeWindow,
+        for timeWindow: TimeWindowRepositoryModel,
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
-        networkDataSource.fetchTrendingMovies(for: timeWindow) { [weak self] result in
+        networkDataSource.fetchTrendingMovies(for: TimeWindowDataSourceModel(from: timeWindow)) { [weak self] result in
             guard let self = self else { return }
 
             let mappedResult = result.map { $0.map { MovieRepositoryModel(from: $0) } }

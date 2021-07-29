@@ -13,7 +13,7 @@ protocol MovieUseCaseProtocol {
     )
 
     func getTrendingMovies(
-        for timeWindow: TimeWindow,
+        for timeWindow: TimeWindowModel,
         _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
     )
 

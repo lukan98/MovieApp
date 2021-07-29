@@ -38,7 +38,7 @@ class MovieClient: MovieClientProtocol {
     }
 
     func fetchTrendingMovies(
-        for timeWindow: TimeWindow,
+        for timeWindow: TimeWindowClientModel,
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     ) {
         let queryParameters = [
@@ -50,7 +50,7 @@ class MovieClient: MovieClientProtocol {
 
         baseApiClient
             .get(
-                path: "/trending/movie/" + (timeWindow.rawValue == 0 ? "day": "week"),
+                path: "/trending/movie/" + timeWindow.rawValue,
                 queryParameters: queryParameters,
                 completionHandler: completionHandler)
     }
