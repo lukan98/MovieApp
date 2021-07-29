@@ -3,19 +3,10 @@ enum TimeWindowModel {
     case week
 }
 
-// MARK: Model conversion
+// MARK: RepositoryModel to Model conversion
 extension TimeWindowModel {
 
-    init(from model: TimeWindowModel) {
-        switch model {
-        case .day:
-            self = .day
-        case .week:
-            self = .week
-        }
-    }
-
-    init(from model: TimeWindowViewModel) {
+    init(from model: TimeWindowRepositoryModel) {
         switch model {
         case .day:
             self = .day

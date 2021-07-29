@@ -15,4 +15,13 @@ extension TimeWindowViewModel {
         }
     }
 
+    func toModel() -> TimeWindowModel {
+        switch self {
+        case .day:
+            return TimeWindowModel.day
+        case .week:
+            return TimeWindowModel.week
+        }
+    }
+
 }

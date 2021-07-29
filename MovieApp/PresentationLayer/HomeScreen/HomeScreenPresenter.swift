@@ -45,7 +45,7 @@ class HomeScreenPresenter {
         for timeWindow: TimeWindowViewModel,
         _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
     ) {
-        movieUseCase.getTrendingMovies(for: TimeWindowModel(from: timeWindow)) { result in
+        movieUseCase.getTrendingMovies(for: timeWindow.toModel()) { result in
             DispatchQueue.main.async {
                 completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
             }
