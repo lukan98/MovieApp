@@ -15,13 +15,12 @@ extension TimeWindowRepositoryModel {
         }
     }
 
-    init(from model: TimeWindowModel) {
-        switch model {
+    func toDataSourceModel() -> TimeWindowDataSourceModel {
+        switch self {
         case .day:
-            self = .day
+            return .day
         case .week:
-            self = .week
+            return .week
         }
     }
-
 }

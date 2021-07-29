@@ -15,4 +15,13 @@ extension TimeWindowModel {
         }
     }
 
+    func toRepoModel() -> TimeWindowRepositoryModel {
+        switch self {
+        case .day:
+            return .day
+        case .week:
+            return .week
+        }
+    }
+
 }
