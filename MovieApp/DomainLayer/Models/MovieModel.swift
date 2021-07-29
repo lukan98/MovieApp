@@ -5,6 +5,7 @@ struct MovieModel {
     let name: String
     let posterSource: String
     let genres: [Int]
+    let isFavorited: Bool
 
 }
 
@@ -17,6 +18,7 @@ extension MovieModel {
         name = model.name
         posterSource = model.posterSource
         genres = model.genres
+        isFavorited = model.isFavorited
     }
 
 }

@@ -51,4 +51,8 @@ class HomeScreenPresenter {
             }
         }
     }
+
+    func toggleFavorited(for movieId: Int) {
+        movieUseCase.toggleFavorited(for: movieId)
+    }
 }

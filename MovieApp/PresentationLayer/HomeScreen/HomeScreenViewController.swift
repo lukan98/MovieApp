@@ -64,6 +64,10 @@ class HomeScreenViewController: UIViewController {
         trendingMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
             self?.loadTrendingMovies(for: optionId)
         }
+
+        popularMoviesCollectionView.onMovieFavorited = toggleFavorited
+        topRatedMoviesCollectionView.onMovieFavorited = toggleFavorited
+        trendingMoviesCollectionView.onMovieFavorited = toggleFavorited
     }
 
     private func loadPopularMovies(for optionId: Int) {
@@ -97,6 +101,10 @@ class HomeScreenViewController: UIViewController {
                 self?.trendingMoviesCollectionView.setData([])
             }
         }
+    }
+
+    private func toggleFavorited(for movieId: Int) {
+        self.presenter.toggleFavorited(for: movieId)
     }
     
 }

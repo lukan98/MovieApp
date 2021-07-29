@@ -19,4 +19,6 @@ protocol MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     )
 
+    func toggleFavorited(for movieId: Int)
+
 }

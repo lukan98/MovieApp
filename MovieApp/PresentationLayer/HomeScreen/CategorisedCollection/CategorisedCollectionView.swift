@@ -6,6 +6,7 @@ class CategorisedCollectionView: UIView {
     let defaultSpacing: CGFloat = 10
 
     var onCategoryChanged: (Int) -> Void = { _ in }
+    var onMovieFavorited: (Int) -> Void = { _ in }
 
     var titleLabel: UILabel!
     var optionsView: ButtonBarView!
@@ -79,11 +80,13 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
                 withReuseIdentifier: MoviePosterCell.cellIdentifier,
                 for: indexPath) as? MoviePosterCell
         else {
-            return MoviePosterCell()
+            let cell = MoviePosterCell()
+            return cell
         }
 
         let movie = movies[indexPath.row]
         cell.setData(for: movie)
+        cell.moviePoster.onFavoriteToggle = onMovieFavorited
         return cell
     }
 

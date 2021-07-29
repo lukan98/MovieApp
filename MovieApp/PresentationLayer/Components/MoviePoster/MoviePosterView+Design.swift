@@ -40,7 +40,8 @@ extension MoviePosterView: ConstructViewsProtocol {
 
     @objc
     func toggleFavorite() {
-        isFavorited = !isFavorited
+        isFavorited.toggle()
+        onFavoriteToggle(movieId)
     }
 
 }

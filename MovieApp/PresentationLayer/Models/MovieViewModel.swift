@@ -1,9 +1,11 @@
 struct MovieViewModel {
 
+    let id: Int
     let about: String
     let name: String
     let posterSource: String
     let genres: [Int]
+    let isFavorited: Bool
     
 }
 
@@ -11,10 +13,13 @@ struct MovieViewModel {
 extension MovieViewModel {
 
     init(from model: MovieModel) {
+        id = model.id
         about = model.about
         name = model.name
         posterSource = "https://image.tmdb.org/t/p/w154"+model.posterSource
         genres = model.genres
+        isFavorited = model.isFavorited
+
     }
 
 }
