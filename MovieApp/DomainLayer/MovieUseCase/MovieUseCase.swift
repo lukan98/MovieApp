@@ -31,10 +31,10 @@ class MovieUseCase: MovieUseCaseProtocol {
     }
 
     func getTrendingMovies(
-        for timeWindowId: Int,
+        for timeWindow: TimeWindowModel,
         _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
     ) {
-        movieRepository.getTrendingMovies(for: timeWindowId) { result in
+        movieRepository.getTrendingMovies(for: timeWindow.toRepoModel()) { result in
             completionHandler(result.map { $0.map { MovieModel(from: $0) } })
         }
     }

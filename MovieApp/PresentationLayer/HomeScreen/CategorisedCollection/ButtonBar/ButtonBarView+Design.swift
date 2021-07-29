@@ -24,7 +24,7 @@ extension ButtonBarView: ConstructViewsProtocol {
             buttonStack.addArrangedSubview(underlinedButton)
             underlinedButton.addTarget(self, action: #selector(onButtonTapped), for: .touchUpInside)
         }
-        styleButtons()
+        self.styleButtons()
         if !optionTitles.isEmpty {
             onButtonSelected(0)
         }

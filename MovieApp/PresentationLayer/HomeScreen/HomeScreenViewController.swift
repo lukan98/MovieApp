@@ -33,11 +33,13 @@ class HomeScreenViewController: UIViewController {
     private func loadMovieOptions() {
         presenter
             .getGenres { [weak self] result in
+                guard let self = self else { return }
+
                 if case .success(let genres) = result {
-                    self?.popularMoviesCollectionView.setInitialData(
+                    self.popularMoviesCollectionView.setInitialData(
                         title: "What's Popular",
                         options: genres.map { OptionViewModel(from: $0) })
-                    self?.topRatedMoviesCollectionView.setInitialData(
+                    self.topRatedMoviesCollectionView.setInitialData(
                         title: "Top Rated",
                         options: genres.map { OptionViewModel(from: $0) })
                 }
@@ -45,7 +47,9 @@ class HomeScreenViewController: UIViewController {
 
         let todayOption = OptionViewModel(id: 0, name: "Today")
         let thisWeekOption = OptionViewModel(id: 1, name: "This Week")
-        trendingMoviesCollectionView.setInitialData(title: "Trending", options: [todayOption, thisWeekOption])
+        trendingMoviesCollectionView.setInitialData(
+            title: "Trending",
+            options: [todayOption, thisWeekOption])
     }
 
     private func bindViews() {
@@ -64,12 +68,10 @@ class HomeScreenViewController: UIViewController {
 
     private func loadPopularMovies(for optionId: Int) {
         presenter.getPopularMovies(for: optionId) { [weak self] result in
-            guard let self = self else { return }
-
             if case .success(let movies) = result {
-                self.popularMoviesCollectionView.setData(movies)
+                self?.popularMoviesCollectionView.setData(movies)
             } else {
-                self.popularMoviesCollectionView.setData([])
+                self?.popularMoviesCollectionView.setData([])
             }
         }
 
@@ -86,7 +88,9 @@ class HomeScreenViewController: UIViewController {
     }
 
     private func loadTrendingMovies(for optionId: Int) {
-        presenter.getTrendingMovies(for: optionId) { [weak self] result in
+        guard let timeWindow = TimeWindowViewModel(rawValue: optionId) else { return }
+
+        presenter.getTrendingMovies(for: timeWindow) { [weak self] result in
             if case .success(let movies) = result {
                 self?.trendingMoviesCollectionView.setData(movies)
             } else {

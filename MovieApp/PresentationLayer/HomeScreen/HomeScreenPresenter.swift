@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 class HomeScreenPresenter {
 
     private let movieUseCase: MovieUseCaseProtocol
@@ -10,7 +13,9 @@ class HomeScreenPresenter {
 
     func getGenres(_ completionHandler: @escaping (Result<[GenreViewModel], RequestError>) -> Void) {
         genreUseCase.getGenres { result in
-            completionHandler(result.map { $0.map { GenreViewModel(from: $0) } })
+            DispatchQueue.main.async {
+                completionHandler(result.map { $0.map { GenreViewModel(from: $0) } })
+            }
         }
     }
 
@@ -19,7 +24,9 @@ class HomeScreenPresenter {
         _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
     ) {
         movieUseCase.getPopularMovies(for: genreId) { result in
-            completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+            DispatchQueue.main.async {
+                completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+            }
         }
     }
 
@@ -28,16 +35,20 @@ class HomeScreenPresenter {
         _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
     ) {
         movieUseCase.getTopRatedMovies(for: genreId) { result in
-            completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+            DispatchQueue.main.async {
+                completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+            }
         }
     }
 
     func getTrendingMovies(
-        for timeWindowId: Int,
+        for timeWindow: TimeWindowViewModel,
         _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
     ) {
-        movieUseCase.getTrendingMovies(for: timeWindowId) { result in
-            completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+        movieUseCase.getTrendingMovies(for: timeWindow.toModel()) { result in
+            DispatchQueue.main.async {
+                completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
+            }
         }
     }
 }

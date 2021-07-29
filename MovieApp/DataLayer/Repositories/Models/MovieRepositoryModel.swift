@@ -16,7 +16,7 @@ extension MovieRepositoryModel {
         about = model.about
         name = model.name
         posterSource = model.posterSource
-        genres = []
+        genres = model.genres
     }
 
 }

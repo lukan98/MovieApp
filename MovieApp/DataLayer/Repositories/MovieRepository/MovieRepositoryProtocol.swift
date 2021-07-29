@@ -15,7 +15,7 @@ protocol MovieRepositoryProtocol {
     )
 
     func getTrendingMovies(
-        for timeWindowId: Int,
+        for timeWindow: TimeWindowRepositoryModel,
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     )
 

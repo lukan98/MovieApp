@@ -13,7 +13,7 @@ extension MovieViewModel {
     init(from model: MovieModel) {
         about = model.about
         name = model.name
-        posterSource = model.posterSource
+        posterSource = "https://image.tmdb.org/t/p/w154"+model.posterSource
         genres = model.genres
     }
 
