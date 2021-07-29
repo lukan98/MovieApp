@@ -34,7 +34,7 @@ class MovieUseCase: MovieUseCaseProtocol {
         for timeWindow: TimeWindowModel,
         _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
     ) {
-        movieRepository.getTrendingMovies(for: TimeWindowRepositoryModel(from: timeWindow)) { result in
+        movieRepository.getTrendingMovies(for: timeWindow.toRepoModel()) { result in
             completionHandler(result.map { $0.map { MovieModel(from: $0) } })
         }
     }

@@ -180,7 +180,7 @@ class MovieRepository: MovieRepositoryProtocol {
         for timeWindow: TimeWindowRepositoryModel,
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
-        networkDataSource.fetchTrendingMovies(for: TimeWindowDataSourceModel(from: timeWindow)) { [weak self] result in
+        networkDataSource.fetchTrendingMovies(for: timeWindow.toDataSourceModel()) { [weak self] result in
             guard let self = self else { return }
 
             let mappedResult = result.map { $0.map { MovieRepositoryModel(from: $0) } }
