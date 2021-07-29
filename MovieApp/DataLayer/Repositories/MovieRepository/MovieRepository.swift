@@ -1,28 +1,22 @@
 class MovieRepository: MovieRepositoryProtocol {
 
     private let networkDataSource: MovieNetworkDataSourceProtocol
+    private let userDefaultsDataSource: MovieUserDefaultsDataSourceProtocol
 
-    private var favoriteMovies = MockedFavorites.favorites {
-        didSet {
-            print(favoriteMovies)
-        }
+    private var favoriteMovies: [Int] {
+        userDefaultsDataSource.getFavorites()
     }
 
     private var storedPopularMovies: [MovieRepositoryModel]
     private var storedTopRatedMovies: [MovieRepositoryModel]
     private var storedTrendingMovies: [TimeWindowRepositoryModel: [MovieRepositoryModel]]
 
-    private var storedMovies: [MovieRepositoryModel] {
-        var movies = storedPopularMovies
-        movies.append(contentsOf: storedTopRatedMovies)
-        for (_, value) in storedTrendingMovies {
-            movies.append(contentsOf: value)
-        }
-        return movies
-    }
-
-    init(networkDataSource: MovieNetworkDataSourceProtocol) {
+    init(
+        networkDataSource: MovieNetworkDataSourceProtocol,
+        userDefaultsDataSource: MovieUserDefaultsDataSourceProtocol
+    ) {
         self.networkDataSource = networkDataSource
+        self.userDefaultsDataSource = userDefaultsDataSource
         self.storedPopularMovies = []
         self.storedTopRatedMovies = []
         self.storedTrendingMovies = [:]
@@ -105,30 +99,22 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     func toggleFavorited(for movieId: Int) {
-        let isFavorited = favoriteMovies.contains(movieId)
-        if isFavorited {
-            favoriteMovies.removeAll { $0 == movieId }
-        } else {
-            favoriteMovies.append(movieId)
-        }
-        toggleMovieFavorited(movieId)
+        userDefaultsDataSource.toggleFavorited(for: movieId)
+        updateMovieLists(movieId)
     }
 
-    private func toggleMovieFavorited(_ movieId: Int) {
-        storedPopularMovies = storedPopularMovies.map { movie in
+    private func updateMovieLists(_ movieId: Int) {
+        let updatingFunction: (MovieRepositoryModel) -> MovieRepositoryModel = { movie in
             if movie.id == movieId {
                 return MovieRepositoryModel(from: movie, isFavorited: !movie.isFavorited)
             } else {
                 return MovieRepositoryModel(from: movie, isFavorited: movie.isFavorited)
             }
         }
-
-        storedTopRatedMovies = storedTopRatedMovies.map { movie in
-            if movie.id == movieId {
-                return MovieRepositoryModel(from: movie, isFavorited: !movie.isFavorited)
-            } else {
-                return MovieRepositoryModel(from: movie, isFavorited: movie.isFavorited)
-            }
+        storedPopularMovies = storedPopularMovies.map { updatingFunction($0) }
+        storedTopRatedMovies = storedTopRatedMovies.map { updatingFunction($0) }
+        for (key, value) in storedTrendingMovies {
+            storedTrendingMovies[key] = value.map { updatingFunction($0) }
         }
     }
 
