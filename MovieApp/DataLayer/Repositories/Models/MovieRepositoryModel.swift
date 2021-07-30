@@ -7,17 +7,14 @@ struct MovieRepositoryModel {
     let genres: [Int]
     let isFavorited: Bool
 
-}
-
-extension MovieRepositoryModel {
-
-    init(from model: MovieRepositoryModel, isFavorited: Bool) {
-        id = model.id
-        about = model.about
-        name = model.name
-        posterSource = model.posterSource
-        genres = model.genres
-        self.isFavorited = isFavorited
+    public func withFavorited(_ isFavorited: Bool) -> MovieRepositoryModel {
+        MovieRepositoryModel(
+            id: self.id,
+            about: self.about,
+            name: self.name,
+            posterSource: self.posterSource,
+            genres: self.genres,
+            isFavorited: isFavorited)
     }
 
 }

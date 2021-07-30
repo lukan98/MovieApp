@@ -9,10 +9,21 @@ class CategorisedCollectionView: UIView {
     var onMovieFavorited: (Int) -> Void = { _ in }
 
     var titleLabel: UILabel!
-    var optionsView: ButtonBarView!
+    var categoriesView: ButtonBarView!
     var movieCollectionView: UICollectionView!
+    var currentlySelectedCategory: OptionViewModel {
+        let index = categoriesView.selectedButtonIndex
+        guard
+            index >= 0,
+            index < self.categories.count
+        else {
+            return categories[0]
+        }
 
-    private var options: [OptionViewModel] = []
+        return categories[index]
+    }
+
+    private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
 
     init() {
@@ -34,26 +45,30 @@ class CategorisedCollectionView: UIView {
 
     func setInitialData(title: String, options: [OptionViewModel]) {
         self.titleLabel.text = title
-        self.options = options
-        optionsView.setData(optionTitles: options.map { $0.name })
+        self.categories = options
+        categoriesView.setData(optionTitles: options.map { $0.name })
     }
 
-    func setData(_ data: [MovieViewModel]) {
+    func setData(_ data: [MovieViewModel], _ animated: Bool) {
         self.movies = data
-        animatedDataReload()
+        if animated {
+            animatedDataReload()
+        } else {
+            movieCollectionView.reloadData()
+        }
     }
 
     private func bindViews() {
-        optionsView.onButtonSelected = { [weak self] index in
+        categoriesView.onButtonSelected = { [weak self] index in
             guard
                 let self = self,
                 index >= 0,
-                index < self.options.count
+                index < self.categories.count
             else {
                 return
             }
 
-            let optionId = self.options[index].id
+            let optionId = self.categories[index].id
             self.onCategoryChanged(optionId)
         }
     }
@@ -86,12 +101,7 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
 
         let movie = movies[indexPath.row]
         cell.setData(for: movie)
-        cell.moviePoster.onFavoriteToggle = { [self] movieId in
-            movies = movies.map {
-                $0.id == movieId ? MovieViewModel(from: $0, isFavorited: !$0.isFavorited) : $0
-            }
-            onMovieFavorited(movieId)
-        }
+        cell.moviePoster.onFavoriteToggle = onMovieFavorited
         return cell
     }
 

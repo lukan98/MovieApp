@@ -11,9 +11,9 @@ extension CategorisedCollectionView: ConstructViewsProtocol {
         titleLabel = UILabel()
         addSubview(titleLabel)
         
-        optionsView = ButtonBarView()
-        addSubview(optionsView)
-        bringSubviewToFront(optionsView)
+        categoriesView = ButtonBarView()
+        addSubview(categoriesView)
+        bringSubviewToFront(categoriesView)
         
         movieCollectionView = makeCollectionView()
         addSubview(movieCollectionView)
@@ -31,13 +31,13 @@ extension CategorisedCollectionView: ConstructViewsProtocol {
             $0.top.leading.trailing.equalToSuperview().inset(defaultInset)
         }
         
-        optionsView.snp.makeConstraints {
+        categoriesView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(defaultSpacing)
             $0.leading.trailing.equalToSuperview().inset(defaultInset)
         }
         
         movieCollectionView.snp.makeConstraints {
-            $0.top.equalTo(optionsView.snp.bottom).offset(2 * defaultSpacing)
+            $0.top.equalTo(categoriesView.snp.bottom).offset(2 * defaultSpacing)
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(180 + defaultInset)
         }

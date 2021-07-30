@@ -9,19 +9,6 @@ struct MovieViewModel {
     
 }
 
-extension MovieViewModel {
-
-    init(from model: MovieViewModel, isFavorited: Bool) {
-        id = model.id
-        about = model.about
-        name = model.name
-        posterSource = model.posterSource
-        genres = model.genres
-        self.isFavorited = isFavorited
-    }
-
-}
-
 // MARK: Model to ViewModel conversion
 extension MovieViewModel {
 

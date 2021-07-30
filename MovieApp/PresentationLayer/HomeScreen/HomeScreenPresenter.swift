@@ -52,7 +52,8 @@ class HomeScreenPresenter {
         }
     }
 
-    func toggleFavorited(for movieId: Int) {
+    func toggleFavorited(for movieId: Int, _ completionHandler: () -> Void) {
         movieUseCase.toggleFavorited(for: movieId)
+        completionHandler()
     }
 }
