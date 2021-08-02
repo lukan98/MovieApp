@@ -1,3 +1,5 @@
+import Foundation
+
 class FavoritesPresenter {
 
     func getFavoriteMovies(
@@ -11,7 +13,11 @@ class FavoritesPresenter {
             genres: [18, 80],
             isFavorited: false)
         let mockMovies = Array(repeating: mockMovie, count: 100)
-        completionHandler(.success(mockMovies))
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.async {
+                completionHandler(.success(mockMovies))
+            }
+        }
     }
 
 }
