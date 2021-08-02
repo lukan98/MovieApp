@@ -2,17 +2,45 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
 
+    var onMovieFavorited: (Int) -> Void = { _ in }
     var navigationView: NavBarView!
     var favoritesLabel: UILabel!
     var movieCollectionView: UICollectionView!
 
     private let inset: CGFloat = 20
     private let verticalSpacing: CGFloat = 35
+    private let presenter: FavoritesPresenter
+
+    private var movies: [MovieViewModel] = []
+
+    init(presenter: FavoritesPresenter) {
+        self.presenter = presenter
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         buildViews()
+        loadData()
+    }
+
+    private func loadData() {
+        presenter.getFavoriteMovies { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let movieViewModels):
+                self.movies = movieViewModels
+            case .failure:
+                print("Failed to get favorite movies!")
+            }
+        }
     }
 
 }
@@ -23,7 +51,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        100
+        movies.count
     }
 
     func collectionView(
@@ -39,16 +67,8 @@ extension FavoritesViewController: UICollectionViewDataSource {
             return cell
         }
 
-        let movie = MovieViewModel(
-            id: 1,
-            about: "",
-            name: "",
-            posterSource: "https://image.tmdb.org/t/p/w185/rYFAvSPlQUCebayLcxyK79yvtvV.jpg",
-            genres: [],
-            isFavorited: true)
-        
-        cell.setData(for: movie)
-        cell.moviePoster.onFavoriteToggle = { _ in }
+        cell.setData(for: movies[indexPath.row])
+        cell.moviePoster.onFavoriteToggle = onMovieFavorited
         return cell
     }
 
