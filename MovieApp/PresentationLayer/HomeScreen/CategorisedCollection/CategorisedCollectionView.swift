@@ -14,14 +14,6 @@ class CategorisedCollectionView: UIView {
     var currentlySelectedCategory: OptionViewModel? {
         let index = categoriesView.selectedButtonIndex
         return categories.at(index)
-//        guard
-//            index >= 0,
-//            index < self.categories.count
-//        else {
-//            return categories[0]
-//        }
-//
-//        return categories[index]
     }
 
     private var categories: [OptionViewModel] = []
@@ -50,7 +42,7 @@ class CategorisedCollectionView: UIView {
         categoriesView.setData(optionTitles: options.map { $0.name })
     }
 
-    func setData(_ data: [MovieViewModel], _ animated: Bool) {
+    func setData(_ data: [MovieViewModel], animated: Bool) {
         self.movies = data
         if animated {
             animatedDataReload()

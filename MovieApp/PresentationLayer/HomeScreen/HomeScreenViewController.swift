@@ -73,9 +73,9 @@ class HomeScreenViewController: UIViewController {
     private func loadPopularMovies(for optionId: Int, animated: Bool = true) {
         presenter.getPopularMovies(for: optionId) { [weak self] result in
             if case .success(let movies) = result {
-                self?.popularMoviesCollectionView.setData(movies, animated)
+                self?.popularMoviesCollectionView.setData(movies, animated: animated)
             } else {
-                self?.popularMoviesCollectionView.setData([], animated)
+                self?.popularMoviesCollectionView.setData([], animated: animated)
             }
         }
     }
@@ -83,9 +83,9 @@ class HomeScreenViewController: UIViewController {
     private func loadTopRatedMovies(for optionId: Int, animated: Bool = true) {
         presenter.getTopRatedMovies(for: optionId) { [weak self] result in
             if case .success(let movies) = result {
-                self?.topRatedMoviesCollectionView.setData(movies, animated)
+                self?.topRatedMoviesCollectionView.setData(movies, animated: animated)
             } else {
-                self?.topRatedMoviesCollectionView.setData([], animated)
+                self?.topRatedMoviesCollectionView.setData([], animated: animated)
             }
         }
     }
@@ -95,9 +95,9 @@ class HomeScreenViewController: UIViewController {
 
         presenter.getTrendingMovies(for: timeWindow) { [weak self] result in
             if case .success(let movies) = result {
-                self?.trendingMoviesCollectionView.setData(movies, animated)
+                self?.trendingMoviesCollectionView.setData(movies, animated: animated)
             } else {
-                self?.trendingMoviesCollectionView.setData([], animated)
+                self?.trendingMoviesCollectionView.setData([], animated: animated)
             }
         }
     }
