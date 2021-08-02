@@ -46,13 +46,23 @@ class MovieClient: MovieClientProtocol {
             "page": "1",
         ]
 
-
-
         baseApiClient
             .get(
                 path: "/trending/movie/" + timeWindow.rawValue,
                 queryParameters: queryParameters,
                 completionHandler: completionHandler)
+    }
+
+    func fetchMovieDetails(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<DetailedMovieClientModel, RequestError>) -> Void
+    ) {
+        let queryParameters = ["language": "en-US"]
+
+        baseApiClient
+            .get(path: "/movie/" + String(movieId),
+                 queryParameters: queryParameters,
+                 completionHandler: completionHandler)
     }
 
 }
