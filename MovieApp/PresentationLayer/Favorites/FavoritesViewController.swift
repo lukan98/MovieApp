@@ -37,6 +37,7 @@ class FavoritesViewController: UIViewController {
             switch result {
             case .success(let movieViewModels):
                 self.movies = movieViewModels
+                self.movieCollectionView.reloadData()
             case .failure:
                 print("Failed to get favorite movies!")
             }
