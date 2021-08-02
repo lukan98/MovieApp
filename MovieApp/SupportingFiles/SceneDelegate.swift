@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             selectedImage: UIImage(named: "Home-fill"),
             font: styledFont)
 
-        let favorites = FavoritesViewController(presenter: FavoritesPresenter())
+        let favorites = FavoritesViewController(presenter: FavoritesPresenter(useCase: appDependencies.movieUseCase))
         favorites.styleForTabBar(
             title: "Favorites",
             image: UIImage(named: "Favorites-outline"),

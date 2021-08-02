@@ -93,7 +93,7 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
         }
 
         let movie = movies[indexPath.row]
-        cell.setData(for: movie)
+        cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
         cell.moviePoster.onFavoriteToggle = onMovieFavorited
         return cell
     }

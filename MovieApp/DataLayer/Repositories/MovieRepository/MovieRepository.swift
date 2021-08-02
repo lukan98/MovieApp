@@ -7,6 +7,10 @@ class MovieRepository: MovieRepositoryProtocol {
     private var storedTopRatedMovies: [MovieRepositoryModel]
     private var storedTrendingMovies: [TimeWindowRepositoryModel: [MovieRepositoryModel]]
 
+    var favoriteMovies: [Int] {
+        localMetadataSource.favorites
+    }
+
     init(
         networkDataSource: MovieNetworkDataSourceProtocol,
         localMetadataSource: MovieLocalMetadataSourceProtocol
@@ -98,6 +102,16 @@ class MovieRepository: MovieRepositoryProtocol {
         localMetadataSource.toggleFavorited(for: movieId)
         let favorites = localMetadataSource.favorites
         updateMovieLists(favoritedMovies: favorites)
+    }
+
+    func getMovieDetails(
+        with movieId: Int,
+        _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
+    ) {
+        // TODO: Needs to label movie as favorite if neccessary
+        networkDataSource.fetchMovieDetails(for: movieId) { result in
+            completionHandler(result.map { DetailedMovieRepositoryModel(from: $0) })
+        }
     }
 
     private func updateMovieLists(favoritedMovies: [Int]) {

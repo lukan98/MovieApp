@@ -42,9 +42,9 @@ class MoviePosterView: UIView {
         favoriteButton.layer.cornerRadius = favoriteButton.frame.height * 0.5
     }
 
-    func setData(for movie: MovieViewModel) {
-        movieId = movie.id
-        isFavorited = movie.isFavorited
+    func setData(id: Int, isFavorited: Bool) {
+        movieId = id
+        self.isFavorited = isFavorited
     }
 
 }
