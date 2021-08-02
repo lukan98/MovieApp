@@ -2,15 +2,15 @@ import Foundation
 
 class MovieUserDefaultsDataSource: MovieLocalMetadataSourceProtocol {
 
+    private let userDefaults = UserDefaults.standard
+    private let favoritesKey = "movie.favorites"
+
     var favorites: [Int] {
         if let favorites = userDefaults.object(forKey: favoritesKey) as? [Int] {
             return favorites
         }
         return []
     }
-
-    private let userDefaults = UserDefaults.standard
-    private let favoritesKey = "movie.favorites"
 
     func toggleFavorited(for movieId: Int) {
         guard var favorites = userDefaults.object(forKey: favoritesKey) as? [Int] else {

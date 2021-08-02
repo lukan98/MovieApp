@@ -107,14 +107,22 @@ class HomeScreenViewController: UIViewController {
     }
 
     private func reloadData() {
+        guard
+            let popularOption = popularMoviesCollectionView.currentlySelectedCategory,
+            let topRatedOption = topRatedMoviesCollectionView.currentlySelectedCategory,
+            let trendingOption = trendingMoviesCollectionView.currentlySelectedCategory
+        else {
+            return
+        }
+
         loadPopularMovies(
-            for: popularMoviesCollectionView.currentlySelectedCategory.id,
+            for: popularOption.id,
             animated: false)
         loadTopRatedMovies(
-            for: topRatedMoviesCollectionView.currentlySelectedCategory.id,
+            for: topRatedOption.id,
             animated: false)
         loadTrendingMovies(
-            for: trendingMoviesCollectionView.currentlySelectedCategory.id,
+            for: trendingOption.id,
             animated: false)
     }
     

@@ -11,16 +11,17 @@ class CategorisedCollectionView: UIView {
     var titleLabel: UILabel!
     var categoriesView: ButtonBarView!
     var movieCollectionView: UICollectionView!
-    var currentlySelectedCategory: OptionViewModel {
+    var currentlySelectedCategory: OptionViewModel? {
         let index = categoriesView.selectedButtonIndex
-        guard
-            index >= 0,
-            index < self.categories.count
-        else {
-            return categories[0]
-        }
-
-        return categories[index]
+        return categories.at(index)
+//        guard
+//            index >= 0,
+//            index < self.categories.count
+//        else {
+//            return categories[0]
+//        }
+//
+//        return categories[index]
     }
 
     private var categories: [OptionViewModel] = []
