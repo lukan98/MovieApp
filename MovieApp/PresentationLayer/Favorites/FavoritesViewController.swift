@@ -2,7 +2,6 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
 
-    var onMovieFavorited: (Int) -> Void = { _ in }
     var navigationView: NavBarView!
     var favoritesLabel: UILabel!
     var movieCollectionView: UICollectionView!
@@ -75,7 +74,13 @@ extension FavoritesViewController: UICollectionViewDataSource {
 
         let movie = movies[indexPath.row]
         cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
-        cell.moviePoster.onFavoriteToggle = onMovieFavorited
+        cell.moviePoster.onFavoriteToggle = { [weak self] movieId in
+            guard let self = self else { return }
+
+            self.presenter.toggleFavorited(for: movieId) {
+                self.loadData()
+            }
+        }
         return cell
     }
 

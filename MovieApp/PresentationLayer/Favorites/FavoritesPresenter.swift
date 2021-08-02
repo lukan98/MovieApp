@@ -19,4 +19,9 @@ class FavoritesPresenter {
             }
     }
 
+    func toggleFavorited(for movieId: Int, _ completionHandler: () -> Void) {
+        useCase.toggleFavorited(for: movieId)
+        completionHandler()
+    }
+
 }
