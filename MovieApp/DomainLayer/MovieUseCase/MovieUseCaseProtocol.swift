@@ -17,4 +17,6 @@ protocol MovieUseCaseProtocol {
         _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
     )
 
+    func toggleFavorited(for movieId: Int)
+
 }

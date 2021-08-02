@@ -5,7 +5,12 @@ class MoviePosterView: UIView {
     let cornerRadius: CGFloat = 10
     let buttonSize = CGSize(width: 32, height: 32)
 
-    var isFavorited: Bool = false {
+    var onFavoriteToggle: (Int) -> Void = { _ in }
+
+    var favoriteButton: UIButton!
+    var posterImage: UIImageView!
+    var movieId: Int!
+    var isFavorited: Bool! {
         didSet {
             if isFavorited {
                 favoriteButton.setImage(UIImage(named: "Favorites-fill"), for: .normal)
@@ -14,9 +19,6 @@ class MoviePosterView: UIView {
             }
         }
     }
-    
-    var favoriteButton: UIButton!
-    var posterImage: UIImageView!
 
     init() {
         super.init(frame: .zero)
@@ -38,6 +40,11 @@ class MoviePosterView: UIView {
         super.layoutSubviews()
 
         favoriteButton.layer.cornerRadius = favoriteButton.frame.height * 0.5
+    }
+
+    func setData(for movie: MovieViewModel) {
+        movieId = movie.id
+        isFavorited = movie.isFavorited
     }
 
 }

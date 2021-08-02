@@ -64,39 +64,66 @@ class HomeScreenViewController: UIViewController {
         trendingMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
             self?.loadTrendingMovies(for: optionId)
         }
+
+        popularMoviesCollectionView.onMovieFavorited = toggleFavorited
+        topRatedMoviesCollectionView.onMovieFavorited = toggleFavorited
+        trendingMoviesCollectionView.onMovieFavorited = toggleFavorited
     }
 
-    private func loadPopularMovies(for optionId: Int) {
+    private func loadPopularMovies(for optionId: Int, animated: Bool = true) {
         presenter.getPopularMovies(for: optionId) { [weak self] result in
             if case .success(let movies) = result {
-                self?.popularMoviesCollectionView.setData(movies)
+                self?.popularMoviesCollectionView.setData(movies, animated: animated)
             } else {
-                self?.popularMoviesCollectionView.setData([])
+                self?.popularMoviesCollectionView.setData([], animated: animated)
             }
         }
-
     }
 
-    private func loadTopRatedMovies(for optionId: Int) {
+    private func loadTopRatedMovies(for optionId: Int, animated: Bool = true) {
         presenter.getTopRatedMovies(for: optionId) { [weak self] result in
             if case .success(let movies) = result {
-                self?.topRatedMoviesCollectionView.setData(movies)
+                self?.topRatedMoviesCollectionView.setData(movies, animated: animated)
             } else {
-                self?.topRatedMoviesCollectionView.setData([])
+                self?.topRatedMoviesCollectionView.setData([], animated: animated)
             }
         }
     }
 
-    private func loadTrendingMovies(for optionId: Int) {
+    private func loadTrendingMovies(for optionId: Int, animated: Bool = true) {
         guard let timeWindow = TimeWindowViewModel(rawValue: optionId) else { return }
 
         presenter.getTrendingMovies(for: timeWindow) { [weak self] result in
             if case .success(let movies) = result {
-                self?.trendingMoviesCollectionView.setData(movies)
+                self?.trendingMoviesCollectionView.setData(movies, animated: animated)
             } else {
-                self?.trendingMoviesCollectionView.setData([])
+                self?.trendingMoviesCollectionView.setData([], animated: animated)
             }
         }
+    }
+
+    private func toggleFavorited(for movieId: Int) {
+        presenter.toggleFavorited(for: movieId) { self.reloadData() }
+    }
+
+    private func reloadData() {
+        guard
+            let popularOption = popularMoviesCollectionView.currentlySelectedCategory,
+            let topRatedOption = topRatedMoviesCollectionView.currentlySelectedCategory,
+            let trendingOption = trendingMoviesCollectionView.currentlySelectedCategory
+        else {
+            return
+        }
+
+        loadPopularMovies(
+            for: popularOption.id,
+            animated: false)
+        loadTopRatedMovies(
+            for: topRatedOption.id,
+            animated: false)
+        loadTrendingMovies(
+            for: trendingOption.id,
+            animated: false)
     }
     
 }

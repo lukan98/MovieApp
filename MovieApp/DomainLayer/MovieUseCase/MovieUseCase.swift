@@ -38,4 +38,8 @@ class MovieUseCase: MovieUseCaseProtocol {
             completionHandler(result.map { $0.map { MovieModel(from: $0) } })
         }
     }
+
+    func toggleFavorited(for movieId: Int) {
+        movieRepository.toggleFavorited(for: movieId)
+    }
 }

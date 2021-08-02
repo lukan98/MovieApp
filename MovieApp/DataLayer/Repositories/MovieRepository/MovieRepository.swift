@@ -1,13 +1,18 @@
 class MovieRepository: MovieRepositoryProtocol {
 
     private let networkDataSource: MovieNetworkDataSourceProtocol
+    private let localMetadataSource: MovieLocalMetadataSourceProtocol
     
     private var storedPopularMovies: [MovieRepositoryModel]
     private var storedTopRatedMovies: [MovieRepositoryModel]
     private var storedTrendingMovies: [TimeWindowRepositoryModel: [MovieRepositoryModel]]
 
-    init(networkDataSource: MovieNetworkDataSourceProtocol) {
+    init(
+        networkDataSource: MovieNetworkDataSourceProtocol,
+        localMetadataSource: MovieLocalMetadataSourceProtocol
+    ) {
         self.networkDataSource = networkDataSource
+        self.localMetadataSource = localMetadataSource
         self.storedPopularMovies = []
         self.storedTopRatedMovies = []
         self.storedTrendingMovies = [:]
@@ -20,15 +25,15 @@ class MovieRepository: MovieRepositoryProtocol {
             guard let self = self else { return }
 
             switch result {
-            case .success(let localMovies):
-                completionHandler(.success(localMovies))
+            case .success(let movieRepositoryModels):
+                completionHandler(.success(movieRepositoryModels))
             case .failure:
                 self.getPopularMoviesFromNetwork { result in
                     switch result {
-                    case .success(let remoteMovies):
-                        completionHandler(.success(remoteMovies))
-                    case .failure(let remoteError):
-                        completionHandler(.failure(remoteError))
+                    case .success(let movieRepositoryModels):
+                        completionHandler(.success(movieRepositoryModels))
+                    case .failure(let error):
+                        completionHandler(.failure(error))
                     }
                 }
             }
@@ -89,6 +94,24 @@ class MovieRepository: MovieRepositoryProtocol {
         }
     }
 
+    func toggleFavorited(for movieId: Int) {
+        localMetadataSource.toggleFavorited(for: movieId)
+        let favorites = localMetadataSource.favorites
+        updateMovieLists(favoritedMovies: favorites)
+    }
+
+    private func updateMovieLists(favoritedMovies: [Int]) {
+        let updatingFunction: (MovieRepositoryModel) -> MovieRepositoryModel = { movie in
+            let isFavorited = favoritedMovies.contains(movie.id)
+            return movie.withFavorited(isFavorited)
+        }
+        storedPopularMovies = storedPopularMovies.map { updatingFunction($0) }
+        storedTopRatedMovies = storedTopRatedMovies.map { updatingFunction($0) }
+        for (key, value) in storedTrendingMovies {
+            storedTrendingMovies[key] = value.map { updatingFunction($0) }
+        }
+    }
+
     private func getPopularMoviesFromNetwork(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     ) {
@@ -99,7 +122,9 @@ class MovieRepository: MovieRepositoryProtocol {
             switch mappedResult {
             case .success(let repositoryMovieModels):
                 self.storedPopularMovies = repositoryMovieModels
-                completionHandler(.success(repositoryMovieModels))
+                let favorites = self.localMetadataSource.favorites
+                self.updateMovieLists(favoritedMovies: favorites)
+                self.getPopularMoviesFromLocal(completionHandler)
             case .failure(let error):
                 completionHandler(.failure(error))
             }
@@ -158,7 +183,9 @@ class MovieRepository: MovieRepositoryProtocol {
             switch mappedResult {
             case .success(let repositoryMovieModels):
                 self.storedTopRatedMovies = repositoryMovieModels
-                completionHandler(.success(repositoryMovieModels))
+                let favorites = self.localMetadataSource.favorites
+                self.updateMovieLists(favoritedMovies: favorites)
+                self.getTopRatedMoviesFromLocal(completionHandler)
             case .failure(let error):
                 completionHandler(.failure(error))
             }
@@ -187,7 +214,9 @@ class MovieRepository: MovieRepositoryProtocol {
             switch mappedResult {
             case .success(let repositoryMovieModels):
                 self.storedTrendingMovies[timeWindow] = repositoryMovieModels
-                completionHandler(.success(repositoryMovieModels))
+                let favorites = self.localMetadataSource.favorites
+                self.updateMovieLists(favoritedMovies: favorites)
+                self.getTrendingMoviesFromLocal(for: timeWindow, completionHandler)
             case .failure(let error):
                 completionHandler(.failure(error))
             }

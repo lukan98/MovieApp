@@ -6,12 +6,17 @@ class CategorisedCollectionView: UIView {
     let defaultSpacing: CGFloat = 10
 
     var onCategoryChanged: (Int) -> Void = { _ in }
+    var onMovieFavorited: (Int) -> Void = { _ in }
 
     var titleLabel: UILabel!
-    var optionsView: ButtonBarView!
+    var categoriesView: ButtonBarView!
     var movieCollectionView: UICollectionView!
+    var currentlySelectedCategory: OptionViewModel? {
+        let index = categoriesView.selectedButtonIndex
+        return categories.at(index)
+    }
 
-    private var options: [OptionViewModel] = []
+    private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
 
     init() {
@@ -33,26 +38,30 @@ class CategorisedCollectionView: UIView {
 
     func setInitialData(title: String, options: [OptionViewModel]) {
         self.titleLabel.text = title
-        self.options = options
-        optionsView.setData(optionTitles: options.map { $0.name })
+        self.categories = options
+        categoriesView.setData(optionTitles: options.map { $0.name })
     }
 
-    func setData(_ data: [MovieViewModel]) {
+    func setData(_ data: [MovieViewModel], animated: Bool) {
         self.movies = data
-        animatedDataReload()
+        if animated {
+            animatedDataReload()
+        } else {
+            movieCollectionView.reloadData()
+        }
     }
 
     private func bindViews() {
-        optionsView.onButtonSelected = { [weak self] index in
+        categoriesView.onButtonSelected = { [weak self] index in
             guard
                 let self = self,
                 index >= 0,
-                index < self.options.count
+                index < self.categories.count
             else {
                 return
             }
 
-            let optionId = self.options[index].id
+            let optionId = self.categories[index].id
             self.onCategoryChanged(optionId)
         }
     }
@@ -79,11 +88,13 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
                 withReuseIdentifier: MoviePosterCell.cellIdentifier,
                 for: indexPath) as? MoviePosterCell
         else {
-            return MoviePosterCell()
+            let cell = MoviePosterCell()
+            return cell
         }
 
         let movie = movies[indexPath.row]
         cell.setData(for: movie)
+        cell.moviePoster.onFavoriteToggle = onMovieFavorited
         return cell
     }
 
