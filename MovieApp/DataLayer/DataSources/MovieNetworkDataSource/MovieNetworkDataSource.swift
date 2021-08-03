@@ -31,4 +31,13 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
         }
     }
 
+    func fetchMovieDetails(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void
+    ) {
+        movieClient.fetchMovieDetails(for: movieId) { result in
+            completionHandler(result.map { DetailedMovieDataSourceModel(from: $0) })
+        }
+    }
+
 }

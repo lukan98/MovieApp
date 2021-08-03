@@ -16,8 +16,22 @@ extension MovieViewModel {
         id = model.id
         about = model.about
         name = model.name
-        posterSource = "https://image.tmdb.org/t/p/w154"+model.posterSource
+        posterSource = model.posterSource
         genres = model.genres
+        isFavorited = model.isFavorited
+    }
+
+}
+
+// MARK: From DetailedViewModel
+extension MovieViewModel {
+
+    init(from model: DetailedMovieViewModel) {
+        id = model.id
+        about = model.about
+        name = model.name
+        posterSource = model.posterSource
+        genres = model.genres.map { $0.id }
         isFavorited = model.isFavorited
     }
 

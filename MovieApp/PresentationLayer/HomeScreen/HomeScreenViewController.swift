@@ -30,6 +30,12 @@ class HomeScreenViewController: UIViewController {
         loadMovieOptions()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        reloadData()
+    }
+
     private func loadMovieOptions() {
         presenter
             .getGenres { [weak self] result in

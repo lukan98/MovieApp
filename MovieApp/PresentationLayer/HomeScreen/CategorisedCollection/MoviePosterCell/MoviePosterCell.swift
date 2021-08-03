@@ -21,9 +21,10 @@ class MoviePosterCell: UICollectionViewCell {
         defineLayoutForViews()
     }
 
-    func setData(for movie: MovieViewModel) {
-        moviePoster.setData(for: movie)
-        let imageUrl = URL(string: "https://image.tmdb.org/t/p/w154" + movie.posterSource)
+    func setData(id: Int, isFavorited: Bool, posterSource: String) {
+        moviePoster.setData(id: id, isFavorited: isFavorited)
+        let imageUrl = URL(string: posterSource)
         moviePoster.posterImage.kf.setImage(with: imageUrl)
     }
+    
 }

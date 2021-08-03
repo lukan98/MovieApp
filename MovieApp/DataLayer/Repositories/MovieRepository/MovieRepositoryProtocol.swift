@@ -1,5 +1,7 @@
 protocol MovieRepositoryProtocol {
 
+    var favoriteMovies: [Int] { get }
+
     func getPopularMovies(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     )
@@ -20,5 +22,10 @@ protocol MovieRepositoryProtocol {
     )
 
     func toggleFavorited(for movieId: Int)
+
+    func getMovieDetails(
+        with movieId: Int,
+        _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
+    )
 
 }

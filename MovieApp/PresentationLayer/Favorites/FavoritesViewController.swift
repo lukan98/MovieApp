@@ -2,7 +2,6 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
 
-    var onMovieFavorited: (Int) -> Void = { _ in }
     var navigationView: NavBarView!
     var favoritesLabel: UILabel!
     var movieCollectionView: UICollectionView!
@@ -11,7 +10,7 @@ class FavoritesViewController: UIViewController {
     private let verticalSpacing: CGFloat = 35
     private let presenter: FavoritesPresenter
 
-    private var movies: [MovieViewModel] = []
+    private var movies: [DetailedMovieViewModel] = []
 
     init(presenter: FavoritesPresenter) {
         self.presenter = presenter
@@ -27,9 +26,14 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
 
         buildViews()
-        loadData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        loadData()
+    }
+    
     private func loadData() {
         presenter.getFavoriteMovies { [weak self] result in
             guard let self = self else { return }
@@ -68,8 +72,15 @@ extension FavoritesViewController: UICollectionViewDataSource {
             return cell
         }
 
-        cell.setData(for: movies[indexPath.row])
-        cell.moviePoster.onFavoriteToggle = onMovieFavorited
+        let movie = movies[indexPath.row]
+        cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
+        cell.moviePoster.onFavoriteToggle = { [weak self] movieId in
+            guard let self = self else { return }
+
+            self.presenter.toggleFavorited(for: movieId) {
+                self.loadData()
+            }
+        }
         return cell
     }
 
