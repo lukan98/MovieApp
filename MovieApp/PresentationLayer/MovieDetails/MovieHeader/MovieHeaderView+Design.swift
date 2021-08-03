@@ -16,6 +16,12 @@ extension MovieHeaderView: ConstructViewsProtocol {
         gradientView = UIView()
         addSubview(gradientView)
 
+        ratingView = CircularRatingView()
+        addSubview(ratingView)
+
+        userScoreLabel = UILabel()
+        addSubview(userScoreLabel)
+
         titleLabel = UILabel()
         addSubview(titleLabel)
 
@@ -39,6 +45,9 @@ extension MovieHeaderView: ConstructViewsProtocol {
         backgroundPosterView.layer.masksToBounds = true
         backgroundPosterView.contentMode = .scaleAspectFill
 
+        userScoreLabel.font = UIFont(name: "ProximaNova-Bold", size: 14)
+        userScoreLabel.textColor = .white
+
         titleLabel.font = UIFont(name: "ProximaNova-Bold", size: 24)
         titleLabel.textColor = .white
 
@@ -51,7 +60,7 @@ extension MovieHeaderView: ConstructViewsProtocol {
         genresLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
         genresLabel.textColor = .white
 
-        runtimeLabel.font = UIFont(name: "ProximaNova-Bold", size: 14)
+        runtimeLabel.font = UIFont(name: "ProximaNova-Semibold", size: 14)
         runtimeLabel.textColor = .white
 
         favoriteButton.backgroundColor = UIColor(named: "Gray2")?.withAlphaComponent(0.6)
@@ -103,6 +112,16 @@ extension MovieHeaderView: ConstructViewsProtocol {
         releaseYearLabel.snp.makeConstraints {
             $0.leading.equalTo(titleLabel.snp.trailing).offset(spacing)
             $0.bottom.equalTo(titleLabel)
+        }
+
+        ratingView.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel)
+            $0.bottom.equalTo(titleLabel.snp.top).offset(-3 * spacing)
+        }
+
+        userScoreLabel.snp.makeConstraints {
+            $0.leading.equalTo(ratingView.snp.trailing).offset(spacing)
+            $0.centerY.equalTo(ratingView)
         }
     }
 

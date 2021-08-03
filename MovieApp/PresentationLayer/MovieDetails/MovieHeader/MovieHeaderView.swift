@@ -8,6 +8,8 @@ class MovieHeaderView: UIView {
 
     var backgroundPosterView: UIImageView!
     var gradientView: UIView!
+    var ratingView: CircularRatingView!
+    var userScoreLabel: UILabel!
     var titleLabel: UILabel!
     var releaseYearLabel: UILabel!
     var releaseDateLabel: UILabel!
@@ -45,6 +47,7 @@ class MovieHeaderView: UIView {
         let imageUrl = URL(string: movie.posterSource)
         backgroundPosterView.kf.setImage(with: imageUrl)
 
+        userScoreLabel.text = "User Score"
         titleLabel.text = movie.name
         releaseYearLabel.text = "(1976)"
         releaseDateLabel.text = "1976-02-09 (US)"
@@ -52,6 +55,8 @@ class MovieHeaderView: UIView {
         runtimeLabel.text = "2h 30m"
 
         isFavorited = movie.isFavorited
+
+        ratingView.setData(for: 8.6)
     }
 
 }
