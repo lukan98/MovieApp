@@ -28,14 +28,14 @@ class MovieDetailsViewController: UIViewController {
     }
 
     func loadData() {
-        presenter.getMovieDetails(for: 100) { [weak self] result in
+        presenter.getMovieDetails { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success(let movie):
                 self.headerView.setData(for: movie)
             case .failure:
-                print("ooops")
+                print("Failed to get movie details")
             }
         }
     }
