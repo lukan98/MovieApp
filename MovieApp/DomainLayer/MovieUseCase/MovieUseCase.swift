@@ -72,7 +72,16 @@ class MovieUseCase: MovieUseCaseProtocol {
         }
 
         favoriteMovieIds.forEach { id in
-            movieRepository.getMovieDetails(with: id, handler)
+            movieRepository.getMovieDetails(for: id, handler)
+        }
+    }
+
+    func getMovieDetails(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<DetailedMovieModel, RequestError>) -> Void
+    ) {
+        movieRepository.getMovieDetails(for: movieId) { result in
+            completionHandler(result.map { DetailedMovieModel(from: $0) })
         }
     }
 }

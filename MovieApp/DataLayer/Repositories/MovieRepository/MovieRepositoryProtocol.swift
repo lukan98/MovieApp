@@ -24,7 +24,7 @@ protocol MovieRepositoryProtocol {
     func toggleFavorited(for movieId: Int)
 
     func getMovieDetails(
-        with movieId: Int,
+        for movieId: Int,
         _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
     )
 
