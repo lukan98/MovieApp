@@ -96,12 +96,14 @@ extension MovieHeaderView: ConstructViewsProtocol {
 
         runtimeLabel.snp.makeConstraints {
             $0.leading.equalTo(genresLabel.snp.trailing).offset(spacing)
+            $0.trailing.lessThanOrEqualToSuperview().inset(spacing)
             $0.bottom.equalTo(genresLabel)
         }
 
         releaseDateLabel.snp.makeConstraints {
             $0.bottom.equalTo(genresLabel.snp.top).offset(-spacing)
             $0.leading.equalTo(genresLabel)
+            $0.trailing.lessThanOrEqualToSuperview().inset(spacing)
         }
 
         titleLabel.snp.makeConstraints {
@@ -111,6 +113,7 @@ extension MovieHeaderView: ConstructViewsProtocol {
 
         releaseYearLabel.snp.makeConstraints {
             $0.leading.equalTo(titleLabel.snp.trailing).offset(spacing)
+            $0.trailing.lessThanOrEqualToSuperview().inset(spacing)
             $0.bottom.equalTo(titleLabel)
         }
 
@@ -121,6 +124,7 @@ extension MovieHeaderView: ConstructViewsProtocol {
 
         userScoreLabel.snp.makeConstraints {
             $0.leading.equalTo(ratingView.snp.trailing).offset(spacing)
+            $0.trailing.equalToSuperview().inset(spacing)
             $0.centerY.equalTo(ratingView)
         }
     }

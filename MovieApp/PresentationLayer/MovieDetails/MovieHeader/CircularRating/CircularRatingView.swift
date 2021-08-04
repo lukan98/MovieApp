@@ -5,6 +5,10 @@ class CircularRatingView: UIView {
     let radius: CGFloat = 21
     let lineThickness: CGFloat = 3
 
+    var size: CGSize {
+        CGSize(width: radius * 2, height: radius * 2)
+    }
+
     var circleLayer: CAShapeLayer!
     var ratingLayer: CAShapeLayer!
     var ratingLabel: UILabel!
@@ -32,7 +36,7 @@ class CircularRatingView: UIView {
             return
         }
 
-        styleRatingLabel(for: String(format: "%.1f", rating) + "%")
+        styleRatingLabel(for: String(format: "%.0f", rating * 10) + "%")
         ratingAnimation(rating: rating / 10, duration: 0.5)
     }
 

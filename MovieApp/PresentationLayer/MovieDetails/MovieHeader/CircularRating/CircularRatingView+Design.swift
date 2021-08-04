@@ -70,8 +70,12 @@ extension CircularRatingView: ConstructViewsProtocol {
     }
 
     func defineLayoutForViews() {
+        snp.makeConstraints {
+            $0.size.equalTo(size)
+        }
+
         ratingLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+            $0.center.equalToSuperview()
         }
     }
 
