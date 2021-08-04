@@ -51,6 +51,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         overviewTitleLabel.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(4 * spacing)
             $0.leading.equalToSuperview().offset(4 * spacing)
+            $0.trailing.lessThanOrEqualToSuperview().inset(4 * spacing)
         }
 
         overviewLabel.snp.makeConstraints {
