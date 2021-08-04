@@ -34,7 +34,7 @@ extension DetailedMovieRepositoryModel {
         id = model.id
         about = model.about
         name = model.name
-        posterSource = "https://image.tmdb.org/t/p/w154" + model.posterSource
+        posterSource = "https://image.tmdb.org/t/p/original" + model.posterSource
         genres = model.genres.map { GenreRepositoryModel(from: $0) }
         self.isFavorited = isFavorited
         voteAverage = model.voteAverage

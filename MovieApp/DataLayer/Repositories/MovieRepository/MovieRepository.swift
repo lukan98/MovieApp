@@ -105,7 +105,7 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     func getMovieDetails(
-        with movieId: Int,
+        for movieId: Int,
         _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
     ) {
         networkDataSource.fetchMovieDetails(for: movieId) { result in
