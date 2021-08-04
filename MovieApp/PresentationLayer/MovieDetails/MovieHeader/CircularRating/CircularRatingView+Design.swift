@@ -15,8 +15,8 @@ extension CircularRatingView: ConstructViewsProtocol {
         let circularPath = UIBezierPath(
             arcCenter: CGPoint(x: radius, y: radius),
             radius: radius,
-            startAngle: -.pi/2,
-            endAngle: 3 * .pi/2,
+            startAngle: -.pi / 2,
+            endAngle: 3 * .pi / 2,
             clockwise: true)
 
         circleLayer.path = circularPath.cgPath
@@ -45,10 +45,12 @@ extension CircularRatingView: ConstructViewsProtocol {
     }
 
     func styleRatingLabel(for string: String = "%") {
-        let numberAttributes = [NSAttributedString.Key.font: UIFont(name: "ProximaNova-Bold", size: 15),
-                                NSAttributedString.Key.foregroundColor: UIColor.white]
-        let percentageAttributes = [NSAttributedString.Key.font: UIFont(name: "ProximaNova-Bold", size: 9),
-                                    NSAttributedString.Key.foregroundColor: UIColor.white]
+        let numberAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "ProximaNova-Bold", size: 15),
+            NSAttributedString.Key.foregroundColor: UIColor.white]
+        let percentageAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "ProximaNova-Bold", size: 9),
+            NSAttributedString.Key.foregroundColor: UIColor.white]
 
         let percentageRange = NSString(string: string).range(of: "%")
         let attributedString = NSMutableAttributedString(
