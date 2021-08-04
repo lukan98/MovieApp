@@ -32,12 +32,13 @@ extension CircularRatingView: ConstructViewsProtocol {
     func styleViews() {
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineCap = .round
-        circleLayer.lineWidth = 3
+        circleLayer.lineWidth = lineThickness
         circleLayer.strokeColor = UIColor(named: "DarkGreen")?.cgColor
 
         ratingLayer.fillColor = UIColor.clear.cgColor
         ratingLayer.lineCap = .round
-        ratingLayer.lineWidth = 3
+        ratingLayer.lineWidth = lineThickness
+        ratingLayer.strokeEnd = 0
         ratingLayer.strokeColor = UIColor(named: "LightGreen")?.cgColor
 
         styleRatingLabel()
@@ -57,6 +58,15 @@ extension CircularRatingView: ConstructViewsProtocol {
             percentageAttributes as [NSAttributedString.Key : Any],
             range: percentageRange)
         ratingLabel.attributedText = attributedString
+    }
+
+    func ratingAnimation(rating: Double, duration: TimeInterval) {
+        let circularRatingAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        circularRatingAnimation.duration = duration
+        circularRatingAnimation.toValue = rating
+        circularRatingAnimation.fillMode = .forwards
+        circularRatingAnimation.isRemovedOnCompletion = false
+        ratingLayer.add(circularRatingAnimation, forKey: "rating.animation")
     }
 
     func defineLayoutForViews() {

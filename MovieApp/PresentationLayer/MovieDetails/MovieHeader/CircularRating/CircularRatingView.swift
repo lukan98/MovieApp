@@ -3,6 +3,7 @@ import UIKit
 class CircularRatingView: UIView {
 
     let radius: CGFloat = 21
+    let lineThickness: CGFloat = 3
 
     var circleLayer: CAShapeLayer!
     var ratingLayer: CAShapeLayer!
@@ -31,9 +32,8 @@ class CircularRatingView: UIView {
             return
         }
 
-        ratingLayer.strokeEnd = CGFloat(rating)/10
-
         styleRatingLabel(for: String(format: "%.1f", rating) + "%")
+        ratingAnimation(rating: rating / 10, duration: 0.5)
     }
 
 }

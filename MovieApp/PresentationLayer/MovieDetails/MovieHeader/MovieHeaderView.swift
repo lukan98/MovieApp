@@ -56,7 +56,7 @@ class MovieHeaderView: UIView {
 
         isFavorited = movie.isFavorited
 
-        ratingView.setData(for: 8.6)
+        ratingView.setData(for: movie.voteAverage)
     }
 
 }

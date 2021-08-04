@@ -33,7 +33,9 @@ class MovieDetailsViewController: UIViewController {
 
             switch result {
             case .success(let movie):
-                self.headerView.setData(for: movie)
+                DispatchQueue.main.async {
+                    self.headerView.setData(for: movie)
+                }
             case .failure:
                 print("Failed to get movie details")
             }
