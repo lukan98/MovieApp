@@ -23,4 +23,9 @@ protocol MovieUseCaseProtocol {
         _ completionHandler: @escaping (Result<[DetailedMovieModel], RequestError>) -> Void
     )
 
+    func getMovieDetails(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<DetailedMovieModel, RequestError>) -> Void
+    )
+
 }

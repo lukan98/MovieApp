@@ -7,7 +7,7 @@ extension Date {
     }
 
     var uiYear: String {
-        toDateString(with: "(yyyy)")
+        "(" + toDateString(with: "yyyy") + ")"
     }
 
     init?(serverDate: String) {
