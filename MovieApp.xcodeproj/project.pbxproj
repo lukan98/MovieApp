@@ -51,8 +51,8 @@
 		FC6FE60F26B935E7003B29B1 /* MovieHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE60E26B935E7003B29B1 /* MovieHeaderView.swift */; };
 		FC6FE61126B93603003B29B1 /* MovieHeaderView+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE61026B93603003B29B1 /* MovieHeaderView+Design.swift */; };
 		FC6FE61326B94073003B29B1 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE61226B94073003B29B1 /* UIView+Extensions.swift */; };
-		FC6FE61A26B9900E003B29B1 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE61926B9900E003B29B1 /* Int+Extensions.swift */; };
 		FC6FE61C26BA7CC6003B29B1 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE61B26BA7CC5003B29B1 /* Date+Extensions.swift */; };
+		FC6FE61E26BA8D84003B29B1 /* TimeComponentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE61D26BA8D84003B29B1 /* TimeComponentsViewModel.swift */; };
 		FCB63A37269F0C0500E049A2 /* MovieInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A36269F0C0500E049A2 /* MovieInfoCell.swift */; };
 		FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A38269F0DB300E049A2 /* MovieInfoCell+Design.swift */; };
 		FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A3D269F375A00E049A2 /* MovieViewModel.swift */; };
@@ -146,8 +146,8 @@
 		FC6FE60E26B935E7003B29B1 /* MovieHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHeaderView.swift; sourceTree = "<group>"; };
 		FC6FE61026B93603003B29B1 /* MovieHeaderView+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieHeaderView+Design.swift"; sourceTree = "<group>"; };
 		FC6FE61226B94073003B29B1 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		FC6FE61926B9900E003B29B1 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		FC6FE61B26BA7CC5003B29B1 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		FC6FE61D26BA8D84003B29B1 /* TimeComponentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeComponentsViewModel.swift; sourceTree = "<group>"; };
 		FCB63A36269F0C0500E049A2 /* MovieInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoCell.swift; sourceTree = "<group>"; };
 		FCB63A38269F0DB300E049A2 /* MovieInfoCell+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieInfoCell+Design.swift"; sourceTree = "<group>"; };
 		FCB63A3D269F375A00E049A2 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
@@ -385,6 +385,7 @@
 				FC2774A726AEF87D00E157EC /* OptionViewModel.swift */,
 				FC2774C926B2949900E157EC /* TimeWindowViewModel.swift */,
 				FC6FE60426B835DB003B29B1 /* DetailedMovieViewModel.swift */,
+				FC6FE61D26BA8D84003B29B1 /* TimeComponentsViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -538,7 +539,6 @@
 				FCB63AA126A6D2EE00E049A2 /* UIViewController+Extensions.swift */,
 				FC6FE5F826B7DD73003B29B1 /* Array+Extensions.swift */,
 				FC6FE61226B94073003B29B1 /* UIView+Extensions.swift */,
-				FC6FE61926B9900E003B29B1 /* Int+Extensions.swift */,
 				FC6FE61B26BA7CC5003B29B1 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
@@ -719,6 +719,7 @@
 				FC6FE61C26BA7CC6003B29B1 /* Date+Extensions.swift in Sources */,
 				FC2774C226B1980500E157EC /* TimeWindowClientModel.swift in Sources */,
 				FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */,
+				FC6FE61E26BA8D84003B29B1 /* TimeComponentsViewModel.swift in Sources */,
 				FC2774A426AE9FA600E157EC /* GenreViewModel.swift in Sources */,
 				FCB63AAF26A8183300E049A2 /* ButtonBarView.swift in Sources */,
 				FCB63A4626A0563100E049A2 /* Result.swift in Sources */,
@@ -790,7 +791,6 @@
 				FCB63A7F26A571E400E049A2 /* MovieRepositoryProtocol.swift in Sources */,
 				FC592E5E269DE0E100233EFB /* NavBarView+Design.swift in Sources */,
 				FC2774C626B2927D00E157EC /* TimeWindowRepositoryModel.swift in Sources */,
-				FC6FE61A26B9900E003B29B1 /* Int+Extensions.swift in Sources */,
 				FCB63A9D26A6CD2600E049A2 /* HomeScreenViewController.swift in Sources */,
 				FC6FE60126B833C1003B29B1 /* DetailedMovieRepositoryModel.swift in Sources */,
 			);
