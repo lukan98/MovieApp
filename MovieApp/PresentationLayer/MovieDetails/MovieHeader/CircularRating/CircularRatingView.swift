@@ -4,6 +4,12 @@ class CircularRatingView: UIView {
 
     let radius: CGFloat = 21
     let lineThickness: CGFloat = 3
+    let maximumRating: Double = 10
+    let minimumRating: Double = 0
+
+    var size: CGSize {
+        CGSize(width: radius * 2, height: radius * 2)
+    }
 
     var circleLayer: CAShapeLayer!
     var ratingLayer: CAShapeLayer!
@@ -27,13 +33,15 @@ class CircularRatingView: UIView {
     }
 
     func setData(for rating: Double) {
-        guard rating >= 0, rating <= 10
+        guard
+            rating >= minimumRating,
+            rating <= maximumRating
         else {
             return
         }
 
-        styleRatingLabel(for: String(format: "%.1f", rating) + "%")
-        ratingAnimation(rating: rating / 10, duration: 0.5)
+        styleRatingLabel(for: String(Int(rating / maximumRating * 100)) + "%")
+        ratingAnimation(rating: rating / maximumRating, duration: 0.5)
     }
 
 }
