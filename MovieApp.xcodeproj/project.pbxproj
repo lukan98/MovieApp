@@ -307,14 +307,14 @@
 		FC592E49269DAB7A00233EFB /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				FC592E4D269DAC1800233EFB /* Components */,
 				FC592E53269DAFFD00233EFB /* ConstructViewsProtocol.swift */,
+				FC592E4D269DAC1800233EFB /* Components */,
 				FCB63A9926A6CCE000E049A2 /* Favorites */,
 				FCB63A9826A6CCDA00E049A2 /* HomeScreen */,
-				FC592E3A269D897E00233EFB /* LaunchScreen.storyboard */,
-				FCB63A3C269F374800E049A2 /* Models */,
 				FC6FE60626B931F8003B29B1 /* MovieDetails */,
 				FCB63A9526A5C1BA00E049A2 /* MovieList */,
+				FC592E3A269D897E00233EFB /* LaunchScreen.storyboard */,
+				FCB63A3C269F374800E049A2 /* Models */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
