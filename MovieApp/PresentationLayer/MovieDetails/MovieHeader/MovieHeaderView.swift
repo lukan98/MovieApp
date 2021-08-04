@@ -46,10 +46,10 @@ class MovieHeaderView: UIView {
         backgroundPosterView.kf.setImage(with: imageUrl)
 
         titleLabel.text = movie.name
-        releaseYearLabel.text = "(1976)"
-        releaseDateLabel.text = "1976-02-09 (US)"
+        releaseYearLabel.text = "("+String(movie.releaseDate.year)+")"
+        releaseDateLabel.text = movie.releaseDate.toDateString(with: "dd/MM/yyyy")
         genresLabel.text = movie.genres.map { $0.name }.joined(separator: ", ")
-        runtimeLabel.text = "2h 30m"
+        runtimeLabel.text = "\(movie.runtime.toHours)h \(movie.runtime.toMinutes)m"
 
         isFavorited = movie.isFavorited
     }

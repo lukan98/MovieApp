@@ -1,3 +1,5 @@
+import Foundation
+
 struct DetailedMovieViewModel {
 
     let id: Int
@@ -6,6 +8,9 @@ struct DetailedMovieViewModel {
     let posterSource: String
     let genres: [GenreViewModel]
     let isFavorited: Bool
+    let voteAverage: Double
+    let runtime: Int
+    let releaseDate: Date
 
 }
 
@@ -19,6 +24,9 @@ extension DetailedMovieViewModel {
         posterSource = model.posterSource
         genres = model.genres.map { GenreViewModel(from: $0) }
         isFavorited = model.isFavorited
+        voteAverage = model.voteAverage
+        runtime = model.runtime
+        releaseDate = model.releaseDate
     }
 
 }

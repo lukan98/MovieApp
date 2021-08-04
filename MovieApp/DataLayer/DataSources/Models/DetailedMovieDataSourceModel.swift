@@ -1,3 +1,5 @@
+import Foundation
+
 struct DetailedMovieDataSourceModel {
 
     let id: Int
@@ -5,6 +7,9 @@ struct DetailedMovieDataSourceModel {
     let name: String
     let posterSource: String
     let genres: [GenreDataSourceModel]
+    let voteAverage: Double
+    let runtime: Int
+    let releaseDate: Date
 
 }
 
@@ -17,6 +22,14 @@ extension DetailedMovieDataSourceModel {
         name = model.name
         posterSource = model.posterSource
         genres = model.genres.map { GenreDataSourceModel(from: $0) }
+        voteAverage = model.voteAverage
+        runtime = model.runtime
+        releaseDate = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let date = formatter.date(from: model.releaseDate) ?? .distantPast
+            return date
+        }()
     }
 
 }
