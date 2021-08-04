@@ -22,6 +22,8 @@
 		FC23B1E426BADA66000C603E /* CreditsRepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1E326BADA66000C603E /* CreditsRepositoryModel.swift */; };
 		FC23B1E626BADABD000C603E /* CreditsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1E526BADABD000C603E /* CreditsModel.swift */; };
 		FC23B1E826BADD74000C603E /* CreditsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1E726BADD74000C603E /* CreditsViewModel.swift */; };
+		FC23B1EA26BAE1B6000C603E /* CrewMemberLabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1E926BAE1B6000C603E /* CrewMemberLabelsView.swift */; };
+		FC23B1ED26BAE1D2000C603E /* CrewMemberLabelsView+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1EC26BAE1D2000C603E /* CrewMemberLabelsView+Design.swift */; };
 		FC2774A226AE9E6300E157EC /* GenreUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774A126AE9E6300E157EC /* GenreUseCase.swift */; };
 		FC2774A426AE9FA600E157EC /* GenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774A326AE9FA600E157EC /* GenreViewModel.swift */; };
 		FC2774A826AEF87D00E157EC /* OptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774A726AEF87D00E157EC /* OptionViewModel.swift */; };
@@ -134,6 +136,8 @@
 		FC23B1E326BADA66000C603E /* CreditsRepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsRepositoryModel.swift; sourceTree = "<group>"; };
 		FC23B1E526BADABD000C603E /* CreditsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsModel.swift; sourceTree = "<group>"; };
 		FC23B1E726BADD74000C603E /* CreditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsViewModel.swift; sourceTree = "<group>"; };
+		FC23B1E926BAE1B6000C603E /* CrewMemberLabelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMemberLabelsView.swift; sourceTree = "<group>"; };
+		FC23B1EC26BAE1D2000C603E /* CrewMemberLabelsView+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrewMemberLabelsView+Design.swift"; sourceTree = "<group>"; };
 		FC2774A126AE9E6300E157EC /* GenreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreUseCase.swift; sourceTree = "<group>"; };
 		FC2774A326AE9FA600E157EC /* GenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewModel.swift; sourceTree = "<group>"; };
 		FC2774A726AEF87D00E157EC /* OptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewModel.swift; sourceTree = "<group>"; };
@@ -243,6 +247,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC23B1EB26BAE1BE000C603E /* CrewMemberLabels */ = {
+			isa = PBXGroup;
+			children = (
+				FC23B1E926BAE1B6000C603E /* CrewMemberLabelsView.swift */,
+				FC23B1EC26BAE1D2000C603E /* CrewMemberLabelsView+Design.swift */,
+			);
+			path = CrewMemberLabels;
+			sourceTree = "<group>";
+		};
 		FC2774B326B178C500E157EC /* MovieClient */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +389,7 @@
 		FC6FE60626B931F8003B29B1 /* MovieDetails */ = {
 			isa = PBXGroup;
 			children = (
+				FC23B1EB26BAE1BE000C603E /* CrewMemberLabels */,
 				FC6FE60D26B935C9003B29B1 /* MovieHeader */,
 				FC6FE60726B93233003B29B1 /* MovieDetailsViewController.swift */,
 				FC6FE60926B93241003B29B1 /* MovieDetailsViewController+Design.swift */,
@@ -767,6 +781,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC23B1ED26BAE1D2000C603E /* CrewMemberLabelsView+Design.swift in Sources */,
 				FC592E54269DAFFD00233EFB /* ConstructViewsProtocol.swift in Sources */,
 				FC2774D726B2F2D800E157EC /* MovieUserDefaultsDataSource.swift in Sources */,
 				FC6FE60826B93233003B29B1 /* MovieDetailsViewController.swift in Sources */,
@@ -864,6 +879,7 @@
 				FC23B1DE26BAD659000C603E /* CrewMemberViewModel.swift in Sources */,
 				FC23B1D026BACF9E000C603E /* CreditsClientModel.swift in Sources */,
 				FCB63A7F26A571E400E049A2 /* MovieRepositoryProtocol.swift in Sources */,
+				FC23B1EA26BAE1B6000C603E /* CrewMemberLabelsView.swift in Sources */,
 				FC592E5E269DE0E100233EFB /* NavBarView+Design.swift in Sources */,
 				FC23B1E626BADABD000C603E /* CreditsModel.swift in Sources */,
 				FC2774C626B2927D00E157EC /* TimeWindowRepositoryModel.swift in Sources */,

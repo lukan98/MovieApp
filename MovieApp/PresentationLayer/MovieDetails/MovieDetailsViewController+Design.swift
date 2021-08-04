@@ -21,6 +21,23 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         overviewLabel = UILabel()
         view.addSubview(overviewLabel)
+
+        crewGridView = UIStackView()
+        view.addSubview(crewGridView)
+
+        crewFirstRowStackView = UIStackView()
+        crewGridView.addArrangedSubview(crewFirstRowStackView)
+
+        for _ in 0...noOfCrewColumns-1 {
+            crewFirstRowStackView.addArrangedSubview(CrewMemberLabelsView())
+        }
+
+        crewSecondRowStackView = UIStackView()
+        crewGridView.addArrangedSubview(crewSecondRowStackView)
+
+        for _ in 0...noOfCrewColumns-1 {
+            crewSecondRowStackView.addArrangedSubview(CrewMemberLabelsView())
+        }
     }
 
     func styleViews() {
@@ -34,6 +51,15 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         overviewLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
         overviewLabel.textColor = .black
         overviewLabel.numberOfLines = 0
+
+        crewGridView.axis = .vertical
+        crewGridView.spacing = spacing
+
+        crewFirstRowStackView.axis = .horizontal
+        crewFirstRowStackView.distribution = .fillEqually
+
+        crewSecondRowStackView.axis = .horizontal
+        crewSecondRowStackView.distribution = .fillEqually
     }
 
     func defineLayoutForViews() {
@@ -57,6 +83,19 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         overviewLabel.snp.makeConstraints {
             $0.top.equalTo(overviewTitleLabel.snp.bottom).offset(2 * spacing)
             $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+        }
+
+        crewGridView.snp.makeConstraints {
+            $0.top.equalTo(overviewLabel.snp.bottom).offset(5 * spacing)
+            $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+        }
+
+        crewFirstRowStackView.snp.makeConstraints {
+            $0.height.equalTo(40)
+        }
+
+        crewSecondRowStackView.snp.makeConstraints {
+            $0.height.equalTo(40)
         }
     }
 
