@@ -84,4 +84,13 @@ class MovieUseCase: MovieUseCaseProtocol {
             completionHandler(result.map { DetailedMovieModel(from: $0) })
         }
     }
+
+    func getMovieCredits(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<CreditsModel, RequestError>) -> Void
+    ) {
+        movieRepository.getMovieCredits(for: movieId) { result in
+            completionHandler(result.map { CreditsModel(from: $0) })
+        }
+    }
 }

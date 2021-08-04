@@ -28,4 +28,9 @@ protocol MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
     )
 
+    func getMovieCredits(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<CreditsRepositoryModel, RequestError>) -> Void
+    )
+
 }

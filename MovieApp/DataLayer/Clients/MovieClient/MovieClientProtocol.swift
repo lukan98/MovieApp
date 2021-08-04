@@ -17,5 +17,10 @@ protocol MovieClientProtocol {
         for movieId: Int,
         _ completionHandler: @escaping (Result<DetailedMovieClientModel, RequestError>) -> Void
     )
+
+    func fetchMovieCredits(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<CreditsClientModel, RequestError>) -> Void
+    )
     
 }

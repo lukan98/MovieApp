@@ -65,4 +65,13 @@ class MovieClient: MovieClientProtocol {
                  completionHandler: completionHandler)
     }
 
+    func fetchMovieCredits(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<CreditsClientModel, RequestError>) -> Void
+    ) {
+        baseApiClient
+            .get(path: "/movie/" + String(movieId) + "/credits",
+                 completionHandler: completionHandler)
+    }
+
 }
