@@ -1,3 +1,5 @@
+import Foundation
+
 struct DetailedMovieRepositoryModel {
 
     let id: Int
@@ -6,6 +8,9 @@ struct DetailedMovieRepositoryModel {
     let posterSource: String
     let genres: [GenreRepositoryModel]
     let isFavorited: Bool
+    let voteAverage: Double
+    let runtime: Int
+    let releaseDate: Date
 
     public func withFavorited(_ isFavorited: Bool) -> DetailedMovieRepositoryModel {
         DetailedMovieRepositoryModel(
@@ -14,7 +19,10 @@ struct DetailedMovieRepositoryModel {
             name: self.name,
             posterSource: self.posterSource,
             genres: self.genres,
-            isFavorited: isFavorited)
+            isFavorited: isFavorited,
+            voteAverage: self.voteAverage,
+            runtime: self.runtime,
+            releaseDate: self.releaseDate)
     }
 
 }
@@ -29,6 +37,9 @@ extension DetailedMovieRepositoryModel {
         posterSource = "https://image.tmdb.org/t/p/w154" + model.posterSource
         genres = model.genres.map { GenreRepositoryModel(from: $0) }
         self.isFavorited = isFavorited
+        voteAverage = model.voteAverage
+        runtime = model.runtime
+        releaseDate = model.releaseDate
     }
 
 }
