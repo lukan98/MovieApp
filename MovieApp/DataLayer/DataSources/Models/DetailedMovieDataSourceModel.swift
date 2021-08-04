@@ -24,12 +24,7 @@ extension DetailedMovieDataSourceModel {
         genres = model.genres.map { GenreDataSourceModel(from: $0) }
         voteAverage = model.voteAverage
         runtime = model.runtime
-        releaseDate = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            let date = formatter.date(from: model.releaseDate) ?? .distantPast
-            return date
-        }()
+        releaseDate = Date(serverDate: model.releaseDate) ?? .distantPast
     }
 
 }

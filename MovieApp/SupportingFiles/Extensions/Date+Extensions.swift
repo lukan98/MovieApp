@@ -2,10 +2,20 @@ import Foundation
 
 extension Date {
 
-    var year: Int {
-        let components = Calendar.current.dateComponents([.year], from: self)
-        let year = components.year ?? .zero
-        return year
+    var uiDate: String {
+        toDateString(with: "dd/MM/yyyy")
+    }
+
+    var uiYear: String {
+        toDateString(with: "(yyyy)")
+    }
+
+    init?(serverDate: String) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let date = formatter.date(from: serverDate) else { return nil }
+
+        self = date
     }
 
     func toDateString(with template: String) -> String {

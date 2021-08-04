@@ -49,10 +49,10 @@ class MovieHeaderView: UIView {
 
         userScoreLabel.text = "User Score"
         titleLabel.text = movie.name
-        releaseYearLabel.text = "("+String(movie.releaseDate.year)+")"
-        releaseDateLabel.text = movie.releaseDate.toDateString(with: "dd/MM/yyyy")
-        genresLabel.text = movie.genres.map { $0.name }.joined(separator: ", ")
-        runtimeLabel.text = "\(movie.runtime.toHours)h \(movie.runtime.toMinutes)m"
+        releaseYearLabel.text = movie.releaseYear
+        releaseDateLabel.text = movie.releaseDate
+        genresLabel.text = movie.genres
+        runtimeLabel.text = movie.runtime
 
         isFavorited = movie.isFavorited
 

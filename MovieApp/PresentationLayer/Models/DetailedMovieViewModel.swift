@@ -6,11 +6,12 @@ struct DetailedMovieViewModel {
     let about: String
     let name: String
     let posterSource: String
-    let genres: [GenreViewModel]
+    let genres: String
     let isFavorited: Bool
     let voteAverage: Double
-    let runtime: Int
-    let releaseDate: Date
+    let runtime: String
+    let releaseYear: String
+    let releaseDate: String
 
 }
 
@@ -22,11 +23,13 @@ extension DetailedMovieViewModel {
         about = model.about
         name = model.name
         posterSource = model.posterSource
-        genres = model.genres.map { GenreViewModel(from: $0) }
+        genres = model.genres.map { GenreViewModel(from: $0).name }.joined(separator: ", ")
         isFavorited = model.isFavorited
         voteAverage = model.voteAverage
-        runtime = model.runtime
-        releaseDate = model.releaseDate
+        let timeComponents = TimeComponentsViewModel(minutes: model.runtime)
+        runtime = timeComponents.uiString
+        releaseYear = model.releaseDate.uiYear
+        releaseDate = model.releaseDate.uiDate
     }
 
 }
