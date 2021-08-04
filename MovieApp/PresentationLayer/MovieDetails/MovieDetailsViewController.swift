@@ -39,6 +39,7 @@ class MovieDetailsViewController: UIViewController {
             switch result {
             case .success(let movie):
                 self.headerView.setData(for: movie)
+                self.overviewLabel.text = movie.about
             case .failure:
                 print("Failed to get movie details")
             }
