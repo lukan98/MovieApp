@@ -26,7 +26,7 @@ extension MovieRepositoryModel {
         id = model.id
         about = model.about
         name = model.name
-        posterSource = "https://image.tmdb.org/t/p/w154" + model.posterSource
+        posterSource = "https://image.tmdb.org/t/p/w185" + model.posterSource
         genres = model.genres
         self.isFavorited = isFavorited
     }

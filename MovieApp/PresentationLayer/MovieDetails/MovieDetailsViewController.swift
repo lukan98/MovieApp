@@ -44,6 +44,17 @@ class MovieDetailsViewController: UIViewController {
                 print("Failed to get movie details")
             }
         }
+
+        presenter.getMovieCredits { result in
+
+            switch result {
+            case .success(let credits):
+                print(credits.cast)
+                print(credits.crew)
+            case .failure:
+                print("Failed to get movie credits")
+            }
+        }
     }
 
     private func setInitialData() {
