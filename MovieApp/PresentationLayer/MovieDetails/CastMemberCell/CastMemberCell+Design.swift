@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-extension CastCell: ConstructViewsProtocol {
+extension CastMemberCell: ConstructViewsProtocol {
 
     func buildViews() {
         createViews()

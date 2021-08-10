@@ -122,7 +122,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(CastCell.self, forCellWithReuseIdentifier: CastCell.cellIdentifier)
+        collectionView.register(CastMemberCell.self, forCellWithReuseIdentifier: CastMemberCell.cellIdentifier)
 
         return collectionView
     }
