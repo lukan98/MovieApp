@@ -3,12 +3,14 @@ import UIKit
 class MovieDetailsViewController: UIViewController {
 
     let spacing: CGFloat = 5
-    let noOfCrewRows = 1
+    let noOfCrewRows = 3
     let noOfCrewColumns = 3
 
     var castMembers: [CastMemberViewModel] = []
 
     var navigationView: NavBarView!
+    var scrollView: UIScrollView!
+    var contentView: UIView!
     var headerView: MovieHeaderView!
     var crewGridView: UIStackView!
     var crewGridRows: [UIStackView]!
@@ -70,6 +72,8 @@ class MovieDetailsViewController: UIViewController {
 
     private func setInitialData() {
         overviewTitleLabel.text = "Overview"
+
+        topBilledCastLabel.text = "Top Billed Cast"
     }
 
     private func setCrewGridData(for crew: [CrewMemberViewModel]) {
@@ -131,6 +135,17 @@ extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
         UIEdgeInsets(top: 0, left: 3 * spacing, bottom: 0, right: 3 * spacing)
+    }
+
+}
+
+// MARK: UIScrollViewDelegate
+extension MovieDetailsViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0 {
+            scrollView.contentOffset.y = 0
+        }
     }
 
 }

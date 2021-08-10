@@ -97,7 +97,7 @@ extension MovieHeaderView: ConstructViewsProtocol {
         runtimeLabel.snp.makeConstraints {
             $0.leading.equalTo(genresLabel.snp.trailing).offset(spacing)
             $0.trailing.lessThanOrEqualToSuperview().inset(spacing)
-            $0.bottom.equalTo(genresLabel)
+            $0.centerY.equalTo(genresLabel)
         }
 
         releaseDateLabel.snp.makeConstraints {
