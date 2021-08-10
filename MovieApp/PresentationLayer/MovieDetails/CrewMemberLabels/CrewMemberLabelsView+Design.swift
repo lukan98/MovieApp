@@ -33,7 +33,7 @@ extension CrewMemberLabelsView: ConstructViewsProtocol {
 
         jobLabel.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(nameLabel.snp.bottom)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(spacing)
         }
     }
 

@@ -3,10 +3,10 @@ struct CreditsViewModel {
     let cast: [CastMemberViewModel]
     let crew: [CrewMemberViewModel]
 
-    func sortAndSliceCrew() -> CreditsViewModel {
+    func sortAndSliceCrew(first k: Int) -> CreditsViewModel {
         let sortedAndSlicedCrew = crew
             .sorted { $0.popularity > $1.popularity }
-            .prefix(6)
+            .prefix(k)
         let credits = CreditsViewModel(cast: cast, crew: Array(sortedAndSlicedCrew))
         return credits
     }

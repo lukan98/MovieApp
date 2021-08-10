@@ -58,10 +58,11 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         overviewLabel.numberOfLines = 0
 
         crewGridView.axis = .vertical
-        crewGridView.spacing = spacing
+        crewGridView.spacing = 5 * spacing
 
         for rowStackView in crewGridRows {
             rowStackView.axis = .horizontal
+            rowStackView.alignment = .center
             rowStackView.distribution = .fillEqually
             rowStackView.spacing = spacing
         }

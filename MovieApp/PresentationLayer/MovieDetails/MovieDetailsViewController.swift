@@ -3,7 +3,7 @@ import UIKit
 class MovieDetailsViewController: UIViewController {
 
     let spacing: CGFloat = 5
-    let noOfCrewRows = 2
+    let noOfCrewRows = 3
     let noOfCrewColumns = 3
 
     var navigationView: NavBarView!
@@ -50,7 +50,7 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getMovieCredits { [weak self] result in
+        presenter.getMovieCredits(maximalCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
