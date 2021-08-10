@@ -20,12 +20,13 @@ class MovieDetailsPresenter {
     }
 
     func getMovieCredits(
+        maximalCrewMembers max: Int,
         _ completionHandler: @escaping (Result<CreditsViewModel, RequestError>) -> Void,
         for movieId: Int = 103
     ) {
         useCase.getMovieCredits(for: movieId) { result in
             DispatchQueue.main.async {
-                completionHandler(result.map { CreditsViewModel(from: $0).sortAndSliceCrew() } )
+                completionHandler(result.map { CreditsViewModel(from: $0).sortAndSliceCrew(first: max) } )
             }
         }
     }

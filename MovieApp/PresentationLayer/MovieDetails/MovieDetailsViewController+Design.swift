@@ -21,6 +21,28 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         overviewLabel = UILabel()
         view.addSubview(overviewLabel)
+
+        crewGridView = UIStackView()
+        view.addSubview(crewGridView)
+
+        crewGridRows = Array()
+        for _ in 1...noOfCrewRows {
+            let rowStackView = UIStackView()
+            
+            crewGridView.addArrangedSubview(rowStackView)
+            crewGridRows.append(rowStackView)
+        }
+
+        crewMemberLabels = Array()
+        for i in 0...noOfCrewColumns * noOfCrewRows - 1 {
+            let row = i / noOfCrewColumns
+            let stackView = crewGridRows.at(row)
+            let labelsView = CrewMemberLabelsView()
+
+            stackView?.addArrangedSubview(labelsView)
+            crewMemberLabels.append(labelsView)
+        }
+
     }
 
     func styleViews() {
@@ -34,6 +56,16 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         overviewLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
         overviewLabel.textColor = .black
         overviewLabel.numberOfLines = 0
+
+        crewGridView.axis = .vertical
+        crewGridView.spacing = 5 * spacing
+
+        for rowStackView in crewGridRows {
+            rowStackView.axis = .horizontal
+            rowStackView.alignment = .center
+            rowStackView.distribution = .fillEqually
+            rowStackView.spacing = spacing
+        }
     }
 
     func defineLayoutForViews() {
@@ -57,6 +89,17 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         overviewLabel.snp.makeConstraints {
             $0.top.equalTo(overviewTitleLabel.snp.bottom).offset(2 * spacing)
             $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+        }
+
+        crewGridView.snp.makeConstraints {
+            $0.top.equalTo(overviewLabel.snp.bottom).offset(5 * spacing)
+            $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+        }
+
+        for rowStackView in crewGridRows {
+            rowStackView.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
         }
     }
 
