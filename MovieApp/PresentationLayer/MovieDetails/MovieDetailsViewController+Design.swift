@@ -13,17 +13,23 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         navigationView = NavBarView()
         view.addSubview(navigationView)
 
+        scrollView = UIScrollView()
+        view.addSubview(scrollView)
+
+        contentView = UIView()
+        scrollView.addSubview(contentView)
+
         headerView = MovieHeaderView()
-        view.addSubview(headerView)
+        contentView.addSubview(headerView)
 
         overviewTitleLabel = UILabel()
-        view.addSubview(overviewTitleLabel)
+        contentView.addSubview(overviewTitleLabel)
 
         overviewLabel = UILabel()
-        view.addSubview(overviewLabel)
+        contentView.addSubview(overviewLabel)
 
         crewGridView = UIStackView()
-        view.addSubview(crewGridView)
+        contentView.addSubview(crewGridView)
 
         crewGridRows = Array()
         for _ in 1...noOfCrewRows {
@@ -43,14 +49,19 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             crewMemberLabels.append(labelsView)
         }
 
+        topBilledCastLabel = UILabel()
+        contentView.addSubview(topBilledCastLabel)
+
         topBilledCastCollection = makeCollectionView()
-        view.addSubview(topBilledCastCollection)
+        contentView.addSubview(topBilledCastCollection)
     }
 
     func styleViews() {
         view.backgroundColor = .white
 
         navigationView.isBackButtonHidden = false
+
+        scrollView.delegate = self
 
         overviewTitleLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
         overviewTitleLabel.textColor = UIColor(named: "DarkBlue")
@@ -69,6 +80,9 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             rowStackView.spacing = spacing
         }
 
+        topBilledCastLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
+        topBilledCastLabel.textColor = UIColor(named: "DarkBlue")
+
         topBilledCastCollection.backgroundColor = .white
         topBilledCastCollection.showsHorizontalScrollIndicator = false
         topBilledCastCollection.clipsToBounds = false
@@ -80,8 +94,17 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             $0.height.equalTo(NavBarView.defaultHeight)
         }
 
-        headerView.snp.makeConstraints {
+        scrollView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+
+        contentView.snp.makeConstraints {
+            $0.edges.width.equalToSuperview()
+        }
+
+        headerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(headerView.snp.width).multipliedBy(0.9)
         }
@@ -108,9 +131,14 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             }
         }
 
+        topBilledCastLabel.snp.makeConstraints {
+            $0.top.equalTo(crewGridView.snp.bottom).offset(8 * spacing)
+            $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+        }
+
         topBilledCastCollection.snp.makeConstraints {
-            $0.top.equalTo(crewGridView.snp.bottom).offset(spacing)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(topBilledCastLabel.snp.bottom).offset(spacing)
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(250)
         }
     }
