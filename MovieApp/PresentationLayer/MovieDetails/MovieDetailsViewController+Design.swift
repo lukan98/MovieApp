@@ -28,7 +28,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         crewGridRows = Array()
         for _ in 1...noOfCrewRows {
             let rowStackView = UIStackView()
-            
+
             crewGridView.addArrangedSubview(rowStackView)
             crewGridRows.append(rowStackView)
         }
