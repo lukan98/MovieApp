@@ -19,9 +19,11 @@ extension CrewMemberLabelsView: ConstructViewsProtocol {
     func styleViews() {
         nameLabel.font = UIFont(name: "ProximaNova-Bold", size: fontSize)
         nameLabel.textColor = .black
+        nameLabel.numberOfLines = 0
 
         jobLabel.font = UIFont(name: "ProximaNova-Medium", size: fontSize)
         jobLabel.textColor = .black
+        jobLabel.numberOfLines = 0
     }
 
     func defineLayoutForViews() {
