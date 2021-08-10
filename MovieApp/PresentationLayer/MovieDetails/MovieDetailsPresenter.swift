@@ -6,7 +6,6 @@ class MovieDetailsPresenter {
 
     init(useCase: MovieUseCaseProtocol) {
         self.useCase = useCase
-        self.castMembers = []
     }
 
     func getMovieDetails(
@@ -25,18 +24,9 @@ class MovieDetailsPresenter {
         _ completionHandler: @escaping (Result<CreditsViewModel, RequestError>) -> Void,
         for movieId: Int = 103
     ) {
-        useCase.getMovieCredits(for: movieId) { [weak self] result in
-            switch result {
-            case .success(let creditsModel):
-                let creditsViewModel = CreditsViewModel(from: creditsModel)
-                self?.castMembers = creditsViewModel.cast
-                DispatchQueue.main.async {
-                    completionHandler(.success(creditsViewModel))
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    completionHandler(.failure(error))
-                }
+        useCase.getMovieCredits(for: movieId) { result in
+            DispatchQueue.main.async {
+                completionHandler(result.map { CreditsViewModel(from: $0).sortAndSliceCrew(first: max) } )
             }
         }
     }
