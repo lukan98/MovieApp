@@ -28,8 +28,10 @@ extension CastMemberCell: ConstructViewsProtocol {
         profileImageView.clipsToBounds = true
 
         castMemberNameLabel.font = UIFont(name: "ProximaNova-Bold", size: 14)
+        castMemberNameLabel.numberOfLines = 2
 
         characterNameLabel.font = UIFont(name: "ProximaNova-Medium", size: 12)
+        characterNameLabel.numberOfLines = 2
     }
 
     func defineLayoutForViews() {
@@ -45,7 +47,8 @@ extension CastMemberCell: ConstructViewsProtocol {
 
         characterNameLabel.snp.makeConstraints {
             $0.leading.trailing.equalTo(castMemberNameLabel)
-            $0.bottom.equalToSuperview().inset(2 * spacing)
+            $0.top.greaterThanOrEqualTo(castMemberNameLabel.snp.bottom)
+            $0.bottom.lessThanOrEqualToSuperview().inset(2 * spacing)
         }
     }
 
