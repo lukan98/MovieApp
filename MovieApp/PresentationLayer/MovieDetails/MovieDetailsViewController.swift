@@ -3,16 +3,18 @@ import UIKit
 class MovieDetailsViewController: UIViewController {
 
     let spacing: CGFloat = 5
-    let noOfCrewRows = 3
+    let noOfCrewRows = 1
     let noOfCrewColumns = 3
 
     var navigationView: NavBarView!
     var headerView: MovieHeaderView!
+    var overviewTitleLabel: UILabel!
+    var overviewLabel: UILabel!
     var crewGridView: UIStackView!
     var crewGridRows: [UIStackView]!
     var crewMemberLabels: [CrewMemberLabelsView]!
-    var overviewTitleLabel: UILabel!
-    var overviewLabel: UILabel!
+    var topBilledCastLabel: UILabel!
+    var topBilledCastCollection: UICollectionView!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -75,6 +77,60 @@ class MovieDetailsViewController: UIViewController {
 
             crewMemberLabel.setData(name: crewMember.name, job: crewMember.job)
         }
+    }
+
+}
+
+// MARK: UICollectionViewDataSource
+extension MovieDetailsViewController: UICollectionViewDataSource {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        10
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard
+            let cell = topBilledCastCollection.dequeueReusableCell(
+                withReuseIdentifier: CastCell.cellIdentifier,
+                for: indexPath) as? CastCell
+        else {
+            return CastCell()
+        }
+
+        let castMember = CastMemberViewModel(
+            id: 0,
+            name: "Robert de Niro",
+            profileSource: "https://image.tmdb.org/t/p/w185/cT8htcckIuyI1Lqwt1CvD02ynTh.jpg",
+            characterName: "Travis Bickle")
+        cell.setData(for: castMember)
+        return cell
+    }
+
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
+extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: 125, height: 210)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 0, left: 3 * spacing, bottom: 0, right: 3 * spacing)
     }
 
 }

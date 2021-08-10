@@ -43,6 +43,8 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             crewMemberLabels.append(labelsView)
         }
 
+        topBilledCastCollection = makeCollectionView()
+        view.addSubview(topBilledCastCollection)
     }
 
     func styleViews() {
@@ -66,6 +68,10 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             rowStackView.distribution = .fillEqually
             rowStackView.spacing = spacing
         }
+
+        topBilledCastCollection.backgroundColor = .white
+        topBilledCastCollection.showsHorizontalScrollIndicator = false
+        topBilledCastCollection.clipsToBounds = false
     }
 
     func defineLayoutForViews() {
@@ -101,6 +107,24 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
                 $0.height.equalTo(40)
             }
         }
+
+        topBilledCastCollection.snp.makeConstraints {
+            $0.top.equalTo(crewGridView.snp.bottom).offset(spacing)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(250)
+        }
+    }
+
+    private func makeCollectionView() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(CastCell.self, forCellWithReuseIdentifier: CastCell.cellIdentifier)
+
+        return collectionView
     }
 
 }
