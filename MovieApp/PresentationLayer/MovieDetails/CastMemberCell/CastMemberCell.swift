@@ -1,9 +1,9 @@
 import UIKit
 import Kingfisher
 
-class CastCell: UICollectionViewCell {
+class CastMemberCell: UICollectionViewCell {
 
-    static let cellIdentifier = String(describing: CastCell.self)
+    static let cellIdentifier = String(describing: CastMemberCell.self)
 
     let spacing: CGFloat = 10
     let cornerRadius: CGFloat = 10

@@ -54,7 +54,7 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getMovieCredits(maximalCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
+        presenter.getMovieCredits(maximumCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -92,7 +92,7 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        10
+        presenter.castMembers.count
     }
 
     func collectionView(
@@ -101,17 +101,13 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         guard
             let cell = topBilledCastCollection.dequeueReusableCell(
-                withReuseIdentifier: CastCell.cellIdentifier,
-                for: indexPath) as? CastCell
+                withReuseIdentifier: CastMemberCell.cellIdentifier,
+                for: indexPath) as? CastMemberCell,
+            let castMember = presenter.castMembers.at(indexPath.item)
         else {
-            return CastCell()
+            return CastMemberCell()
         }
 
-        let castMember = CastMemberViewModel(
-            id: 0,
-            name: "Robert de Niro",
-            profileSource: "https://image.tmdb.org/t/p/w185/cT8htcckIuyI1Lqwt1CvD02ynTh.jpg",
-            characterName: "Travis Bickle")
         cell.setData(for: castMember)
         return cell
     }
