@@ -2,14 +2,6 @@ import Foundation
 
 class MovieDetailsPresenter {
 
-    let castMembers = Array(
-        repeating: CastMemberViewModel(
-            id: 0,
-            name: "Robert de Niro",
-            profileSource: "https://image.tmdb.org/t/p/w185/cT8htcckIuyI1Lqwt1CvD02ynTh.jpg",
-            characterName: "Travis Bickle"),
-        count: 15)
-
     private let useCase: MovieUseCaseProtocol
 
     init(useCase: MovieUseCaseProtocol) {
