@@ -20,7 +20,7 @@ class MovieDetailsPresenter {
     }
 
     func getMovieCredits(
-        maximalCrewMembers max: Int,
+        maximumCrewMembers max: Int,
         _ completionHandler: @escaping (Result<CreditsViewModel, RequestError>) -> Void,
         for movieId: Int = 103
     ) {

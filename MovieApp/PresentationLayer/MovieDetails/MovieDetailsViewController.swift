@@ -3,8 +3,10 @@ import UIKit
 class MovieDetailsViewController: UIViewController {
 
     let spacing: CGFloat = 5
-    let noOfCrewRows = 3
+    let noOfCrewRows = 1
     let noOfCrewColumns = 3
+
+    var castMembers: [CastMemberViewModel] = []
 
     var navigationView: NavBarView!
     var headerView: MovieHeaderView!
@@ -13,6 +15,8 @@ class MovieDetailsViewController: UIViewController {
     var crewMemberLabels: [CrewMemberLabelsView]!
     var overviewTitleLabel: UILabel!
     var overviewLabel: UILabel!
+    var topBilledCastLabel: UILabel!
+    var topBilledCastCollection: UICollectionView!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -50,12 +54,14 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getMovieCredits(maximalCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
+        presenter.getMovieCredits(maximumCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success(let credits):
                 self.setCrewGridData(for: credits.crew)
+                self.castMembers = credits.cast
+                self.topBilledCastCollection.reloadData()
             case .failure:
                 print("Failed to get movie credits")
             }
@@ -75,6 +81,56 @@ class MovieDetailsViewController: UIViewController {
 
             crewMemberLabel.setData(name: crewMember.name, job: crewMember.job)
         }
+    }
+
+}
+
+// MARK: UICollectionViewDataSource
+extension MovieDetailsViewController: UICollectionViewDataSource {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        castMembers.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard
+            let cell = topBilledCastCollection.dequeueReusableCell(
+                withReuseIdentifier: CastMemberCell.cellIdentifier,
+                for: indexPath) as? CastMemberCell,
+            let castMember = castMembers.at(indexPath.item)
+        else {
+            return CastMemberCell()
+        }
+
+        cell.setData(for: castMember)
+        return cell
+    }
+
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
+extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: 125, height: 210)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 0, left: 3 * spacing, bottom: 0, right: 3 * spacing)
     }
 
 }
