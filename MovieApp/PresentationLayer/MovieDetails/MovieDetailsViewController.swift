@@ -6,6 +6,8 @@ class MovieDetailsViewController: UIViewController {
     let noOfCrewRows = 3
     let noOfCrewColumns = 3
 
+    var castMembers: [CastMemberViewModel] = []
+
     var navigationView: NavBarView!
     var scrollView: UIScrollView!
     var contentView: UIView!
@@ -60,6 +62,8 @@ class MovieDetailsViewController: UIViewController {
             switch result {
             case .success(let credits):
                 self.setCrewGridData(for: credits.crew)
+                self.castMembers = credits.cast
+                self.topBilledCastCollection.reloadData()
             case .failure:
                 print("Failed to get movie credits")
             }
@@ -92,7 +96,7 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        presenter.castMembers.count
+        castMembers.count
     }
 
     func collectionView(
@@ -103,7 +107,7 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
             let cell = topBilledCastCollection.dequeueReusableCell(
                 withReuseIdentifier: CastMemberCell.cellIdentifier,
                 for: indexPath) as? CastMemberCell,
-            let castMember = presenter.castMembers.at(indexPath.item)
+            let castMember = castMembers.at(indexPath.item)
         else {
             return CastMemberCell()
         }
