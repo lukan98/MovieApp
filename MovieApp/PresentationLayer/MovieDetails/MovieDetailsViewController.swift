@@ -52,7 +52,7 @@ class MovieDetailsViewController: UIViewController {
                 print(credits.cast)
                 print(credits.crew)
             case .failure:
-                print("jbg")
+                print("Failed to get movie credits")
             }
         }
     }
