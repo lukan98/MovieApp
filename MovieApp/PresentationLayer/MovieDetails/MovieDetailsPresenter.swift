@@ -2,8 +2,6 @@ import Foundation
 
 class MovieDetailsPresenter {
 
-    var castMembers: [CastMemberViewModel]
-
     private let useCase: MovieUseCaseProtocol
 
     init(useCase: MovieUseCaseProtocol) {
