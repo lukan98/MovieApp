@@ -25,19 +25,24 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         crewGridView = UIStackView()
         view.addSubview(crewGridView)
 
-        crewFirstRowStackView = UIStackView()
-        crewGridView.addArrangedSubview(crewFirstRowStackView)
-
-        for _ in 0...noOfCrewColumns-1 {
-            crewFirstRowStackView.addArrangedSubview(CrewMemberLabelsView())
+        crewGridRows = Array()
+        for _ in 1...noOfCrewRows {
+            let rowStackView = UIStackView()
+            
+            crewGridView.addArrangedSubview(rowStackView)
+            crewGridRows.append(rowStackView)
         }
 
-        crewSecondRowStackView = UIStackView()
-        crewGridView.addArrangedSubview(crewSecondRowStackView)
+        crewMemberLabels = Array()
+        for i in 0...noOfCrewColumns * noOfCrewRows - 1 {
+            let row = i / noOfCrewColumns
+            let stackView = crewGridRows.at(row)
+            let labelsView = CrewMemberLabelsView()
 
-        for _ in 0...noOfCrewColumns-1 {
-            crewSecondRowStackView.addArrangedSubview(CrewMemberLabelsView())
+            stackView?.addArrangedSubview(labelsView)
+            crewMemberLabels.append(labelsView)
         }
+
     }
 
     func styleViews() {
@@ -55,11 +60,11 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         crewGridView.axis = .vertical
         crewGridView.spacing = spacing
 
-        crewFirstRowStackView.axis = .horizontal
-        crewFirstRowStackView.distribution = .fillEqually
-
-        crewSecondRowStackView.axis = .horizontal
-        crewSecondRowStackView.distribution = .fillEqually
+        for rowStackView in crewGridRows {
+            rowStackView.axis = .horizontal
+            rowStackView.distribution = .fillEqually
+            rowStackView.spacing = spacing
+        }
     }
 
     func defineLayoutForViews() {
@@ -90,12 +95,10 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             $0.leading.trailing.equalToSuperview().inset(4 * spacing)
         }
 
-        crewFirstRowStackView.snp.makeConstraints {
-            $0.height.equalTo(40)
-        }
-
-        crewSecondRowStackView.snp.makeConstraints {
-            $0.height.equalTo(40)
+        for rowStackView in crewGridRows {
+            rowStackView.snp.makeConstraints {
+                $0.height.equalTo(40)
+            }
         }
     }
 
