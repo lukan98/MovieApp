@@ -17,7 +17,7 @@ extension CrewMemberRepositoryModel {
         if let profilePath = model.profileSource {
             profileSource = "https://image.tmdb.org/t/p/w185" + profilePath
         } else {
-            profileSource = model.profileSource
+            profileSource = nil
         }
         job = model.job
         popularity = model.popularity

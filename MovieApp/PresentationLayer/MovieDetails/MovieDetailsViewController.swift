@@ -56,7 +56,7 @@ class MovieDetailsViewController: UIViewController {
             case .success(let credits):
                 self.setCrewGridData(for: credits.crew)
             case .failure:
-                print("jbg")
+                print("Failed to get movie credits")
             }
         }
     }
