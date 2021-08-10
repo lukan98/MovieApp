@@ -13,9 +13,6 @@ class MovieDetailsViewController: UIViewController {
     var crewMemberLabels: [CrewMemberLabelsView]!
     var overviewTitleLabel: UILabel!
     var overviewLabel: UILabel!
-    var crewGridView: UIStackView!
-    var crewGridRows: [UIStackView]!
-    var crewMemberLabels: [CrewMemberLabelsView]!
     var topBilledCastLabel: UILabel!
     var topBilledCastCollection: UICollectionView!
 
