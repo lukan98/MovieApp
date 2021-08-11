@@ -23,11 +23,8 @@ class CastMemberCell: UICollectionViewCell {
     }
 
     func setData(for castMember: CastMemberViewModel) {
-        if let profileUrl = URL(string: castMember.profileSource ?? "") {
-            profileImageView.kf.setImage(with: profileUrl)
-        } else {
-            profileImageView.image = UIImage(named: "Blank-person")
-        }
+        let profileUrl = URL(string: castMember.profileSource ?? "")
+        profileImageView.kf.setImage(with: profileUrl, placeholder: UIImage(named: "Blank-person"))
 
         castMemberNameLabel.text = castMember.name
 
