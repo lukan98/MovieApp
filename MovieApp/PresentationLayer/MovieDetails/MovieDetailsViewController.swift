@@ -70,6 +70,18 @@ class MovieDetailsViewController: UIViewController {
                 print("Failed to get movie credits")
             }
         }
+
+        presenter.getReview { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let review):
+                self.reviewView.setData(for: review)
+            case .failure:
+                print("Failed to get movie review")
+            }
+
+        }
     }
 
     private func setInitialData() {
