@@ -47,8 +47,8 @@ extension CastMemberCell: ConstructViewsProtocol {
 
         characterNameLabel.snp.makeConstraints {
             $0.leading.trailing.equalTo(castMemberNameLabel)
-            $0.top.greaterThanOrEqualTo(castMemberNameLabel.snp.bottom)
-            $0.bottom.lessThanOrEqualToSuperview().inset(2 * spacing)
+            $0.top.equalTo(castMemberNameLabel.snp.bottom).offset(spacing)
+            $0.bottom.lessThanOrEqualToSuperview().inset(spacing)
         }
     }
 
