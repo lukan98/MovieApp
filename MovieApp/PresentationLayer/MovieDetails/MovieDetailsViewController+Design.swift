@@ -54,6 +54,12 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         topBilledCastCollection = makeCollectionView()
         contentView.addSubview(topBilledCastCollection)
+
+        socialLabel = UILabel()
+        contentView.addSubview(socialLabel)
+
+        reviewView = ReviewView()
+        contentView.addSubview(reviewView)
     }
 
     func styleViews() {
@@ -86,6 +92,9 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         topBilledCastCollection.backgroundColor = .white
         topBilledCastCollection.showsHorizontalScrollIndicator = false
         topBilledCastCollection.clipsToBounds = false
+
+        socialLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
+        socialLabel.textColor = UIColor(named: "DarkBlue")
     }
 
     func defineLayoutForViews() {
@@ -138,8 +147,19 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         topBilledCastCollection.snp.makeConstraints {
             $0.top.equalTo(topBilledCastLabel.snp.bottom).offset(spacing)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(250)
+        }
+
+        socialLabel.snp.makeConstraints {
+            $0.top.equalTo(topBilledCastCollection.snp.bottom).offset(4 * spacing)
+            $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+        }
+
+        reviewView.snp.makeConstraints {
+            $0.top.equalTo(socialLabel.snp.bottom).offset(3 * spacing)
+            $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+            $0.bottom.equalToSuperview()
         }
     }
 

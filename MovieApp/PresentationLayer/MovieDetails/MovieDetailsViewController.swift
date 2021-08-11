@@ -19,6 +19,8 @@ class MovieDetailsViewController: UIViewController {
     var overviewLabel: UILabel!
     var topBilledCastLabel: UILabel!
     var topBilledCastCollection: UICollectionView!
+    var socialLabel: UILabel!
+    var reviewView: ReviewView!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -68,12 +70,26 @@ class MovieDetailsViewController: UIViewController {
                 print("Failed to get movie credits")
             }
         }
+
+        presenter.getReview { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let review):
+                self.reviewView.setData(for: review)
+            case .failure:
+                print("Failed to get movie review")
+            }
+
+        }
     }
 
     private func setInitialData() {
         overviewTitleLabel.text = "Overview"
 
         topBilledCastLabel.text = "Top Billed Cast"
+
+        socialLabel.text = "Social"
     }
 
     private func setCrewGridData(for crew: [CrewMemberViewModel]) {
