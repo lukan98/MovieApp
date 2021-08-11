@@ -19,6 +19,8 @@ class MovieDetailsViewController: UIViewController {
     var overviewLabel: UILabel!
     var topBilledCastLabel: UILabel!
     var topBilledCastCollection: UICollectionView!
+    var socialLabel: UILabel!
+    var reviewView: ReviewView!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -74,6 +76,8 @@ class MovieDetailsViewController: UIViewController {
         overviewTitleLabel.text = "Overview"
 
         topBilledCastLabel.text = "Top Billed Cast"
+
+        socialLabel.text = "Social"
     }
 
     private func setCrewGridData(for crew: [CrewMemberViewModel]) {
