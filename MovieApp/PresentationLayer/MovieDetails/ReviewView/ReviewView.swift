@@ -3,6 +3,9 @@ import Kingfisher
 
 class ReviewView: UIView {
 
+    let spacing = 5
+    let numberOfLines = 15
+
     var headerView: UIView!
     var titleLabel: UILabel!
     var subtitleLabel: UILabel!

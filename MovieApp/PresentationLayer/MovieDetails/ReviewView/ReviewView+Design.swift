@@ -27,14 +27,14 @@ extension ReviewView: ConstructViewsProtocol {
 
         reviewLabel = UILabel()
         addSubview(reviewLabel)
+
+        let onTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleExpandCollapse))
+        reviewLabel.addGestureRecognizer(onTapGesture)
     }
 
     func styleViews() {
         titleLabel.font = UIFont(name: "ProximaNova-Bold", size: 18)
         titleLabel.textColor = .black
-
-        subtitleLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
-        subtitleLabel.textColor = .black
 
         dateLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
         dateLabel.textColor = UIColor(named: "Gray2")
@@ -44,7 +44,9 @@ extension ReviewView: ConstructViewsProtocol {
 
         reviewLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
         reviewLabel.textColor = UIColor(named: "Gray2")
-        reviewLabel.numberOfLines = 15
+        reviewLabel.numberOfLines = numberOfLines
+        reviewLabel.contentMode = .top
+        reviewLabel.isUserInteractionEnabled = true
     }
 
     func styleSubtitleLabel(for author: String) {
@@ -77,18 +79,18 @@ extension ReviewView: ConstructViewsProtocol {
 
         avatarImageView.snp.makeConstraints {
             $0.leading.centerY.equalToSuperview()
-            $0.top.bottom.equalToSuperview().inset(5)
+            $0.top.bottom.equalToSuperview().inset(spacing)
             $0.size.equalTo(CGSize(width: 60, height: 60))
         }
 
         titleLabel.snp.makeConstraints {
-            $0.leading.equalTo(avatarImageView.snp.trailing).offset(15)
+            $0.leading.equalTo(avatarImageView.snp.trailing).offset(3 * spacing)
             $0.top.equalToSuperview()
             $0.trailing.equalToSuperview()
         }
 
         subtitleLabel.snp.makeConstraints {
-            $0.bottom.equalTo(dateLabel.snp.top).offset(-5)
+            $0.bottom.equalTo(dateLabel.snp.top).offset(-spacing)
             $0.leading.equalTo(titleLabel)
             $0.trailing.equalToSuperview()
         }
@@ -100,8 +102,21 @@ extension ReviewView: ConstructViewsProtocol {
         }
 
         reviewLabel.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(15)
+            $0.top.equalTo(headerView.snp.bottom).offset(3 * spacing)
             $0.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+
+    @objc
+    private func toggleExpandCollapse(tapGesture: UITapGestureRecognizer) {
+        if let label = tapGesture.view as? UILabel {
+            UIView.transition(with: label, duration: 0.2, options: .transitionCrossDissolve) {
+                if label.numberOfLines == self.numberOfLines {
+                    label.numberOfLines = 0
+                } else if label.numberOfLines == 0 {
+                    label.numberOfLines = self.numberOfLines
+                }
+            }
         }
     }
 
