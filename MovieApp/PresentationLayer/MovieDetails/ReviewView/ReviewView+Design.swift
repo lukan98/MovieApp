@@ -117,6 +117,7 @@ extension ReviewView: ConstructViewsProtocol {
                     label.numberOfLines = self.numberOfLines
                 }
             }
+            self.expandCollapseReview()
         }
     }
 
