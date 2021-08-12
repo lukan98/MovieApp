@@ -38,7 +38,7 @@ extension UILabel {
                 } while
                     currentIndex != NSNotFound &&
                     currentIndex < labelText.count &&
-                    NSString(string: NSString(string: labelText).substring(to: currentIndex))
+                    ((labelText as NSString).substring(to: currentIndex) as NSString)
                     .boundingRect(
                         with: sizeConstraint,
                         options: .usesLineFragmentOrigin,
@@ -48,13 +48,9 @@ extension UILabel {
                     .height <= labelHeight
                 return previousIndex
             }
+            return labelText.count
         }
-
-        if self.text == nil {
-            return 0
-        } else {
-            return self.text!.count
-        }
+        return 0
     }
 
     func addTrailing(
@@ -63,7 +59,7 @@ extension UILabel {
         appendageFont: UIFont?,
         appendageColor: UIColor?
     ) {
-        let readMoreText = trailingText + appendageText
+        let totalTrailingText = trailingText + appendageText
         if visibleTextLength == 0 { return }
 
         if let labelText = text {
@@ -77,22 +73,27 @@ extension UILabel {
 
             guard let safeTrimmedString = trimmedString else { return }
 
-            if safeTrimmedString.count <= readMoreText.count { return }
+            if safeTrimmedString.count <= totalTrailingText.count { return }
 
             let trimmedForReadMore = NSString(string: safeTrimmedString)
                 .replacingCharacters(
-                    in: NSRange(location: safeTrimmedString.count - readMoreText.count, length: readMoreText.count),
+                    in: NSRange(
+                        location: safeTrimmedString.count - totalTrailingText.count,
+                        length: totalTrailingText.count),
                     with: "") + trailingText
+
             let attributedText = NSMutableAttributedString(
                 string: trimmedForReadMore,
                 attributes: [
                     NSAttributedString.Key.font: font as Any,
                     NSAttributedString.Key.foregroundColor: textColor as Any])
+
             let attributedReadMore = NSMutableAttributedString(
                 string: appendageText,
                 attributes: [
                     NSAttributedString.Key.font: appendageFont as Any,
                     NSAttributedString.Key.foregroundColor: appendageColor as Any])
+            
             attributedText.append(attributedReadMore)
             self.attributedText = attributedText
         }
