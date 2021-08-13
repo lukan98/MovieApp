@@ -51,9 +51,6 @@ class MovieDetailsPresenter {
                 completionHandler(result.map { $0.map { MovieRecommendationViewModel(from: $0) } })
             }
         }
-//        DispatchQueue.main.async {
-//            completionHandler(.success(Array(repeating: mockRecommendation, count: 6)))
-//        }
     }
 
 }
