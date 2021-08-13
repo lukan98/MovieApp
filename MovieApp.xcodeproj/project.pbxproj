@@ -29,6 +29,7 @@
 		FC23B1F526C3B7F2000C603E /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1F426C3B7F2000C603E /* ReviewView.swift */; };
 		FC23B1F726C3B837000C603E /* ReviewView+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1F626C3B837000C603E /* ReviewView+Design.swift */; };
 		FC23B1F926C3FCAB000C603E /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1F826C3FCAB000C603E /* ReviewViewModel.swift */; };
+		FC23B1FB26C50FD8000C603E /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC23B1FA26C50FD8000C603E /* UILabel+Extensions.swift */; };
 		FC2774A226AE9E6300E157EC /* GenreUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774A126AE9E6300E157EC /* GenreUseCase.swift */; };
 		FC2774A426AE9FA600E157EC /* GenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774A326AE9FA600E157EC /* GenreViewModel.swift */; };
 		FC2774A826AEF87D00E157EC /* OptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774A726AEF87D00E157EC /* OptionViewModel.swift */; };
@@ -148,6 +149,7 @@
 		FC23B1F426C3B7F2000C603E /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		FC23B1F626C3B837000C603E /* ReviewView+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReviewView+Design.swift"; sourceTree = "<group>"; };
 		FC23B1F826C3FCAB000C603E /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
+		FC23B1FA26C50FD8000C603E /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		FC2774A126AE9E6300E157EC /* GenreUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreUseCase.swift; sourceTree = "<group>"; };
 		FC2774A326AE9FA600E157EC /* GenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewModel.swift; sourceTree = "<group>"; };
 		FC2774A726AEF87D00E157EC /* OptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionViewModel.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 				FC6FE5F826B7DD73003B29B1 /* Array+Extensions.swift */,
 				FC6FE61226B94073003B29B1 /* UIView+Extensions.swift */,
 				FC6FE61B26BA7CC5003B29B1 /* Date+Extensions.swift */,
+				FC23B1FA26C50FD8000C603E /* UILabel+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				FC23B1D426BAD3BC000C603E /* CrewMemberDataSourceModel.swift in Sources */,
 				FCE5E52526AB09680015ED14 /* GenreRepositoryProtocol.swift in Sources */,
 				FC2774BE26B179E600E157EC /* GenreNetworkDataSource.swift in Sources */,
+				FC23B1FB26C50FD8000C603E /* UILabel+Extensions.swift in Sources */,
 				FC6FE60526B835DB003B29B1 /* DetailedMovieViewModel.swift in Sources */,
 				FCB63AA726A6F69B00E049A2 /* SearchBarView.swift in Sources */,
 				FC592E4F269DAC5700233EFB /* MovieListViewController.swift in Sources */,
