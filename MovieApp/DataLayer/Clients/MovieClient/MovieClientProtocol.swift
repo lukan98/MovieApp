@@ -22,5 +22,10 @@ protocol MovieClientProtocol {
         for movieId: Int,
         _ completionHandler: @escaping (Result<CreditsClientModel, RequestError>) -> Void
     )
+
+    func fetchMovieReviews(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<ReviewListClientModel, RequestError>) -> Void
+    )
     
 }

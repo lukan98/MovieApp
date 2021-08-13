@@ -32,17 +32,17 @@ class ReviewView: UIView {
     }
 
     func setData(for review: ReviewViewModel) {
-        titleLabel.text = "A review by \(review.author)"
+        titleLabel.text = "A review by \(review.authorName)"
 
-        styleSubtitleLabel(for: review.author)
+        styleSubtitleLabel(for: review.authorName)
 
         dateLabel.text = review.date
 
-        let imageUrl = URL(string: review.avatarSource)
+        let imageUrl = URL(string: review.avatarPath)
         avatarImageView.kf.setImage(with: imageUrl)
 
-        reviewText = review.review
-        reviewLabel.text = review.review
+        reviewText = review.content
+        reviewLabel.text = review.content
     }
 
     func truncateReviewText() {

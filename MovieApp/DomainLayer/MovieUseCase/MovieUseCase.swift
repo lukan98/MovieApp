@@ -93,4 +93,13 @@ class MovieUseCase: MovieUseCaseProtocol {
             completionHandler(result.map { CreditsModel(from: $0) })
         }
     }
+
+    func getMovieReviews(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<[ReviewModel], RequestError>) -> Void
+    ) {
+        movieRepository.getMovieReviews(for: movieId) { result in
+            completionHandler(result.map { $0.map { ReviewModel(from: $0) } })
+        }
+    }
 }

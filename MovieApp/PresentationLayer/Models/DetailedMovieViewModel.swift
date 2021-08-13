@@ -29,7 +29,7 @@ extension DetailedMovieViewModel {
         let timeComponents = TimeComponentsViewModel(minutes: model.runtime)
         runtime = timeComponents.uiString
         releaseYear = model.releaseDate.uiYear
-        releaseDate = model.releaseDate.uiDate
+        releaseDate = model.releaseDate.uiShortDate
     }
 
 }

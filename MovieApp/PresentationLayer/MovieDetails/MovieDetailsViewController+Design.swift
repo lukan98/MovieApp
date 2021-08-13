@@ -163,7 +163,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         reviewsContainerView.snp.makeConstraints {
             $0.top.equalTo(socialLabel.snp.bottom).offset(3 * spacing)
-            $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(300)
             $0.bottom.equalToSuperview()
         }
