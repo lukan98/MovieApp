@@ -27,5 +27,4 @@ protocol MovieClientProtocol {
         for movieId: Int,
         _ completionHandler: @escaping (Result<ReviewListClientModel, RequestError>) -> Void
     )
-    
 }
