@@ -32,7 +32,7 @@ class CircularRatingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setData(for rating: Double) {
+    func setData(for rating: Double, animated: Bool) {
         guard
             rating >= minimumRating,
             rating <= maximumRating
@@ -41,7 +41,9 @@ class CircularRatingView: UIView {
         }
 
         styleRatingLabel(for: String(Int(rating / maximumRating * 100)) + "%")
-        ratingAnimation(rating: rating / maximumRating, duration: 0.5)
+        if animated {
+            ratingAnimation(rating: rating / maximumRating, duration: 0.5)
+        }
     }
 
 }

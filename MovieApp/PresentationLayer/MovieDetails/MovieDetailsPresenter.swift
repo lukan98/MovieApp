@@ -53,4 +53,11 @@ class MovieDetailsPresenter {
         }
     }
 
+    func toggleFavorited(for movieId: Int, _ completionHandler: @escaping () -> Void) {
+        useCase.toggleFavorited(for: movieId)
+        DispatchQueue.main.async {
+            completionHandler()
+        }
+    }
+
 }

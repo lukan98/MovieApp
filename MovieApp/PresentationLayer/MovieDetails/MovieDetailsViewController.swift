@@ -45,17 +45,18 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
 
         buildViews()
+        bindViews()
         setInitialData()
         loadData()
     }
 
-    func loadData() {
+    func loadData(animated: Bool = true) {
         presenter.getMovieDetails { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success(let movie):
-                self.headerView.setData(for: movie)
+                self.headerView.setData(for: movie, animated: animated)
                 self.overviewLabel.text = movie.about
             case .failure:
                 print("Failed to get movie details")
@@ -95,6 +96,16 @@ class MovieDetailsViewController: UIViewController {
                 self.recommendationCollection.reloadData()
             case .failure:
                 print("Failed to get movie recommendations")
+            }
+        }
+    }
+
+    private func bindViews() {
+        headerView.onFavoriteToggle = { [weak self] movieId in
+            guard let self = self else { return }
+
+            self.presenter.toggleFavorited(for: movieId) {
+                self.loadData(animated: false)
             }
         }
     }
