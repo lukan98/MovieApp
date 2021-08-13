@@ -15,7 +15,7 @@ extension ReviewDataSourceModel {
     init(from model: ReviewClientModel) {
         authorName = model.authorDetails.name ?? model.authorDetails.username
         content = model.content
-        creationDate = Date(serverDate: model.creationDate) ?? .distantPast
+        creationDate = Date(iso8601Date: model.creationDate) ?? .distantPast
         avatarPath = model.authorDetails.avatarPath
     }
 

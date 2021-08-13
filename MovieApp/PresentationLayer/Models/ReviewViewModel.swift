@@ -13,7 +13,7 @@ extension ReviewViewModel {
     init(from model: ReviewModel) {
         authorName = model.authorName
         avatarPath = model.avatarPath
-        date = model.creationDate.uiDate
+        date = model.creationDate.uiLongDate
         content = model.content
     }
 
