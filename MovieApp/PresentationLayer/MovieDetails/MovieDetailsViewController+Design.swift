@@ -52,7 +52,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         topBilledCastLabel = UILabel()
         contentView.addSubview(topBilledCastLabel)
 
-        topBilledCastCollection = makeCollectionView()
+        topBilledCastCollection = makeCastCollectionView()
         contentView.addSubview(topBilledCastCollection)
 
         socialLabel = UILabel()
@@ -65,6 +65,12 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         addChild(reviewsViewController)
 
         reviewsContainerView.addSubview(reviewsViewController.view)
+
+        recommendationLabel = UILabel()
+        contentView.addSubview(recommendationLabel)
+
+        recommendationCollection = makeRecommendationCollectionView()
+        contentView.addSubview(recommendationCollection)
     }
 
     func styleViews() {
@@ -74,8 +80,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         scrollView.delegate = self
 
-        overviewTitleLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
-        overviewTitleLabel.textColor = UIColor(named: "DarkBlue")
+        styleHeadingLabel(overviewTitleLabel)
 
         overviewLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
         overviewLabel.textColor = .black
@@ -91,15 +96,18 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             rowStackView.spacing = spacing
         }
 
-        topBilledCastLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
-        topBilledCastLabel.textColor = UIColor(named: "DarkBlue")
+        styleHeadingLabel(topBilledCastLabel)
 
         topBilledCastCollection.backgroundColor = .white
         topBilledCastCollection.showsHorizontalScrollIndicator = false
         topBilledCastCollection.clipsToBounds = false
 
-        socialLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
-        socialLabel.textColor = UIColor(named: "DarkBlue")
+        styleHeadingLabel(socialLabel)
+
+        styleHeadingLabel(recommendationLabel)
+
+        recommendationCollection.backgroundColor = .white
+        recommendationCollection.showsHorizontalScrollIndicator = false
     }
 
     func defineLayoutForViews() {
@@ -165,16 +173,31 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             $0.top.equalTo(socialLabel.snp.bottom).offset(3 * spacing)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(300)
-            $0.bottom.equalToSuperview()
         }
 
         reviewsViewController.view.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         reviewsViewController.didMove(toParent: self)
+
+        recommendationLabel.snp.makeConstraints {
+            $0.top.equalTo(reviewsContainerView.snp.bottom).offset(3 * spacing)
+            $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+        }
+
+        recommendationCollection.snp.makeConstraints {
+            $0.top.equalTo(recommendationLabel.snp.bottom).offset(spacing)
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(140)
+        }
     }
 
-    private func makeCollectionView() -> UICollectionView {
+    private func styleHeadingLabel(_ label: UILabel) {
+        label.font = UIFont(name: "ProximaNova-Bold", size: 20)
+        label.textColor = UIColor(named: "DarkBlue")
+    }
+
+    private func makeCastCollectionView() -> UICollectionView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
 
@@ -182,6 +205,18 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CastMemberCell.self, forCellWithReuseIdentifier: CastMemberCell.cellIdentifier)
+
+        return collectionView
+    }
+
+    private func makeRecommendationCollectionView() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(MovieBackdropCell.self, forCellWithReuseIdentifier: MovieBackdropCell.cellIdentifier)
 
         return collectionView
     }

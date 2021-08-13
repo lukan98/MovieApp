@@ -42,4 +42,17 @@ class MovieDetailsPresenter {
         }
     }
 
+    func getRecommendations(
+        _ completionHandler: @escaping (Result<[MovieRecommendationViewModel], RequestError>) -> Void,
+        basedOn movieId: Int = 103
+    ) {
+        let mockRecommendation = MovieRecommendationViewModel(
+            title: "GoodFellas",
+            backdropPath: "https://image.tmdb.org/t/p/w780/sw7mordbZxgITU877yTpZCud90M.jpg")
+
+        DispatchQueue.main.async {
+            completionHandler(.success(Array(repeating: mockRecommendation, count: 6)))
+        }
+    }
+
 }
