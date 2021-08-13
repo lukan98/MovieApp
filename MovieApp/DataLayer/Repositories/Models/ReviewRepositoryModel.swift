@@ -17,7 +17,7 @@ extension ReviewRepositoryModel {
         content = model.content
         creationDate = model.creationDate
         if model.avatarPath.starts(with: "/http") {
-            avatarPath = model.avatarPath
+            avatarPath = (model.avatarPath as NSString).substring(from: 1)
         } else {
             avatarPath = "https://image.tmdb.org/t/p/w185" + model.avatarPath
         }

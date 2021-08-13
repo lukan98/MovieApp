@@ -620,14 +620,14 @@
 		FCB63A7B26A571AE00E049A2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FCB63A8026A577B200E049A2 /* MovieRepositoryModel.swift */,
-				FCE5E52626AB09B90015ED14 /* GenreRepositoryModel.swift */,
-				FC2774C526B2927D00E157EC /* TimeWindowRepositoryModel.swift */,
-				FC6FE60026B833C1003B29B1 /* DetailedMovieRepositoryModel.swift */,
 				FC23B1D526BAD485000C603E /* CastMemberRepositoryModel.swift */,
-				FC23B1D726BAD4A5000C603E /* CrewMemberRepositoryModel.swift */,
 				FC23B1E326BADA66000C603E /* CreditsRepositoryModel.swift */,
+				FC23B1D726BAD4A5000C603E /* CrewMemberRepositoryModel.swift */,
+				FC6FE60026B833C1003B29B1 /* DetailedMovieRepositoryModel.swift */,
+				FCE5E52626AB09B90015ED14 /* GenreRepositoryModel.swift */,
+				FCB63A8026A577B200E049A2 /* MovieRepositoryModel.swift */,
 				FC70193026C67FAB00B01C73 /* ReviewRepositoryModel.swift */,
+				FC2774C526B2927D00E157EC /* TimeWindowRepositoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
