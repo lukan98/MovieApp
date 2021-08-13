@@ -2,6 +2,8 @@ import UIKit
 
 class ReviewViewController: UIViewController {
 
+    let spacing = 5
+
     var review: ReviewViewModel!
     var reviewView: ReviewView!
 
