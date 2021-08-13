@@ -33,4 +33,9 @@ protocol MovieUseCaseProtocol {
         _ completionHandler: @escaping (Result<CreditsModel, RequestError>) -> Void
     )
 
+    func getMovieReviews(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<[ReviewModel], RequestError>) -> Void
+    )
+
 }

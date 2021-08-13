@@ -23,4 +23,9 @@ protocol MovieNetworkDataSourceProtocol {
         _ completionHandler: @escaping (Result<CreditsDataSourceModel, RequestError>) -> Void
     )
 
+    func fetchMovieReviews(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<[ReviewDataSourceModel], RequestError>) -> Void
+    )
+
 }

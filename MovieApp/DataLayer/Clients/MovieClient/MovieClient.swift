@@ -60,9 +60,10 @@ class MovieClient: MovieClientProtocol {
         let queryParameters = ["language": "en-US"]
 
         baseApiClient
-            .get(path: "/movie/" + String(movieId),
-                 queryParameters: queryParameters,
-                 completionHandler: completionHandler)
+            .get(
+                path: "/movie/" + String(movieId),
+                queryParameters: queryParameters,
+                completionHandler: completionHandler)
     }
 
     func fetchMovieCredits(
@@ -72,6 +73,16 @@ class MovieClient: MovieClientProtocol {
         baseApiClient
             .get(path: "/movie/" + String(movieId) + "/credits",
                  completionHandler: completionHandler)
+    }
+
+    func fetchMovieReviews(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<ReviewListClientModel, RequestError>) -> Void
+    ) {
+        baseApiClient
+            .get(
+                path: "/movie/" + String(movieId) + "/reviews",
+                completionHandler: completionHandler)
     }
 
 }

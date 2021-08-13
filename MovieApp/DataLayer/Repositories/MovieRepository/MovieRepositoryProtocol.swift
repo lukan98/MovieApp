@@ -33,4 +33,9 @@ protocol MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<CreditsRepositoryModel, RequestError>) -> Void
     )
 
+    func getMovieReviews(
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<[ReviewRepositoryModel], RequestError>) -> Void
+    )
+
 }
