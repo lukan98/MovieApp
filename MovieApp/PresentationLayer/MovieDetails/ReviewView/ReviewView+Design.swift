@@ -109,16 +109,16 @@ extension ReviewView: ConstructViewsProtocol {
 
     @objc
     private func toggleExpandCollapse(tapGesture: UITapGestureRecognizer) {
-        if let label = tapGesture.view as? UILabel {
-            UIView.transition(with: label, duration: 0.2, options: .transitionCrossDissolve) {
-                if label.numberOfLines == self.numberOfLines {
-                    label.numberOfLines = 0
-                } else if label.numberOfLines == 0 {
-                    label.numberOfLines = self.numberOfLines
-                }
+        guard let label = tapGesture.view as? UILabel else { return }
+
+        UIView.transition(with: label, duration: 0.2, options: .transitionCrossDissolve) {
+            if label.numberOfLines == self.numberOfLines {
+                label.numberOfLines = 0
+            } else if label.numberOfLines == 0 {
+                label.numberOfLines = self.numberOfLines
             }
-            self.expandCollapseReview()
         }
+        self.expandCollapseReview()
     }
 
 }
