@@ -38,4 +38,9 @@ protocol MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<[ReviewRepositoryModel], RequestError>) -> Void
     )
 
+    func getMovieRecommendations(
+        basedOn movieId: Int,
+        _ completionHandler: @escaping (Result<[MovieRecommendationRepositoryModel], RequestError>) -> Void
+    )
+
 }

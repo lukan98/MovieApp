@@ -102,4 +102,13 @@ class MovieUseCase: MovieUseCaseProtocol {
             completionHandler(result.map { $0.map { ReviewModel(from: $0) } })
         }
     }
+
+    func getMovieRecommendations(
+        basedOn movieId: Int,
+        _ completionHandler: @escaping (Result<[MovieRecommendationModel], RequestError>) -> Void
+    ) {
+        movieRepository.getMovieRecommendations(basedOn: movieId) { result in
+            completionHandler(result.map { $0.map { MovieRecommendationModel(from: $0) } })
+        }
+    }
 }

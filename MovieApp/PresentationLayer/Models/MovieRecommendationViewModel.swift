@@ -8,7 +8,7 @@ struct MovieRecommendationViewModel {
 // MARK: Model to ViewModel conversion
 extension MovieRecommendationViewModel {
 
-    init(from model: MovieRecommendationViewModel) {
+    init(from model: MovieRecommendationModel) {
         title = model.title
         backdropPath = model.backdropPath
     }
