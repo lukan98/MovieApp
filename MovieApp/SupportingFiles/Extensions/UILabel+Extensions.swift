@@ -97,7 +97,5 @@ extension UILabel {
             attributedText.append(attributedReadMore)
             self.attributedText = attributedText
         }
-
     }
-
 }

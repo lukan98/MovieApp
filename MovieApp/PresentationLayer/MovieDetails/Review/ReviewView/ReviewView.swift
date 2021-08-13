@@ -4,7 +4,6 @@ import Kingfisher
 class ReviewView: UIView {
 
     let spacing = 5
-    let numberOfLines = 15
 
     var headerView: UIView!
     var titleLabel: UILabel!
@@ -13,7 +12,7 @@ class ReviewView: UIView {
     var avatarImageView: UIImageView!
     var reviewLabel: UILabel!
 
-    private var reviewText: String = ""
+    var reviewText: String = ""
 
     init() {
         super.init(frame: .zero)
@@ -44,6 +43,9 @@ class ReviewView: UIView {
 
         reviewText = review.review
         reviewLabel.text = review.review
+    }
+
+    func truncateReviewText() {
         reviewLabel.addTrailing(
             with: "... ",
             appendageText: "read the rest",
@@ -55,11 +57,7 @@ class ReviewView: UIView {
         if reviewText != reviewLabel.text {
             reviewLabel.text = reviewText
         } else {
-            reviewLabel.addTrailing(
-                with: "... ",
-                appendageText: "read the rest",
-                appendageFont: UIFont(name: "ProximaNova-Medium", size: 14),
-                appendageColor: UIColor(named: "DarkBlue"))
+            truncateReviewText()
         }
     }
 

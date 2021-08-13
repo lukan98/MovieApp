@@ -58,8 +58,13 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         socialLabel = UILabel()
         contentView.addSubview(socialLabel)
 
-        reviewView = ReviewView()
-        contentView.addSubview(reviewView)
+        reviewsContainerView = UIView()
+        contentView.addSubview(reviewsContainerView)
+
+        reviewsViewController = ReviewsViewController()
+        addChild(reviewsViewController)
+
+        reviewsContainerView.addSubview(reviewsViewController.view)
     }
 
     func styleViews() {
@@ -156,11 +161,17 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             $0.leading.trailing.equalToSuperview().inset(4 * spacing)
         }
 
-        reviewView.snp.makeConstraints {
+        reviewsContainerView.snp.makeConstraints {
             $0.top.equalTo(socialLabel.snp.bottom).offset(3 * spacing)
             $0.leading.trailing.equalToSuperview().inset(4 * spacing)
+            $0.height.equalTo(300)
             $0.bottom.equalToSuperview()
         }
+
+        reviewsViewController.view.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        reviewsViewController.didMove(toParent: self)
     }
 
     private func makeCollectionView() -> UICollectionView {

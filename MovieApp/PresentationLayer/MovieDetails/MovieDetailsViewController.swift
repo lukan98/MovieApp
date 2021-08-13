@@ -20,7 +20,8 @@ class MovieDetailsViewController: UIViewController {
     var topBilledCastLabel: UILabel!
     var topBilledCastCollection: UICollectionView!
     var socialLabel: UILabel!
-    var reviewView: ReviewView!
+    var reviewsContainerView: UIView!
+    var reviewsViewController: ReviewsViewController!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -75,12 +76,11 @@ class MovieDetailsViewController: UIViewController {
             guard let self = self else { return }
 
             switch result {
-            case .success(let review):
-                self.reviewView.setData(for: review)
+            case .success(let reviewViewModels):
+                self.setReviewData(for: reviewViewModels)
             case .failure:
-                print("Failed to get movie review")
+                print("Failed to get movie reviews")
             }
-
         }
     }
 
@@ -101,6 +101,10 @@ class MovieDetailsViewController: UIViewController {
 
             crewMemberLabel.setData(name: crewMember.name, job: crewMember.job)
         }
+    }
+
+    private func setReviewData(for reviews: [ReviewViewModel]) {
+        reviewsViewController.setData(for: reviews)
     }
 
 }
