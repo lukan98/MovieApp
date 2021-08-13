@@ -27,9 +27,6 @@ extension ReviewView: ConstructViewsProtocol {
 
         reviewLabel = UILabel()
         addSubview(reviewLabel)
-
-        let onTapGesture = UITapGestureRecognizer(target: self, action: #selector(toggleExpandCollapse))
-        reviewLabel.addGestureRecognizer(onTapGesture)
     }
 
     func styleViews() {
@@ -44,7 +41,7 @@ extension ReviewView: ConstructViewsProtocol {
 
         reviewLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
         reviewLabel.textColor = UIColor(named: "Gray2")
-        reviewLabel.numberOfLines = numberOfLines
+        reviewLabel.numberOfLines = 0
         reviewLabel.contentMode = .top
         reviewLabel.isUserInteractionEnabled = true
     }
@@ -111,11 +108,11 @@ extension ReviewView: ConstructViewsProtocol {
     private func toggleExpandCollapse(tapGesture: UITapGestureRecognizer) {
         guard let label = tapGesture.view as? UILabel else { return }
 
-        UIView.transition(with: label, duration: 0.2, options: .transitionCrossDissolve) {
-            if label.numberOfLines == self.numberOfLines {
+        UIView.transition(with: label, duration: 0.2, options: .transitionCrossDissolve) { [self] in
+            if label.text != reviewText {
                 label.numberOfLines = 0
-            } else if label.numberOfLines == 0 {
-                label.numberOfLines = self.numberOfLines
+            } else {
+                label.numberOfLines = 15
             }
         }
         self.expandCollapseReview()

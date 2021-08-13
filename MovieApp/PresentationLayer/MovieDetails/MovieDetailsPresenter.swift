@@ -32,7 +32,7 @@ class MovieDetailsPresenter {
     }
 
     func getReview(
-        _ completionHandler: @escaping (Result<ReviewViewModel, RequestError>) -> Void,
+        _ completionHandler: @escaping (Result<[ReviewViewModel], RequestError>) -> Void,
         for movieId: Int = 103
     ) {
         let mockReview = ReviewViewModel(
@@ -48,7 +48,7 @@ class MovieDetailsPresenter {
             date: "February 17, 2010")
 
         DispatchQueue.main.async {
-            completionHandler(.success(mockReview))
+            completionHandler(.success(Array(repeating: mockReview, count: 5)))
         }
     }
 
