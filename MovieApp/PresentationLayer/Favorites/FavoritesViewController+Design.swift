@@ -26,7 +26,7 @@ extension FavoritesViewController: ConstructViewsProtocol {
     func styleViews() {
         view.backgroundColor = .white
 
-        favoritesLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
+        favoritesLabel.font = ProximaNova.bold.of(size: 20)
         favoritesLabel.textColor = UIColor(named: "DarkBlue")
         favoritesLabel.text = "Favorites"
 

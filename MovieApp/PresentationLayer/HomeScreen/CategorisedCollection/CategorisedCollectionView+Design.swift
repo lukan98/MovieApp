@@ -20,7 +20,7 @@ extension CategorisedCollectionView: ConstructViewsProtocol {
     }
     
     func styleViews() {
-        titleLabel.font = UIFont(name: "ProximaNova-Bold", size: 20)
+        titleLabel.font = ProximaNova.bold.of(size: 20)
         titleLabel.textColor = UIColor(named: "DarkBlue")
         
         movieCollectionView.showsHorizontalScrollIndicator = false

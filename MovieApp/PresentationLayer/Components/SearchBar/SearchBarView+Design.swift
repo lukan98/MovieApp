@@ -38,7 +38,7 @@ extension SearchBarView: ConstructViewsProtocol {
         searchField.leftViewMode = .always
         searchField.rightViewMode = .always
 
-        let font = UIFont(name: "ProximaNova-Medium", size: SearchBarView.fontSize)
+        let font = ProximaNova.medium.of(size: SearchBarView.fontSize)
         let color = UIColor(named: "DarkBlue")
 
         let placeholder = NSAttributedString(
@@ -48,7 +48,7 @@ extension SearchBarView: ConstructViewsProtocol {
                 NSAttributedString.Key.foregroundColor: color?.withAlphaComponent(0.5) as Any])
         searchField.attributedPlaceholder = placeholder
 
-        searchField.font = UIFont(name: "ProximaNova-Medium", size: SearchBarView.fontSize)
+        searchField.font = ProximaNova.medium.of(size: SearchBarView.fontSize)
         searchField.textColor = UIColor(named: "DarkBlue")
 
         let attributedTitle = NSAttributedString(

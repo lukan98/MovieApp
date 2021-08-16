@@ -8,7 +8,7 @@ extension MoviePosterView: ConstructViewsProtocol {
     }
 
     func createViews() {
-        posterImage = UIImageView(image: UIImage(named: "IronMan1"))
+        posterImage = UIImageView()
         addSubview(posterImage)
 
         favoriteButton = UIButton()

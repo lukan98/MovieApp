@@ -45,22 +45,22 @@ extension MovieHeaderView: ConstructViewsProtocol {
         backgroundPosterView.layer.masksToBounds = true
         backgroundPosterView.contentMode = .scaleAspectFill
 
-        userScoreLabel.font = UIFont(name: "ProximaNova-Bold", size: 14)
+        userScoreLabel.font = ProximaNova.bold.of(size: 14)
         userScoreLabel.textColor = .white
 
-        titleLabel.font = UIFont(name: "ProximaNova-Bold", size: 24)
+        titleLabel.font = ProximaNova.bold.of(size: 24)
         titleLabel.textColor = .white
 
-        releaseYearLabel.font = UIFont(name: "ProximaNova-Medium", size: 24)
+        releaseYearLabel.font = ProximaNova.medium.of(size: 24)
         releaseYearLabel.textColor = .white
 
-        releaseDateLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
+        releaseDateLabel.font = ProximaNova.medium.of(size: 14)
         releaseDateLabel.textColor = .white
 
-        genresLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
+        genresLabel.font = ProximaNova.medium.of(size: 14)
         genresLabel.textColor = .white
 
-        runtimeLabel.font = UIFont(name: "ProximaNova-Semibold", size: 14)
+        runtimeLabel.font = ProximaNova.semibold.of(size: 14)
         runtimeLabel.textColor = .white
 
         favoriteButton.backgroundColor = UIColor(named: "Gray2")?.withAlphaComponent(0.6)

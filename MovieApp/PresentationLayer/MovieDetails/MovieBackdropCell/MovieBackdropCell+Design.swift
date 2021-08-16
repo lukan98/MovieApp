@@ -20,7 +20,7 @@ extension MovieBackdropCell: ConstructViewsProtocol {
         backdropImageView.clipsToBounds = true
         backdropImageView.layer.cornerRadius = 10
 
-        titleLabel.font = UIFont(name: "ProximaNova-Semibold", size: 16)
+        titleLabel.font = ProximaNova.semibold.of(size: 16)
         titleLabel.textColor = UIColor(named: "DarkBlue")
     }
 

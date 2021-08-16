@@ -33,7 +33,7 @@ extension UnderlinedButtonView: ConstructViewsProtocol {
     }
 
     func styleSelected() {
-        let font = UIFont(name: "ProximaNova-Bold", size: 16)
+        let font = ProximaNova.bold.of(size: 16)
         let attributedTitle = NSAttributedString(
             string: title,
             attributes: [NSAttributedString.Key.font: font as Any])
@@ -47,7 +47,7 @@ extension UnderlinedButtonView: ConstructViewsProtocol {
     }
 
     func styleUnselected() {
-        let font = UIFont(name: "ProximaNova-Medium", size: 16)
+        let font = ProximaNova.medium.of(size: 16)
         let attributedTitle = NSAttributedString(
             string: title,
             attributes: [NSAttributedString.Key.font: font as Any])

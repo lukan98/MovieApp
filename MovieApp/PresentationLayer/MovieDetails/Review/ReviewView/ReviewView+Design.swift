@@ -30,16 +30,16 @@ extension ReviewView: ConstructViewsProtocol {
     }
 
     func styleViews() {
-        titleLabel.font = UIFont(name: "ProximaNova-Bold", size: 18)
+        titleLabel.font = ProximaNova.bold.of(size: 18)
         titleLabel.textColor = .black
 
-        dateLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
+        dateLabel.font = ProximaNova.medium.of(size: 14)
         dateLabel.textColor = UIColor(named: "Gray2")
 
         avatarImageView.layer.masksToBounds = true
         avatarImageView.contentMode = .scaleAspectFit
 
-        reviewLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
+        reviewLabel.font = ProximaNova.medium.of(size: 14)
         reviewLabel.textColor = UIColor(named: "Gray2")
         reviewLabel.numberOfLines = 0
         reviewLabel.contentMode = .top
@@ -47,7 +47,7 @@ extension ReviewView: ConstructViewsProtocol {
     }
 
     func styleSubtitleLabel(for author: String) {
-        let font = UIFont(name: "ProximaNova-Medium", size: 14)
+        let font = ProximaNova.medium.of(size: 14)
         let defaultAttrs = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: UIColor(named: "Gray2")]
