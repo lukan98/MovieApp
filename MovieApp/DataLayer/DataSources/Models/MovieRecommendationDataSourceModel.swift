@@ -1,5 +1,6 @@
 struct MovieRecommendationDataSourceModel {
 
+    let id: Int
     let title: String
     let backdropPath: String
 
@@ -9,6 +10,7 @@ struct MovieRecommendationDataSourceModel {
 extension MovieRecommendationDataSourceModel {
 
     init(from model: MovieRecommendationClientModel) {
+        id = model.id
         title = model.title
         backdropPath = model.backdropPath ?? ""
     }

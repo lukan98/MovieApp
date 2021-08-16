@@ -169,6 +169,19 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
 
     func collectionView(
         _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard collectionView == recommendationCollection,
+              let movie = recommendations.at(indexPath.row)
+        else {
+            return
+        }
+
+        router?.routeToDetails(for: movie.id)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         switch collectionView {
