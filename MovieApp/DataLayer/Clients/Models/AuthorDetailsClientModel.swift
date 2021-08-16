@@ -1,8 +1,8 @@
 struct AuthorDetailsClientModel: Codable {
 
-    let name: String?
+    let name: String
     let username: String
-    let avatarPath: String
+    let avatarPath: String?
 
     enum CodingKeys: String, CodingKey {
         case name

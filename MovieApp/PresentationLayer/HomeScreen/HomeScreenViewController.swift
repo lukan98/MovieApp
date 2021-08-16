@@ -10,12 +10,13 @@ class HomeScreenViewController: UIViewController {
     var topRatedMoviesCollectionView: CategorisedCollectionView!
     var trendingMoviesCollectionView: CategorisedCollectionView!
 
-    private var presenter: HomeScreenPresenter!
+    private var presenter: HomeScreenPresenter
+    private weak var router: MovieDetailsRouterProtocol?
 
-    init(presenter: HomeScreenPresenter) {
-        super.init(nibName: nil, bundle: nil)
-
+    init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -74,6 +75,10 @@ class HomeScreenViewController: UIViewController {
         popularMoviesCollectionView.onMovieFavorited = toggleFavorited
         topRatedMoviesCollectionView.onMovieFavorited = toggleFavorited
         trendingMoviesCollectionView.onMovieFavorited = toggleFavorited
+
+        popularMoviesCollectionView.onMovieSelected = selectedMovie
+        topRatedMoviesCollectionView.onMovieSelected = selectedMovie
+        trendingMoviesCollectionView.onMovieSelected = selectedMovie
     }
 
     private func loadPopularMovies(for optionId: Int, animated: Bool = true) {
@@ -106,6 +111,10 @@ class HomeScreenViewController: UIViewController {
                 self?.trendingMoviesCollectionView.setData([], animated: animated)
             }
         }
+    }
+
+    private func selectedMovie(with movieId: Int) {
+        router?.routeToDetails(for: movieId)
     }
 
     private func toggleFavorited(for movieId: Int) {

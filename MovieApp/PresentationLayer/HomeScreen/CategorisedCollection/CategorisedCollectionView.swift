@@ -7,6 +7,7 @@ class CategorisedCollectionView: UIView {
 
     var onCategoryChanged: (Int) -> Void = { _ in }
     var onMovieFavorited: (Int) -> Void = { _ in }
+    var onMovieSelected: (Int) -> Void = { _ in }
 
     var titleLabel: UILabel!
     var categoriesView: ButtonBarView!
@@ -96,6 +97,15 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
         cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
         cell.moviePoster.onFavoriteToggle = onMovieFavorited
         return cell
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard let movie = movies.at(indexPath.row) else { return }
+
+        onMovieSelected(movie.id)
     }
 
 }

@@ -26,14 +26,17 @@ class MovieDetailsViewController: UIViewController {
     var recommendationLabel: UILabel!
     var recommendationCollection: UICollectionView!
 
+    private let movieId: Int
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
 
     private let presenter: MovieDetailsPresenter
 
-    init(presenter: MovieDetailsPresenter) {
+    init(presenter: MovieDetailsPresenter, for movieId: Int) {
         self.presenter = presenter
+        self.movieId = movieId
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -51,7 +54,7 @@ class MovieDetailsViewController: UIViewController {
     }
 
     func loadData(animated: Bool = true) {
-        presenter.getMovieDetails { [weak self] result in
+        presenter.getMovieDetails(for: movieId) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -63,7 +66,9 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getMovieCredits(maximumCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
+        presenter.getMovieCredits(
+            for: movieId,
+            maximumCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -76,7 +81,7 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getReview { [weak self] result in
+        presenter.getReview(for: movieId) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -87,7 +92,7 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getRecommendations { [weak self] result in
+        presenter.getRecommendations(for: movieId) { [weak self] result in
             guard let self = self else { return }
 
             switch result {

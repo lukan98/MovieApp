@@ -13,10 +13,10 @@ struct ReviewDataSourceModel {
 extension ReviewDataSourceModel {
 
     init(from model: ReviewClientModel) {
-        authorName = model.authorDetails.name ?? model.authorDetails.username
+        authorName = model.authorDetails.name.isEmpty ? model.authorDetails.username: model.authorDetails.name
         content = model.content
         creationDate = Date(iso8601Date: model.creationDate) ?? .distantPast
-        avatarPath = model.authorDetails.avatarPath
+        avatarPath = model.authorDetails.avatarPath ?? ""
     }
 
 }

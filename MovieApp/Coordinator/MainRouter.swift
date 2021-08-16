@@ -19,9 +19,23 @@ class MainRouter: RouterProtocol {
         let homeScreenPresenter = HomeScreenPresenter(
             movieUseCase: appDependencies.movieUseCase,
             genreUseCase: appDependencies.genreUseCase)
-        let homeScreenViewController = HomeScreenViewController(presenter: homeScreenPresenter)
+        let homeScreenViewController = HomeScreenViewController(
+            presenter: homeScreenPresenter,
+            router: self)
 
         navigationController.pushViewController(homeScreenViewController, animated: false)
     }
     
+}
+
+// MARK: MovieDetailsRoute
+extension MainRouter: MovieDetailsRouterProtocol {
+
+    func routeToDetails(for movieId: Int) {
+        let movieDetailsPresenter = MovieDetailsPresenter(useCase: appDependencies.movieUseCase)
+        let movieDetailsViewController = MovieDetailsViewController(presenter: movieDetailsPresenter, for: movieId)
+
+        navigationController.pushViewController(movieDetailsViewController, animated: true)
+    }
+
 }
