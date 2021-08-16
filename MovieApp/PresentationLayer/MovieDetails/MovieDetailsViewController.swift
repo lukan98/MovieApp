@@ -7,6 +7,7 @@ class MovieDetailsViewController: UIViewController {
     let noOfCrewColumns = 3
 
     var castMembers: [CastMemberViewModel] = []
+    var recommendations: [MovieRecommendationViewModel] = []
 
     var navigationView: NavBarView!
     var scrollView: UIScrollView!
@@ -22,6 +23,8 @@ class MovieDetailsViewController: UIViewController {
     var socialLabel: UILabel!
     var reviewsContainerView: UIView!
     var reviewsViewController: ReviewsViewController!
+    var recommendationLabel: UILabel!
+    var recommendationCollection: UICollectionView!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -82,6 +85,18 @@ class MovieDetailsViewController: UIViewController {
                 print("Failed to get movie reviews")
             }
         }
+
+        presenter.getRecommendations { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let recommendationViewModels):
+                self.recommendations = recommendationViewModels
+                self.recommendationCollection.reloadData()
+            case .failure:
+                print("Failed to get movie recommendations")
+            }
+        }
     }
 
     private func setInitialData() {
@@ -90,6 +105,8 @@ class MovieDetailsViewController: UIViewController {
         topBilledCastLabel.text = "Top Billed Cast"
 
         socialLabel.text = "Social"
+
+        recommendationLabel.text = "Recommendations"
     }
 
     private func setCrewGridData(for crew: [CrewMemberViewModel]) {
@@ -116,13 +133,31 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        castMembers.count
+        switch collectionView {
+        case topBilledCastCollection:
+            return castMembers.count
+        case recommendationCollection:
+            return recommendations.count
+        default:
+            return .zero
+        }
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
+        switch collectionView {
+        case topBilledCastCollection:
+            return topBilledCastCollection(cellForItemAt: indexPath)
+        case recommendationCollection:
+            return recommendationCollection(cellForItemAt: indexPath)
+        default:
+            return UICollectionViewCell()
+        }
+    }
+
+    private func topBilledCastCollection(cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = topBilledCastCollection.dequeueReusableCell(
                 withReuseIdentifier: CastMemberCell.cellIdentifier,
@@ -136,6 +171,20 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
         return cell
     }
 
+    private func recommendationCollection(cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = recommendationCollection.dequeueReusableCell(
+                withReuseIdentifier: MovieBackdropCell.cellIdentifier,
+                for: indexPath) as? MovieBackdropCell,
+            let recommendation = recommendations.at(indexPath.item)
+        else {
+            return MovieBackdropCell()
+        }
+
+        cell.setData(for: recommendation)
+        return cell
+    }
+
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
@@ -146,7 +195,14 @@ extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        CGSize(width: 125, height: 210)
+        switch collectionView {
+        case topBilledCastCollection:
+            return CGSize(width: 125, height: 210)
+        case recommendationCollection:
+            return CGSize(width: 180, height: 120)
+        default:
+            return .zero
+        }
     }
 
     func collectionView(
