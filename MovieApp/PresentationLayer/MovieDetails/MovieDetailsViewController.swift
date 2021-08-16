@@ -114,10 +114,11 @@ class MovieDetailsViewController: UIViewController {
             self.router?.routeBack()
         }
 
-        headerView.onFavoriteToggle = { [weak self] movieId in
-            guard let self = self else { return }
+        headerView.onFavoriteToggle = { movieId in
 
-            self.presenter.toggleFavorited(for: movieId) {
+            self.presenter.toggleFavorited(for: movieId) { [weak self] in
+                guard let self = self else { return }
+
                 self.loadData(animated: false)
             }
         }
