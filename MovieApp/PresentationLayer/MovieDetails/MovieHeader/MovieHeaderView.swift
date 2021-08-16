@@ -6,6 +6,8 @@ class MovieHeaderView: UIView {
     let spacing = 5
     let buttonSize = CGSize(width: 32, height: 32)
 
+    var onFavoriteToggle: (Int) -> Void = { _ in }
+
     var backgroundPosterView: UIImageView!
     var gradientView: UIView!
     var ratingView: CircularRatingView!
@@ -16,12 +18,13 @@ class MovieHeaderView: UIView {
     var genresLabel: UILabel!
     var runtimeLabel: UILabel!
     var favoriteButton: UIButton!
+    var movieId: Int!
     var isFavorited: Bool! {
         didSet {
             if isFavorited {
-                favoriteButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+                favoriteButton.setImage(UIImage(named: "Favorites-fill"), for: .normal)
             } else {
-                favoriteButton.setImage(UIImage(systemName: "star"), for: .normal)
+                favoriteButton.setImage(UIImage(named: "Favorites-outline"), for: .normal)
             }
         }
     }
@@ -43,7 +46,7 @@ class MovieHeaderView: UIView {
         styleButtonShape()
     }
 
-    func setData(for movie: DetailedMovieViewModel) {
+    func setData(for movie: DetailedMovieViewModel, animated: Bool) {
         let imageUrl = URL(string: movie.posterSource)
         backgroundPosterView.kf.setImage(with: imageUrl)
 
@@ -55,8 +58,9 @@ class MovieHeaderView: UIView {
         runtimeLabel.text = movie.runtime
 
         isFavorited = movie.isFavorited
+        movieId = movie.id
 
-        ratingView.setData(for: movie.voteAverage)
+        ratingView.setData(for: movie.voteAverage, animated: animated)
     }
 
 }
