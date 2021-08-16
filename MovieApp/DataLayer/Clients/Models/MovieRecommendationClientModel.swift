@@ -1,7 +1,7 @@
 struct MovieRecommendationClientModel: Codable {
 
     let title: String
-    let backdropPath: String
+    let backdropPath: String?
 
     enum CodingKeys: String, CodingKey {
         case title
