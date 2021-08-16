@@ -8,12 +8,16 @@ class FavoritesViewController: UIViewController {
 
     private let inset: CGFloat = 20
     private let verticalSpacing: CGFloat = 35
+
     private let presenter: FavoritesPresenter
 
     private var movies: [DetailedMovieViewModel] = []
 
-    init(presenter: FavoritesPresenter) {
+    private weak var router: MovieDetailsRouterProtocol?
+
+    init(presenter: FavoritesPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
+        self.router = router
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -82,6 +86,15 @@ extension FavoritesViewController: UICollectionViewDataSource {
             }
         }
         return cell
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard let movie = movies.at(indexPath.row) else { return }
+
+        router?.routeToDetails(for: movie.id)
     }
 
 }
