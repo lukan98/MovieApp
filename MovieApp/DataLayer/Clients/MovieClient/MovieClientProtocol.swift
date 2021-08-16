@@ -27,5 +27,9 @@ protocol MovieClientProtocol {
         for movieId: Int,
         _ completionHandler: @escaping (Result<ReviewListClientModel, RequestError>) -> Void
     )
-    
+
+    func fetchMovieRecommendations(
+        basedOn movieId: Int,
+        _ completionHandler: @escaping (Result<MovieRecommendationListClientModel, RequestError>) -> Void
+    )
 }

@@ -28,4 +28,9 @@ protocol MovieNetworkDataSourceProtocol {
         _ completionHandler: @escaping (Result<[ReviewDataSourceModel], RequestError>) -> Void
     )
 
+    func fetchMovieRecommendations(
+        basedOn movieId: Int,
+        _ completionHandler: @escaping (Result<[MovieRecommendationDataSourceModel], RequestError>) -> Void
+    )
+
 }

@@ -85,4 +85,14 @@ class MovieClient: MovieClientProtocol {
                 completionHandler: completionHandler)
     }
 
+    func fetchMovieRecommendations(
+        basedOn movieId: Int,
+        _ completionHandler: @escaping (Result<MovieRecommendationListClientModel, RequestError>) -> Void
+    ) {
+        baseApiClient
+            .get(
+                path: "/movie/" + String(movieId) + "/recommendations",
+                completionHandler: completionHandler)
+    }
+
 }
