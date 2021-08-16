@@ -26,7 +26,7 @@ class MainRouter: RouterProtocol {
         tabBarController.tabBar.tintColor = UIColor(named: "DarkBlue")
         tabBarController.tabBar.isTranslucent = false
 
-        let styledFont = UIFont(name: "ProximaNova-Medium", size: 10)
+        let styledFont = ProximaNova.medium.of(size: 10)
 
         let homeScreen = HomeScreenViewController(
             presenter: HomeScreenPresenter(

@@ -49,7 +49,7 @@ class ReviewView: UIView {
         reviewLabel.addTrailing(
             with: "... ",
             appendageText: "read the rest",
-            appendageFont: UIFont(name: "ProximaNova-Medium", size: 14),
+            appendageFont: ProximaNova.medium.of(size: 14),
             appendageColor: UIColor(named: "DarkBlue"))
     }
 
