@@ -33,9 +33,11 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private let presenter: MovieDetailsPresenter
+    private weak var router: MovieDetailsRouterProtocol?
 
-    init(presenter: MovieDetailsPresenter, for movieId: Int) {
+    init(presenter: MovieDetailsPresenter, router: MovieDetailsRouterProtocol, for movieId: Int) {
         self.presenter = presenter
+        self.router = router
         self.movieId = movieId
         super.init(nibName: nil, bundle: nil)
     }
@@ -106,6 +108,12 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func bindViews() {
+        navigationView.onBackButtonTap = { [weak self] in
+            guard let self = self else { return }
+
+            self.router?.routeBack()
+        }
+
         headerView.onFavoriteToggle = { [weak self] movieId in
             guard let self = self else { return }
 

@@ -411,7 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				FC592E4A269DAB8800233EFB /* SupportingFiles */,
-				FC70194326C6B6B600B01C73 /* Coordinator */,
+				FC70194326C6B6B600B01C73 /* Router */,
 				FC592E49269DAB7A00233EFB /* PresentationLayer */,
 				FCB63A8426A5811100E049A2 /* DomainLayer */,
 				FCB63A4126A055F500E049A2 /* DataLayer */,
@@ -538,14 +538,14 @@
 			path = MovieBackdropCell;
 			sourceTree = "<group>";
 		};
-		FC70194326C6B6B600B01C73 /* Coordinator */ = {
+		FC70194326C6B6B600B01C73 /* Router */ = {
 			isa = PBXGroup;
 			children = (
 				FC70194426C6B6CC00B01C73 /* MainRouter.swift */,
 				FC70194626C6B75F00B01C73 /* RouterProtocol.swift */,
 				FC66570C26CA5ED400440C6D /* MovieDetailsRouterProtocol.swift */,
 			);
-			path = Coordinator;
+			path = Router;
 			sourceTree = "<group>";
 		};
 		FCB63A34269F0B3400E049A2 /* NavBar */ = {

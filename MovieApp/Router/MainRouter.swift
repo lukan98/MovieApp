@@ -33,9 +33,16 @@ extension MainRouter: MovieDetailsRouterProtocol {
 
     func routeToDetails(for movieId: Int) {
         let movieDetailsPresenter = MovieDetailsPresenter(useCase: appDependencies.movieUseCase)
-        let movieDetailsViewController = MovieDetailsViewController(presenter: movieDetailsPresenter, for: movieId)
+        let movieDetailsViewController = MovieDetailsViewController(
+            presenter: movieDetailsPresenter,
+            router: self,
+            for: movieId)
 
         navigationController.pushViewController(movieDetailsViewController, animated: true)
+    }
+
+    func routeBack() {
+        navigationController.popViewController(animated: true)
     }
 
 }
