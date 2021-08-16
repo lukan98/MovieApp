@@ -22,7 +22,7 @@ extension MoviePosterView: ConstructViewsProtocol {
         layer.cornerRadius = cornerRadius
         clipsToBounds = true
 
-        favoriteButton.backgroundColor = UIColor(named: "DarkBlue")?.withAlphaComponent(0.6)
+        favoriteButton.backgroundColor = .darkBlue.withAlphaComponent(0.6)
         favoriteButton.tintColor = .white
         favoriteButton.setImage(UIImage(named: "Favorites-outline"), for: .normal)
     }

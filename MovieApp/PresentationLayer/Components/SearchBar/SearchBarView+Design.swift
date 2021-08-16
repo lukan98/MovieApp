@@ -33,23 +33,23 @@ extension SearchBarView: ConstructViewsProtocol {
     }
 
     func styleViews() {
-        searchField.backgroundColor = UIColor(named: "Gray")
+        searchField.backgroundColor = .gray
         searchField.layer.cornerRadius = 10
         searchField.leftViewMode = .always
         searchField.rightViewMode = .always
 
         let font = ProximaNova.medium.of(size: SearchBarView.fontSize)
-        let color = UIColor(named: "DarkBlue")
+        let color = UIColor.darkBlue
 
         let placeholder = NSAttributedString(
             string: "Search",
             attributes: [
                 NSAttributedString.Key.font: font as Any,
-                NSAttributedString.Key.foregroundColor: color?.withAlphaComponent(0.5) as Any])
+                NSAttributedString.Key.foregroundColor: color.withAlphaComponent(0.5) as Any])
         searchField.attributedPlaceholder = placeholder
 
         searchField.font = ProximaNova.medium.of(size: SearchBarView.fontSize)
-        searchField.textColor = UIColor(named: "DarkBlue")
+        searchField.textColor = .darkBlue
 
         let attributedTitle = NSAttributedString(
             string: "Cancel",

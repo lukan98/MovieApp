@@ -34,13 +34,13 @@ extension ReviewView: ConstructViewsProtocol {
         titleLabel.textColor = .black
 
         dateLabel.font = ProximaNova.medium.of(size: 14)
-        dateLabel.textColor = UIColor(named: "Gray2")
+        dateLabel.textColor = .gray2
 
         avatarImageView.layer.masksToBounds = true
         avatarImageView.contentMode = .scaleAspectFit
 
         reviewLabel.font = ProximaNova.medium.of(size: 14)
-        reviewLabel.textColor = UIColor(named: "Gray2")
+        reviewLabel.textColor = .gray2
         reviewLabel.numberOfLines = 0
         reviewLabel.contentMode = .top
         reviewLabel.isUserInteractionEnabled = true
@@ -50,7 +50,7 @@ extension ReviewView: ConstructViewsProtocol {
         let font = ProximaNova.medium.of(size: 14)
         let defaultAttrs = [
             NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: UIColor(named: "Gray2")]
+            NSAttributedString.Key.foregroundColor: UIColor.gray2]
         let authorAttrs = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.foregroundColor: UIColor.black]

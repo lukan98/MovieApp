@@ -16,7 +16,7 @@ extension UnderlinedButtonView: ConstructViewsProtocol {
     }
 
     func styleViews() {
-        underline.backgroundColor = UIColor(named: "DarkBlue")
+        underline.backgroundColor = .darkBlue
         underline.alpha = 0
     }
 
@@ -56,7 +56,7 @@ extension UnderlinedButtonView: ConstructViewsProtocol {
             withDuration: 0.2,
             animations: {
                 self.button.setAttributedTitle(attributedTitle, for: .normal)
-                self.button.setTitleColor(UIColor(named: "Gray3"), for: .normal)
+                self.button.setTitleColor(.gray3, for: .normal)
                 self.underline.alpha = 0})
     }
 

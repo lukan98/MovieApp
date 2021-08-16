@@ -21,7 +21,7 @@ extension NavBarView: ConstructViewsProtocol {
     }
 
     func styleViews() {
-        backgroundColor = UIColor(named: "DarkBlue")
+        backgroundColor = .darkBlue
         backButton.isHidden = true
     }
 
