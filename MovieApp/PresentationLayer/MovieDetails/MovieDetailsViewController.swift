@@ -26,10 +26,6 @@ class MovieDetailsViewController: UIViewController {
     var recommendationLabel: UILabel!
     var recommendationCollection: UICollectionView!
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-
     private let presenter: MovieDetailsPresenter
 
     init(presenter: MovieDetailsPresenter) {
@@ -48,6 +44,12 @@ class MovieDetailsViewController: UIViewController {
         bindViews()
         setInitialData()
         loadData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.barStyle = .black
     }
 
     func loadData(animated: Bool = true) {
