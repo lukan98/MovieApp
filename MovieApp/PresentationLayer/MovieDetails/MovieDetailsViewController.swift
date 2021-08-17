@@ -146,17 +146,18 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func hideEmptyCrewLabels() {
-        for crewMemberLabel in crewMemberLabels {
-            if crewMemberLabel.nameLabel.text == nil && crewMemberLabel.jobLabel.text == nil {
-                crewMemberLabel.isHidden = true
-            }
-        }
+        crewGridView.subviews
+            .filter { stackView in
+                return stackView.subviews.allSatisfy { subview in
+                    guard let crewMemberLabelView = subview as? CrewMemberLabelsView
+                    else {
+                        return false
+                    }
 
-        crewGridView.subviews.forEach { stackView in
-            if stackView.subviews.allSatisfy({ $0.isHidden == true }) {
-                stackView.isHidden = true
+                    return crewMemberLabelView.nameLabel.text == nil && crewMemberLabelView.jobLabel.text == nil
+                }
             }
-        }
+            .forEach { $0.isHidden = true }
     }
 
     private func setReviewData(for reviews: [ReviewViewModel]) {
