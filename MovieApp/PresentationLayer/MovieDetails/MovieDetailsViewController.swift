@@ -21,6 +21,7 @@ class MovieDetailsViewController: UIViewController {
     var topBilledCastLabel: UILabel!
     var topBilledCastCollection: UICollectionView!
     var socialLabel: UILabel!
+    var noReviewsLabel: UILabel!
     var reviewsContainerView: UIView!
     var reviewsViewController: ReviewsViewController!
     var recommendationLabel: UILabel!
@@ -88,7 +89,11 @@ class MovieDetailsViewController: UIViewController {
 
             switch result {
             case .success(let reviewViewModels):
-                self.setReviewData(for: reviewViewModels)
+                if reviewViewModels.count == 0 {
+                    self.showReviewsError(message: "No reviews available for this title.")
+                } else {
+                    self.setReviewData(for: reviewViewModels)
+                }
             case .failure:
                 print("Failed to get movie reviews")
             }
@@ -120,6 +125,17 @@ class MovieDetailsViewController: UIViewController {
 
                 self.loadData(animated: false)
             }
+        }
+    }
+
+    private func showReviewsError(message: String) {
+        reviewsViewController.view.isHidden = true
+        noReviewsLabel.text = message
+        noReviewsLabel.isHidden = false
+
+        reviewsContainerView.snp.remakeConstraints {
+            $0.top.equalTo(socialLabel.snp.bottom).offset(3 * spacing)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 
