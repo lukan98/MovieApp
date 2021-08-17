@@ -112,7 +112,7 @@ class MovieDetailsViewController: UIViewController {
         navigationView.onBackButtonTap = { [weak self] in
             guard let self = self else { return }
 
-            self.router?.routeBack()
+            self.router?.goBack()
         }
 
         headerView.onFavoriteToggle = { movieId in
@@ -179,7 +179,7 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
             return
         }
 
-        router?.routeToDetails(for: movie.id)
+        router?.showMovieDetails(for: movie.id)
     }
 
     func collectionView(

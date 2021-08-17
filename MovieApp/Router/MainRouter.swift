@@ -59,7 +59,7 @@ class MainRouter: RouterProtocol {
 // MARK: MovieDetailsRoute
 extension MainRouter: MovieDetailsRouterProtocol {
 
-    func routeToDetails(for movieId: Int) {
+    func showMovieDetails(for movieId: Int) {
         let movieDetailsPresenter = MovieDetailsPresenter(useCase: appDependencies.movieUseCase)
         let movieDetailsViewController = MovieDetailsViewController(
             presenter: movieDetailsPresenter,
@@ -69,7 +69,7 @@ extension MainRouter: MovieDetailsRouterProtocol {
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
 
-    func routeBack() {
+    func goBack() {
         navigationController.popViewController(animated: true)
     }
 
