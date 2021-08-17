@@ -2,8 +2,10 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var window: UIWindow?
     let appDependencies = AppDependencies()
+
+    var window: UIWindow?
+    var router: RouterProtocol?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -11,42 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let detailsVC = MovieDetailsViewController(
-            presenter: MovieDetailsPresenter(useCase: appDependencies.movieUseCase))
-
-        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
-        window?.rootViewController = detailsVC
-        window?.makeKeyAndVisible()
-    }
-
-    private func makeUITabBarController() -> UITabBarController {
-        let tabBarController = UITabBarController()
-        tabBarController.tabBar.tintColor = UIColor(named: "DarkBlue")
-        tabBarController.tabBar.isTranslucent = false
-
-        let styledFont = UIFont(name: "ProximaNova-Medium", size: 10)
-
-        let homeScreen = HomeScreenViewController(
-            presenter: HomeScreenPresenter(
-                movieUseCase: appDependencies.movieUseCase,
-                genreUseCase: appDependencies.genreUseCase))
-        homeScreen.styleForTabBar(
-            title: "Home",
-            image: UIImage(named: "Home-outline"),
-            selectedImage: UIImage(named: "Home-fill"),
-            font: styledFont)
-
-        let favorites = FavoritesViewController(presenter: FavoritesPresenter(useCase: appDependencies.movieUseCase))
-        favorites.styleForTabBar(
-            title: "Favorites",
-            image: UIImage(named: "Favorites-outline"),
-            selectedImage: UIImage(named: "Favorites-fill"),
-            font: styledFont)
-
-        tabBarController.viewControllers = [homeScreen, favorites]
-
-        return tabBarController
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        
+        router = MainRouter(navigationController: UINavigationController())
+        router?.start(in: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
