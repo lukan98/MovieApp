@@ -35,8 +35,8 @@ class MainRouter: RouterProtocol {
             router: self)
         homeScreen.styleForTabBar(
             title: "Home",
-            image: UIImage(named: "Home-outline"),
-            selectedImage: UIImage(named: "Home-fill"),
+            image: .homeOutlined,
+            selectedImage: .homeFilled,
             font: styledFont)
 
         let favorites = FavoritesViewController(
@@ -44,8 +44,8 @@ class MainRouter: RouterProtocol {
             router: self)
         favorites.styleForTabBar(
             title: "Favorites",
-            image: UIImage(named: "Favorites-outline"),
-            selectedImage: UIImage(named: "Favorites-fill"),
+            image: .favoritesOutlined,
+            selectedImage: .favoritesFilled,
             font: styledFont)
 
         tabBarController.viewControllers = [homeScreen, favorites]
