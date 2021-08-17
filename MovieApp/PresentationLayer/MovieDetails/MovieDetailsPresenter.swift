@@ -9,8 +9,8 @@ class MovieDetailsPresenter {
     }
 
     func getMovieDetails(
-        _ completionHandler: @escaping (Result<DetailedMovieViewModel, RequestError>) -> Void,
-        for movieId: Int = 103
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<DetailedMovieViewModel, RequestError>) -> Void
     ) {
         useCase.getMovieDetails(for: movieId) { result in
             DispatchQueue.main.async {
@@ -20,9 +20,9 @@ class MovieDetailsPresenter {
     }
 
     func getMovieCredits(
+        for movieId: Int,
         maximumCrewMembers max: Int,
-        _ completionHandler: @escaping (Result<CreditsViewModel, RequestError>) -> Void,
-        for movieId: Int = 103
+        _ completionHandler: @escaping (Result<CreditsViewModel, RequestError>) -> Void
     ) {
         useCase.getMovieCredits(for: movieId) { result in
             DispatchQueue.main.async {
@@ -32,8 +32,8 @@ class MovieDetailsPresenter {
     }
 
     func getReview(
-        _ completionHandler: @escaping (Result<[ReviewViewModel], RequestError>) -> Void,
-        for movieId: Int = 103
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<[ReviewViewModel], RequestError>) -> Void
     ) {
         useCase.getMovieReviews(for: movieId) { result in
             DispatchQueue.main.async {
@@ -43,8 +43,8 @@ class MovieDetailsPresenter {
     }
 
     func getRecommendations(
-        _ completionHandler: @escaping (Result<[MovieRecommendationViewModel], RequestError>) -> Void,
-        basedOn movieId: Int = 103
+        for movieId: Int,
+        _ completionHandler: @escaping (Result<[MovieRecommendationViewModel], RequestError>) -> Void
     ) {
         useCase.getMovieRecommendations(basedOn: movieId) { result in
             DispatchQueue.main.async {
@@ -53,7 +53,10 @@ class MovieDetailsPresenter {
         }
     }
 
-    func toggleFavorited(for movieId: Int, _ completionHandler: @escaping () -> Void) {
+    func toggleFavorited(
+        for movieId: Int,
+        _ completionHandler: @escaping () -> Void
+    ) {
         useCase.toggleFavorited(for: movieId)
         DispatchQueue.main.async {
             completionHandler()

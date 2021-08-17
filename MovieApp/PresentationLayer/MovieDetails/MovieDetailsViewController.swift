@@ -26,10 +26,14 @@ class MovieDetailsViewController: UIViewController {
     var recommendationLabel: UILabel!
     var recommendationCollection: UICollectionView!
 
+    private let movieId: Int
     private let presenter: MovieDetailsPresenter
+    private weak var router: MovieDetailsRouterProtocol?
 
-    init(presenter: MovieDetailsPresenter) {
+    init(presenter: MovieDetailsPresenter, router: MovieDetailsRouterProtocol, for movieId: Int) {
         self.presenter = presenter
+        self.router = router
+        self.movieId = movieId
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -53,7 +57,7 @@ class MovieDetailsViewController: UIViewController {
     }
 
     func loadData(animated: Bool = true) {
-        presenter.getMovieDetails { [weak self] result in
+        presenter.getMovieDetails(for: movieId) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -65,7 +69,9 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getMovieCredits(maximumCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
+        presenter.getMovieCredits(
+            for: movieId,
+            maximumCrewMembers: noOfCrewRows * noOfCrewColumns) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -78,7 +84,7 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getReview { [weak self] result in
+        presenter.getReview(for: movieId) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -89,7 +95,7 @@ class MovieDetailsViewController: UIViewController {
             }
         }
 
-        presenter.getRecommendations { [weak self] result in
+        presenter.getRecommendations(for: movieId) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -103,11 +109,17 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func bindViews() {
+        navigationView.onBackButtonTap = { [weak self] in
+            guard let self = self else { return }
+
+            self.router?.goBack()
+        }
+
         headerView.onFavoriteToggle = { movieId in
 
             self.presenter.toggleFavorited(for: movieId) { [weak self] in
                 guard let self = self else { return }
-                
+
                 self.loadData(animated: false)
             }
         }
@@ -155,6 +167,19 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
         default:
             return .zero
         }
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard collectionView == recommendationCollection,
+              let movie = recommendations.at(indexPath.row)
+        else {
+            return
+        }
+
+        router?.showMovieDetails(for: movie.id)
     }
 
     func collectionView(

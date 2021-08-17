@@ -1,5 +1,6 @@
 struct MovieRecommendationModel {
 
+    let id: Int
     let title: String
     let backdropPath: String
 
@@ -9,6 +10,7 @@ struct MovieRecommendationModel {
 extension MovieRecommendationModel {
 
     init(from model: MovieRecommendationRepositoryModel) {
+        id = model.id
         title = model.title
         backdropPath = model.backdropPath
     }

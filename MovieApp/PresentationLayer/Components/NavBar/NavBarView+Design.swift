@@ -11,6 +11,11 @@ extension NavBarView: ConstructViewsProtocol {
     func createViews() {
         backButton = UIImageView(image: UIImage(named: "BackButton"))
         addSubview(backButton)
+
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
+        backButton.addGestureRecognizer(tapGestureRecognizer)
+        backButton.isUserInteractionEnabled = true
+
         logo = UIImageView(image: UIImage(named: "TMDBLogo"))
         addSubview(logo)
     }
@@ -32,6 +37,11 @@ extension NavBarView: ConstructViewsProtocol {
             $0.top.equalToSuperview().offset(38)
             $0.height.equalTo(35)
         }
+    }
+
+    @objc
+    private func backButtonTapped(_ sender: UITapGestureRecognizer) {
+        onBackButtonTap()
     }
 
 }

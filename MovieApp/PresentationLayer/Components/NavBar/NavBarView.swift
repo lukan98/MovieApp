@@ -4,14 +4,15 @@ class NavBarView: UIView {
 
     static let defaultHeight = 80
 
-    var backButton: UIImageView!
-    var logo: UIImageView!
-
     var isBackButtonHidden = true {
         didSet {
             backButton.isHidden = isBackButtonHidden
         }
     }
+    var onBackButtonTap: () -> Void = {}
+
+    var backButton: UIImageView!
+    var logo: UIImageView!
 
     init() {
         super.init(frame: .zero)
