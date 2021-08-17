@@ -2,10 +2,6 @@ import UIKit
 
 extension FavoritesViewController: ConstructViewsProtocol {
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-
     func buildViews() {
         createViews()
         styleViews()

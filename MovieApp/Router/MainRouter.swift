@@ -4,21 +4,22 @@ class MainRouter: RouterProtocol {
 
     private let appDependencies = AppDependencies()
 
-    var navigationController: UINavigationController
+    private let navigationController: UINavigationController
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
     func start(in window: UIWindow) {
-        navigationController.navigationBar.isHidden = true
-
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        showMainAppScreen()
+    }
 
+    private func showMainAppScreen() {
+        navigationController.navigationBar.isHidden = true
         let tabBarController = makeUITabBarController()
-
-        navigationController.pushViewController(tabBarController, animated: false)
+        navigationController.setViewControllers([tabBarController], animated: false)
     }
 
     private func makeUITabBarController() -> UITabBarController {

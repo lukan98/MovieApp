@@ -27,11 +27,6 @@ class MovieDetailsViewController: UIViewController {
     var recommendationCollection: UICollectionView!
 
     private let movieId: Int
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-
     private let presenter: MovieDetailsPresenter
     private weak var router: MovieDetailsRouterProtocol?
 
@@ -53,6 +48,12 @@ class MovieDetailsViewController: UIViewController {
         bindViews()
         setInitialData()
         loadData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.barStyle = .black
     }
 
     func loadData(animated: Bool = true) {
