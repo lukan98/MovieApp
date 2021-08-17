@@ -10,10 +10,9 @@ class FavoritesViewController: UIViewController {
     private let verticalSpacing: CGFloat = 35
 
     private let presenter: FavoritesPresenter
+    private let router: MovieDetailsRouterProtocol
 
     private var movies: [DetailedMovieViewModel] = []
-
-    private weak var router: MovieDetailsRouterProtocol?
 
     init(presenter: FavoritesPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -35,6 +34,7 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        navigationController?.navigationBar.barStyle = .black
         loadData()
     }
     
@@ -94,7 +94,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
     ) {
         guard let movie = movies.at(indexPath.row) else { return }
 
-        router?.routeToDetails(for: movie.id)
+        router.showMovieDetails(for: movie.id)
     }
 
 }

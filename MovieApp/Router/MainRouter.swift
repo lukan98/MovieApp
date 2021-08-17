@@ -4,21 +4,22 @@ class MainRouter: RouterProtocol {
 
     private let appDependencies = AppDependencies()
 
-    var navigationController: UINavigationController
+    private let navigationController: UINavigationController
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
     func start(in window: UIWindow) {
-        navigationController.navigationBar.isHidden = true
-
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        showMainAppScreen()
+    }
 
+    private func showMainAppScreen() {
+        navigationController.navigationBar.isHidden = true
         let tabBarController = makeUITabBarController()
-
-        navigationController.pushViewController(tabBarController, animated: false)
+        navigationController.setViewControllers([tabBarController], animated: false)
     }
 
     private func makeUITabBarController() -> UITabBarController {
@@ -58,7 +59,7 @@ class MainRouter: RouterProtocol {
 // MARK: MovieDetailsRoute
 extension MainRouter: MovieDetailsRouterProtocol {
 
-    func routeToDetails(for movieId: Int) {
+    func showMovieDetails(for movieId: Int) {
         let movieDetailsPresenter = MovieDetailsPresenter(useCase: appDependencies.movieUseCase)
         let movieDetailsViewController = MovieDetailsViewController(
             presenter: movieDetailsPresenter,
@@ -68,7 +69,7 @@ extension MainRouter: MovieDetailsRouterProtocol {
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
 
-    func routeBack() {
+    func goBack() {
         navigationController.popViewController(animated: true)
     }
 
