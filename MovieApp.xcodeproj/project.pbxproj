@@ -49,6 +49,7 @@
 		FC2774CA26B2949900E157EC /* TimeWindowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774C926B2949900E157EC /* TimeWindowViewModel.swift */; };
 		FC2774D526B2F28900E157EC /* MovieLocalMetadataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774D426B2F28900E157EC /* MovieLocalMetadataSourceProtocol.swift */; };
 		FC2774D726B2F2D800E157EC /* MovieUserDefaultsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774D626B2F2D800E157EC /* MovieUserDefaultsDataSource.swift */; };
+		FC582A6726CD5224007763A3 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A6626CD5224007763A3 /* UserDefaults+Extensions.swift */; };
 		FC592E30269D897C00233EFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E2F269D897C00233EFB /* AppDelegate.swift */; };
 		FC592E32269D897C00233EFB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E31269D897C00233EFB /* SceneDelegate.swift */; };
 		FC592E39269D897E00233EFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC592E38269D897E00233EFB /* Assets.xcassets */; };
@@ -189,6 +190,7 @@
 		FC2774C926B2949900E157EC /* TimeWindowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeWindowViewModel.swift; sourceTree = "<group>"; };
 		FC2774D426B2F28900E157EC /* MovieLocalMetadataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLocalMetadataSourceProtocol.swift; sourceTree = "<group>"; };
 		FC2774D626B2F2D800E157EC /* MovieUserDefaultsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieUserDefaultsDataSource.swift; sourceTree = "<group>"; };
+		FC582A6626CD5224007763A3 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		FC592E2C269D897C00233EFB /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC592E2F269D897C00233EFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC592E31269D897C00233EFB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 				FC23B1FA26C50FD8000C603E /* UILabel+Extensions.swift */,
 				FC6FE61226B94073003B29B1 /* UIView+Extensions.swift */,
 				FCB63AA126A6D2EE00E049A2 /* UIViewController+Extensions.swift */,
+				FC582A6626CD5224007763A3 /* UserDefaults+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1036,6 +1039,7 @@
 				FC23B1E626BADABD000C603E /* CreditsModel.swift in Sources */,
 				FC2774C626B2927D00E157EC /* TimeWindowRepositoryModel.swift in Sources */,
 				FCB63A9D26A6CD2600E049A2 /* HomeScreenViewController.swift in Sources */,
+				FC582A6726CD5224007763A3 /* UserDefaults+Extensions.swift in Sources */,
 				FC6FE60126B833C1003B29B1 /* DetailedMovieRepositoryModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
