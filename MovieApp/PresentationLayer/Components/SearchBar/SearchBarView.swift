@@ -6,6 +6,8 @@ class SearchBarView: UIView {
     static let defaultSpacing: CGFloat = 20
     static let fontSize: CGFloat = 16
 
+    var onCancelTapped: () -> Void = {}
+
     var stackView: UIStackView!
     var searchField: BaseSearchTextField!
     var cancelButton: UIButton!

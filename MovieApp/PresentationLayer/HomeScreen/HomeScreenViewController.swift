@@ -46,8 +46,22 @@ class HomeScreenViewController: UIViewController {
     }
 
     @objc
+    func textFieldEditingDidBegin() {
+        scrollView.isHidden = true
+        searchedMoviesCollectionView.isHidden = false
+    }
+
+    @objc
     func textFieldDidChange(_ textField: UITextField) {
         print("The text field content is now \(String(describing: textField.text))")
+        presenter.getSearchedMovies(with: textField.text ?? "") { [weak self] result in
+            guard let self = self else { return }
+
+            if case .success(let movies) = result {
+                self.searchedMovies = movies
+                self.searchedMoviesCollectionView.reloadData()
+            }
+        }
     }
 
     private func loadMovieOptions() {
@@ -74,6 +88,15 @@ class HomeScreenViewController: UIViewController {
 
     private func bindViews() {
         searchBarView.searchField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
+        searchBarView.searchField.addTarget(self, action: #selector(textFieldEditingDidBegin), for: .editingDidBegin)
+
+        searchBarView.onCancelTapped = { [self] in
+            searchedMoviesCollectionView.isHidden = true
+            searchedMovies = []
+            searchedMoviesCollectionView.reloadData()
+            scrollView.isHidden = false
+        }
 
         popularMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
             self?.loadPopularMovies(for: optionId)
