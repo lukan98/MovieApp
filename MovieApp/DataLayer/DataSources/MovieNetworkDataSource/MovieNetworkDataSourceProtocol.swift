@@ -33,4 +33,9 @@ protocol MovieNetworkDataSourceProtocol {
         _ completionHandler: @escaping (Result<[MovieRecommendationDataSourceModel], RequestError>) -> Void
     )
 
+    func fetchMovieSearchResults(
+        with query: String,
+        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
+    )
+
 }

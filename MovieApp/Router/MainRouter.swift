@@ -16,10 +16,6 @@ class MainRouter: RouterProtocol {
         showMainAppScreen()
     }
 
-    func goBack(animated: Bool) {
-        navigationController.popViewController(animated: animated)
-    }
-
     private func showMainAppScreen() {
         navigationController.navigationBar.isHidden = true
         let tabBarController = makeUITabBarController()
@@ -73,16 +69,8 @@ extension MainRouter: MovieDetailsRouterProtocol {
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
 
-}
-
-// MARK: SearchRoute
-extension MainRouter: SearchRouterProtocol {
-
-    func showSearch() {
-        let searchPresenter = SearchPresenter(movieUseCase: appDependencies.movieUseCase)
-        let searchViewController = SearchViewController(presenter: searchPresenter)
-
-        navigationController.pushViewController(searchViewController, animated: false)
+    func goBack() {
+        navigationController.popViewController(animated: true)
     }
-    
+
 }

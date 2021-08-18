@@ -32,4 +32,9 @@ protocol MovieClientProtocol {
         basedOn movieId: Int,
         _ completionHandler: @escaping (Result<MovieRecommendationListClientModel, RequestError>) -> Void
     )
+
+    func fetchMovieSearchResults(
+        with query: String,
+        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
+    )
 }

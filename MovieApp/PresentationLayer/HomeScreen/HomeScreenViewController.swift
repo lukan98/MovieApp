@@ -53,7 +53,6 @@ class HomeScreenViewController: UIViewController {
 
     @objc
     func textFieldDidChange(_ textField: UITextField) {
-        print("The text field content is now \(String(describing: textField.text))")
         presenter.getSearchedMovies(with: textField.text ?? "") { [weak self] result in
             guard let self = self else { return }
 
@@ -226,7 +225,7 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 22, left: 0, bottom: 0, right: 0)
+        UIEdgeInsets(top: 22, left: 0, bottom: 22, right: 0)
     }
     
 }

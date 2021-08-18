@@ -147,6 +147,15 @@ class MovieRepository: MovieRepositoryProtocol {
         }
     }
 
+    func getMovieSearchResults(
+        with query: String,
+        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+    ) {
+        networkDataSource.fetchMovieSearchResults(with: query) { result in
+            completionHandler(result.map { $0.map { MovieRepositoryModel(from: $0) } })
+        }
+    }
+
     private func updateMovieLists(favoritedMovies: [Int]) {
         let updatingFunction: (MovieRepositoryModel) -> MovieRepositoryModel = { movie in
             let isFavorited = favoritedMovies.contains(movie.id)

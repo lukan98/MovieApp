@@ -43,4 +43,9 @@ protocol MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<[MovieRecommendationRepositoryModel], RequestError>) -> Void
     )
 
+    func getMovieSearchResults(
+        with query: String,
+        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
+    )
+
 }
