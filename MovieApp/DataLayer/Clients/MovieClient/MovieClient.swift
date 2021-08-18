@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 class MovieClient: MovieClientProtocol {
 
@@ -48,7 +49,7 @@ class MovieClient: MovieClientProtocol {
 
         baseApiClient
             .get(
-                path: "/trending/movie/" + timeWindow.rawValue,
+                path: "/trending/movie/\(timeWindow.rawValue)",
                 queryParameters: queryParameters,
                 completionHandler: completionHandler)
     }
@@ -61,9 +62,17 @@ class MovieClient: MovieClientProtocol {
 
         baseApiClient
             .get(
-                path: "/movie/" + String(movieId),
+                path: "/movie/\(movieId)",
                 queryParameters: queryParameters,
                 completionHandler: completionHandler)
+    }
+
+    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error> {
+        let queryParameters = ["language": "en-US"]
+        return baseApiClient
+            .get(
+                path: "/movie/\(movieId)",
+                queryParameters: queryParameters)
     }
 
     func fetchMovieCredits(
@@ -71,7 +80,7 @@ class MovieClient: MovieClientProtocol {
         _ completionHandler: @escaping (Result<CreditsClientModel, RequestError>) -> Void
     ) {
         baseApiClient
-            .get(path: "/movie/" + String(movieId) + "/credits",
+            .get(path: "/movie/\(movieId)/credits",
                  completionHandler: completionHandler)
     }
 
@@ -81,7 +90,7 @@ class MovieClient: MovieClientProtocol {
     ) {
         baseApiClient
             .get(
-                path: "/movie/" + String(movieId) + "/reviews",
+                path: "/movie/\(movieId)/reviews",
                 completionHandler: completionHandler)
     }
 
@@ -91,7 +100,7 @@ class MovieClient: MovieClientProtocol {
     ) {
         baseApiClient
             .get(
-                path: "/movie/" + String(movieId) + "/recommendations",
+                path: "/movie/\(movieId)/recommendations",
                 completionHandler: completionHandler)
     }
 

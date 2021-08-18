@@ -1,3 +1,5 @@
+import Combine
+
 protocol MovieRepositoryProtocol {
 
     var favoriteMovies: [Int] { get }

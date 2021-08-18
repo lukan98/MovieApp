@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 class BaseApiClient {
 
@@ -34,6 +35,34 @@ class BaseApiClient {
         urlRequest.httpMethod = "GET"
 
         return executeURLRequest(urlRequest, completionHandler: completionHandler)
+    }
+
+    func get<T: Decodable>(
+        path: String,
+        queryParameters: [String: String?]? = nil
+    ) -> AnyPublisher<T, Error> {
+        let urlString = "\(baseUrl)\(path)"
+
+        var urlComponents = URLComponents(string: urlString)
+        urlComponents?.queryItems = [URLQueryItem(name: "api_key", value: apiKey)]
+
+        if let parameters = queryParameters {
+            for parameter in parameters {
+                urlComponents?.queryItems?.append(URLQueryItem(name: parameter.key, value: parameter.value))
+            }
+        }
+
+        guard let url = urlComponents?.url else {
+            return Fail(error: RequestError.invalidURLError).eraseToAnyPublisher()
+        }
+
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "GET"
+
+        return URLSession.shared.dataTaskPublisher(for: urlRequest)
+            .map { $0.data }
+            .decode(type: T.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
 
     private func executeURLRequest<T: Decodable>(
