@@ -13,9 +13,9 @@ class MoviePosterView: UIView {
     var isFavorited: Bool! {
         didSet {
             if isFavorited {
-                favoriteButton.setImage(UIImage(named: "Favorites-fill"), for: .normal)
+                favoriteButton.setImage(.favoritesFilled, for: .normal)
             } else {
-                favoriteButton.setImage(UIImage(named: "Favorites-outline"), for: .normal)
+                favoriteButton.setImage(.favoritesOutlined, for: .normal)
             }
         }
     }

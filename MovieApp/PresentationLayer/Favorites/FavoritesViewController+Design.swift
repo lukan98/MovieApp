@@ -23,7 +23,7 @@ extension FavoritesViewController: ConstructViewsProtocol {
         view.backgroundColor = .white
 
         favoritesLabel.font = ProximaNova.bold.of(size: 20)
-        favoritesLabel.textColor = UIColor(named: "DarkBlue")
+        favoritesLabel.textColor = .darkBlue
         favoritesLabel.text = "Favorites"
 
         movieCollectionView.backgroundColor = .white

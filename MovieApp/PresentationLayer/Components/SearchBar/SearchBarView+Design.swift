@@ -15,12 +15,12 @@ extension SearchBarView: ConstructViewsProtocol {
         searchField = BaseSearchTextField()
         searchField.addTarget(self, action: #selector(showCancelButton), for: .editingDidBegin)
 
-        let searchIcon = UIImageView(image: UIImage(named: "Search"))
+        let searchIcon = UIImageView(image: .search)
         searchIcon.contentMode = .center
         searchField.leftView = searchIcon
 
         let deleteButton = UIButton()
-        deleteButton.setImage(UIImage(named: "X"), for: .normal)
+        deleteButton.setImage(.xImage, for: .normal)
         deleteButton.contentMode = .center
         deleteButton.addTarget(self, action: #selector(clearSearchBar), for: .touchUpInside)
         searchField.rightView = deleteButton
@@ -33,23 +33,23 @@ extension SearchBarView: ConstructViewsProtocol {
     }
 
     func styleViews() {
-        searchField.backgroundColor = UIColor(named: "Gray")
+        searchField.backgroundColor = .gray
         searchField.layer.cornerRadius = 10
         searchField.leftViewMode = .always
         searchField.rightViewMode = .always
 
         let font = ProximaNova.medium.of(size: SearchBarView.fontSize)
-        let color = UIColor(named: "DarkBlue")
+        let color = UIColor.darkBlue
 
         let placeholder = NSAttributedString(
             string: "Search",
             attributes: [
                 NSAttributedString.Key.font: font as Any,
-                NSAttributedString.Key.foregroundColor: color?.withAlphaComponent(0.5) as Any])
+                NSAttributedString.Key.foregroundColor: color.withAlphaComponent(0.5) as Any])
         searchField.attributedPlaceholder = placeholder
 
         searchField.font = ProximaNova.medium.of(size: SearchBarView.fontSize)
-        searchField.textColor = UIColor(named: "DarkBlue")
+        searchField.textColor = .darkBlue
 
         let attributedTitle = NSAttributedString(
             string: "Cancel",
