@@ -1,7 +1,7 @@
 protocol MovieDetailsRouterProtocol: AnyObject {
 
-    func routeToDetails(for movieId: Int)
+    func showMovieDetails(for movieId: Int)
 
-    func routeBack()
+    func goBack()
 
 }
