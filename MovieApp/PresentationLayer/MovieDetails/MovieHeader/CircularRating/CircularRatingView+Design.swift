@@ -46,10 +46,10 @@ extension CircularRatingView: ConstructViewsProtocol {
 
     func styleRatingLabel(for string: String = "%") {
         let numberAttributes = [
-            NSAttributedString.Key.font: UIFont(name: "ProximaNova-Bold", size: 15),
+            NSAttributedString.Key.font: ProximaNova.bold.of(size: 15),
             NSAttributedString.Key.foregroundColor: UIColor.white]
         let percentageAttributes = [
-            NSAttributedString.Key.font: UIFont(name: "ProximaNova-Bold", size: 9),
+            NSAttributedString.Key.font: ProximaNova.bold.of(size: 9),
             NSAttributedString.Key.foregroundColor: UIColor.white]
 
         let percentageRange = NSString(string: string).range(of: "%")

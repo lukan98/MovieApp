@@ -82,7 +82,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         styleHeadingLabel(overviewTitleLabel)
 
-        overviewLabel.font = UIFont(name: "ProximaNova-Medium", size: 14)
+        overviewLabel.font = ProximaNova.medium.of(size: 14)
         overviewLabel.textColor = .black
         overviewLabel.numberOfLines = 0
 
@@ -193,7 +193,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
     }
 
     private func styleHeadingLabel(_ label: UILabel) {
-        label.font = UIFont(name: "ProximaNova-Bold", size: 20)
+        label.font = ProximaNova.bold.of(size: 20)
         label.textColor = UIColor(named: "DarkBlue")
     }
 

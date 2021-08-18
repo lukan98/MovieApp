@@ -27,10 +27,10 @@ extension CastMemberCell: ConstructViewsProtocol {
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.clipsToBounds = true
 
-        castMemberNameLabel.font = UIFont(name: "ProximaNova-Bold", size: 14)
+        castMemberNameLabel.font = ProximaNova.bold.of(size: 14)
         castMemberNameLabel.numberOfLines = 2
 
-        characterNameLabel.font = UIFont(name: "ProximaNova-Medium", size: 12)
+        characterNameLabel.font = ProximaNova.medium.of(size: 12)
         characterNameLabel.numberOfLines = 2
     }
 

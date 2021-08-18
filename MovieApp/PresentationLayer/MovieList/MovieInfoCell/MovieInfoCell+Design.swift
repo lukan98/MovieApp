@@ -37,9 +37,9 @@ extension MovieInfoCell: ConstructViewsProtocol {
     }
 
     private func styleContents() {
-        nameLabel.font = .init(name: "ProximaNova-Bold", size: 16)
+        nameLabel.font = ProximaNova.bold.of(size: 16)
 
-        aboutLabel.font = .init(name: "ProximaNova-Medium", size: 14)
+        aboutLabel.font = ProximaNova.medium.of(size: 14)
         aboutLabel.numberOfLines = 0
     }
 
