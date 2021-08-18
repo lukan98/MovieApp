@@ -10,8 +10,8 @@ class HomeScreenViewController: UIViewController {
     var topRatedMoviesCollectionView: CategorisedCollectionView!
     var trendingMoviesCollectionView: CategorisedCollectionView!
 
-    private var presenter: HomeScreenPresenter
-    private weak var router: MovieDetailsRouterProtocol?
+    private let presenter: HomeScreenPresenter
+    private let router: MovieDetailsRouterProtocol
 
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -34,6 +34,7 @@ class HomeScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        navigationController?.navigationBar.barStyle = .black
         reloadData()
     }
 
@@ -114,7 +115,7 @@ class HomeScreenViewController: UIViewController {
     }
 
     private func selectedMovie(with movieId: Int) {
-        router?.routeToDetails(for: movieId)
+        router.showMovieDetails(for: movieId)
     }
 
     private func toggleFavorited(for movieId: Int) {
