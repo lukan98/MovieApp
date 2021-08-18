@@ -63,7 +63,7 @@ extension MovieHeaderView: ConstructViewsProtocol {
         runtimeLabel.font = ProximaNova.semibold.of(size: 14)
         runtimeLabel.textColor = .white
 
-        favoriteButton.backgroundColor = UIColor(named: "Gray2")?.withAlphaComponent(0.6)
+        favoriteButton.backgroundColor = .gray2.withAlphaComponent(0.6)
         favoriteButton.tintColor = .white
         favoriteButton.addTarget(self, action: #selector(onFavoriteTap), for: .touchUpInside)
     }

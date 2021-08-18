@@ -21,7 +21,7 @@ extension MovieBackdropCell: ConstructViewsProtocol {
         backdropImageView.layer.cornerRadius = 10
 
         titleLabel.font = ProximaNova.semibold.of(size: 16)
-        titleLabel.textColor = UIColor(named: "DarkBlue")
+        titleLabel.textColor = .darkBlue
     }
 
     func defineLayoutForViews() {

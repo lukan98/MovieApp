@@ -194,7 +194,7 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
     private func styleHeadingLabel(_ label: UILabel) {
         label.font = ProximaNova.bold.of(size: 20)
-        label.textColor = UIColor(named: "DarkBlue")
+        label.textColor = .darkBlue
     }
 
     private func makeCastCollectionView() -> UICollectionView {

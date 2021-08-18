@@ -24,7 +24,7 @@ class MainRouter: RouterProtocol {
 
     private func makeUITabBarController() -> UITabBarController {
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.tintColor = UIColor(named: "DarkBlue")
+        tabBarController.tabBar.tintColor = .darkBlue
         tabBarController.tabBar.isTranslucent = false
 
         let styledFont = ProximaNova.medium.of(size: 10)

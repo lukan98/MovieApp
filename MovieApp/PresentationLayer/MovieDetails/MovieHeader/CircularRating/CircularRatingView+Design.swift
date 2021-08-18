@@ -33,13 +33,13 @@ extension CircularRatingView: ConstructViewsProtocol {
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineCap = .round
         circleLayer.lineWidth = lineThickness
-        circleLayer.strokeColor = UIColor(named: "DarkGreen")?.cgColor
+        circleLayer.strokeColor = UIColor.darkGreen.cgColor
 
         ratingLayer.fillColor = UIColor.clear.cgColor
         ratingLayer.lineCap = .round
         ratingLayer.lineWidth = lineThickness
         ratingLayer.strokeEnd = 0
-        ratingLayer.strokeColor = UIColor(named: "LightGreen")?.cgColor
+        ratingLayer.strokeColor = UIColor.lightGreen.cgColor
 
         styleRatingLabel()
     }

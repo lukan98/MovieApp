@@ -50,7 +50,7 @@ class ReviewView: UIView {
             with: "... ",
             appendageText: "read the rest",
             appendageFont: ProximaNova.medium.of(size: 14),
-            appendageColor: UIColor(named: "DarkBlue"))
+            appendageColor: .darkBlue)
     }
 
     func expandCollapseReview() {

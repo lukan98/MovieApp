@@ -116,7 +116,6 @@ class MovieDetailsViewController: UIViewController {
         }
 
         headerView.onFavoriteToggle = { movieId in
-
             self.presenter.toggleFavorited(for: movieId) { [weak self] in
                 guard let self = self else { return }
 
