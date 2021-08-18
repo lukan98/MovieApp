@@ -4,18 +4,25 @@ class HomeScreenViewController: UIViewController {
 
     var navigationView: NavBarView!
     var searchBarView: SearchBarView!
+    var searchedMoviesCollectionView: UICollectionView!
     var scrollView: UIScrollView!
     var stackView: UIStackView!
     var popularMoviesCollectionView: CategorisedCollectionView!
     var topRatedMoviesCollectionView: CategorisedCollectionView!
     var trendingMoviesCollectionView: CategorisedCollectionView!
 
+    private let widthInset: CGFloat = 36
+    private let cellHeight: CGFloat = 140
+
     private let presenter: HomeScreenPresenter
     private let router: MovieDetailsRouterProtocol
+
+    private var searchedMovies: [MovieViewModel] = []
 
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
         self.router = router
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,6 +43,11 @@ class HomeScreenViewController: UIViewController {
 
         navigationController?.navigationBar.barStyle = .black
         reloadData()
+    }
+
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        print("The text field content is now \(String(describing: textField.text))")
     }
 
     private func loadMovieOptions() {
@@ -61,6 +73,8 @@ class HomeScreenViewController: UIViewController {
     }
 
     private func bindViews() {
+        searchBarView.searchField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
         popularMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
             self?.loadPopularMovies(for: optionId)
         }
@@ -140,6 +154,56 @@ class HomeScreenViewController: UIViewController {
         loadTrendingMovies(
             for: trendingOption.id,
             animated: false)
+    }
+    
+}
+
+// MARK: CollectionViewDataSource
+extension HomeScreenViewController: UICollectionViewDataSource {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        searchedMovies.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard
+            let cell = searchedMoviesCollectionView.dequeueReusableCell(
+                withReuseIdentifier: MovieInfoCell.cellIdentifier,
+                for: indexPath) as? MovieInfoCell,
+            let movie = searchedMovies.at(indexPath.row)
+        else {
+            return MovieInfoCell()
+        }
+
+        cell.setData(for: movie)
+        return cell
+    }
+
+}
+
+// MARK: CollectionViewDelegateFlowLayout
+extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: collectionView.bounds.width - widthInset, height: cellHeight)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 22, left: 0, bottom: 0, right: 0)
     }
     
 }

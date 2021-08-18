@@ -112,7 +112,7 @@ class MovieDetailsViewController: UIViewController {
         navigationView.onBackButtonTap = { [weak self] in
             guard let self = self else { return }
 
-            self.router?.goBack()
+            self.router?.goBack(animated: true)
         }
 
         headerView.onFavoriteToggle = { movieId in

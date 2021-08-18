@@ -1,7 +1,7 @@
 import SnapKit
 import UIKit
 
-extension MovieListViewController: ConstructViewsProtocol {
+extension SearchViewController: ConstructViewsProtocol {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent

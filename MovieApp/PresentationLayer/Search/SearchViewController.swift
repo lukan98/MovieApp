@@ -1,6 +1,6 @@
 import UIKit
 
-class MovieListViewController: UIViewController {
+class SearchViewController: UIViewController {
 
     var navigationView: NavBarView!
     var movieCollection: UICollectionView!
@@ -9,9 +9,9 @@ class MovieListViewController: UIViewController {
     private let cellHeight: CGFloat = 140
 
     private var movies: [MovieViewModel] = []
-    private var presenter: MovieListPresenter!
+    private var presenter: SearchPresenter!
 
-    init(presenter: MovieListPresenter) {
+    init(presenter: SearchPresenter) {
         super.init(nibName: nil, bundle: nil)
 
         self.presenter = presenter
@@ -56,7 +56,7 @@ class MovieListViewController: UIViewController {
 
 // MARK: CollectionView Data Source
 
-extension MovieListViewController: UICollectionViewDataSource {
+extension SearchViewController: UICollectionViewDataSource {
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -86,7 +86,7 @@ extension MovieListViewController: UICollectionViewDataSource {
 
 // MARK: CollectionViewDelegate Flow Layout
 
-extension MovieListViewController: UICollectionViewDelegateFlowLayout {
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(
         _ collectionView: UICollectionView,

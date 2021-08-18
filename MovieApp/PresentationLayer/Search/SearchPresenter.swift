@@ -1,4 +1,4 @@
-class MovieListPresenter {
+class SearchPresenter {
 
     private let movieUseCase: MovieUseCaseProtocol
 
