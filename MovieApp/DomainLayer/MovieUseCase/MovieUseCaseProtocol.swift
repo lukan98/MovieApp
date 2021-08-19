@@ -43,4 +43,9 @@ protocol MovieUseCaseProtocol {
         _ completionHandler: @escaping (Result<[MovieRecommendationModel], RequestError>) -> Void
     )
 
+    func getMovieSearchResults(
+        with query: String,
+        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
+    )
+
 }

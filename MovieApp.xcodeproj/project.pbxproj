@@ -451,7 +451,6 @@
 				FCB63AB726A9915100E049A2 /* MoviePoster */,
 				FCB63ACC26A9AFD400E049A2 /* MoviePosterCell */,
 				FCB63A34269F0B3400E049A2 /* NavBar */,
-				FC66570726CA59ED00440C6D /* NavigationController */,
 				FCB63AA526A6F67E00E049A2 /* SearchBar */,
 			);
 			path = Components;
