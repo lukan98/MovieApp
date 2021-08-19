@@ -22,14 +22,14 @@ class HomeScreenViewController: UIViewController {
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
         self.router = router
-        
+
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -177,7 +177,57 @@ class HomeScreenViewController: UIViewController {
             for: trendingOption.id,
             animated: false)
     }
-    
+
+}
+
+// MARK: CollectionViewDataSource
+extension HomeScreenViewController: UICollectionViewDataSource {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        searchedMovies.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard
+            let cell = searchedMoviesCollectionView.dequeueReusableCell(
+                withReuseIdentifier: MovieInfoCell.cellIdentifier,
+                for: indexPath) as? MovieInfoCell,
+            let movie = searchedMovies.at(indexPath.row)
+        else {
+            return MovieInfoCell()
+        }
+
+        cell.setData(for: movie)
+        return cell
+    }
+
+}
+
+// MARK: CollectionViewDelegateFlowLayout
+extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        CGSize(width: collectionView.bounds.width - widthInset, height: cellHeight)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        UIEdgeInsets(top: 22, left: 0, bottom: 22, right: 0)
+    }
+
 }
 
 // MARK: CollectionViewDataSource
@@ -236,5 +286,5 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     ) -> UIEdgeInsets {
         UIEdgeInsets(top: 22, left: 0, bottom: 22, right: 0)
     }
-    
+
 }
