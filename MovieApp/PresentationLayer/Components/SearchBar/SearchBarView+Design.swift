@@ -28,7 +28,7 @@ extension SearchBarView: ConstructViewsProtocol {
         stackView.addArrangedSubview(searchField)
 
         cancelButton = UIButton()
-        cancelButton.addTarget(self, action: #selector(hideCancelButton), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         stackView.addArrangedSubview(cancelButton)
     }
 
@@ -88,6 +88,11 @@ extension SearchBarView: ConstructViewsProtocol {
     }
 
     @objc
+    private func didTapCancelButton() {
+        hideCancelButton()
+        onCancelTapped()
+    }
+
     private func hideCancelButton() {
         clearSearchBar()
         cancelButton.isHidden = true
