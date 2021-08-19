@@ -150,7 +150,8 @@ class MovieDetailsViewController: UIViewController {
         crewGridView.subviews
             .filter { stackView in
                 return stackView.subviews.allSatisfy { subview in
-                    guard let crewMemberLabelView = subview as? CrewMemberLabelsView
+                    guard
+                        let crewMemberLabelView = subview as? CrewMemberLabelsView
                     else {
                         return false
                     }
