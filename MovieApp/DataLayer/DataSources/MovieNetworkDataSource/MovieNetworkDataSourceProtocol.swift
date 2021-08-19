@@ -1,3 +1,5 @@
+import Combine
+
 protocol MovieNetworkDataSourceProtocol {
 
     func fetchPopularMovies(
@@ -17,6 +19,8 @@ protocol MovieNetworkDataSourceProtocol {
         for movieId: Int,
         _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void
     )
+
+    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error>
 
     func fetchMovieCredits(
         for movieId: Int,

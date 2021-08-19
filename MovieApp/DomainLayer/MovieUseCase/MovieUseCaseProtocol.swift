@@ -1,4 +1,8 @@
+import Combine
+
 protocol MovieUseCaseProtocol {
+
+    var favoriteMovies: AnyPublisher<[DetailedMovieModel], Error> { get }
 
     func getPopularMovies(_ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void)
 

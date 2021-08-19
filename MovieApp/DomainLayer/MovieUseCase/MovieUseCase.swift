@@ -1,6 +1,14 @@
 import Foundation
+import Combine
 
 class MovieUseCase: MovieUseCaseProtocol {
+
+    var favoriteMovies: AnyPublisher<[DetailedMovieModel], Error> {
+        movieRepository
+            .favoriteMoviesPublisher
+            .map { $0.map { DetailedMovieModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
 
     private let queue = DispatchQueue(label: "movie.queue", qos: .background)
     private let movieRepository: MovieRepositoryProtocol

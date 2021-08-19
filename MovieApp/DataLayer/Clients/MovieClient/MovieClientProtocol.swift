@@ -1,3 +1,5 @@
+import Combine
+
 protocol MovieClientProtocol {
 
     func fetchPopularMovies(
@@ -17,6 +19,8 @@ protocol MovieClientProtocol {
         for movieId: Int,
         _ completionHandler: @escaping (Result<DetailedMovieClientModel, RequestError>) -> Void
     )
+
+    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error>
 
     func fetchMovieCredits(
         for movieId: Int,
