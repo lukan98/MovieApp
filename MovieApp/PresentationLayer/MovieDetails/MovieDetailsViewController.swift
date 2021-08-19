@@ -28,11 +28,6 @@ class MovieDetailsViewController: UIViewController {
     var recommendationCollection: UICollectionView!
 
     private let movieId: Int
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-
     private let presenter: MovieDetailsPresenter
     private weak var router: MovieDetailsRouterProtocol?
 
@@ -54,6 +49,12 @@ class MovieDetailsViewController: UIViewController {
         bindViews()
         setInitialData()
         loadData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.barStyle = .black
     }
 
     func loadData(animated: Bool = true) {
@@ -116,7 +117,7 @@ class MovieDetailsViewController: UIViewController {
         navigationView.onBackButtonTap = { [weak self] in
             guard let self = self else { return }
 
-            self.router?.routeBack()
+            self.router?.goBack()
         }
 
         headerView.onFavoriteToggle = { movieId in
@@ -193,7 +194,7 @@ extension MovieDetailsViewController: UICollectionViewDataSource {
             return
         }
 
-        router?.routeToDetails(for: movie.id)
+        router?.showMovieDetails(for: movie.id)
     }
 
     func collectionView(

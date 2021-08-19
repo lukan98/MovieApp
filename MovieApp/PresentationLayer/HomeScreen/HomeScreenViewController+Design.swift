@@ -5,10 +5,6 @@ extension HomeScreenViewController: ConstructViewsProtocol {
 
     static let defaultHeight = 40
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-
     func buildViews() {
         createViews()
         styleViews()
