@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class FavoritesViewController: UIViewController {
 
@@ -13,6 +14,8 @@ class FavoritesViewController: UIViewController {
     private let router: MovieDetailsRouterProtocol
 
     private var movies: [DetailedMovieViewModel] = []
+
+    private var cancellable: AnyCancellable?
 
     init(presenter: FavoritesPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -29,27 +32,26 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
 
         buildViews()
+        bindViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.barStyle = .black
-        loadData()
     }
-    
-    private func loadData() {
-        presenter.getFavoriteMovies { [weak self] result in
-            guard let self = self else { return }
 
-            switch result {
-            case .success(let movieViewModels):
-                self.movies = movieViewModels
+    private func bindViews() {
+        cancellable = presenter.favoriteMovies
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                print(completion)
+            }, receiveValue: { [weak self] value in
+                guard let self = self else { return }
+
+                self.movies = value
                 self.movieCollectionView.reloadData()
-            case .failure:
-                print("Failed to get favorite movies!")
-            }
-        }
+            })
     }
 
 }
@@ -81,9 +83,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
         cell.moviePoster.onFavoriteToggle = { [weak self] movieId in
             guard let self = self else { return }
 
-            self.presenter.toggleFavorited(for: movieId) {
-                self.loadData()
-            }
+            self.presenter.toggleFavorited(for: movieId, {})
         }
         return cell
     }

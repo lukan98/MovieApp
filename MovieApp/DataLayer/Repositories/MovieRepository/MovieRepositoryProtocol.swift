@@ -4,6 +4,8 @@ protocol MovieRepositoryProtocol {
 
     var favoriteMovies: [Int] { get }
 
+    var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> { get }
+
     func getPopularMovies(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     )

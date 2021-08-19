@@ -17,14 +17,7 @@ class MovieUserDefaultsDataSource: MovieLocalMetadataSourceProtocol {
     var favoritesPublisher: AnyPublisher<[Int], Never> {
         userDefaults
             .publisher(for: \.movieFavorites)
-            .map { array in
-                guard let favorites = array as? [Int]
-                else {
-                    return []
-                }
-
-                return favorites
-            }
+            .map { ($0 as? [Int]) ?? [] }
             .eraseToAnyPublisher()
     }
 

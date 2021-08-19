@@ -1,6 +1,13 @@
 import Foundation
+import Combine
 
 class FavoritesPresenter {
+
+    var favoriteMovies: AnyPublisher<[DetailedMovieViewModel], Error> {
+        useCase.favoriteMovies
+            .map { $0.map { DetailedMovieViewModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
 
     private let useCase: MovieUseCaseProtocol
 

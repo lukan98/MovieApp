@@ -1,3 +1,5 @@
+import Combine
+
 class MovieRepository: MovieRepositoryProtocol {
 
     private let networkDataSource: MovieNetworkDataSourceProtocol
@@ -9,6 +11,22 @@ class MovieRepository: MovieRepositoryProtocol {
 
     var favoriteMovies: [Int] {
         localMetadataSource.favorites
+    }
+
+    var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
+        localMetadataSource
+            .favoritesPublisher
+            .setFailureType(to: Error.self)
+            .flatMap { [weak self] ids -> AnyPublisher<[DetailedMovieDataSourceModel], Error> in
+                guard let self = self else { return Empty(completeImmediately: false).eraseToAnyPublisher() }
+
+                let array = ids.map {
+                    self.networkDataSource.fetchMovieDetails(for: $0)
+                }
+                return Publishers.MergeMany(array).collect().eraseToAnyPublisher()
+            }
+            .map { $0.map { DetailedMovieRepositoryModel(from: $0, isFavorited: true) } }
+            .eraseToAnyPublisher()
     }
 
     init(
