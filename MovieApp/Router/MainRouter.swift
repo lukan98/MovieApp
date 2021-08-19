@@ -72,15 +72,5 @@ extension MainRouter: MovieDetailsRouterProtocol {
     func goBack() {
         navigationController.popViewController(animated: true)
     }
-
-// MARK: SearchRoute
-extension MainRouter: SearchRouterProtocol {
-
-    func showSearch() {
-        let searchPresenter = SearchPresenter(movieUseCase: appDependencies.movieUseCase)
-        let searchViewController = SearchViewController(presenter: searchPresenter)
-
-        navigationController.pushViewController(searchViewController, animated: false)
-    }
-
+    
 }
