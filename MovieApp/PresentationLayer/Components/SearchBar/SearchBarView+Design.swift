@@ -15,12 +15,12 @@ extension SearchBarView: ConstructViewsProtocol {
         searchField = BaseSearchTextField()
         searchField.addTarget(self, action: #selector(showCancelButton), for: .editingDidBegin)
 
-        let searchIcon = UIImageView(image: UIImage(named: "Search"))
+        let searchIcon = UIImageView(image: .search)
         searchIcon.contentMode = .center
         searchField.leftView = searchIcon
 
         let deleteButton = UIButton()
-        deleteButton.setImage(UIImage(named: "X"), for: .normal)
+        deleteButton.setImage(.xImage, for: .normal)
         deleteButton.contentMode = .center
         deleteButton.addTarget(self, action: #selector(clearSearchBar), for: .touchUpInside)
         searchField.rightView = deleteButton

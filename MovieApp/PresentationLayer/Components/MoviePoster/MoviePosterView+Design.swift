@@ -24,7 +24,7 @@ extension MoviePosterView: ConstructViewsProtocol {
 
         favoriteButton.backgroundColor = .darkBlue.withAlphaComponent(0.6)
         favoriteButton.tintColor = .white
-        favoriteButton.setImage(UIImage(named: "Favorites-outline"), for: .normal)
+        favoriteButton.setImage(.favoritesOutlined, for: .normal)
     }
 
     func defineLayoutForViews() {
