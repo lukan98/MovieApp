@@ -577,9 +577,9 @@
 		FCB63A4126A055F500E049A2 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				FCB63A7526A56EB700E049A2 /* Repositories */,
-				FCB63A7426A56EB100E049A2 /* DataSources */,
 				FCB63A7326A56EA000E049A2 /* Clients */,
+				FCB63A7426A56EB100E049A2 /* DataSources */,
+				FCB63A7526A56EB700E049A2 /* Repositories */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";

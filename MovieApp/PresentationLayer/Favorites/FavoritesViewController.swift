@@ -14,8 +14,7 @@ class FavoritesViewController: UIViewController {
     private let router: MovieDetailsRouterProtocol
 
     private var movies: [DetailedMovieViewModel] = []
-
-    private var cancellable: AnyCancellable?
+    private var disposables = Set<AnyCancellable>()
 
     init(presenter: FavoritesPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -42,16 +41,16 @@ class FavoritesViewController: UIViewController {
     }
 
     private func bindViews() {
-        cancellable = presenter.favoriteMovies
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                print(completion)
-            }, receiveValue: { [weak self] value in
-                guard let self = self else { return }
+        presenter.favoriteMovies
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] value in
+                    guard let self = self else { return }
 
-                self.movies = value
-                self.movieCollectionView.reloadData()
-            })
+                    self.movies = value
+                    self.movieCollectionView.reloadData()
+                })
+            .store(in: &disposables)
     }
 
 }

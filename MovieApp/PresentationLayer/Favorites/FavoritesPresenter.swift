@@ -4,8 +4,10 @@ import Combine
 class FavoritesPresenter {
 
     var favoriteMovies: AnyPublisher<[DetailedMovieViewModel], Error> {
-        useCase.favoriteMovies
+        useCase
+            .favoriteMovies
             .map { $0.map { DetailedMovieViewModel(from: $0) } }
+            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
 

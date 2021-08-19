@@ -4,7 +4,8 @@ import Combine
 class MovieUseCase: MovieUseCaseProtocol {
 
     var favoriteMovies: AnyPublisher<[DetailedMovieModel], Error> {
-        movieRepository.favoriteMoviesPublisher
+        movieRepository
+            .favoriteMoviesPublisher
             .map { $0.map { DetailedMovieModel(from: $0) } }
             .eraseToAnyPublisher()
     }
