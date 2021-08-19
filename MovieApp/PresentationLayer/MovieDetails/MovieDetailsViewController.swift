@@ -77,6 +77,7 @@ class MovieDetailsViewController: UIViewController {
             switch result {
             case .success(let credits):
                 self.setCrewGridData(for: credits.crew)
+                self.hideEmptyCrewLabels()
                 self.castMembers = credits.cast
                 self.topBilledCastCollection.reloadData()
             case .failure:
@@ -143,6 +144,22 @@ class MovieDetailsViewController: UIViewController {
 
             crewMemberLabel.setData(name: crewMember.name, job: crewMember.job)
         }
+    }
+
+    private func hideEmptyCrewLabels() {
+        crewGridView.subviews
+            .filter { stackView in
+                return stackView.subviews.allSatisfy { subview in
+                    guard
+                        let crewMemberLabelView = subview as? CrewMemberLabelsView
+                    else {
+                        return false
+                    }
+
+                    return crewMemberLabelView.nameLabel.text == nil && crewMemberLabelView.jobLabel.text == nil
+                }
+            }
+            .forEach { $0.isHidden = true }
     }
 
     private func setReviewData(for reviews: [ReviewViewModel]) {
