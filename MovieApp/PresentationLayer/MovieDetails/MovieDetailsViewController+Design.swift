@@ -61,6 +61,10 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         reviewsContainerView = UIView()
         contentView.addSubview(reviewsContainerView)
 
+        noReviewsLabel = UILabel()
+        reviewsContainerView.addSubview(noReviewsLabel)
+        noReviewsLabel.isHidden = true
+
         reviewsViewController = ReviewsViewController()
         addChild(reviewsViewController)
 
@@ -103,6 +107,10 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         topBilledCastCollection.clipsToBounds = false
 
         styleHeadingLabel(socialLabel)
+
+        noReviewsLabel.font = ProximaNova.medium.of(size: 12)
+        noReviewsLabel.textColor = .gray3
+        noReviewsLabel.textAlignment = .center
 
         styleHeadingLabel(recommendationLabel)
 
@@ -173,6 +181,11 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             $0.top.equalTo(socialLabel.snp.bottom).offset(3 * spacing)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(300)
+        }
+
+        noReviewsLabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalToSuperview().inset(2 * spacing)
         }
 
         reviewsViewController.view.snp.makeConstraints {
