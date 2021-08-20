@@ -21,20 +21,6 @@ class MovieClient: MovieClientProtocol {
         self.baseApiClient = baseApiClient
     }
 
-    func fetchPopularMovies(_ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void) {
-        let queryParameters = [
-            "language": "en-US",
-            "page": "1"
-        ]
-
-        baseApiClient
-            .get(
-                path: "/movie/popular",
-                queryParameters: queryParameters,
-                completionHandler: completionHandler
-            )
-    }
-
     func fetchTopRatedMovies(
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     ) {

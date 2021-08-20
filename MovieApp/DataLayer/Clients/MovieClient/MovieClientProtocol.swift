@@ -4,10 +4,6 @@ protocol MovieClientProtocol {
 
     var popularMovies: AnyPublisher<MovieListClientModel, Error> { get }
 
-    func fetchPopularMovies(
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    )
-
     func fetchTopRatedMovies(
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     )

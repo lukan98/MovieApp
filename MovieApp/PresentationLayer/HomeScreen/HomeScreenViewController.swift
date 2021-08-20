@@ -129,16 +129,6 @@ class HomeScreenViewController: UIViewController {
         trendingMoviesCollectionView.onMovieSelected = selectedMovie
     }
 
-    private func loadPopularMovies(for optionId: Int, animated: Bool = true) {
-        presenter.getPopularMovies(for: optionId) { [weak self] result in
-            if case .success(let movies) = result {
-                self?.popularMoviesCollectionView.setData(movies, animated: animated)
-            } else {
-                self?.popularMoviesCollectionView.setData([], animated: animated)
-            }
-        }
-    }
-
     private func loadTopRatedMovies(for optionId: Int, animated: Bool = true) {
         presenter.getTopRatedMovies(for: optionId) { [weak self] result in
             if case .success(let movies) = result {
@@ -171,16 +161,12 @@ class HomeScreenViewController: UIViewController {
 
     private func reloadData() {
         guard
-            let popularOption = popularMoviesCollectionView.currentlySelectedCategory,
             let topRatedOption = topRatedMoviesCollectionView.currentlySelectedCategory,
             let trendingOption = trendingMoviesCollectionView.currentlySelectedCategory
         else {
             return
         }
 
-        loadPopularMovies(
-            for: popularOption.id,
-            animated: false)
         loadTopRatedMovies(
             for: topRatedOption.id,
             animated: false)
