@@ -29,7 +29,7 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
-    var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
+    private var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
         networkDataSource
             .popularMovies
             .combineLatest(localMetadataSource.favoritesPublisher)

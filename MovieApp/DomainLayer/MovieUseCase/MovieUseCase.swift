@@ -15,13 +15,6 @@ class MovieUseCase: MovieUseCaseProtocol {
             .eraseToAnyPublisher()
     }
 
-    var popularMovies: AnyPublisher<[MovieModel], Error> {
-        movieRepository
-            .popularMovies
-            .map { $0.map { MovieModel(from: $0) } }
-            .eraseToAnyPublisher()
-    }
-
     init(movieRepository: MovieRepositoryProtocol) {
         self.movieRepository = movieRepository
     }

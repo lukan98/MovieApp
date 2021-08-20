@@ -3,7 +3,6 @@ import Combine
 protocol MovieUseCaseProtocol {
 
     var favoriteMovies: AnyPublisher<[DetailedMovieModel], Error> { get }
-    var popularMovies: AnyPublisher<[MovieModel], Error> { get }
 
     func getPopularMovies(_ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void)
 
