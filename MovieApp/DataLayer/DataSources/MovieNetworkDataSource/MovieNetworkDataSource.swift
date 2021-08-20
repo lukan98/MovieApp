@@ -8,7 +8,7 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
     var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> {
         movieClient
             .popularMovies
-            .map { $0.movies.map{ MovieDataSourceModel(from: $0) } }
+            .map { $0.movies.map { MovieDataSourceModel(from: $0) } }
             .eraseToAnyPublisher()
     }
 
