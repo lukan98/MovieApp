@@ -5,6 +5,18 @@ class MovieClient: MovieClientProtocol {
 
     private let baseApiClient: BaseApiClient
 
+    var popularMovies: AnyPublisher<MovieListClientModel, Error> {
+        let queryParameters = [
+            "language": "en-US",
+            "page": "1"
+        ]
+
+        return baseApiClient
+            .get(
+                path: "/movie/popular",
+                queryParameters: queryParameters)
+    }
+
     init(baseApiClient: BaseApiClient) {
         self.baseApiClient = baseApiClient
     }

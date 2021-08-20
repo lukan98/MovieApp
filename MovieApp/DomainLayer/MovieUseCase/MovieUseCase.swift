@@ -3,6 +3,11 @@ import Combine
 
 class MovieUseCase: MovieUseCaseProtocol {
 
+    private let queue = DispatchQueue(label: "movie.queue", qos: .background)
+    private let movieRepository: MovieRepositoryProtocol
+
+    private var disposables = Set<AnyCancellable>()
+
     var favoriteMovies: AnyPublisher<[DetailedMovieModel], Error> {
         movieRepository
             .favoriteMoviesPublisher
@@ -10,8 +15,12 @@ class MovieUseCase: MovieUseCaseProtocol {
             .eraseToAnyPublisher()
     }
 
-    private let queue = DispatchQueue(label: "movie.queue", qos: .background)
-    private let movieRepository: MovieRepositoryProtocol
+    var popularMovies: AnyPublisher<[MovieModel], Error> {
+        movieRepository
+            .popularMovies
+            .map { $0.map { MovieModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
 
     init(movieRepository: MovieRepositoryProtocol) {
         self.movieRepository = movieRepository
@@ -30,6 +39,13 @@ class MovieUseCase: MovieUseCaseProtocol {
         movieRepository.getPopularMovies(for: genreId) { result in
             completionHandler(result.map { $0.map { MovieModel(from: $0) } })
         }
+    }
+
+    func popularMovies(for genreId: Int) -> AnyPublisher<[MovieModel], Error> {
+        movieRepository
+            .popularMovies(for: genreId)
+            .map { $0.map { MovieModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
     func getTopRatedMovies(

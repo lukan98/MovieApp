@@ -1,4 +1,5 @@
 import Combine
+import Foundation
 
 class MovieRepository: MovieRepositoryProtocol {
 
@@ -16,7 +17,6 @@ class MovieRepository: MovieRepositoryProtocol {
     var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
         localMetadataSource
             .favoritesPublisher
-            .setFailureType(to: Error.self)
             .flatMap { [weak self] ids -> AnyPublisher<[DetailedMovieDataSourceModel], Error> in
                 guard let self = self else { return Empty(completeImmediately: false).eraseToAnyPublisher() }
 
@@ -26,6 +26,16 @@ class MovieRepository: MovieRepositoryProtocol {
                 return Publishers.MergeMany(array).collect().eraseToAnyPublisher()
             }
             .map { $0.map { DetailedMovieRepositoryModel(from: $0, isFavorited: true) } }
+            .eraseToAnyPublisher()
+    }
+
+    var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
+        networkDataSource
+            .popularMovies
+            .combineLatest(localMetadataSource.favoritesPublisher)
+            .map { movies, favorites in
+                movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
+            }
             .eraseToAnyPublisher()
     }
 
@@ -75,6 +85,12 @@ class MovieRepository: MovieRepositoryProtocol {
                 completionHandler(.failure(error))
             }
         }
+    }
+
+    func popularMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error> {
+        popularMovies
+            .map { $0.filter { $0.genres.contains(genreId) } }
+            .eraseToAnyPublisher()
     }
 
     func getTopRatedMovies(

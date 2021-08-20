@@ -3,8 +3,8 @@ import Combine
 protocol MovieRepositoryProtocol {
 
     var favoriteMovies: [Int] { get }
-
     var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> { get }
+    var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> { get }
 
     func getPopularMovies(
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
@@ -14,6 +14,8 @@ protocol MovieRepositoryProtocol {
         for genreId: Int,
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
     )
+
+    func popularMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error>
 
     func getTopRatedMovies(
         for genreId: Int,

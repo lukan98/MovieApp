@@ -2,6 +2,8 @@ import Combine
 
 protocol MovieClientProtocol {
 
+    var popularMovies: AnyPublisher<MovieListClientModel, Error> { get }
+
     func fetchPopularMovies(
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
     )

@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class HomeScreenViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class HomeScreenViewController: UIViewController {
     private let router: MovieDetailsRouterProtocol
 
     private var searchedMovies: [MovieViewModel] = []
+    private var disposables = Set<AnyCancellable>()
 
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -98,7 +100,16 @@ class HomeScreenViewController: UIViewController {
         }
 
         popularMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
-            self?.loadPopularMovies(for: optionId)
+            guard let self = self else { return }
+
+            self.presenter
+                .popularMovies(for: optionId)
+                .sink(
+                    receiveCompletion: { _ in },
+                    receiveValue: { movies in
+                        self.popularMoviesCollectionView.setData(movies, animated: true)
+                    })
+                .store(in: &self.disposables)
         }
 
         topRatedMoviesCollectionView.onCategoryChanged = { [weak self] optionId in

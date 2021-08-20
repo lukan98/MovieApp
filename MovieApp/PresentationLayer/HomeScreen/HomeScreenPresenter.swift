@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Combine
 
 class HomeScreenPresenter {
 
@@ -39,6 +40,13 @@ class HomeScreenPresenter {
                 completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
             }
         }
+    }
+
+    func popularMovies(for genreId: Int) -> AnyPublisher<[MovieViewModel], Error> {
+        movieUseCase
+            .popularMovies(for: genreId)
+            .map { $0.map { MovieViewModel(from: $0) } }
+            .receiveOnMain()
     }
 
     func getTopRatedMovies(

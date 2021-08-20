@@ -1,8 +1,16 @@
 import Combine
+import Foundation
 
 class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
 
     private let movieClient: MovieClientProtocol
+
+    var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> {
+        movieClient
+            .popularMovies
+            .map { $0.movies.map{ MovieDataSourceModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
 
     init(movieClient: MovieClientProtocol) {
         self.movieClient = movieClient
