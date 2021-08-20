@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class CategorisedCollectionView: UIView {
 
@@ -16,15 +17,25 @@ class CategorisedCollectionView: UIView {
         let index = categoriesView.selectedButtonIndex
         return categories.at(index)
     }
+    var currentlySelectedCategoryPublisher: AnyPublisher<OptionViewModel, Never> {
+        categoriesView
+            .selectedButtonIndexPublisher
+            .compactMap { [weak self] index -> OptionViewModel? in
+                guard let category = self?.categories.at(index) else { return nil }
+
+                return category
+            }
+            .eraseToAnyPublisher()
+    }
 
     private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
+    private var disposables = Set<AnyCancellable>()
 
     init() {
         super.init(frame: .zero)
 
         buildViews()
-        bindViews()
     }
     
     required init?(coder: NSCoder) {
@@ -51,22 +62,6 @@ class CategorisedCollectionView: UIView {
             movieCollectionView.reloadData()
         }
     }
-
-    private func bindViews() {
-        categoriesView.onButtonSelected = { [weak self] index in
-            guard
-                let self = self,
-                index >= 0,
-                index < self.categories.count
-            else {
-                return
-            }
-
-            let optionId = self.categories[index].id
-            self.onCategoryChanged(optionId)
-        }
-    }
-
     
 }
 

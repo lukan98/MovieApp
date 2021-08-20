@@ -99,18 +99,17 @@ class HomeScreenViewController: UIViewController {
             scrollView.isHidden = false
         }
 
-        popularMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
-            guard let self = self else { return }
-
-            self.presenter
-                .popularMovies(for: optionId)
-                .sink(
-                    receiveCompletion: { _ in },
-                    receiveValue: { movies in
-                        self.popularMoviesCollectionView.setData(movies, animated: true)
-                    })
-                .store(in: &self.disposables)
-        }
+        popularMoviesCollectionView
+            .currentlySelectedCategoryPublisher
+            .flatMap { [weak self] optionViewModel in
+                self?.presenter.popularMovies(for: optionViewModel.id) ?? .never()
+            }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieViewModels in
+                    self?.popularMoviesCollectionView.setData(movieViewModels, animated: true)
+                })
+            .store(in: &disposables)
 
         topRatedMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
             self?.loadTopRatedMovies(for: optionId)
