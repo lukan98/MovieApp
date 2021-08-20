@@ -51,6 +51,16 @@
 		FC2774D726B2F2D800E157EC /* MovieUserDefaultsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2774D626B2F2D800E157EC /* MovieUserDefaultsDataSource.swift */; };
 		FC582A6726CD5224007763A3 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A6626CD5224007763A3 /* UserDefaults+Extensions.swift */; };
 		FC582A6926CEA8EF007763A3 /* Publisher+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A6826CEA8EF007763A3 /* Publisher+Extensions.swift */; };
+		FC582A7926CFC1FD007763A3 /* UIControlPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A6F26CFC1FD007763A3 /* UIControlPublisher.swift */; };
+		FC582A7A26CFC1FD007763A3 /* UIControlSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A7026CFC1FD007763A3 /* UIControlSubscription.swift */; };
+		FC582A7B26CFC1FD007763A3 /* BarItemGestureSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A7326CFC1FD007763A3 /* BarItemGestureSubscription.swift */; };
+		FC582A7C26CFC1FD007763A3 /* BarItemGesturePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A7426CFC1FD007763A3 /* BarItemGesturePublisher.swift */; };
+		FC582A7D26CFC1FD007763A3 /* GestureSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A7526CFC1FD007763A3 /* GestureSubscription.swift */; };
+		FC582A7E26CFC1FD007763A3 /* GestureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A7626CFC1FD007763A3 /* GestureType.swift */; };
+		FC582A7F26CFC1FD007763A3 /* GesturePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A7726CFC1FD007763A3 /* GesturePublisher.swift */; };
+		FC582A8226CFC211007763A3 /* UIView+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A8026CFC210007763A3 /* UIView+Combine.swift */; };
+		FC582A8326CFC211007763A3 /* UIControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A8126CFC211007763A3 /* UIControl+Combine.swift */; };
+		FC582A8526CFC233007763A3 /* UIBarButtonItem+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC582A8426CFC233007763A3 /* UIBarButtonItem+Combine.swift */; };
 		FC592E30269D897C00233EFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E2F269D897C00233EFB /* AppDelegate.swift */; };
 		FC592E32269D897C00233EFB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC592E31269D897C00233EFB /* SceneDelegate.swift */; };
 		FC592E39269D897E00233EFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC592E38269D897E00233EFB /* Assets.xcassets */; };
@@ -193,6 +203,16 @@
 		FC2774D626B2F2D800E157EC /* MovieUserDefaultsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieUserDefaultsDataSource.swift; sourceTree = "<group>"; };
 		FC582A6626CD5224007763A3 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		FC582A6826CEA8EF007763A3 /* Publisher+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Extensions.swift"; sourceTree = "<group>"; };
+		FC582A6F26CFC1FD007763A3 /* UIControlPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControlPublisher.swift; sourceTree = "<group>"; };
+		FC582A7026CFC1FD007763A3 /* UIControlSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControlSubscription.swift; sourceTree = "<group>"; };
+		FC582A7326CFC1FD007763A3 /* BarItemGestureSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarItemGestureSubscription.swift; sourceTree = "<group>"; };
+		FC582A7426CFC1FD007763A3 /* BarItemGesturePublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarItemGesturePublisher.swift; sourceTree = "<group>"; };
+		FC582A7526CFC1FD007763A3 /* GestureSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureSubscription.swift; sourceTree = "<group>"; };
+		FC582A7626CFC1FD007763A3 /* GestureType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureType.swift; sourceTree = "<group>"; };
+		FC582A7726CFC1FD007763A3 /* GesturePublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GesturePublisher.swift; sourceTree = "<group>"; };
+		FC582A8026CFC210007763A3 /* UIView+Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Combine.swift"; sourceTree = "<group>"; };
+		FC582A8126CFC211007763A3 /* UIControl+Combine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Combine.swift"; sourceTree = "<group>"; };
+		FC582A8426CFC233007763A3 /* UIBarButtonItem+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Combine.swift"; sourceTree = "<group>"; };
 		FC592E2C269D897C00233EFB /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC592E2F269D897C00233EFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC592E31269D897C00233EFB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -393,6 +413,44 @@
 			path = MovieLocalMetadataSourceProtocol;
 			sourceTree = "<group>";
 		};
+		FC582A6C26CFC1FD007763A3 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				FC582A6E26CFC1FD007763A3 /* UIControl */,
+				FC582A7126CFC1FD007763A3 /* Gesture */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
+		FC582A6E26CFC1FD007763A3 /* UIControl */ = {
+			isa = PBXGroup;
+			children = (
+				FC582A6F26CFC1FD007763A3 /* UIControlPublisher.swift */,
+				FC582A7026CFC1FD007763A3 /* UIControlSubscription.swift */,
+			);
+			path = UIControl;
+			sourceTree = "<group>";
+		};
+		FC582A7126CFC1FD007763A3 /* Gesture */ = {
+			isa = PBXGroup;
+			children = (
+				FC582A7226CFC1FD007763A3 /* BarItem */,
+				FC582A7526CFC1FD007763A3 /* GestureSubscription.swift */,
+				FC582A7626CFC1FD007763A3 /* GestureType.swift */,
+				FC582A7726CFC1FD007763A3 /* GesturePublisher.swift */,
+			);
+			path = Gesture;
+			sourceTree = "<group>";
+		};
+		FC582A7226CFC1FD007763A3 /* BarItem */ = {
+			isa = PBXGroup;
+			children = (
+				FC582A7326CFC1FD007763A3 /* BarItemGestureSubscription.swift */,
+				FC582A7426CFC1FD007763A3 /* BarItemGesturePublisher.swift */,
+			);
+			path = BarItem;
+			sourceTree = "<group>";
+		};
 		FC592E23269D897C00233EFB = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +499,7 @@
 			children = (
 				FCB63AA026A6D2DF00E049A2 /* Extensions */,
 				FCB63A5B26A1877D00E049A2 /* Fonts */,
+				FC582A6C26CFC1FD007763A3 /* Combine */,
 				FCB63A8D26A5A0C200E049A2 /* AppDependencies.swift */,
 				FC592E2F269D897C00233EFB /* AppDelegate.swift */,
 				FC592E31269D897C00233EFB /* SceneDelegate.swift */,
@@ -741,10 +800,13 @@
 				FC582A6826CEA8EF007763A3 /* Publisher+Extensions.swift */,
 				FC66571026CAA0AA00440C6D /* UIColor+Extensions.swift */,
 				FC66571226CAAF2000440C6D /* UIImage+Extensions.swift */,
+				FC582A8126CFC211007763A3 /* UIControl+Combine.swift */,
+				FC582A8026CFC210007763A3 /* UIView+Combine.swift */,
 				FC23B1FA26C50FD8000C603E /* UILabel+Extensions.swift */,
 				FC6FE61226B94073003B29B1 /* UIView+Extensions.swift */,
 				FCB63AA126A6D2EE00E049A2 /* UIViewController+Extensions.swift */,
 				FC582A6626CD5224007763A3 /* UserDefaults+Extensions.swift */,
+				FC582A8426CFC233007763A3 /* UIBarButtonItem+Combine.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -926,6 +988,7 @@
 				FC2774B726B1793500E157EC /* MovieNetworkDataSourceProtocol.swift in Sources */,
 				FC6FE61C26BA7CC6003B29B1 /* Date+Extensions.swift in Sources */,
 				FC2774C226B1980500E157EC /* TimeWindowClientModel.swift in Sources */,
+				FC582A7E26CFC1FD007763A3 /* GestureType.swift in Sources */,
 				FC23B1E226BAD94A000C603E /* CreditsDataSourceModel.swift in Sources */,
 				FC70192726C6670100B01C73 /* ReviewListClientModel.swift in Sources */,
 				FC70192126C54DF400B01C73 /* ReviewsViewController.swift in Sources */,
@@ -943,6 +1006,7 @@
 				FC6FE5FB26B80D26003B29B1 /* FavoritesPresenter.swift in Sources */,
 				FC6FE61326B94073003B29B1 /* UIView+Extensions.swift in Sources */,
 				FC6FE60A26B93241003B29B1 /* MovieDetailsViewController+Design.swift in Sources */,
+				FC582A8326CFC211007763A3 /* UIControl+Combine.swift in Sources */,
 				FCB63AB626A95C6500E049A2 /* UnderlinedButtonView+Design.swift in Sources */,
 				FCB63A8126A577B200E049A2 /* MovieRepositoryModel.swift in Sources */,
 				FCE5E52B26AB0C1B0015ED14 /* GenreRepository.swift in Sources */,
@@ -955,6 +1019,7 @@
 				FC2774AC26B1477600E157EC /* GenreClientProtocol.swift in Sources */,
 				FCE5E52126AAEAE00015ED14 /* HomeScreenPresenter.swift in Sources */,
 				FCB63A8826A581B000E049A2 /* MovieModel.swift in Sources */,
+				FC582A8526CFC233007763A3 /* UIBarButtonItem+Combine.swift in Sources */,
 				FC23B1F026C27AD9000C603E /* CastMemberCell.swift in Sources */,
 				FC70191B26C54A2200B01C73 /* ReviewViewController.swift in Sources */,
 				FC592E32269D897C00233EFB /* SceneDelegate.swift in Sources */,
@@ -972,19 +1037,24 @@
 				FCB63AA726A6F69B00E049A2 /* SearchBarView.swift in Sources */,
 				FCE5E52D26AB17FB0015ED14 /* GenreUseCaseProtocol.swift in Sources */,
 				FC70192B26C6677E00B01C73 /* AuthorDetailsClientModel.swift in Sources */,
+				FC582A8226CFC211007763A3 /* UIView+Combine.swift in Sources */,
 				FC70193426C699B900B01C73 /* MovieBackdropCell.swift in Sources */,
 				FC6FE60326B834C4003B29B1 /* DetailedMovieModel.swift in Sources */,
 				FC6FE60C26B93276003B29B1 /* MovieDetailsPresenter.swift in Sources */,
+				FC582A7B26CFC1FD007763A3 /* BarItemGestureSubscription.swift in Sources */,
 				FCE5E52F26AB18380015ED14 /* GenreModel.swift in Sources */,
 				FC2774B926B1794300E157EC /* MovieNetworkDataSource.swift in Sources */,
 				FCB63AA926A6F70B00E049A2 /* SearchBarView+Design.swift in Sources */,
 				FC6FE60F26B935E7003B29B1 /* MovieHeaderView.swift in Sources */,
 				FC66571126CAA0AA00440C6D /* UIColor+Extensions.swift in Sources */,
 				FCB63AAC26A701E100E049A2 /* BaseSearchTextField.swift in Sources */,
+				FC582A7926CFC1FD007763A3 /* UIControlPublisher.swift in Sources */,
 				FC23B1D226BAD353000C603E /* CastMemberDataSourceModel.swift in Sources */,
 				FC23B1D626BAD485000C603E /* CastMemberRepositoryModel.swift in Sources */,
 				FC582A6926CEA8EF007763A3 /* Publisher+Extensions.swift in Sources */,
+				FC582A7F26CFC1FD007763A3 /* GesturePublisher.swift in Sources */,
 				FCB63A8E26A5A0C200E049A2 /* AppDependencies.swift in Sources */,
+				FC582A7A26CFC1FD007763A3 /* UIControlSubscription.swift in Sources */,
 				FCB63A5626A06BB500E049A2 /* MovieListClientModel.swift in Sources */,
 				FC66571326CAAF2000440C6D /* UIImage+Extensions.swift in Sources */,
 				FC2774D526B2F28900E157EC /* MovieLocalMetadataSourceProtocol.swift in Sources */,
@@ -1017,6 +1087,7 @@
 				FC70191D26C54A2F00B01C73 /* ReviewViewController+Design.swift in Sources */,
 				FCE5E51D26AADF940015ED14 /* BaseScrollView.swift in Sources */,
 				FC70193126C67FAB00B01C73 /* ReviewRepositoryModel.swift in Sources */,
+				FC582A7C26CFC1FD007763A3 /* BarItemGesturePublisher.swift in Sources */,
 				FCB63AA426A6D45000E049A2 /* FavoritesViewController+Design.swift in Sources */,
 				FCB63AD026A9B2E100E049A2 /* MoviePosterCell+Design.swift in Sources */,
 				FC23B1E426BADA66000C603E /* CreditsRepositoryModel.swift in Sources */,
@@ -1034,6 +1105,7 @@
 				FCB63AA226A6D2EE00E049A2 /* UIViewController+Extensions.swift in Sources */,
 				FC2774C426B2926900E157EC /* TimeWindowDataSourceModel.swift in Sources */,
 				FC70192D26C6734A00B01C73 /* ReviewModel.swift in Sources */,
+				FC582A7D26CFC1FD007763A3 /* GestureSubscription.swift in Sources */,
 				FC23B1DE26BAD659000C603E /* CrewMemberViewModel.swift in Sources */,
 				FC23B1D026BACF9E000C603E /* CreditsClientModel.swift in Sources */,
 				FCB63A7F26A571E400E049A2 /* MovieRepositoryProtocol.swift in Sources */,
