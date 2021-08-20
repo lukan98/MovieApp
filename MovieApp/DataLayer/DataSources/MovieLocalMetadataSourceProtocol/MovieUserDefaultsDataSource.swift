@@ -18,6 +18,8 @@ class MovieUserDefaultsDataSource: MovieLocalMetadataSourceProtocol {
             .publisher(for: \.movieFavorites)
             .setFailureType(to: Error.self)
             .map { ($0 as? [Int]) ?? [] }
+            .subscribeOnBackground()
+            .share()
             .eraseToAnyPublisher()
     }
 
