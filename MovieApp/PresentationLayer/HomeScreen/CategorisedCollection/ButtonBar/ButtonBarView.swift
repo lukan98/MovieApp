@@ -41,7 +41,6 @@ class ButtonBarView: UIView {
             buttonStack.addArrangedSubview(underlinedButton)
             underlinedButton.button
                 .tapGesture()
-                .printThread("1")
                 .sink { [weak self] _ in
                     self?.selectedButtonIndexSubject.send(index)
                 }
@@ -49,7 +48,6 @@ class ButtonBarView: UIView {
         }
 
         selectedButtonIndexSubject
-            .printThread("2")
             .sink { [weak self] index in
                 self?.styleButtons(with: index)
             }

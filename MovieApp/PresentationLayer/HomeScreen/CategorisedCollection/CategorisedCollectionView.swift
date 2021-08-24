@@ -59,7 +59,6 @@ class CategorisedCollectionView: UIView {
         if animated {
             animatedDataReload()
         } else {
-            movieCollectionView.setContentOffset(.zero, animated: false)
             movieCollectionView.reloadData()
         }
     }

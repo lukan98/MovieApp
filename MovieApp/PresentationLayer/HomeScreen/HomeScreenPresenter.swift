@@ -35,8 +35,7 @@ class HomeScreenPresenter {
         movieUseCase
             .popularMovies(for: genreId)
             .map { $0.map { MovieViewModel(from: $0) } }
-            .eraseToAnyPublisher()
-//            .receiveOnMain()
+            .receiveOnMain()
     }
 
     func getTopRatedMovies(

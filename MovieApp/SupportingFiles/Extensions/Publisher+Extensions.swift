@@ -23,7 +23,7 @@ extension Publisher {
     }
 
     func receiveOnMain() -> AnyPublisher<Output, Failure> {
-        receive(on: RunLoop.main)
+        receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 
