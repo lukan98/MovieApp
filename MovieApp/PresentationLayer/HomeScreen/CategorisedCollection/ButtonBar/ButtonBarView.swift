@@ -3,8 +3,6 @@ import Combine
 
 class ButtonBarView: UIView {
 
-    var selectedButtonIndex = 0
-
     var scrollView: BaseScrollView!
     var contentView: UIView!
     var buttonStack: UIStackView!

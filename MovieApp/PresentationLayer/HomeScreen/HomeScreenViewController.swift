@@ -99,7 +99,7 @@ class HomeScreenViewController: UIViewController {
         }
 
         popularMoviesCollectionView
-            .currentlySelectedCategoryPublisher
+            .currentlySelectedCategory
             .flatMap { [weak self] optionViewModel in
                 self?.presenter.popularMovies(for: optionViewModel.id) ?? .never()
             }
@@ -111,7 +111,7 @@ class HomeScreenViewController: UIViewController {
             .store(in: &disposables)
 
         topRatedMoviesCollectionView
-            .currentlySelectedCategoryPublisher
+            .currentlySelectedCategory
             .flatMap { [weak self] optionViewModel in
                 self?.presenter.topRatedMovies(for: optionViewModel.id) ?? .never()
             }
@@ -123,7 +123,7 @@ class HomeScreenViewController: UIViewController {
             .store(in: &disposables)
 
         trendingMoviesCollectionView
-            .currentlySelectedCategoryPublisher
+            .currentlySelectedCategory
             .flatMap { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
                 guard let timeWindow = TimeWindowViewModel(rawValue: optionViewModel.id)
                 else {
@@ -139,17 +139,13 @@ class HomeScreenViewController: UIViewController {
                 })
             .store(in: &disposables)
 
-        popularMoviesCollectionView.onMovieFavorited = toggleFavorited
-        topRatedMoviesCollectionView.onMovieFavorited = toggleFavorited
-        trendingMoviesCollectionView.onMovieFavorited = toggleFavorited
-
-        popularMoviesCollectionView.onMovieSelected = selectedMovie
-        topRatedMoviesCollectionView.onMovieSelected = selectedMovie
-        trendingMoviesCollectionView.onMovieSelected = selectedMovie
+        popularMoviesCollectionView.didSelectMovie = didSelectMovie(with:)
+        topRatedMoviesCollectionView.didSelectMovie = didSelectMovie(with:)
+        trendingMoviesCollectionView.didSelectMovie = didSelectMovie(with:)
     }
 
-    private func selectedMovie(with movieId: Int) {
-        router.showMovieDetails(for: movieId)
+    private func didSelectMovie(with id: Int) {
+        router.showMovieDetails(for: id)
     }
 
     private func toggleFavorited(for movieId: Int) {

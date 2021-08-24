@@ -6,18 +6,12 @@ class CategorisedCollectionView: UIView {
     let defaultInset: CGFloat = 20
     let defaultSpacing: CGFloat = 10
 
-    var onCategoryChanged: (Int) -> Void = { _ in }
-    var onMovieFavorited: (Int) -> Void = { _ in }
-    var onMovieSelected: (Int) -> Void = { _ in }
-
+    var didSelectMovie: (Int) -> Void = { _ in }
+    
     var titleLabel: UILabel!
     var categoriesView: ButtonBarView!
     var movieCollectionView: UICollectionView!
-    var currentlySelectedCategory: OptionViewModel? {
-        let index = categoriesView.selectedButtonIndex
-        return categories.at(index)
-    }
-    var currentlySelectedCategoryPublisher: AnyPublisher<OptionViewModel, Never> {
+    var currentlySelectedCategory: AnyPublisher<OptionViewModel, Never> {
         categoriesView
             .selectedButtonIndexPublisher
             .compactMap { [weak self] index -> OptionViewModel? in
@@ -90,7 +84,6 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
 
         let movie = movies[indexPath.row]
         cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
-        cell.moviePoster.onFavoriteToggle = onMovieFavorited
         return cell
     }
 
@@ -100,7 +93,7 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
     ) {
         guard let movie = movies.at(indexPath.row) else { return }
 
-        onMovieSelected(movie.id)
+        didSelectMovie(movie.id)
     }
 
 }
