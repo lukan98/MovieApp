@@ -101,13 +101,16 @@ class HomeScreenViewController: UIViewController {
 
         popularMoviesCollectionView
             .currentlySelectedCategoryPublisher
+            .printThread("1")
             .flatMap { [weak self] optionViewModel in
                 self?.presenter.popularMovies(for: optionViewModel.id) ?? .never()
             }
+            .printThread("DATA")
+            .receiveOnMain()
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
-                    self?.popularMoviesCollectionView.setData(movieViewModels, animated: true)
+                    self?.popularMoviesCollectionView.setData(movieViewModels, animated: false)
                 })
             .store(in: &disposables)
 
