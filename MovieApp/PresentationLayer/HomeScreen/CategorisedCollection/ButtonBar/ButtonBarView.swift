@@ -7,7 +7,7 @@ class ButtonBarView: UIView {
     var contentView: UIView!
     var buttonStack: UIStackView!
 
-    var selectedButtonIndexPublisher: AnyPublisher<Int, Never> {
+    var selectedButtonIndex: AnyPublisher<Int, Never> {
         selectedButtonIndexSubject
             .removeDuplicates()
             .eraseToAnyPublisher()

@@ -13,17 +13,7 @@ class CategorisedCollectionView: UIView {
     var movieCollectionView: UICollectionView!
     var currentlySelectedCategory: AnyPublisher<OptionViewModel, Never> {
         categoriesView
-            .selectedButtonIndexPublisher
-            .compactMap { [weak self] index -> OptionViewModel? in
-                guard let category = self?.categories.at(index) else { return nil }
-
-                return category
-            }
-            .eraseToAnyPublisher()
-    }
-    var currentlySelectedCategoryPublisher: AnyPublisher<OptionViewModel, Never> {
-        categoriesView
-            .selectedButtonIndexPublisher
+            .selectedButtonIndex
             .compactMap { [weak self] index -> OptionViewModel? in
                 guard let category = self?.categories.at(index) else { return nil }
 

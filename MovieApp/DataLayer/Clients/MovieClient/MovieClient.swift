@@ -17,10 +17,6 @@ class MovieClient: MovieClientProtocol {
                 queryParameters: queryParameters)
     }
 
-    init(baseApiClient: BaseApiClient) {
-        self.baseApiClient = baseApiClient
-    }
-
     var topRatedMovies: AnyPublisher<MovieListClientModel, Error> {
         let queryParameters = [
             "language": "en-US",
