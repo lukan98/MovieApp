@@ -3,16 +3,10 @@ import Combine
 protocol MovieNetworkDataSourceProtocol {
 
     var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> { get }
+    var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> { get }
 
-    func fetchTopRatedMovies(
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    )
-
-    func fetchTrendingMovies(
-        for timeWindow: TimeWindowDataSourceModel,
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    )
-
+    func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error>
+    
     func fetchMovieDetails(
         for movieId: Int,
         _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void

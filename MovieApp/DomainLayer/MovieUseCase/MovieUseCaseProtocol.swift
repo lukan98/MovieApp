@@ -6,15 +6,9 @@ protocol MovieUseCaseProtocol {
 
     func popularMovies(for genreId: Int) -> AnyPublisher<[MovieModel], Error>
 
-    func getTopRatedMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
-    )
+    func topRatedMovies(for genreId: Int) -> AnyPublisher<[MovieModel], Error>
 
-    func getTrendingMovies(
-        for timeWindow: TimeWindowModel,
-        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
-    )
+    func trendingMovies(for timeWindow: TimeWindowModel) -> AnyPublisher<[MovieModel], Error>
 
     func toggleFavorited(for movieId: Int)
 

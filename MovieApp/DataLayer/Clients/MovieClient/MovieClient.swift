@@ -17,39 +17,31 @@ class MovieClient: MovieClientProtocol {
                 queryParameters: queryParameters)
     }
 
-    init(baseApiClient: BaseApiClient) {
-        self.baseApiClient = baseApiClient
-    }
-
-    func fetchTopRatedMovies(
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    ) {
+    var topRatedMovies: AnyPublisher<MovieListClientModel, Error> {
         let queryParameters = [
             "language": "en-US",
             "page": "1"
         ]
 
-        baseApiClient
+        return baseApiClient
             .get(
                 path: "/movie/top_rated",
-                queryParameters: queryParameters,
-                completionHandler: completionHandler)
+                queryParameters: queryParameters)
     }
 
-    func fetchTrendingMovies(
-        for timeWindow: TimeWindowClientModel,
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    ) {
+    init(baseApiClient: BaseApiClient) {
+        self.baseApiClient = baseApiClient
+    }
+
+    func trendingMovies(for timeWindow: TimeWindowClientModel) -> AnyPublisher<MovieListClientModel, Error> {
         let queryParameters = [
             "language": "en-US",
-            "page": "1",
+            "page": "1"
         ]
 
-        baseApiClient
-            .get(
-                path: "/trending/movie/\(timeWindow.rawValue)",
-                queryParameters: queryParameters,
-                completionHandler: completionHandler)
+        return baseApiClient
+            .get(path: "/trending/movie/\(timeWindow.rawValue)",
+                 queryParameters: queryParameters)
     }
 
     func fetchMovieDetails(

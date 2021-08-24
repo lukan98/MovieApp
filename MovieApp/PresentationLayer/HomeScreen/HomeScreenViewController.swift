@@ -44,7 +44,6 @@ class HomeScreenViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.barStyle = .black
-        reloadData()
     }
 
     @objc
@@ -111,13 +110,34 @@ class HomeScreenViewController: UIViewController {
                 })
             .store(in: &disposables)
 
-        topRatedMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
-            self?.loadTopRatedMovies(for: optionId)
-        }
+        topRatedMoviesCollectionView
+            .currentlySelectedCategoryPublisher
+            .flatMap { [weak self] optionViewModel in
+                self?.presenter.topRatedMovies(for: optionViewModel.id) ?? .never()
+            }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { movieViewModels in
+                    self.topRatedMoviesCollectionView.setData(movieViewModels, animated: true)
+                })
+            .store(in: &disposables)
 
-        trendingMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
-            self?.loadTrendingMovies(for: optionId)
-        }
+        trendingMoviesCollectionView
+            .currentlySelectedCategoryPublisher
+            .flatMap { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
+                guard let timeWindow = TimeWindowViewModel(rawValue: optionViewModel.id)
+                else {
+                    return .never()
+                }
+
+                return self?.presenter.trendingMovies(for: timeWindow) ?? .never()
+            }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { movieViewModels in
+                    self.trendingMoviesCollectionView.setData(movieViewModels, animated: true)
+                })
+            .store(in: &disposables)
 
         popularMoviesCollectionView.onMovieFavorited = toggleFavorited
         topRatedMoviesCollectionView.onMovieFavorited = toggleFavorited
@@ -128,50 +148,12 @@ class HomeScreenViewController: UIViewController {
         trendingMoviesCollectionView.onMovieSelected = selectedMovie
     }
 
-    private func loadTopRatedMovies(for optionId: Int, animated: Bool = true) {
-        presenter.getTopRatedMovies(for: optionId) { [weak self] result in
-            if case .success(let movies) = result {
-                self?.topRatedMoviesCollectionView.setData(movies, animated: animated)
-            } else {
-                self?.topRatedMoviesCollectionView.setData([], animated: animated)
-            }
-        }
-    }
-
-    private func loadTrendingMovies(for optionId: Int, animated: Bool = true) {
-        guard let timeWindow = TimeWindowViewModel(rawValue: optionId) else { return }
-
-        presenter.getTrendingMovies(for: timeWindow) { [weak self] result in
-            if case .success(let movies) = result {
-                self?.trendingMoviesCollectionView.setData(movies, animated: animated)
-            } else {
-                self?.trendingMoviesCollectionView.setData([], animated: animated)
-            }
-        }
-    }
-
     private func selectedMovie(with movieId: Int) {
         router.showMovieDetails(for: movieId)
     }
 
     private func toggleFavorited(for movieId: Int) {
-        presenter.toggleFavorited(for: movieId) { self.reloadData() }
-    }
-
-    private func reloadData() {
-        guard
-            let topRatedOption = topRatedMoviesCollectionView.currentlySelectedCategory,
-            let trendingOption = trendingMoviesCollectionView.currentlySelectedCategory
-        else {
-            return
-        }
-
-        loadTopRatedMovies(
-            for: topRatedOption.id,
-            animated: false)
-        loadTrendingMovies(
-            for: trendingOption.id,
-            animated: false)
+        presenter.toggleFavorited(for: movieId)
     }
     
 }

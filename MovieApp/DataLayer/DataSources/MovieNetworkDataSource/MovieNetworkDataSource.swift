@@ -12,25 +12,22 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
+    var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> {
+        movieClient
+            .topRatedMovies
+            .map { $0.movies.map { MovieDataSourceModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
+
     init(movieClient: MovieClientProtocol) {
         self.movieClient = movieClient
     }
-    
-    func fetchTopRatedMovies(
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    ) {
-        movieClient.fetchTopRatedMovies { result in
-            completionHandler(result.map { $0.movies.map { MovieDataSourceModel(from: $0) } })
-        }
-    }
 
-    func fetchTrendingMovies(
-        for timeWindow: TimeWindowDataSourceModel,
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    ) {
-        movieClient.fetchTrendingMovies(for: TimeWindowClientModel(from: timeWindow)) { result in
-            completionHandler(result.map { $0.movies.map { MovieDataSourceModel(from: $0) } })
-        }
+    func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error> {
+        movieClient
+            .trendingMovies(for: timeWindow.toClientModel())
+            .map { $0.movies.map { MovieDataSourceModel(from: $0)}}
+            .eraseToAnyPublisher()
     }
 
     func fetchMovieDetails(
