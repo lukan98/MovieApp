@@ -21,6 +21,16 @@ class CategorisedCollectionView: UIView {
             }
             .eraseToAnyPublisher()
     }
+    var currentlySelectedCategoryPublisher: AnyPublisher<OptionViewModel, Never> {
+        categoriesView
+            .selectedButtonIndexPublisher
+            .compactMap { [weak self] index -> OptionViewModel? in
+                guard let category = self?.categories.at(index) else { return nil }
+
+                return category
+            }
+            .eraseToAnyPublisher()
+    }
 
     private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []

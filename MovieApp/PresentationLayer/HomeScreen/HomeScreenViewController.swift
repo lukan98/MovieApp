@@ -24,14 +24,14 @@ class HomeScreenViewController: UIViewController {
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
         self.router = router
-        
+
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -151,7 +151,7 @@ class HomeScreenViewController: UIViewController {
     private func toggleFavorited(for movieId: Int) {
         presenter.toggleFavorited(for: movieId)
     }
-    
+
 }
 
 // MARK: CollectionViewDataSource
@@ -210,5 +210,5 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     ) -> UIEdgeInsets {
         UIEdgeInsets(top: 22, left: 0, bottom: 22, right: 0)
     }
-    
+
 }

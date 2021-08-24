@@ -6,7 +6,7 @@ protocol MovieNetworkDataSourceProtocol {
     var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> { get }
 
     func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error>
-    
+
     func fetchMovieDetails(
         for movieId: Int,
         _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void
