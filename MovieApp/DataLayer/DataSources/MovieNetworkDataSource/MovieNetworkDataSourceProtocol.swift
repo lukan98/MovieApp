@@ -2,9 +2,7 @@ import Combine
 
 protocol MovieNetworkDataSourceProtocol {
 
-    func fetchPopularMovies(
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    )
+    var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> { get }
 
     func fetchTopRatedMovies(
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void

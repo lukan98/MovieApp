@@ -1,21 +1,21 @@
 import Combine
+import Foundation
 
 class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
 
     private let movieClient: MovieClientProtocol
 
+    var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> {
+        movieClient
+            .popularMovies
+            .map { $0.movies.map { MovieDataSourceModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
+
     init(movieClient: MovieClientProtocol) {
         self.movieClient = movieClient
     }
-
-    func fetchPopularMovies(
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    ) {
-        movieClient.fetchPopularMovies { result in
-            completionHandler(result.map { $0.movies.map { MovieDataSourceModel(from: $0) } })
-        }
-    }
-
+    
     func fetchTopRatedMovies(
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
     ) {

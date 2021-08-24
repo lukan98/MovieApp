@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class HomeScreenViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class HomeScreenViewController: UIViewController {
     private let router: MovieDetailsRouterProtocol
 
     private var searchedMovies: [MovieViewModel] = []
+    private var disposables = Set<AnyCancellable>()
 
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -97,9 +99,17 @@ class HomeScreenViewController: UIViewController {
             scrollView.isHidden = false
         }
 
-        popularMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
-            self?.loadPopularMovies(for: optionId)
-        }
+        popularMoviesCollectionView
+            .currentlySelectedCategoryPublisher
+            .flatMap { [weak self] optionViewModel in
+                self?.presenter.popularMovies(for: optionViewModel.id) ?? .never()
+            }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieViewModels in
+                    self?.popularMoviesCollectionView.setData(movieViewModels, animated: true)
+                })
+            .store(in: &disposables)
 
         topRatedMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
             self?.loadTopRatedMovies(for: optionId)
@@ -116,16 +126,6 @@ class HomeScreenViewController: UIViewController {
         popularMoviesCollectionView.onMovieSelected = selectedMovie
         topRatedMoviesCollectionView.onMovieSelected = selectedMovie
         trendingMoviesCollectionView.onMovieSelected = selectedMovie
-    }
-
-    private func loadPopularMovies(for optionId: Int, animated: Bool = true) {
-        presenter.getPopularMovies(for: optionId) { [weak self] result in
-            if case .success(let movies) = result {
-                self?.popularMoviesCollectionView.setData(movies, animated: animated)
-            } else {
-                self?.popularMoviesCollectionView.setData([], animated: animated)
-            }
-        }
     }
 
     private func loadTopRatedMovies(for optionId: Int, animated: Bool = true) {
@@ -160,16 +160,12 @@ class HomeScreenViewController: UIViewController {
 
     private func reloadData() {
         guard
-            let popularOption = popularMoviesCollectionView.currentlySelectedCategory,
             let topRatedOption = topRatedMoviesCollectionView.currentlySelectedCategory,
             let trendingOption = trendingMoviesCollectionView.currentlySelectedCategory
         else {
             return
         }
 
-        loadPopularMovies(
-            for: popularOption.id,
-            animated: false)
         loadTopRatedMovies(
             for: topRatedOption.id,
             animated: false)

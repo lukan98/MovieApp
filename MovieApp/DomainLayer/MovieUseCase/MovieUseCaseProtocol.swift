@@ -4,12 +4,7 @@ protocol MovieUseCaseProtocol {
 
     var favoriteMovies: AnyPublisher<[DetailedMovieModel], Error> { get }
 
-    func getPopularMovies(_ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void)
-
-    func getPopularMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
-    )
+    func popularMovies(for genreId: Int) -> AnyPublisher<[MovieModel], Error>
 
     func getTopRatedMovies(
         for genreId: Int,

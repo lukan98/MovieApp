@@ -4,7 +4,7 @@ class UnderlinedButtonView: UIView {
 
     let underlineThickness = 3
 
-    let title: String!
+    let title: String
 
     var button: UIButton!
     var underline: UIView!

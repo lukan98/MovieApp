@@ -5,22 +5,20 @@ class MovieClient: MovieClientProtocol {
 
     private let baseApiClient: BaseApiClient
 
-    init(baseApiClient: BaseApiClient) {
-        self.baseApiClient = baseApiClient
-    }
-
-    func fetchPopularMovies(_ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void) {
+    var popularMovies: AnyPublisher<MovieListClientModel, Error> {
         let queryParameters = [
             "language": "en-US",
             "page": "1"
         ]
 
-        baseApiClient
+        return baseApiClient
             .get(
                 path: "/movie/popular",
-                queryParameters: queryParameters,
-                completionHandler: completionHandler
-            )
+                queryParameters: queryParameters)
+    }
+
+    init(baseApiClient: BaseApiClient) {
+        self.baseApiClient = baseApiClient
     }
 
     func fetchTopRatedMovies(

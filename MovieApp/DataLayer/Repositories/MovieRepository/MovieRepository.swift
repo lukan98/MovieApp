@@ -1,4 +1,5 @@
 import Combine
+import Foundation
 
 class MovieRepository: MovieRepositoryProtocol {
 
@@ -16,7 +17,6 @@ class MovieRepository: MovieRepositoryProtocol {
     var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
         localMetadataSource
             .favoritesPublisher
-            .setFailureType(to: Error.self)
             .flatMap { [weak self] ids -> AnyPublisher<[DetailedMovieDataSourceModel], Error> in
                 guard let self = self else { return Empty(completeImmediately: false).eraseToAnyPublisher() }
 
@@ -26,6 +26,16 @@ class MovieRepository: MovieRepositoryProtocol {
                 return Publishers.MergeMany(array).collect().eraseToAnyPublisher()
             }
             .map { $0.map { DetailedMovieRepositoryModel(from: $0, isFavorited: true) } }
+            .eraseToAnyPublisher()
+    }
+
+    private var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
+        networkDataSource
+            .popularMovies
+            .combineLatest(localMetadataSource.favoritesPublisher)
+            .map { movies, favorites in
+                movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
+            }
             .eraseToAnyPublisher()
     }
 
@@ -40,41 +50,10 @@ class MovieRepository: MovieRepositoryProtocol {
         self.storedTrendingMovies = [:]
     }
 
-    func getPopularMovies(
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    ) {
-        getPopularMoviesFromLocal { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-            case .success(let movieRepositoryModels):
-                completionHandler(.success(movieRepositoryModels))
-            case .failure:
-                self.getPopularMoviesFromNetwork { result in
-                    switch result {
-                    case .success(let movieRepositoryModels):
-                        completionHandler(.success(movieRepositoryModels))
-                    case .failure(let error):
-                        completionHandler(.failure(error))
-                    }
-                }
-            }
-        }
-    }
-
-    func getPopularMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    ) {
-        getPopularMovies { result in
-            switch result {
-            case .success(let movieRepositoryModels):
-                let filteredMovieRepositoryModels = movieRepositoryModels.filter { $0.genres.contains(genreId) }
-                completionHandler(.success(filteredMovieRepositoryModels))
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
-        }
+    func popularMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error> {
+        popularMovies
+            .map { $0.filter { $0.genres.contains(genreId) } }
+            .eraseToAnyPublisher()
     }
 
     func getTopRatedMovies(
@@ -183,35 +162,6 @@ class MovieRepository: MovieRepositoryProtocol {
         storedTopRatedMovies = storedTopRatedMovies.map { updatingFunction($0) }
         for (key, value) in storedTrendingMovies {
             storedTrendingMovies[key] = value.map { updatingFunction($0) }
-        }
-    }
-
-    private func getPopularMoviesFromNetwork(
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    ) {
-        networkDataSource.fetchPopularMovies { [weak self] result in
-            guard let self = self else { return }
-
-            let mappedResult = result.map { $0.map { MovieRepositoryModel(from: $0) } }
-            switch mappedResult {
-            case .success(let repositoryMovieModels):
-                self.storedPopularMovies = repositoryMovieModels
-                let favorites = self.localMetadataSource.favorites
-                self.updateMovieLists(favoritedMovies: favorites)
-                self.getPopularMoviesFromLocal(completionHandler)
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
-        }
-    }
-
-    private func getPopularMoviesFromLocal(
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    ) {
-        if storedPopularMovies.isEmpty {
-            completionHandler(.failure(.noDataError))
-        } else {
-            completionHandler(.success(storedPopularMovies))
         }
     }
 

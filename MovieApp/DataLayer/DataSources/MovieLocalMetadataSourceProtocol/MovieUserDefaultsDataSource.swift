@@ -13,11 +13,13 @@ class MovieUserDefaultsDataSource: MovieLocalMetadataSourceProtocol {
         return []
     }
 
-
-    var favoritesPublisher: AnyPublisher<[Int], Never> {
+    var favoritesPublisher: AnyPublisher<[Int], Error> {
         userDefaults
             .publisher(for: \.movieFavorites)
+            .setFailureType(to: Error.self)
             .map { ($0 as? [Int]) ?? [] }
+            .subscribeOnBackground()
+            .share()
             .eraseToAnyPublisher()
     }
 
