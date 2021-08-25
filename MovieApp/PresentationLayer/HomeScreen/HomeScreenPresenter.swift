@@ -38,30 +38,21 @@ class HomeScreenPresenter {
             .receiveOnMain()
     }
 
-    func getTopRatedMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
-    ) {
-        movieUseCase.getTopRatedMovies(for: genreId) { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
-            }
-        }
+    func topRatedMovies(for genreId: Int) -> AnyPublisher<[MovieViewModel], Error> {
+        movieUseCase
+            .topRatedMovies(for: genreId)
+            .map { $0.map { MovieViewModel(from: $0) } }
+            .receiveOnMain()
     }
 
-    func getTrendingMovies(
-        for timeWindow: TimeWindowViewModel,
-        _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void
-    ) {
-        movieUseCase.getTrendingMovies(for: timeWindow.toModel()) { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { $0.map { MovieViewModel(from: $0) } })
-            }
-        }
+    func trendingMovies(for timeWindow: TimeWindowViewModel) -> AnyPublisher<[MovieViewModel], Error> {
+        movieUseCase
+            .trendingMovies(for: timeWindow.toModel())
+            .map { $0.map { MovieViewModel(from: $0) } }
+            .receiveOnMain()
     }
 
-    func toggleFavorited(for movieId: Int, _ completionHandler: () -> Void) {
+    func toggleFavorited(for movieId: Int) {
         movieUseCase.toggleFavorited(for: movieId)
-        completionHandler()
     }
 }

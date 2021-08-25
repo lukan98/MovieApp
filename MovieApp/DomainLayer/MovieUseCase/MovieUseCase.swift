@@ -26,22 +26,18 @@ class MovieUseCase: MovieUseCaseProtocol {
             .eraseToAnyPublisher()
     }
 
-    func getTopRatedMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
-    ) {
-        movieRepository.getTopRatedMovies(for: genreId) { result in
-            completionHandler(result.map { $0.map { MovieModel(from: $0) } })
-        }
+    func topRatedMovies(for genreId: Int) -> AnyPublisher<[MovieModel], Error> {
+        movieRepository
+            .topRatedMovies(for: genreId)
+            .map { $0.map { MovieModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
-    func getTrendingMovies(
-        for timeWindow: TimeWindowModel,
-        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
-    ) {
-        movieRepository.getTrendingMovies(for: timeWindow.toRepoModel()) { result in
-            completionHandler(result.map { $0.map { MovieModel(from: $0) } })
-        }
+    func trendingMovies(for timeWindow: TimeWindowModel) -> AnyPublisher<[MovieModel], Error> {
+        movieRepository
+            .trendingMovies(for: timeWindow.toRepoModel())
+            .map { $0.map { MovieModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
     func toggleFavorited(for movieId: Int) {

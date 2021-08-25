@@ -24,14 +24,14 @@ class HomeScreenViewController: UIViewController {
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
         self.router = router
-        
+
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +44,6 @@ class HomeScreenViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.barStyle = .black
-        reloadData()
     }
 
     @objc
@@ -100,7 +99,7 @@ class HomeScreenViewController: UIViewController {
         }
 
         popularMoviesCollectionView
-            .currentlySelectedCategoryPublisher
+            .currentlySelectedCategory
             .flatMap { [weak self] optionViewModel in
                 self?.presenter.popularMovies(for: optionViewModel.id) ?? .never()
             }
@@ -111,69 +110,53 @@ class HomeScreenViewController: UIViewController {
                 })
             .store(in: &disposables)
 
-        topRatedMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
-            self?.loadTopRatedMovies(for: optionId)
-        }
-
-        trendingMoviesCollectionView.onCategoryChanged = { [weak self] optionId in
-            self?.loadTrendingMovies(for: optionId)
-        }
-
-        popularMoviesCollectionView.onMovieFavorited = toggleFavorited
-        topRatedMoviesCollectionView.onMovieFavorited = toggleFavorited
-        trendingMoviesCollectionView.onMovieFavorited = toggleFavorited
-
-        popularMoviesCollectionView.onMovieSelected = selectedMovie
-        topRatedMoviesCollectionView.onMovieSelected = selectedMovie
-        trendingMoviesCollectionView.onMovieSelected = selectedMovie
-    }
-
-    private func loadTopRatedMovies(for optionId: Int, animated: Bool = true) {
-        presenter.getTopRatedMovies(for: optionId) { [weak self] result in
-            if case .success(let movies) = result {
-                self?.topRatedMoviesCollectionView.setData(movies, animated: animated)
-            } else {
-                self?.topRatedMoviesCollectionView.setData([], animated: animated)
+        topRatedMoviesCollectionView
+            .currentlySelectedCategory
+            .flatMap { [weak self] optionViewModel in
+                self?.presenter.topRatedMovies(for: optionViewModel.id) ?? .never()
             }
-        }
-    }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieViewModels in
+                    self?.topRatedMoviesCollectionView.setData(movieViewModels, animated: true)
+                })
+            .store(in: &disposables)
 
-    private func loadTrendingMovies(for optionId: Int, animated: Bool = true) {
-        guard let timeWindow = TimeWindowViewModel(rawValue: optionId) else { return }
+        trendingMoviesCollectionView
+            .currentlySelectedCategory
+            .flatMap { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
+                guard
+                    let self = self,
+                    let timeWindow = TimeWindowViewModel(rawValue: optionViewModel.id)
+                else {
+                    return .never()
+                }
 
-        presenter.getTrendingMovies(for: timeWindow) { [weak self] result in
-            if case .success(let movies) = result {
-                self?.trendingMoviesCollectionView.setData(movies, animated: animated)
-            } else {
-                self?.trendingMoviesCollectionView.setData([], animated: animated)
+                return self.presenter.trendingMovies(for: timeWindow)
             }
-        }
-    }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieViewModels in
+                    self?.trendingMoviesCollectionView.setData(movieViewModels, animated: true)
+                })
+            .store(in: &disposables)
 
-    private func selectedMovie(with movieId: Int) {
-        router.showMovieDetails(for: movieId)
+        Publishers.Merge3(
+            popularMoviesCollectionView.movieSelected,
+            topRatedMoviesCollectionView.movieSelected,
+            trendingMoviesCollectionView.movieSelected)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] index in
+                    self?.router.showMovieDetails(for: index)
+                })
+            .store(in: &disposables)
     }
 
     private func toggleFavorited(for movieId: Int) {
-        presenter.toggleFavorited(for: movieId) { self.reloadData() }
+        presenter.toggleFavorited(for: movieId)
     }
 
-    private func reloadData() {
-        guard
-            let topRatedOption = topRatedMoviesCollectionView.currentlySelectedCategory,
-            let trendingOption = trendingMoviesCollectionView.currentlySelectedCategory
-        else {
-            return
-        }
-
-        loadTopRatedMovies(
-            for: topRatedOption.id,
-            animated: false)
-        loadTrendingMovies(
-            for: trendingOption.id,
-            animated: false)
-    }
-    
 }
 
 // MARK: CollectionViewDataSource
@@ -232,5 +215,5 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     ) -> UIEdgeInsets {
         UIEdgeInsets(top: 22, left: 0, bottom: 22, right: 0)
     }
-    
+
 }

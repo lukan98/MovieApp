@@ -3,20 +3,17 @@ import Combine
 
 class ButtonBarView: UIView {
 
-    var selectedButtonIndex = 0
-    var onButtonSelected: (Int) -> Void = { _ in }
-
     var scrollView: BaseScrollView!
     var contentView: UIView!
     var buttonStack: UIStackView!
 
-    var selectedButtonIndexPublisher: AnyPublisher<Int, Never> {
+    var selectedButtonIndex: AnyPublisher<Int, Never> {
         selectedButtonIndexSubject
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
 
-    private var selectedButtonIndexSubject = PassthroughSubject<Int, Never>()
+    private let selectedButtonIndexSubject = PassthroughSubject<Int, Never>()
     private var disposables = Set<AnyCancellable>()
 
     init() {

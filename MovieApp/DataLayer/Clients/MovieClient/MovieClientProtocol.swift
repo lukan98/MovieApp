@@ -3,15 +3,9 @@ import Combine
 protocol MovieClientProtocol {
 
     var popularMovies: AnyPublisher<MovieListClientModel, Error> { get }
+    var topRatedMovies: AnyPublisher<MovieListClientModel, Error> { get }
 
-    func fetchTopRatedMovies(
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    )
-
-    func fetchTrendingMovies(
-        for timeWindow: TimeWindowClientModel,
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    )
+    func trendingMovies(for timeWindow: TimeWindowClientModel) -> AnyPublisher<MovieListClientModel, Error>
 
     func fetchMovieDetails(
         for movieId: Int,

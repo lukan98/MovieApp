@@ -7,15 +7,9 @@ protocol MovieRepositoryProtocol {
 
     func popularMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error>
 
-    func getTopRatedMovies(
-        for genreId: Int,
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    )
+    func topRatedMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error>
 
-    func getTrendingMovies(
-        for timeWindow: TimeWindowRepositoryModel,
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    )
+    func trendingMovies(for timeWindow: TimeWindowRepositoryModel) -> AnyPublisher<[MovieRepositoryModel], Error>
 
     func toggleFavorited(for movieId: Int)
 
