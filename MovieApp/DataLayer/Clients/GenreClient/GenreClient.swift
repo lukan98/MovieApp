@@ -14,12 +14,4 @@ class GenreClient: GenreClientProtocol {
         self.baseApiClient = baseApiClient
     }
 
-    func fetchGenres(_ completionHandler: @escaping (Result<GenreListClientModel, RequestError>) -> Void) {
-        baseApiClient
-            .get(
-                path: "/genre/movie/list",
-                completionHandler: completionHandler
-            )
-    }
-
 }

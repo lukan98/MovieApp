@@ -20,14 +20,6 @@ class HomeScreenPresenter {
         self.genreUseCase = genreUseCase
     }
 
-    func getGenres(_ completionHandler: @escaping (Result<[GenreViewModel], RequestError>) -> Void) {
-        genreUseCase.getGenres { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { $0.map { GenreViewModel(from: $0) } })
-            }
-        }
-    }
-
     func getSearchedMovies(
         with query: String,
         _ completionHandler: @escaping (Result<[MovieViewModel], RequestError>) -> Void

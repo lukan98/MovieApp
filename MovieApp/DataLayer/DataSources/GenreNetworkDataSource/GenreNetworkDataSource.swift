@@ -15,10 +15,4 @@ class GenreNetworkDataSource: GenreNetworkDataSourceProtocol {
         self.genreClient = genreClient
     }
 
-    func fetchGenres(_ completionHandler: @escaping (Result<[GenreDataSourceModel], RequestError>) -> Void) {
-        genreClient.fetchGenres { result in
-            completionHandler(result.map { $0.genres.map { GenreDataSourceModel(from: $0) } })
-        }
-    }
-
 }
