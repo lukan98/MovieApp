@@ -117,25 +117,27 @@ class HomeScreenViewController: UIViewController {
             }
             .sink(
                 receiveCompletion: { _ in },
-                receiveValue: { movieViewModels in
-                    self.topRatedMoviesCollectionView.setData(movieViewModels, animated: true)
+                receiveValue: { [weak self] movieViewModels in
+                    self?.topRatedMoviesCollectionView.setData(movieViewModels, animated: true)
                 })
             .store(in: &disposables)
 
         trendingMoviesCollectionView
             .currentlySelectedCategory
             .flatMap { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
-                guard let timeWindow = TimeWindowViewModel(rawValue: optionViewModel.id)
+                guard
+                    let self = self,
+                    let timeWindow = TimeWindowViewModel(rawValue: optionViewModel.id)
                 else {
                     return .never()
                 }
 
-                return self?.presenter.trendingMovies(for: timeWindow) ?? .never()
+                return self.presenter.trendingMovies(for: timeWindow)
             }
             .sink(
                 receiveCompletion: { _ in },
-                receiveValue: { movieViewModels in
-                    self.trendingMoviesCollectionView.setData(movieViewModels, animated: true)
+                receiveValue: { [weak self] movieViewModels in
+                    self?.trendingMoviesCollectionView.setData(movieViewModels, animated: true)
                 })
             .store(in: &disposables)
 
