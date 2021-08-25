@@ -4,6 +4,14 @@ import Combine
 
 class HomeScreenPresenter {
 
+    var genres: AnyPublisher<[GenreViewModel], Error> {
+        genreUseCase
+            .genres
+            .map { $0.map { GenreViewModel(from: $0) } }
+            .receiveOnMain()
+            .eraseToAnyPublisher()
+    }
+
     private let movieUseCase: MovieUseCaseProtocol
     private let genreUseCase: GenreUseCaseProtocol
 
