@@ -5,8 +5,6 @@ class CategorisedCollectionView: UIView {
 
     let defaultInset: CGFloat = 20
     let defaultSpacing: CGFloat = 10
-
-    var didSelectMovie: (Int) -> Void = { _ in }
     
     var titleLabel: UILabel!
     var categoriesView: ButtonBarView!
@@ -21,6 +19,12 @@ class CategorisedCollectionView: UIView {
             }
             .eraseToAnyPublisher()
     }
+    var movieSelected: AnyPublisher<Int, Error> {
+        movieSelectedSubject
+            .eraseToAnyPublisher()
+    }
+
+    private let movieSelectedSubject = PassthroughSubject<Int, Error>()
 
     private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
@@ -93,7 +97,7 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
     ) {
         guard let movie = movies.at(indexPath.row) else { return }
 
-        didSelectMovie(movie.id)
+        movieSelectedSubject.send(movie.id)
     }
 
 }

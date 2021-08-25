@@ -139,13 +139,16 @@ class HomeScreenViewController: UIViewController {
                 })
             .store(in: &disposables)
 
-        popularMoviesCollectionView.didSelectMovie = didSelectMovie(with:)
-        topRatedMoviesCollectionView.didSelectMovie = didSelectMovie(with:)
-        trendingMoviesCollectionView.didSelectMovie = didSelectMovie(with:)
-    }
-
-    private func didSelectMovie(with id: Int) {
-        router.showMovieDetails(for: id)
+        Publishers.Merge3(
+            popularMoviesCollectionView.movieSelected,
+            topRatedMoviesCollectionView.movieSelected,
+            trendingMoviesCollectionView.movieSelected)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] index in
+                    self?.router.showMovieDetails(for: index)
+                })
+            .store(in: &disposables)
     }
 
     private func toggleFavorited(for movieId: Int) {
