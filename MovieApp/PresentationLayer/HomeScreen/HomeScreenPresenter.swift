@@ -4,20 +4,20 @@ import Combine
 
 class HomeScreenPresenter {
 
+    var genres: AnyPublisher<[GenreViewModel], Error> {
+        genreUseCase
+            .genres
+            .map { $0.map { GenreViewModel(from: $0) } }
+            .receiveOnMain()
+            .eraseToAnyPublisher()
+    }
+
     private let movieUseCase: MovieUseCaseProtocol
     private let genreUseCase: GenreUseCaseProtocol
 
     init(movieUseCase: MovieUseCaseProtocol, genreUseCase: GenreUseCaseProtocol) {
         self.movieUseCase = movieUseCase
         self.genreUseCase = genreUseCase
-    }
-
-    func getGenres(_ completionHandler: @escaping (Result<[GenreViewModel], RequestError>) -> Void) {
-        genreUseCase.getGenres { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { $0.map { GenreViewModel(from: $0) } })
-            }
-        }
     }
 
     func getSearchedMovies(

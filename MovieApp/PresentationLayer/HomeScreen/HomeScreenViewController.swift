@@ -37,7 +37,7 @@ class HomeScreenViewController: UIViewController {
 
         buildViews()
         bindViews()
-        loadMovieOptions()
+        setTrendingOptions()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,21 +64,7 @@ class HomeScreenViewController: UIViewController {
         }
     }
 
-    private func loadMovieOptions() {
-        presenter
-            .getGenres { [weak self] result in
-                guard let self = self else { return }
-
-                if case .success(let genres) = result {
-                    self.popularMoviesCollectionView.setInitialData(
-                        title: "What's Popular",
-                        options: genres.map { OptionViewModel(from: $0) })
-                    self.topRatedMoviesCollectionView.setInitialData(
-                        title: "Top Rated",
-                        options: genres.map { OptionViewModel(from: $0) })
-                }
-            }
-
+    private func setTrendingOptions() {
         let todayOption = OptionViewModel(id: 0, name: "Today")
         let thisWeekOption = OptionViewModel(id: 1, name: "This Week")
         trendingMoviesCollectionView.setInitialData(
@@ -97,6 +83,23 @@ class HomeScreenViewController: UIViewController {
             searchedMoviesCollectionView.reloadData()
             scrollView.isHidden = false
         }
+
+        presenter
+            .genres
+            .map { $0.map { OptionViewModel(from: $0) } }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] options in
+                    guard let self = self else { return }
+
+                    self.popularMoviesCollectionView.setInitialData(
+                        title: "What's Popular",
+                        options: options)
+                    self.topRatedMoviesCollectionView.setInitialData(
+                        title: "Top Rated",
+                        options: options)
+                })
+            .store(in: &disposables)
 
         popularMoviesCollectionView
             .currentlySelectedCategory

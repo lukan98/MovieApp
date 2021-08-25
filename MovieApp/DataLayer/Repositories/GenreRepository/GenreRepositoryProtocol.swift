@@ -1,7 +1,7 @@
+import Combine
+
 protocol GenreRepositoryProtocol {
 
-    func getGenres(
-        _ completionHandler: @escaping (Result<[GenreRepositoryModel], RequestError>) -> Void
-    )
-
+    var genres: AnyPublisher<[GenreRepositoryModel], Error> { get }
+    
 }

@@ -1,5 +1,7 @@
+import Combine
+
 protocol GenreUseCaseProtocol {
 
-    func getGenres(_ completionHandler: @escaping (Result<[GenreModel], RequestError>) -> Void)
+    var genres: AnyPublisher<[GenreModel], Error> { get }
 
 }
