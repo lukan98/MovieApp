@@ -24,6 +24,7 @@ class MovieUserDefaultsDataSource: MovieLocalMetadataSourceProtocol {
     }
 
     func toggleFavorited(for movieId: Int) {
+        
         guard var favorites = userDefaults.object(forKey: favoritesKey) as? [Int] else {
             userDefaults.setValue([movieId], forKey: favoritesKey)
             return

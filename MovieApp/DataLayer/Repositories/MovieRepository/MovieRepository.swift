@@ -13,7 +13,7 @@ class MovieRepository: MovieRepositoryProtocol {
     var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
         localMetadataSource
             .favoritesPublisher
-            .flatMap { [weak self] ids -> AnyPublisher<[DetailedMovieDataSourceModel], Error> in
+            .map { [weak self] ids -> AnyPublisher<[DetailedMovieDataSourceModel], Error> in
                 guard let self = self else { return Empty(completeImmediately: false).eraseToAnyPublisher() }
 
                 let array = ids.map {
@@ -21,6 +21,7 @@ class MovieRepository: MovieRepositoryProtocol {
                 }
                 return Publishers.MergeMany(array).collect().eraseToAnyPublisher()
             }
+            .switchToLatest()
             .map { $0.map { DetailedMovieRepositoryModel(from: $0, isFavorited: true) } }
             .eraseToAnyPublisher()
     }

@@ -10,8 +10,6 @@ class CategorisedCollectionView: UIView {
     var categoriesView: ButtonBarView!
     var movieCollectionView: UICollectionView!
 
-    var currSelSubject = CurrentValueSubject<OptionViewModel?, Never>(nil)
-
     var currentlySelectedCategory: AnyPublisher<OptionViewModel, Never> {
         categoriesView
             .selectedButtonIndex
@@ -37,6 +35,7 @@ class CategorisedCollectionView: UIView {
     private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
     private var disposables = Set<AnyCancellable>()
+    private var currentlySelectedCategorySubject = CurrentValueSubject<OptionViewModel?, Never>(nil)
 
     init() {
         super.init(frame: .zero)
@@ -79,7 +78,7 @@ class CategorisedCollectionView: UIView {
                 return category
             }
             .sink { [weak self] viewModel in
-                self?.currSelSubject.send(viewModel)
+                self?.currentlySelectedCategorySubject.send(viewModel)
             }
             .store(in: &disposables)
     }

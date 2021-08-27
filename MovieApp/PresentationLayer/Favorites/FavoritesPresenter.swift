@@ -17,20 +17,8 @@ class FavoritesPresenter {
         self.useCase = useCase
     }
 
-    func getFavoriteMovies(
-        _ completionHandler: @escaping (Result<[DetailedMovieViewModel], RequestError>) -> Void
-    ) {
-        useCase
-            .getFavoriteMovies { result in
-                DispatchQueue.main.async {
-                    completionHandler(result.map { $0.map { DetailedMovieViewModel(from: $0) } })
-                }
-            }
-    }
-
-    func toggleFavorited(for movieId: Int, _ completionHandler: () -> Void) {
+    func toggleFavorited(for movieId: Int) {
         useCase.toggleFavorited(for: movieId)
-        completionHandler()
     }
 
 }

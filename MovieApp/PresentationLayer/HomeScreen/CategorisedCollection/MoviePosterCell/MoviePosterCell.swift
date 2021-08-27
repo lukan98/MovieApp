@@ -6,19 +6,14 @@ class MoviePosterCell: UICollectionViewCell {
 
     static let cellIdentifier = String(describing: MoviePosterCell.self)
 
+    var disposables = Set<AnyCancellable>()
+
     var moviePoster: MoviePosterView!
+    
     var favoritedToggle: AnyPublisher<Int, Error> {
         moviePoster
             .favoritedToggle
             .eraseToAnyPublisher()
-    }
-
-    var disposables = Set<AnyCancellable>()
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        disposables = Set<AnyCancellable>()
     }
 
     override init(frame: CGRect) {
@@ -29,6 +24,12 @@ class MoviePosterCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposables = Set<AnyCancellable>()
     }
 
     override func didMoveToSuperview() {
