@@ -23,7 +23,8 @@ class MoviePosterView: UIView {
             .eraseToAnyPublisher()
     }
 
-    private var favoritedToggleSubject = PassthroughSubject<Int, Error>()
+    private let favoritedToggleSubject = PassthroughSubject<Int, Error>()
+    
     private var disposables = Set<AnyCancellable>()
 
     init() {

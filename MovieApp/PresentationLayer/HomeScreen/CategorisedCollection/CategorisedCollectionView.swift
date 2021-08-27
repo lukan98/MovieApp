@@ -31,11 +31,11 @@ class CategorisedCollectionView: UIView {
 
     private let movieSelectedSubject = PassthroughSubject<Int, Error>()
     private let movieFavoritedSubject = PassthroughSubject<Int, Error>()
+    private let currentlySelectedCategorySubject = CurrentValueSubject<OptionViewModel?, Never>(nil)
 
     private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
     private var disposables = Set<AnyCancellable>()
-    private var currentlySelectedCategorySubject = CurrentValueSubject<OptionViewModel?, Never>(nil)
 
     init() {
         super.init(frame: .zero)
@@ -72,10 +72,8 @@ class CategorisedCollectionView: UIView {
     private func bindViews() {
         categoriesView
             .selectedButtonIndex
-            .compactMap { [weak self] index -> OptionViewModel? in
-                guard let category = self?.categories.at(index) else { return nil }
-
-                return category
+            .compactMap { [weak self] index in
+                self?.categories.at(index)
             }
             .sink { [weak self] viewModel in
                 self?.currentlySelectedCategorySubject.send(viewModel)

@@ -9,7 +9,7 @@ class MovieUseCase: MovieUseCaseProtocol {
 
     var favoriteMovies: AnyPublisher<[DetailedMovieModel], Error> {
         movieRepository
-            .favoriteMoviesPublisher
+            .favoriteMovies
             .map { $0.map { DetailedMovieModel(from: $0) } }
             .eraseToAnyPublisher()
     }

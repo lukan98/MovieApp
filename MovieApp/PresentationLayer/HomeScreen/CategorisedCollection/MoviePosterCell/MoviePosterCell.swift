@@ -29,7 +29,7 @@ class MoviePosterCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        disposables = Set<AnyCancellable>()
+        disposables = []
     }
 
     override func didMoveToSuperview() {

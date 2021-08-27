@@ -2,7 +2,7 @@ import Combine
 
 protocol MovieRepositoryProtocol {
 
-    var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> { get }
+    var favoriteMovies: AnyPublisher<[DetailedMovieRepositoryModel], Error> { get }
 
     func popularMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error>
 

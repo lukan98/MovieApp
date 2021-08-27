@@ -6,7 +6,7 @@ class MovieRepository: MovieRepositoryProtocol {
     private let networkDataSource: MovieNetworkDataSourceProtocol
     private let localMetadataSource: MovieLocalMetadataSourceProtocol
 
-    var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
+    var favoriteMovies: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
         localMetadataSource
             .favorites
             .map { [weak self] ids -> AnyPublisher<[DetailedMovieDataSourceModel], Error> in
