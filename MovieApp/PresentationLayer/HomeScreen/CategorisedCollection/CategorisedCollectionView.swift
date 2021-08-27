@@ -13,16 +13,13 @@ class CategorisedCollectionView: UIView {
     var currSelSubject = CurrentValueSubject<OptionViewModel?, Never>(nil)
 
     var currentlySelectedCategory: AnyPublisher<OptionViewModel, Never> {
-//        categoriesView
-//            .selectedButtonIndex
-//            .compactMap { [weak self] index -> OptionViewModel? in
-//                guard let category = self?.categories.at(index) else { return nil }
-//
-//                return category
-//            }
-//            .eraseToAnyPublisher()
-        currSelSubject
-            .compactMap { $0 }
+        categoriesView
+            .selectedButtonIndex
+            .compactMap { [weak self] index -> OptionViewModel? in
+                guard let category = self?.categories.at(index) else { return nil }
+
+                return category
+            }
             .eraseToAnyPublisher()
     }
     var movieSelected: AnyPublisher<Int, Error> {
