@@ -25,18 +25,6 @@ class MovieDetailsPresenter {
             .eraseToAnyPublisher()
     }
 
-    func getMovieCredits(
-        for movieId: Int,
-        maximumCrewMembers max: Int,
-        _ completionHandler: @escaping (Result<CreditsViewModel, RequestError>) -> Void
-    ) {
-        useCase.getMovieCredits(for: movieId) { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { CreditsViewModel(from: $0).sortAndSliceCrew(first: max) } )
-            }
-        }
-    }
-
     func getReview(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[ReviewViewModel], RequestError>) -> Void

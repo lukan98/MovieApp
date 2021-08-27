@@ -92,15 +92,6 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
-    func getMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsRepositoryModel, RequestError>) -> Void
-    ) {
-        networkDataSource.fetchMovieCredits(for: movieId) { result in
-            completionHandler(result.map { CreditsRepositoryModel(from: $0) })
-        }
-    }
-
     func getMovieReviews(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[ReviewRepositoryModel], RequestError>) -> Void

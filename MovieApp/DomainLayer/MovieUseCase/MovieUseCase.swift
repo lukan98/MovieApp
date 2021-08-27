@@ -56,15 +56,6 @@ class MovieUseCase: MovieUseCaseProtocol {
             .map { CreditsModel(from: $0) }
             .eraseToAnyPublisher()
     }
-    
-    func getMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsModel, RequestError>) -> Void
-    ) {
-        movieRepository.getMovieCredits(for: movieId) { result in
-            completionHandler(result.map { CreditsModel(from: $0) })
-        }
-    }
 
     func getMovieReviews(
         for movieId: Int,

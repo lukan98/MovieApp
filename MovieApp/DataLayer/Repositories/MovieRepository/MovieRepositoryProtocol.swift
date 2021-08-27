@@ -15,12 +15,7 @@ protocol MovieRepositoryProtocol {
     func details(for movieId: Int) -> AnyPublisher<DetailedMovieRepositoryModel, Error>
 
     func credits(for movieId: Int) -> AnyPublisher<CreditsRepositoryModel, Error>
-
-    func getMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsRepositoryModel, RequestError>) -> Void
-    )
-
+    
     func getMovieReviews(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[ReviewRepositoryModel], RequestError>) -> Void

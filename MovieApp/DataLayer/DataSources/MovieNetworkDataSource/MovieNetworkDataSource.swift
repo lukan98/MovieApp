@@ -44,15 +44,6 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func fetchMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsDataSourceModel, RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieCredits(for: movieId) { result in
-            completionHandler(result.map { CreditsDataSourceModel(from: $0) })
-        }
-    }
-
     func fetchMovieReviews(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[ReviewDataSourceModel], RequestError>) -> Void
