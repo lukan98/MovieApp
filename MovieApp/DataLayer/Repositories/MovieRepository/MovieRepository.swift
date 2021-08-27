@@ -6,13 +6,9 @@ class MovieRepository: MovieRepositoryProtocol {
     private let networkDataSource: MovieNetworkDataSourceProtocol
     private let localMetadataSource: MovieLocalMetadataSourceProtocol
 
-    var favoriteMovies: [Int] {
-        localMetadataSource.favorites
-    }
-
     var favoriteMoviesPublisher: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
         localMetadataSource
-            .favoritesPublisher
+            .favorites
             .map { [weak self] ids -> AnyPublisher<[DetailedMovieDataSourceModel], Error> in
                 guard let self = self else { return Empty(completeImmediately: false).eraseToAnyPublisher() }
 
@@ -28,7 +24,7 @@ class MovieRepository: MovieRepositoryProtocol {
 
     private var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
         Publishers
-            .CombineLatest(networkDataSource.popularMovies, localMetadataSource.favoritesPublisher)
+            .CombineLatest(networkDataSource.popularMovies, localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
@@ -38,7 +34,7 @@ class MovieRepository: MovieRepositoryProtocol {
     private var topRatedMovies: AnyPublisher<[MovieRepositoryModel], Error> {
         networkDataSource
             .topRatedMovies
-            .combineLatest(localMetadataSource.favoritesPublisher)
+            .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
@@ -68,7 +64,7 @@ class MovieRepository: MovieRepositoryProtocol {
     func trendingMovies(for timeWindow: TimeWindowRepositoryModel) -> AnyPublisher<[MovieRepositoryModel], Error> {
         networkDataSource
             .trendingMovies(for: timeWindow.toDataSourceModel())
-            .combineLatest(localMetadataSource.favoritesPublisher)
+            .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
@@ -84,14 +80,7 @@ class MovieRepository: MovieRepositoryProtocol {
         _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
     ) {
         networkDataSource.fetchMovieDetails(for: movieId) { result in
-            completionHandler(result.map { [weak self] in
-                guard let self = self else {
-                    return DetailedMovieRepositoryModel(from: $0)
-                }
-
-                let isFavorited = self.favoriteMovies.contains($0.id)
-                return DetailedMovieRepositoryModel(from: $0, isFavorited: isFavorited)
-            })
+            completionHandler(result.map { DetailedMovieRepositoryModel(from: $0) })
         }
     }
 
