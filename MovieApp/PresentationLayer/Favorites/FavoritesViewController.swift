@@ -79,11 +79,14 @@ extension FavoritesViewController: UICollectionViewDataSource {
 
         let movie = movies[indexPath.row]
         cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
-        cell.moviePoster.onFavoriteToggle = { [weak self] movieId in
-            guard let self = self else { return }
+        cell.favoritedToggle
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieId in
+                    self?.presenter.toggleFavorited(for: movieId)
+                })
+            .store(in: &cell.disposables)
 
-            self.presenter.toggleFavorited(for: movieId, {})
-        }
         return cell
     }
 

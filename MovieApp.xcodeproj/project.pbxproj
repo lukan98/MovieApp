@@ -404,13 +404,13 @@
 			path = GenreUseCase;
 			sourceTree = "<group>";
 		};
-		FC2774D326B2F27000E157EC /* MovieLocalMetadataSourceProtocol */ = {
+		FC2774D326B2F27000E157EC /* MovieLocalMetadataSource */ = {
 			isa = PBXGroup;
 			children = (
 				FC2774D426B2F28900E157EC /* MovieLocalMetadataSourceProtocol.swift */,
 				FC2774D626B2F2D800E157EC /* MovieUserDefaultsDataSource.swift */,
 			);
-			path = MovieLocalMetadataSourceProtocol;
+			path = MovieLocalMetadataSource;
 			sourceTree = "<group>";
 		};
 		FC582A6C26CFC1FD007763A3 /* Combine */ = {
@@ -695,7 +695,7 @@
 			children = (
 				FC2774BA26B179B100E157EC /* GenreNetworkDataSource */,
 				FC2774B526B1790400E157EC /* MovieNetworkDataSource */,
-				FC2774D326B2F27000E157EC /* MovieLocalMetadataSourceProtocol */,
+				FC2774D326B2F27000E157EC /* MovieLocalMetadataSource */,
 				FCB63A7A26A56F0500E049A2 /* Models */,
 			);
 			path = DataSources;

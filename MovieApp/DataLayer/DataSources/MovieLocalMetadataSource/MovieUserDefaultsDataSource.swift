@@ -6,14 +6,7 @@ class MovieUserDefaultsDataSource: MovieLocalMetadataSourceProtocol {
     private let userDefaults = UserDefaults.standard
     private let favoritesKey = "movieFavorites"
 
-    var favorites: [Int] {
-        if let favorites = userDefaults.object(forKey: favoritesKey) as? [Int] {
-            return favorites
-        }
-        return []
-    }
-
-    var favoritesPublisher: AnyPublisher<[Int], Error> {
+    var favorites: AnyPublisher<[Int], Error> {
         userDefaults
             .publisher(for: \.movieFavorites)
             .setFailureType(to: Error.self)

@@ -1,11 +1,10 @@
 import UIKit
+import Combine
 
 class MoviePosterView: UIView {
 
     let cornerRadius: CGFloat = 10
     let buttonSize = CGSize(width: 32, height: 32)
-
-    var onFavoriteToggle: (Int) -> Void = { _ in }
 
     var favoriteButton: UIButton!
     var posterImage: UIImageView!
@@ -19,11 +18,20 @@ class MoviePosterView: UIView {
             }
         }
     }
+    var favoritedToggle: AnyPublisher<Int, Error> {
+        favoritedToggleSubject
+            .eraseToAnyPublisher()
+    }
+
+    private let favoritedToggleSubject = PassthroughSubject<Int, Error>()
+    
+    private var disposables = Set<AnyCancellable>()
 
     init() {
         super.init(frame: .zero)
 
         buildViews()
+        bindViews()
     }
 
     required init?(coder: NSCoder) {
@@ -45,6 +53,17 @@ class MoviePosterView: UIView {
     func setData(id: Int, isFavorited: Bool) {
         movieId = id
         self.isFavorited = isFavorited
+    }
+
+    private func bindViews() {
+        favoriteButton
+            .tapGesture()
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+
+                self.favoritedToggleSubject.send(self.movieId)
+            }
+            .store(in: &disposables)
     }
 
 }
