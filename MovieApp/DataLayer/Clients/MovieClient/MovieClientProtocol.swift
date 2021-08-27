@@ -13,6 +13,8 @@ protocol MovieClientProtocol {
 
     func reviews(for movieId: Int) -> AnyPublisher<ReviewListClientModel, Error>
 
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<MovieRecommendationListClientModel, Error>
+
     func fetchMovieRecommendations(
         basedOn movieId: Int,
         _ completionHandler: @escaping (Result<MovieRecommendationListClientModel, RequestError>) -> Void

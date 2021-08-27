@@ -99,6 +99,13 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationRepositoryModel], Error> {
+        networkDataSource
+            .recommendations(basedOn: movieId)
+            .map { $0.map { MovieRecommendationRepositoryModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
+
     func getMovieRecommendations(
         basedOn movieId: Int,
         _ completionHandler: @escaping (Result<[MovieRecommendationRepositoryModel], RequestError>) -> Void

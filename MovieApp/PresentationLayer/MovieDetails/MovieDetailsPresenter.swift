@@ -30,6 +30,13 @@ class MovieDetailsPresenter {
             .receiveOnMain()
     }
 
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationViewModel], Error> {
+        useCase
+            .recommendations(basedOn: movieId)
+            .map { $0.map { MovieRecommendationViewModel(from: $0) } }
+            .receiveOnMain()
+    }
+
     func getRecommendations(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[MovieRecommendationViewModel], RequestError>) -> Void

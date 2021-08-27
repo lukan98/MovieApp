@@ -64,6 +64,13 @@ class MovieUseCase: MovieUseCaseProtocol {
             .eraseToAnyPublisher()
     }
 
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationModel], Error> {
+        movieRepository
+            .recommendations(basedOn: movieId)
+            .map { $0.map { MovieRecommendationModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
+
     func getMovieRecommendations(
         basedOn movieId: Int,
         _ completionHandler: @escaping (Result<[MovieRecommendationModel], RequestError>) -> Void
