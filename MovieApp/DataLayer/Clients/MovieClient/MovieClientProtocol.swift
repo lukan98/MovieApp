@@ -11,6 +11,8 @@ protocol MovieClientProtocol {
 
     func credits(for movieId: Int) -> AnyPublisher<CreditsClientModel, Error>
 
+    func reviews(for movieId: Int) -> AnyPublisher<ReviewListClientModel, Error>
+
     func fetchMovieReviews(
         for movieId: Int,
         _ completionHandler: @escaping (Result<ReviewListClientModel, RequestError>) -> Void

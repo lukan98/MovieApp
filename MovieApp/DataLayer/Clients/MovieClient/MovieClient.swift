@@ -57,6 +57,11 @@ class MovieClient: MovieClientProtocol {
             .get(path: "/movie/\(movieId)/credits")
     }
 
+    func reviews(for movieId: Int) -> AnyPublisher<ReviewListClientModel, Error> {
+        baseApiClient
+            .get(path: "/movie/\(movieId)/reviews")
+    }
+
     func fetchMovieReviews(
         for movieId: Int,
         _ completionHandler: @escaping (Result<ReviewListClientModel, RequestError>) -> Void

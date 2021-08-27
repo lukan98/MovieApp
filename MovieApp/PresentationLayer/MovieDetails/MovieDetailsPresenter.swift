@@ -14,7 +14,6 @@ class MovieDetailsPresenter {
             .details(for: movieId)
             .map { DetailedMovieViewModel(from: $0) }
             .receiveOnMain()
-            .eraseToAnyPublisher()
     }
 
     func credits(for movieId: Int, maxCrewMembers: Int) -> AnyPublisher<CreditsViewModel, Error> {
@@ -22,7 +21,13 @@ class MovieDetailsPresenter {
             .credits(for: movieId)
             .map { CreditsViewModel(from: $0).sortAndSliceCrew(first: maxCrewMembers) }
             .receiveOnMain()
-            .eraseToAnyPublisher()
+    }
+
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewViewModel], Error> {
+        useCase
+            .reviews(for: movieId)
+            .map { $0.map { ReviewViewModel(from: $0) } }
+            .receiveOnMain()
     }
 
     func getReview(

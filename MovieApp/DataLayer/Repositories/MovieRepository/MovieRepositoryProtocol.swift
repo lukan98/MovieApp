@@ -15,6 +15,8 @@ protocol MovieRepositoryProtocol {
     func details(for movieId: Int) -> AnyPublisher<DetailedMovieRepositoryModel, Error>
 
     func credits(for movieId: Int) -> AnyPublisher<CreditsRepositoryModel, Error>
+
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewRepositoryModel], Error>
     
     func getMovieReviews(
         for movieId: Int,

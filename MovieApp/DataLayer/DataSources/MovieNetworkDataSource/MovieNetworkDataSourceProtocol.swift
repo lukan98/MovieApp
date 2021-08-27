@@ -11,6 +11,8 @@ protocol MovieNetworkDataSourceProtocol {
 
     func credits(for movieId: Int) -> AnyPublisher<CreditsDataSourceModel, Error>
 
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewDataSourceModel], Error>
+
     func fetchMovieReviews(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[ReviewDataSourceModel], RequestError>) -> Void

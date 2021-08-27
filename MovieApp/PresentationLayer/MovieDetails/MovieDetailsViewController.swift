@@ -62,21 +62,6 @@ class MovieDetailsViewController: UIViewController {
     }
     
     func loadData(animated: Bool = true) {
-        presenter.getReview(for: movieId) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let reviewViewModels):
-                if reviewViewModels.count == 0 {
-                    self.showReviewsError(message: "No reviews available for this title.")
-                } else {
-                    self.setReviewData(for: reviewViewModels)
-                }
-            case .failure:
-                print("Failed to get movie reviews")
-            }
-        }
-        
         presenter.getRecommendations(for: movieId) { [weak self] result in
             guard let self = self else { return }
             
@@ -126,6 +111,17 @@ class MovieDetailsViewController: UIViewController {
                     self.setCreditsData(for: creditsViewModel)
                 })
             .store(in: &disposables)
+
+        presenter
+            .reviews(for: movieId)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] reviewViewModels in
+                    guard let self = self else { return }
+
+                    self.setReviewData(for: reviewViewModels)
+                })
+            .store(in: &disposables)
     }
     
     private func setMovieDetailsData(for movie: DetailedMovieViewModel) {
@@ -138,6 +134,14 @@ class MovieDetailsViewController: UIViewController {
         hideEmptyCrewLabels()
         castMembers = credits.cast
         topBilledCastCollection.reloadData()
+    }
+
+    private func setReviewData(for reviews: [ReviewViewModel]) {
+        if reviews.count == 0 {
+            showReviewsError(message: "No reviews available for this title.")
+        } else {
+            reviewsViewController.setData(for: reviews)
+        }
     }
     
     private func showReviewsError(message: String) {
@@ -186,10 +190,6 @@ class MovieDetailsViewController: UIViewController {
                 }
             }
             .forEach { $0.isHidden = true }
-    }
-    
-    private func setReviewData(for reviews: [ReviewViewModel]) {
-        reviewsViewController.setData(for: reviews)
     }
     
 }

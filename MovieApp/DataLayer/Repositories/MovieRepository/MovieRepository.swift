@@ -92,6 +92,13 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewRepositoryModel], Error> {
+        networkDataSource
+            .reviews(for: movieId)
+            .map { $0.map { ReviewRepositoryModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
+
     func getMovieReviews(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[ReviewRepositoryModel], RequestError>) -> Void
