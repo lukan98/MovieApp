@@ -30,17 +30,6 @@ class MovieDetailsPresenter {
             .receiveOnMain()
     }
 
-    func getReview(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[ReviewViewModel], RequestError>) -> Void
-    ) {
-        useCase.getMovieReviews(for: movieId) { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { $0.map { ReviewViewModel(from: $0)}})
-            }
-        }
-    }
-
     func getRecommendations(
         for movieId: Int,
         _ completionHandler: @escaping (Result<[MovieRecommendationViewModel], RequestError>) -> Void

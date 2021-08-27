@@ -17,12 +17,7 @@ protocol MovieUseCaseProtocol {
     func credits(for movieId: Int) -> AnyPublisher<CreditsModel, Error>
 
     func reviews(for movieId: Int) -> AnyPublisher<[ReviewModel], Error>
-
-    func getMovieReviews(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[ReviewModel], RequestError>) -> Void
-    )
-
+    
     func getMovieRecommendations(
         basedOn movieId: Int,
         _ completionHandler: @escaping (Result<[MovieRecommendationModel], RequestError>) -> Void
