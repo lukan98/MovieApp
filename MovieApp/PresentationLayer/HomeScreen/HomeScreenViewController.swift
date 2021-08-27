@@ -104,9 +104,7 @@ class HomeScreenViewController: UIViewController {
         popularMoviesCollectionView
             .currentlySelectedCategory
             .map { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
-                guard let self = self else { return .empty() }
-
-                return self.presenter.popularMovies(for: optionViewModel.id)
+                self?.presenter.popularMovies(for: optionViewModel.id) ?? .never()
             }
             .switchToLatest()
             .sink(
