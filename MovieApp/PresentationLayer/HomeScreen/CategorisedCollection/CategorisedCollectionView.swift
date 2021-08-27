@@ -9,22 +9,33 @@ class CategorisedCollectionView: UIView {
     var titleLabel: UILabel!
     var categoriesView: ButtonBarView!
     var movieCollectionView: UICollectionView!
-    var currentlySelectedCategory: AnyPublisher<OptionViewModel, Never> {
-        categoriesView
-            .selectedButtonIndex
-            .compactMap { [weak self] index -> OptionViewModel? in
-                guard let category = self?.categories.at(index) else { return nil }
 
-                return category
-            }
+    var currSelSubject = CurrentValueSubject<OptionViewModel?, Never>(nil)
+
+    var currentlySelectedCategory: AnyPublisher<OptionViewModel, Never> {
+//        categoriesView
+//            .selectedButtonIndex
+//            .compactMap { [weak self] index -> OptionViewModel? in
+//                guard let category = self?.categories.at(index) else { return nil }
+//
+//                return category
+//            }
+//            .eraseToAnyPublisher()
+        currSelSubject
+            .compactMap { $0 }
             .eraseToAnyPublisher()
     }
     var movieSelected: AnyPublisher<Int, Error> {
         movieSelectedSubject
             .eraseToAnyPublisher()
     }
+    var movieFavorited: AnyPublisher<Int, Error> {
+        movieFavoritedSubject
+            .eraseToAnyPublisher()
+    }
 
     private let movieSelectedSubject = PassthroughSubject<Int, Error>()
+    private let movieFavoritedSubject = PassthroughSubject<Int, Error>()
 
     private var categories: [OptionViewModel] = []
     private var movies: [MovieViewModel] = []
@@ -34,6 +45,7 @@ class CategorisedCollectionView: UIView {
         super.init(frame: .zero)
 
         buildViews()
+        bindViews()
     }
     
     required init?(coder: NSCoder) {
@@ -60,6 +72,20 @@ class CategorisedCollectionView: UIView {
             movieCollectionView.reloadData()
         }
     }
+
+    private func bindViews() {
+        categoriesView
+            .selectedButtonIndex
+            .compactMap { [weak self] index -> OptionViewModel? in
+                guard let category = self?.categories.at(index) else { return nil }
+
+                return category
+            }
+            .sink { [weak self] viewModel in
+                self?.currSelSubject.send(viewModel)
+            }
+            .store(in: &disposables)
+    }
     
 }
 
@@ -80,14 +106,21 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
         guard
             let cell = movieCollectionView.dequeueReusableCell(
                 withReuseIdentifier: MoviePosterCell.cellIdentifier,
-                for: indexPath) as? MoviePosterCell
+                for: indexPath) as? MoviePosterCell,
+            let movie = movies.at(indexPath.row)
         else {
-            let cell = MoviePosterCell()
-            return cell
+            return UICollectionViewCell()
         }
 
-        let movie = movies[indexPath.row]
         cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
+        cell.favoritedToggle
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieId in
+                    self?.movieFavoritedSubject.send(movieId)
+                })
+            .store(in: &cell.disposables)
+        
         return cell
     }
 

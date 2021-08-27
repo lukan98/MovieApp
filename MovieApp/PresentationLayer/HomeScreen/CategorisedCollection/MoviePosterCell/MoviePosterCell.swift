@@ -1,11 +1,25 @@
 import UIKit
 import Kingfisher
+import Combine
 
 class MoviePosterCell: UICollectionViewCell {
 
     static let cellIdentifier = String(describing: MoviePosterCell.self)
 
     var moviePoster: MoviePosterView!
+    var favoritedToggle: AnyPublisher<Int, Error> {
+        moviePoster
+            .favoritedToggle
+            .eraseToAnyPublisher()
+    }
+
+    var disposables = Set<AnyCancellable>()
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposables = Set<AnyCancellable>()
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

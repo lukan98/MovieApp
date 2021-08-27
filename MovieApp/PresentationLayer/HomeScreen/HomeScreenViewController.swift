@@ -103,9 +103,12 @@ class HomeScreenViewController: UIViewController {
 
         popularMoviesCollectionView
             .currentlySelectedCategory
-            .flatMap { [weak self] optionViewModel in
-                self?.presenter.popularMovies(for: optionViewModel.id) ?? .never()
+            .map { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
+                guard let self = self else { return .empty() }
+
+                return self.presenter.popularMovies(for: optionViewModel.id)
             }
+            .switchToLatest()
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
@@ -115,9 +118,10 @@ class HomeScreenViewController: UIViewController {
 
         topRatedMoviesCollectionView
             .currentlySelectedCategory
-            .flatMap { [weak self] optionViewModel in
+            .map { [weak self] optionViewModel in
                 self?.presenter.topRatedMovies(for: optionViewModel.id) ?? .never()
             }
+            .switchToLatest()
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
@@ -127,7 +131,7 @@ class HomeScreenViewController: UIViewController {
 
         trendingMoviesCollectionView
             .currentlySelectedCategory
-            .flatMap { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
+            .map { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in
                 guard
                     let self = self,
                     let timeWindow = TimeWindowViewModel(rawValue: optionViewModel.id)
@@ -137,6 +141,7 @@ class HomeScreenViewController: UIViewController {
 
                 return self.presenter.trendingMovies(for: timeWindow)
             }
+            .switchToLatest()
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
@@ -150,14 +155,21 @@ class HomeScreenViewController: UIViewController {
             trendingMoviesCollectionView.movieSelected)
             .sink(
                 receiveCompletion: { _ in },
-                receiveValue: { [weak self] index in
-                    self?.router.showMovieDetails(for: index)
+                receiveValue: { [weak self] movieId in
+                    self?.router.showMovieDetails(for: movieId)
                 })
             .store(in: &disposables)
-    }
 
-    private func toggleFavorited(for movieId: Int) {
-        presenter.toggleFavorited(for: movieId)
+        Publishers.Merge3(
+            popularMoviesCollectionView.movieFavorited,
+            topRatedMoviesCollectionView.movieFavorited,
+            trendingMoviesCollectionView.movieFavorited)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieId in
+                    self?.presenter.toggleFavorited(for: movieId)
+                })
+            .store(in: &disposables)
     }
 
 }

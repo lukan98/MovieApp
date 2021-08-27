@@ -26,9 +26,8 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     private var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
-        networkDataSource
-            .popularMovies
-            .combineLatest(localMetadataSource.favoritesPublisher)
+        Publishers
+            .CombineLatest(networkDataSource.popularMovies, localMetadataSource.favoritesPublisher)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }

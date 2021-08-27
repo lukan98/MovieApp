@@ -12,7 +12,6 @@ extension MoviePosterView: ConstructViewsProtocol {
         addSubview(posterImage)
 
         favoriteButton = UIButton()
-        favoriteButton.addTarget(self, action: #selector(toggleFavorite), for: .touchUpInside)
         addSubview(favoriteButton)
 
         bringSubviewToFront(favoriteButton)
@@ -37,10 +36,5 @@ extension MoviePosterView: ConstructViewsProtocol {
             $0.size.equalTo(buttonSize)
         }
     }
-
-    @objc
-    func toggleFavorite() {
-        onFavoriteToggle(movieId)
-    }
-
+    
 }
