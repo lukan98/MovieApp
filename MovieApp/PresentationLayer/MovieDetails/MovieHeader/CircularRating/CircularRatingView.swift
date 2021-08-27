@@ -7,16 +7,17 @@ class CircularRatingView: UIView {
     let maximumRating: Double = 10
     let minimumRating: Double = 0
 
-    var size: CGSize {
-        CGSize(width: radius * 2, height: radius * 2)
-    }
-
+    var rating: Double?
     var circleLayer: CAShapeLayer!
     var ratingLayer: CAShapeLayer!
     var ratingLabel: UILabel!
     var ratingContainer: UIView!
     var numberLabel: UILabel!
     var percentageLabel: UILabel!
+
+    var size: CGSize {
+        CGSize(width: radius * 2, height: radius * 2)
+    }
 
     override var intrinsicContentSize: CGSize {
         CGSize(width: 2 * radius, height: 2 * radius)
@@ -32,7 +33,7 @@ class CircularRatingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setData(for rating: Double, animated: Bool) {
+    func setData(for rating: Double) {
         guard
             rating >= minimumRating,
             rating <= maximumRating
@@ -41,8 +42,9 @@ class CircularRatingView: UIView {
         }
 
         styleRatingLabel(for: String(Int(rating / maximumRating * 100)) + "%")
-        if animated {
+        if self.rating == nil {
             ratingAnimation(rating: rating / maximumRating, duration: 0.5)
+            self.rating = rating
         }
     }
 

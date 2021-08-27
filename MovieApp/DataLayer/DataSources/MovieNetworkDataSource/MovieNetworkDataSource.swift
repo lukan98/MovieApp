@@ -58,15 +58,6 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func fetchMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationDataSourceModel], RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieRecommendations(basedOn: movieId) { result in
-            completionHandler(result.map { $0.results.map { MovieRecommendationDataSourceModel(from: $0) } })
-        }
-    }
-
     func fetchMovieSearchResults(
         with query: String,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void

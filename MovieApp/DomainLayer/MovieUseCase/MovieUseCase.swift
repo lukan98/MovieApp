@@ -71,15 +71,6 @@ class MovieUseCase: MovieUseCaseProtocol {
             .eraseToAnyPublisher()
     }
 
-    func getMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationModel], RequestError>) -> Void
-    ) {
-        movieRepository.getMovieRecommendations(basedOn: movieId) { result in
-            completionHandler(result.map { $0.map { MovieRecommendationModel(from: $0) } })
-        }
-    }
-
     func getMovieSearchResults(
         with query: String,
         _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void

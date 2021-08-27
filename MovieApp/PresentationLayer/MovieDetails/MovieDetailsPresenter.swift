@@ -37,25 +37,8 @@ class MovieDetailsPresenter {
             .receiveOnMain()
     }
 
-    func getRecommendations(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationViewModel], RequestError>) -> Void
-    ) {
-        useCase.getMovieRecommendations(basedOn: movieId) { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { $0.map { MovieRecommendationViewModel(from: $0) } })
-            }
-        }
-    }
-
-    func toggleFavorited(
-        for movieId: Int,
-        _ completionHandler: @escaping () -> Void
-    ) {
+    func toggleFavorited(for movieId: Int) {
         useCase.toggleFavorited(for: movieId)
-        DispatchQueue.main.async {
-            completionHandler()
-        }
     }
 
 }

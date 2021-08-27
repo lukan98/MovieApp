@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 class NavBarView: UIView {
 
@@ -9,10 +10,14 @@ class NavBarView: UIView {
             backButton.isHidden = isBackButtonHidden
         }
     }
-    var onBackButtonTap: () -> Void = {}
 
     var backButton: UIImageView!
     var logo: UIImageView!
+    var backButtonTapped: AnyPublisher<GestureType, Never> {
+        backButton
+            .tapGesture()
+            .eraseToAnyPublisher()
+    }
 
     init() {
         super.init(frame: .zero)

@@ -52,7 +52,6 @@ class MovieDetailsViewController: UIViewController {
         buildViews()
         bindViews()
         setInitialData()
-        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,34 +60,24 @@ class MovieDetailsViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
     }
     
-    func loadData(animated: Bool = true) {
-        presenter.getRecommendations(for: movieId) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let recommendationViewModels):
-                self.recommendations = recommendationViewModels
-                self.recommendationCollection.reloadData()
-            case .failure:
-                print("Failed to get movie recommendations")
-            }
-        }
-    }
-    
     private func bindViews() {
-        navigationView.onBackButtonTap = { [weak self] in
-            guard let self = self else { return }
-            
-            self.router?.goBack()
-        }
-        
-        headerView.onFavoriteToggle = { movieId in
-            self.presenter.toggleFavorited(for: movieId) { [weak self] in
+        navigationView
+            .backButtonTapped
+            .sink { [weak self] _ in
                 guard let self = self else { return }
-                
-                self.loadData(animated: false)
+
+                self.router?.goBack()
             }
-        }
+            .store(in: &disposables)
+
+        headerView
+            .favoritedToggle
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieId in
+                    self?.presenter.toggleFavorited(for: movieId)
+                })
+            .store(in: &disposables)
         
         presenter
             .details(for: movieId)
@@ -122,10 +111,21 @@ class MovieDetailsViewController: UIViewController {
                     self.setReviewData(for: reviewViewModels)
                 })
             .store(in: &disposables)
+
+        presenter
+            .recommendations(basedOn: movieId)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] recommendationViewModels in
+                    guard let self = self else { return }
+
+                    self.setRecommendationData(for: recommendationViewModels)
+                })
+            .store(in: &disposables)
     }
     
     private func setMovieDetailsData(for movie: DetailedMovieViewModel) {
-        headerView.setData(for: movie, animated: true)
+        headerView.setData(for: movie)
         overviewLabel.text = movie.about
     }
     
@@ -134,6 +134,33 @@ class MovieDetailsViewController: UIViewController {
         hideEmptyCrewLabels()
         castMembers = credits.cast
         topBilledCastCollection.reloadData()
+    }
+
+    private func setCrewGridData(for crew: [CrewMemberViewModel]) {
+        for (index, crewMember) in crew.enumerated() {
+            guard let crewMemberLabel = crewMemberLabels.at(index)
+            else {
+                return
+            }
+
+            crewMemberLabel.setData(name: crewMember.name, job: crewMember.job)
+        }
+    }
+
+    private func hideEmptyCrewLabels() {
+        crewGridView.subviews
+            .filter { stackView in
+                return stackView.subviews.allSatisfy { subview in
+                    guard
+                        let crewMemberLabelView = subview as? CrewMemberLabelsView
+                    else {
+                        return false
+                    }
+
+                    return crewMemberLabelView.nameLabel.text == nil && crewMemberLabelView.jobLabel.text == nil
+                }
+            }
+            .forEach { $0.isHidden = true }
     }
 
     private func setReviewData(for reviews: [ReviewViewModel]) {
@@ -154,6 +181,11 @@ class MovieDetailsViewController: UIViewController {
             $0.leading.trailing.equalToSuperview()
         }
     }
+
+    private func setRecommendationData(for recommendations: [MovieRecommendationViewModel]) {
+        self.recommendations = recommendations
+        recommendationCollection.reloadData()
+    }
     
     private func setInitialData() {
         overviewTitleLabel.text = "Overview"
@@ -163,33 +195,6 @@ class MovieDetailsViewController: UIViewController {
         socialLabel.text = "Social"
         
         recommendationLabel.text = "Recommendations"
-    }
-    
-    private func setCrewGridData(for crew: [CrewMemberViewModel]) {
-        for (index, crewMember) in crew.enumerated() {
-            guard let crewMemberLabel = crewMemberLabels.at(index)
-            else {
-                return
-            }
-            
-            crewMemberLabel.setData(name: crewMember.name, job: crewMember.job)
-        }
-    }
-    
-    private func hideEmptyCrewLabels() {
-        crewGridView.subviews
-            .filter { stackView in
-                return stackView.subviews.allSatisfy { subview in
-                    guard
-                        let crewMemberLabelView = subview as? CrewMemberLabelsView
-                    else {
-                        return false
-                    }
-                    
-                    return crewMemberLabelView.nameLabel.text == nil && crewMemberLabelView.jobLabel.text == nil
-                }
-            }
-            .forEach { $0.isHidden = true }
     }
     
 }

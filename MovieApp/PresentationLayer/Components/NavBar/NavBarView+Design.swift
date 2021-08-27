@@ -12,8 +12,6 @@ extension NavBarView: ConstructViewsProtocol {
         backButton = UIImageView(image: .backImage)
         addSubview(backButton)
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
-        backButton.addGestureRecognizer(tapGestureRecognizer)
         backButton.isUserInteractionEnabled = true
 
         logo = UIImageView(image: .logo)
@@ -37,11 +35,6 @@ extension NavBarView: ConstructViewsProtocol {
             $0.top.equalToSuperview().offset(38)
             $0.height.equalTo(35)
         }
-    }
-
-    @objc
-    private func backButtonTapped(_ sender: UITapGestureRecognizer) {
-        onBackButtonTap()
     }
 
 }

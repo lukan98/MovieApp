@@ -19,11 +19,6 @@ protocol MovieUseCaseProtocol {
     func reviews(for movieId: Int) -> AnyPublisher<[ReviewModel], Error>
 
     func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationModel], Error>
-    
-    func getMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationModel], RequestError>) -> Void
-    )
 
     func getMovieSearchResults(
         with query: String,
