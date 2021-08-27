@@ -43,15 +43,20 @@ class MovieUseCase: MovieUseCaseProtocol {
         movieRepository.toggleFavorited(for: movieId)
     }
 
-    func getMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieModel, RequestError>) -> Void
-    ) {
-        movieRepository.getMovieDetails(for: movieId) { result in
-            completionHandler(result.map { DetailedMovieModel(from: $0) })
-        }
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieModel, Error> {
+        movieRepository
+            .details(for: movieId)
+            .map { DetailedMovieModel(from: $0) }
+            .eraseToAnyPublisher()
     }
 
+    func credits(for movieId: Int) -> AnyPublisher<CreditsModel, Error> {
+        movieRepository
+            .credits(for: movieId)
+            .map { CreditsModel(from: $0) }
+            .eraseToAnyPublisher()
+    }
+    
     func getMovieCredits(
         for movieId: Int,
         _ completionHandler: @escaping (Result<CreditsModel, RequestError>) -> Void

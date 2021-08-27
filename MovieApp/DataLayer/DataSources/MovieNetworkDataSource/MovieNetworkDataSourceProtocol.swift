@@ -7,12 +7,9 @@ protocol MovieNetworkDataSourceProtocol {
 
     func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error>
 
-    func fetchMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void
-    )
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error>
 
-    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error>
+    func credits(for movieId: Int) -> AnyPublisher<CreditsDataSourceModel, Error>
 
     func fetchMovieCredits(
         for movieId: Int,

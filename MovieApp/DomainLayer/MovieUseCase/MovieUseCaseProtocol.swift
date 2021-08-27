@@ -12,10 +12,9 @@ protocol MovieUseCaseProtocol {
 
     func toggleFavorited(for movieId: Int)
 
-    func getMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieModel, RequestError>) -> Void
-    )
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieModel, Error>
+
+    func credits(for movieId: Int) -> AnyPublisher<CreditsModel, Error>
 
     func getMovieCredits(
         for movieId: Int,

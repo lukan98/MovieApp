@@ -44,25 +44,17 @@ class MovieClient: MovieClientProtocol {
                  queryParameters: queryParameters)
     }
 
-    func fetchMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieClientModel, RequestError>) -> Void
-    ) {
-        let queryParameters = ["language": "en-US"]
-
-        baseApiClient
-            .get(
-                path: "/movie/\(movieId)",
-                queryParameters: queryParameters,
-                completionHandler: completionHandler)
-    }
-
-    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error> {
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error> {
         let queryParameters = ["language": "en-US"]
         return baseApiClient
             .get(
                 path: "/movie/\(movieId)",
                 queryParameters: queryParameters)
+    }
+
+    func credits(for movieId: Int) -> AnyPublisher<CreditsClientModel, Error> {
+        baseApiClient
+            .get(path: "/movie/\(movieId)/credits")
     }
 
     func fetchMovieCredits(

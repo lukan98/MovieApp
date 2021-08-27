@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 class MovieDetailsPresenter {
 
@@ -8,15 +9,20 @@ class MovieDetailsPresenter {
         self.useCase = useCase
     }
 
-    func getMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieViewModel, RequestError>) -> Void
-    ) {
-        useCase.getMovieDetails(for: movieId) { result in
-            DispatchQueue.main.async {
-                completionHandler(result.map { DetailedMovieViewModel(from: $0) } )
-            }
-        }
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieViewModel, Error> {
+        useCase
+            .details(for: movieId)
+            .map { DetailedMovieViewModel(from: $0) }
+            .receiveOnMain()
+            .eraseToAnyPublisher()
+    }
+
+    func credits(for movieId: Int, maxCrewMembers: Int) -> AnyPublisher<CreditsViewModel, Error> {
+        useCase
+            .credits(for: movieId)
+            .map { CreditsViewModel(from: $0).sortAndSliceCrew(first: maxCrewMembers) }
+            .receiveOnMain()
+            .eraseToAnyPublisher()
     }
 
     func getMovieCredits(

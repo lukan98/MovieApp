@@ -30,19 +30,17 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func fetchMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieDetails(for: movieId) { result in
-            completionHandler(result.map { DetailedMovieDataSourceModel(from: $0) })
-        }
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error> {
+        movieClient
+            .details(for: movieId)
+            .map { DetailedMovieDataSourceModel(from: $0) }
+            .eraseToAnyPublisher()
     }
 
-    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error> {
-        return movieClient
-            .fetchMovieDetails(for: movieId)
-            .map { DetailedMovieDataSourceModel(from: $0) }
+    func credits(for movieId: Int) -> AnyPublisher<CreditsDataSourceModel, Error> {
+        movieClient
+            .credits(for: movieId)
+            .map { CreditsDataSourceModel(from: $0) }
             .eraseToAnyPublisher()
     }
 

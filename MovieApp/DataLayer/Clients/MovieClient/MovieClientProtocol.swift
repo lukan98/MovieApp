@@ -7,12 +7,9 @@ protocol MovieClientProtocol {
 
     func trendingMovies(for timeWindow: TimeWindowClientModel) -> AnyPublisher<MovieListClientModel, Error>
 
-    func fetchMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieClientModel, RequestError>) -> Void
-    )
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error>
 
-    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error>
+    func credits(for movieId: Int) -> AnyPublisher<CreditsClientModel, Error>
 
     func fetchMovieCredits(
         for movieId: Int,
