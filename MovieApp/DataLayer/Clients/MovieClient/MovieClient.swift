@@ -78,18 +78,4 @@ class MovieClient: MovieClientProtocol {
                 queryParameters: queryParameters)
     }
 
-    func fetchMovieSearchResults(
-        with query: String,
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    ) {
-        let queryParameters = [
-            "query": query
-        ]
-
-        baseApiClient
-            .get(path: "/search/movie",
-                 queryParameters: queryParameters,
-                 completionHandler: completionHandler)
-    }
-
 }

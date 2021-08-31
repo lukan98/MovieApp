@@ -22,9 +22,4 @@ protocol MovieUseCaseProtocol {
 
     func searchResults(for query: String) -> AnyPublisher<[MovieModel], Error>
 
-    func getMovieSearchResults(
-        with query: String,
-        _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void
-    )
-
 }
