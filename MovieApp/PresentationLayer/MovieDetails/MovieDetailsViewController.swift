@@ -84,9 +84,7 @@ class MovieDetailsViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] detailedMovieViewModel in
-                    guard let self = self else { return }
-                    
-                    self.setMovieDetailsData(for: detailedMovieViewModel)
+                    self?.setMovieDetailsData(for: detailedMovieViewModel)
                 })
             .store(in: &disposables)
         
@@ -95,9 +93,7 @@ class MovieDetailsViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] creditsViewModel in
-                    guard let self = self else { return }
-
-                    self.setCreditsData(for: creditsViewModel)
+                    self?.setCreditsData(for: creditsViewModel)
                 })
             .store(in: &disposables)
 
@@ -106,9 +102,7 @@ class MovieDetailsViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] reviewViewModels in
-                    guard let self = self else { return }
-
-                    self.setReviewData(for: reviewViewModels)
+                    self?.setReviewData(for: reviewViewModels)
                 })
             .store(in: &disposables)
 
@@ -117,9 +111,7 @@ class MovieDetailsViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] recommendationViewModels in
-                    guard let self = self else { return }
-
-                    self.setRecommendationData(for: recommendationViewModels)
+                    self?.setRecommendationData(for: recommendationViewModels)
                 })
             .store(in: &disposables)
     }
