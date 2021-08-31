@@ -67,6 +67,17 @@ class MovieClient: MovieClientProtocol {
             .get(path: "/movie/\(movieId)/recommendations")
     }
 
+    func searchResults(for query: String) -> AnyPublisher<MovieListClientModel, Error> {
+        let queryParameters = [
+            "query": query
+        ]
+
+        return baseApiClient
+            .get(
+                path: "/search/movie",
+                queryParameters: queryParameters)
+    }
+
     func fetchMovieSearchResults(
         with query: String,
         _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void

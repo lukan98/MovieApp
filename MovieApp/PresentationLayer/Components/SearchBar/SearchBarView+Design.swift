@@ -13,7 +13,6 @@ extension SearchBarView: ConstructViewsProtocol {
         addSubview(stackView)
 
         searchField = BaseSearchTextField()
-        searchField.addTarget(self, action: #selector(showCancelButton), for: .editingDidBegin)
 
         let searchIcon = UIImageView(image: .search)
         searchIcon.contentMode = .center
@@ -22,13 +21,11 @@ extension SearchBarView: ConstructViewsProtocol {
         let deleteButton = UIButton()
         deleteButton.setImage(.xImage, for: .normal)
         deleteButton.contentMode = .center
-        deleteButton.addTarget(self, action: #selector(clearSearchBar), for: .touchUpInside)
         searchField.rightView = deleteButton
         deleteButton.isHidden = true
         stackView.addArrangedSubview(searchField)
 
         cancelButton = UIButton()
-        cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
         stackView.addArrangedSubview(cancelButton)
     }
 
@@ -68,42 +65,6 @@ extension SearchBarView: ConstructViewsProtocol {
         }
 
         stackView.spacing = SearchBarView.defaultSpacing
-    }
-
-    @objc
-    private func clearSearchBar() {
-        searchField.text = ""
-    }
-
-    @objc
-    private func showCancelButton() {
-        cancelButton.isHidden = false
-        searchField.rightView?.isHidden = false
-        UIView.animate(
-            withDuration: 0.2,
-            animations: {
-                self.cancelButton.alpha = 1
-                self.layoutIfNeeded()
-            })
-    }
-
-    @objc
-    private func didTapCancelButton() {
-        hideCancelButton()
-        onCancelTapped()
-    }
-
-    private func hideCancelButton() {
-        clearSearchBar()
-        cancelButton.isHidden = true
-        searchField.rightView?.isHidden = true
-        searchField.resignFirstResponder()
-        UIView.animate(
-            withDuration: 0.2,
-            animations: {
-                self.cancelButton.alpha = 0
-                self.layoutIfNeeded()
-            })
     }
 
 }

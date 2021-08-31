@@ -20,6 +20,8 @@ protocol MovieRepositoryProtocol {
 
     func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationRepositoryModel], Error>
 
+    func searchResults(for query: String) -> AnyPublisher<[MovieRepositoryModel], Error>
+
     func getMovieSearchResults(
         with query: String,
         _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void

@@ -46,24 +46,6 @@ class HomeScreenViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
     }
 
-    @objc
-    func textFieldEditingDidBegin() {
-        scrollView.isHidden = true
-        searchedMoviesCollectionView.isHidden = false
-    }
-
-    @objc
-    func textFieldDidChange(_ textField: UITextField) {
-        presenter.getSearchedMovies(with: textField.text ?? "") { [weak self] result in
-            guard let self = self else { return }
-
-            if case .success(let movies) = result {
-                self.searchedMovies = movies
-                self.searchedMoviesCollectionView.reloadData()
-            }
-        }
-    }
-
     private func setTrendingOptions() {
         let todayOption = OptionViewModel(id: 0, name: "Today")
         let thisWeekOption = OptionViewModel(id: 1, name: "This Week")
@@ -73,16 +55,33 @@ class HomeScreenViewController: UIViewController {
     }
 
     private func bindViews() {
-        searchBarView.searchField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        searchBarView.searchField
+            .rxText
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .map { [weak self] query -> AnyPublisher<[MovieViewModel], Error> in
+                self?.presenter.searchResults(for: query) ?? .never()
+            }
+            .switchToLatest()
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movieViewModels in
+                    self?.searchDidUpdate(with: movieViewModels)
+                })
+            .store(in: &disposables)
 
-        searchBarView.searchField.addTarget(self, action: #selector(textFieldEditingDidBegin), for: .editingDidBegin)
+        searchBarView.searchField
+            .onEditingStart
+            .sink { [weak self] _ in
+                self?.searchDidStart()
+            }
+            .store(in: &disposables)
 
-        searchBarView.onCancelTapped = { [self] in
-            searchedMoviesCollectionView.isHidden = true
-            searchedMovies = []
-            searchedMoviesCollectionView.reloadData()
-            scrollView.isHidden = false
-        }
+        searchBarView
+            .cancelButtonTap
+            .sink { [weak self] _ in
+                self?.searchDidEnd()
+            }
+            .store(in: &disposables)
 
         presenter
             .genres
@@ -168,6 +167,23 @@ class HomeScreenViewController: UIViewController {
                     self?.presenter.toggleFavorited(for: movieId)
                 })
             .store(in: &disposables)
+    }
+
+    private func searchDidStart() {
+        scrollView.isHidden = true
+        searchedMoviesCollectionView.isHidden = false
+    }
+
+    private func searchDidEnd() {
+        searchedMoviesCollectionView.isHidden = true
+        searchedMovies = []
+        searchedMoviesCollectionView.reloadData()
+        scrollView.isHidden = false
+    }
+
+    private func searchDidUpdate(with movies: [MovieViewModel]) {
+        searchedMovies = movies
+        searchedMoviesCollectionView.reloadData()
     }
 
 }

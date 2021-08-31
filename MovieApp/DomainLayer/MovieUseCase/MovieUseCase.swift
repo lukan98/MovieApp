@@ -71,6 +71,13 @@ class MovieUseCase: MovieUseCaseProtocol {
             .eraseToAnyPublisher()
     }
 
+    func searchResults(for query: String) -> AnyPublisher<[MovieModel], Error> {
+        movieRepository
+            .searchResults(for: query)
+            .map { $0.map { MovieModel(from: $0) } }
+            .eraseToAnyPublisher()
+    }
+
     func getMovieSearchResults(
         with query: String,
         _ completionHandler: @escaping (Result<[MovieModel], RequestError>) -> Void

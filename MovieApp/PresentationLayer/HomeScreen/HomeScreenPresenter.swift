@@ -55,4 +55,11 @@ class HomeScreenPresenter {
     func toggleFavorited(for movieId: Int) {
         movieUseCase.toggleFavorited(for: movieId)
     }
+
+    func searchResults(for query: String) -> AnyPublisher<[MovieViewModel], Error> {
+        movieUseCase
+            .searchResults(for: query)
+            .map { $0.map { MovieViewModel(from: $0) } }
+            .receiveOnMain()
+    }
 }
