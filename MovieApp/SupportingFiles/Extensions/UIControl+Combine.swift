@@ -13,7 +13,7 @@ extension UIControl {
 
     func throttledTap(for interval: Double = 0.5) -> AnyPublisher<UIControl, Never> {
         tap()
-            .throttle(for: .seconds(interval), scheduler: RunLoop.main, latest: true)
+            .throttle(for: .seconds(interval), scheduler: DispatchQueue.main, latest: true)
             .eraseToAnyPublisher()
     }
 

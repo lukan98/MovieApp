@@ -17,7 +17,7 @@ extension UIView {
 
     func throttledTapGesture(for interval: Double = 0.5) -> AnyPublisher<GesturePublisher.Output, Never> {
         tapGesture()
-            .throttle(for: .seconds(interval), scheduler: RunLoop.main, latest: true)
+            .throttle(for: .seconds(interval), scheduler: DispatchQueue.main, latest: true)
             .eraseToAnyPublisher()
     }
 
