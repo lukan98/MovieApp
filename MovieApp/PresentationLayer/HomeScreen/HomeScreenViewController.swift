@@ -212,6 +212,14 @@ extension HomeScreenViewController: UICollectionViewDataSource {
         }
 
         cell.setData(for: movie)
+
+        cell
+            .throttledTapGesture()
+            .sink { [weak self] _ in
+                self?.router.showMovieDetails(for: movie.id)
+            }
+            .store(in: &cell.disposables)
+
         return cell
     }
 
@@ -219,15 +227,6 @@ extension HomeScreenViewController: UICollectionViewDataSource {
 
 // MARK: CollectionViewDelegateFlowLayout
 extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        guard let movie = searchedMovies.at(indexPath.row) else { return }
-
-        router.showMovieDetails(for: movie.id)
-    }
 
     func collectionView(
         _ collectionView: UICollectionView,

@@ -1,5 +1,6 @@
 import UIKit
 import Kingfisher
+import Combine
 
 class MovieInfoCell: UICollectionViewCell {
 
@@ -8,6 +9,8 @@ class MovieInfoCell: UICollectionViewCell {
     let infoInset: CGFloat = 15
     let posterWidth: CGFloat = 100
     let cornerRadius: CGFloat = 10
+
+    var disposables = Set<AnyCancellable>()
 
     var contentContainer: UIView!
     var poster: UIImageView!
@@ -41,6 +44,12 @@ class MovieInfoCell: UICollectionViewCell {
         contentView.layer.shadowOpacity = 0.1
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowPath = UIBezierPath(rect: contentContainer.bounds).cgPath
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposables = []
     }
 
 }
