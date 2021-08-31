@@ -16,7 +16,7 @@ protocol MovieNetworkDataSourceProtocol {
     func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationDataSourceModel], Error>
 
     func searchResults(for query: String) -> AnyPublisher<[MovieDataSourceModel], Error>
-    
+
     func fetchMovieSearchResults(
         with query: String,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
