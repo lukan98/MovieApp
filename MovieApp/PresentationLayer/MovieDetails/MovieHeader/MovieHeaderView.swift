@@ -1,13 +1,12 @@
 import UIKit
 import Kingfisher
+import Combine
 
 class MovieHeaderView: UIView {
 
     let spacing = 5
     let buttonSize = CGSize(width: 32, height: 32)
-
-    var onFavoriteToggle: (Int) -> Void = { _ in }
-
+    
     var backgroundPosterView: UIImageView!
     var gradientView: UIView!
     var ratingView: CircularRatingView!
@@ -28,11 +27,20 @@ class MovieHeaderView: UIView {
             }
         }
     }
+    var favoritedToggle: AnyPublisher<Int, Error> {
+        favoritedToggleSubject
+            .eraseToAnyPublisher()
+    }
+
+    private let favoritedToggleSubject = PassthroughSubject<Int, Error>()
+
+    private var disposables = Set<AnyCancellable>()
 
     init() {
         super.init(frame: .zero)
 
         buildViews()
+        bindViews()
     }
 
     required init?(coder: NSCoder) {
@@ -46,7 +54,7 @@ class MovieHeaderView: UIView {
         styleButtonShape()
     }
 
-    func setData(for movie: DetailedMovieViewModel, animated: Bool) {
+    func setData(for movie: DetailedMovieViewModel) {
         let imageUrl = URL(string: movie.posterSource)
         backgroundPosterView.kf.setImage(with: imageUrl)
 
@@ -60,7 +68,18 @@ class MovieHeaderView: UIView {
         isFavorited = movie.isFavorited
         movieId = movie.id
 
-        ratingView.setData(for: movie.voteAverage, animated: animated)
+        ratingView.setData(for: movie.voteAverage)
+    }
+
+    private func bindViews() {
+        favoriteButton
+            .throttledTapGesture()
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+
+                self.favoritedToggleSubject.send(self.movieId)
+            }
+            .store(in: &disposables)
     }
 
 }

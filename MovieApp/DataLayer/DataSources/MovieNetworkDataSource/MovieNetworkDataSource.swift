@@ -30,47 +30,32 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func fetchMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieDetails(for: movieId) { result in
-            completionHandler(result.map { DetailedMovieDataSourceModel(from: $0) })
-        }
-    }
-
-    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error> {
-        return movieClient
-            .fetchMovieDetails(for: movieId)
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error> {
+        movieClient
+            .details(for: movieId)
             .map { DetailedMovieDataSourceModel(from: $0) }
             .eraseToAnyPublisher()
     }
 
-    func fetchMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsDataSourceModel, RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieCredits(for: movieId) { result in
-            completionHandler(result.map { CreditsDataSourceModel(from: $0) })
-        }
+    func credits(for movieId: Int) -> AnyPublisher<CreditsDataSourceModel, Error> {
+        movieClient
+            .credits(for: movieId)
+            .map { CreditsDataSourceModel(from: $0) }
+            .eraseToAnyPublisher()
     }
 
-    func fetchMovieReviews(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[ReviewDataSourceModel], RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieReviews(for: movieId) { result in
-            completionHandler(result.map { $0.results.map { ReviewDataSourceModel(from: $0) } })
-        }
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewDataSourceModel], Error> {
+        movieClient
+            .reviews(for: movieId)
+            .map { $0.results.map { ReviewDataSourceModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
-    func fetchMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationDataSourceModel], RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieRecommendations(basedOn: movieId) { result in
-            completionHandler(result.map { $0.results.map { MovieRecommendationDataSourceModel(from: $0) } })
-        }
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationDataSourceModel], Error> {
+        movieClient
+            .recommendations(basedOn: movieId)
+            .map { $0.results.map { MovieRecommendationDataSourceModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
     func fetchMovieSearchResults(

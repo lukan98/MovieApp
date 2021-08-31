@@ -43,40 +43,32 @@ class MovieUseCase: MovieUseCaseProtocol {
         movieRepository.toggleFavorited(for: movieId)
     }
 
-    func getMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieModel, RequestError>) -> Void
-    ) {
-        movieRepository.getMovieDetails(for: movieId) { result in
-            completionHandler(result.map { DetailedMovieModel(from: $0) })
-        }
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieModel, Error> {
+        movieRepository
+            .details(for: movieId)
+            .map { DetailedMovieModel(from: $0) }
+            .eraseToAnyPublisher()
     }
 
-    func getMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsModel, RequestError>) -> Void
-    ) {
-        movieRepository.getMovieCredits(for: movieId) { result in
-            completionHandler(result.map { CreditsModel(from: $0) })
-        }
+    func credits(for movieId: Int) -> AnyPublisher<CreditsModel, Error> {
+        movieRepository
+            .credits(for: movieId)
+            .map { CreditsModel(from: $0) }
+            .eraseToAnyPublisher()
     }
 
-    func getMovieReviews(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[ReviewModel], RequestError>) -> Void
-    ) {
-        movieRepository.getMovieReviews(for: movieId) { result in
-            completionHandler(result.map { $0.map { ReviewModel(from: $0) } })
-        }
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewModel], Error> {
+        movieRepository
+            .reviews(for: movieId)
+            .map { $0.map { ReviewModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
-    func getMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationModel], RequestError>) -> Void
-    ) {
-        movieRepository.getMovieRecommendations(basedOn: movieId) { result in
-            completionHandler(result.map { $0.map { MovieRecommendationModel(from: $0) } })
-        }
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationModel], Error> {
+        movieRepository
+            .recommendations(basedOn: movieId)
+            .map { $0.map { MovieRecommendationModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
     func getMovieSearchResults(

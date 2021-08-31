@@ -12,25 +12,13 @@ protocol MovieRepositoryProtocol {
 
     func toggleFavorited(for movieId: Int)
 
-    func getMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
-    )
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieRepositoryModel, Error>
 
-    func getMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsRepositoryModel, RequestError>) -> Void
-    )
+    func credits(for movieId: Int) -> AnyPublisher<CreditsRepositoryModel, Error>
 
-    func getMovieReviews(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[ReviewRepositoryModel], RequestError>) -> Void
-    )
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewRepositoryModel], Error>
 
-    func getMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationRepositoryModel], RequestError>) -> Void
-    )
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationRepositoryModel], Error>
 
     func getMovieSearchResults(
         with query: String,

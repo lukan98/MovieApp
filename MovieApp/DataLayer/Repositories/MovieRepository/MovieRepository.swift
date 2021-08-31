@@ -13,7 +13,7 @@ class MovieRepository: MovieRepositoryProtocol {
                 guard let self = self else { return Empty(completeImmediately: false).eraseToAnyPublisher() }
 
                 let array = ids.map {
-                    self.networkDataSource.fetchMovieDetails(for: $0)
+                    self.networkDataSource.details(for: $0)
                 }
                 return Publishers.MergeMany(array).collect().eraseToAnyPublisher()
             }
@@ -75,40 +75,35 @@ class MovieRepository: MovieRepositoryProtocol {
         localMetadataSource.toggleFavorited(for: movieId)
     }
 
-    func getMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieRepositoryModel, RequestError>) -> Void
-    ) {
-        networkDataSource.fetchMovieDetails(for: movieId) { result in
-            completionHandler(result.map { DetailedMovieRepositoryModel(from: $0) })
-        }
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieRepositoryModel, Error> {
+        networkDataSource
+            .details(for: movieId)
+            .combineLatest(localMetadataSource.favorites)
+            .map { movie, favorites in
+                DetailedMovieRepositoryModel(from: movie, isFavorited: favorites.contains(movie.id))
+            }
+            .eraseToAnyPublisher()
     }
 
-    func getMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsRepositoryModel, RequestError>) -> Void
-    ) {
-        networkDataSource.fetchMovieCredits(for: movieId) { result in
-            completionHandler(result.map { CreditsRepositoryModel(from: $0) })
-        }
+    func credits(for movieId: Int) -> AnyPublisher<CreditsRepositoryModel, Error> {
+        networkDataSource
+            .credits(for: movieId)
+            .map { CreditsRepositoryModel(from: $0) }
+            .eraseToAnyPublisher()
     }
 
-    func getMovieReviews(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[ReviewRepositoryModel], RequestError>) -> Void
-    ) {
-        networkDataSource.fetchMovieReviews(for: movieId) { result in
-            completionHandler(result.map { $0.map { ReviewRepositoryModel(from: $0) } })
-        }
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewRepositoryModel], Error> {
+        networkDataSource
+            .reviews(for: movieId)
+            .map { $0.map { ReviewRepositoryModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
-    func getMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationRepositoryModel], RequestError>) -> Void
-    ) {
-        networkDataSource.fetchMovieRecommendations(basedOn: movieId) { result in
-            completionHandler(result.map { $0.map { MovieRecommendationRepositoryModel(from: $0) } })
-        }
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationRepositoryModel], Error> {
+        networkDataSource
+            .recommendations(basedOn: movieId)
+            .map { $0.map { MovieRecommendationRepositoryModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
     func getMovieSearchResults(

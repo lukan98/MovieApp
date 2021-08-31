@@ -65,7 +65,6 @@ extension MovieHeaderView: ConstructViewsProtocol {
 
         favoriteButton.backgroundColor = .gray2.withAlphaComponent(0.6)
         favoriteButton.tintColor = .white
-        favoriteButton.addTarget(self, action: #selector(onFavoriteTap), for: .touchUpInside)
     }
 
     func styleGradient() {
@@ -128,11 +127,6 @@ extension MovieHeaderView: ConstructViewsProtocol {
             $0.trailing.equalToSuperview().inset(spacing)
             $0.centerY.equalTo(ratingView)
         }
-    }
-
-    @objc
-    private func onFavoriteTap() {
-        onFavoriteToggle(movieId)
     }
 
 }

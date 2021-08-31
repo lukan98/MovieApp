@@ -44,20 +44,7 @@ class MovieClient: MovieClientProtocol {
                  queryParameters: queryParameters)
     }
 
-    func fetchMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieClientModel, RequestError>) -> Void
-    ) {
-        let queryParameters = ["language": "en-US"]
-
-        baseApiClient
-            .get(
-                path: "/movie/\(movieId)",
-                queryParameters: queryParameters,
-                completionHandler: completionHandler)
-    }
-
-    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error> {
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieClientModel, Error> {
         let queryParameters = ["language": "en-US"]
         return baseApiClient
             .get(
@@ -65,33 +52,19 @@ class MovieClient: MovieClientProtocol {
                 queryParameters: queryParameters)
     }
 
-    func fetchMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsClientModel, RequestError>) -> Void
-    ) {
+    func credits(for movieId: Int) -> AnyPublisher<CreditsClientModel, Error> {
         baseApiClient
-            .get(path: "/movie/\(movieId)/credits",
-                 completionHandler: completionHandler)
+            .get(path: "/movie/\(movieId)/credits")
     }
 
-    func fetchMovieReviews(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<ReviewListClientModel, RequestError>) -> Void
-    ) {
+    func reviews(for movieId: Int) -> AnyPublisher<ReviewListClientModel, Error> {
         baseApiClient
-            .get(
-                path: "/movie/\(movieId)/reviews",
-                completionHandler: completionHandler)
+            .get(path: "/movie/\(movieId)/reviews")
     }
 
-    func fetchMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<MovieRecommendationListClientModel, RequestError>) -> Void
-    ) {
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<MovieRecommendationListClientModel, Error> {
         baseApiClient
-            .get(
-                path: "/movie/\(movieId)/recommendations",
-                completionHandler: completionHandler)
+            .get(path: "/movie/\(movieId)/recommendations")
     }
 
     func fetchMovieSearchResults(

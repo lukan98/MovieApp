@@ -7,28 +7,14 @@ protocol MovieNetworkDataSourceProtocol {
 
     func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error>
 
-    func fetchMovieDetails(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<DetailedMovieDataSourceModel, RequestError>) -> Void
-    )
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error>
 
-    func fetchMovieDetails(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error>
+    func credits(for movieId: Int) -> AnyPublisher<CreditsDataSourceModel, Error>
 
-    func fetchMovieCredits(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<CreditsDataSourceModel, RequestError>) -> Void
-    )
+    func reviews(for movieId: Int) -> AnyPublisher<[ReviewDataSourceModel], Error>
 
-    func fetchMovieReviews(
-        for movieId: Int,
-        _ completionHandler: @escaping (Result<[ReviewDataSourceModel], RequestError>) -> Void
-    )
-
-    func fetchMovieRecommendations(
-        basedOn movieId: Int,
-        _ completionHandler: @escaping (Result<[MovieRecommendationDataSourceModel], RequestError>) -> Void
-    )
-
+    func recommendations(basedOn movieId: Int) -> AnyPublisher<[MovieRecommendationDataSourceModel], Error>
+    
     func fetchMovieSearchResults(
         with query: String,
         _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
