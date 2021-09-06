@@ -9,9 +9,6 @@ extension FavoritesViewController: ConstructViewsProtocol {
     }
 
     func createViews() {
-        navigationView = NavBarView()
-        view.addSubview(navigationView)
-
         favoritesLabel = UILabel()
         view.addSubview(favoritesLabel)
 
@@ -32,18 +29,13 @@ extension FavoritesViewController: ConstructViewsProtocol {
     }
 
     func defineLayoutForViews() {
-        navigationView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(NavBarView.defaultHeight)
-        }
-
         favoritesLabel.snp.makeConstraints {
-            $0.top.equalTo(navigationView.snp.bottom).offset(35)
-            $0.leading.equalToSuperview().offset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(5)
+            $0.leading.equalToSuperview().offset(spacing)
         }
 
         movieCollectionView.snp.makeConstraints {
-            $0.top.equalTo(favoritesLabel.snp.bottom).offset(20)
+            $0.top.equalTo(favoritesLabel.snp.bottom).offset(spacing)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }

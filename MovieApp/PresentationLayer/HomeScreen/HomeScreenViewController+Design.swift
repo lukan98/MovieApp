@@ -10,9 +10,6 @@ extension HomeScreenViewController: ConstructViewsProtocol {
     }
 
     func createViews() {
-        navigationView = NavBarView()
-        view.addSubview(navigationView)
-
         searchBarView = SearchBarView()
         view.addSubview(searchBarView)
 
@@ -47,18 +44,13 @@ extension HomeScreenViewController: ConstructViewsProtocol {
     }
 
     func defineLayoutForViews() {
-        navigationView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(NavBarView.defaultHeight)
-        }
-
         searchBarView.snp.makeConstraints {
-            $0.top.equalTo(navigationView.snp.bottom).offset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
 
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(searchBarView.snp.bottom).offset(5)
+            $0.top.equalTo(searchBarView.snp.bottom).offset(10)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 

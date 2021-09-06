@@ -3,11 +3,11 @@ import Combine
 
 class FavoritesViewController: UIViewController {
 
-    var navigationView: NavBarView!
+    let spacing: CGFloat = 20
+
     var favoritesLabel: UILabel!
     var movieCollectionView: UICollectionView!
 
-    private let inset: CGFloat = 20
     private let verticalSpacing: CGFloat = 35
 
     private let presenter: FavoritesPresenter
@@ -115,7 +115,7 @@ extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
     }
 
     func collectionView(

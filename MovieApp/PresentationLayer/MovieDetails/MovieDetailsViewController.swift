@@ -10,7 +10,6 @@ class MovieDetailsViewController: UIViewController {
     var castMembers: [CastMemberViewModel] = []
     var recommendations: [MovieRecommendationViewModel] = []
 
-    var navigationView: NavBarView!
     var scrollView: UIScrollView!
     var contentView: UIView!
     var headerView: MovieHeaderView!
@@ -61,15 +60,6 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func bindViews() {
-        navigationView
-            .backButtonTapped
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-
-                self.router?.goBack()
-            }
-            .store(in: &disposables)
-
         headerView
             .favoritedToggle
             .sink(

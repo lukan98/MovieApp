@@ -32,7 +32,7 @@ extension NavBarView: ConstructViewsProtocol {
 
         logo.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(38)
+            $0.top.bottom.equalToSuperview().inset(5)
             $0.height.equalTo(35)
         }
     }

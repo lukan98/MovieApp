@@ -3,7 +3,6 @@ import Combine
 
 class HomeScreenViewController: UIViewController {
 
-    var navigationView: NavBarView!
     var searchBarView: SearchBarView!
     var searchedMoviesCollectionView: UICollectionView!
     var scrollView: UIScrollView!
@@ -38,12 +37,6 @@ class HomeScreenViewController: UIViewController {
         buildViews()
         bindViews()
         setTrendingOptions()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.navigationBar.barStyle = .black
     }
 
     private func setTrendingOptions() {
