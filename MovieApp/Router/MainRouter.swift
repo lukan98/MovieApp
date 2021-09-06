@@ -17,9 +17,16 @@ class MainRouter: RouterProtocol {
     }
 
     private func showMainAppScreen() {
-        navigationController.navigationBar.isHidden = true
+        styleNavigationController(navigationController)
+
         let tabBarController = makeUITabBarController()
         navigationController.setViewControllers([tabBarController], animated: false)
+    }
+
+    private func styleNavigationController(_ navigationController: UINavigationController) {
+        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.barStyle = .black
+        navigationController.navigationBar.barTintColor = .darkBlue
     }
 
     private func makeUITabBarController() -> UITabBarController {
@@ -50,6 +57,8 @@ class MainRouter: RouterProtocol {
             font: styledFont)
 
         tabBarController.viewControllers = [homeScreen, favorites]
+
+        tabBarController.navigationItem.titleView = UIImageView(image: .logo)
 
         return tabBarController
     }

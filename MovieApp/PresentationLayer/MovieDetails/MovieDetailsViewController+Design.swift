@@ -10,9 +10,6 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
     }
 
     func createViews() {
-        navigationView = NavBarView()
-        view.addSubview(navigationView)
-
         scrollView = UIScrollView()
         view.addSubview(scrollView)
 
@@ -80,8 +77,6 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
     func styleViews() {
         view.backgroundColor = .white
 
-        navigationView.isBackButtonHidden = false
-
         scrollView.delegate = self
 
         styleHeadingLabel(overviewTitleLabel)
@@ -119,13 +114,8 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
     }
 
     func defineLayoutForViews() {
-        navigationView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(NavBarView.defaultHeight)
-        }
-
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(navigationView.snp.bottom)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 

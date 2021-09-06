@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class MovieDetailsViewController: UIViewController {
+class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
 
     let spacing: CGFloat = 5
     let noOfCrewRows = 3
@@ -10,7 +10,6 @@ class MovieDetailsViewController: UIViewController {
     var castMembers: [CastMemberViewModel] = []
     var recommendations: [MovieRecommendationViewModel] = []
 
-    var navigationView: NavBarView!
     var scrollView: UIScrollView!
     var contentView: UIView!
     var headerView: MovieHeaderView!
@@ -49,6 +48,7 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        styleNavigationBar()
         buildViews()
         bindViews()
         setInitialData()
@@ -61,15 +61,6 @@ class MovieDetailsViewController: UIViewController {
     }
 
     private func bindViews() {
-        navigationView
-            .backButtonTapped
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-
-                self.router?.goBack()
-            }
-            .store(in: &disposables)
-
         headerView
             .favoritedToggle
             .sink(
@@ -187,6 +178,17 @@ class MovieDetailsViewController: UIViewController {
         socialLabel.text = "Social"
 
         recommendationLabel.text = "Recommendations"
+    }
+
+    private func styleNavigationBar() {
+        navigationItem.titleView = UIImageView(image: .logo)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: .backImage,
+            style: .plain,
+            target: navigationController,
+            action: #selector(navigationController?.popViewController(animated:)))
+        navigationItem.leftBarButtonItem?.tintColor = .white
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
 }

@@ -28,7 +28,8 @@ extension CategorisedCollectionView: ConstructViewsProtocol {
 
     func defineLayoutForViews() {
         titleLabel.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview().inset(defaultInset)
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(defaultInset)
         }
 
         categoriesView.snp.makeConstraints {
