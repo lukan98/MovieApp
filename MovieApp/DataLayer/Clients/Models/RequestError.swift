@@ -5,5 +5,5 @@ enum RequestError: Error {
     case dataDecodingError
     case noDataError
     case invalidURLError
-    
+
 }

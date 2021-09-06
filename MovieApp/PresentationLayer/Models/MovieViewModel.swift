@@ -6,7 +6,7 @@ struct MovieViewModel {
     let posterSource: String
     let genres: [Int]
     let isFavorited: Bool
-    
+
 }
 
 // MARK: Model to ViewModel conversion

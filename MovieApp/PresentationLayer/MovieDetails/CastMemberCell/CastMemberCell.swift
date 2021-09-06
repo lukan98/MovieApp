@@ -17,7 +17,7 @@ class CastMemberCell: UICollectionViewCell {
 
         buildViews()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -42,5 +42,5 @@ class CastMemberCell: UICollectionViewCell {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
     }
-    
+
 }

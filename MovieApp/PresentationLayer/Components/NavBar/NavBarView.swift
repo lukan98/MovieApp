@@ -21,7 +21,7 @@ class NavBarView: UIView {
 
     init() {
         super.init(frame: .zero)
-        
+
         buildViews()
     }
 

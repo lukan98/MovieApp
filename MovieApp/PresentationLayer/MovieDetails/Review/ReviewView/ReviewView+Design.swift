@@ -59,8 +59,8 @@ extension ReviewView: ConstructViewsProtocol {
         let authorRange = NSString(string: subtitleString).range(of: author)
         let attributedString = NSMutableAttributedString(
             string: subtitleString,
-            attributes: defaultAttrs as [NSAttributedString.Key : Any])
-        attributedString.addAttributes(authorAttrs as [NSAttributedString.Key : Any], range: authorRange)
+            attributes: defaultAttrs as [NSAttributedString.Key: Any])
+        attributedString.addAttributes(authorAttrs as [NSAttributedString.Key: Any], range: authorRange)
 
         subtitleLabel.attributedText = attributedString
     }

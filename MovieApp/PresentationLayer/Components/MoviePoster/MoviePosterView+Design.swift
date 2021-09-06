@@ -36,5 +36,4 @@ extension MoviePosterView: ConstructViewsProtocol {
             $0.size.equalTo(buttonSize)
         }
     }
-    
 }

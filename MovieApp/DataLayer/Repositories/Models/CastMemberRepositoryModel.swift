@@ -1,5 +1,5 @@
 struct CastMemberRepositoryModel {
-    
+
     let id: Int
     let name: String
     let profileSource: String?

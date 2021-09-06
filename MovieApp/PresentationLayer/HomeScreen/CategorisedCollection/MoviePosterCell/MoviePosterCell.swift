@@ -9,7 +9,7 @@ class MoviePosterCell: UICollectionViewCell {
     var disposables = Set<AnyCancellable>()
 
     var moviePoster: MoviePosterView!
-    
+
     var favoritedToggle: AnyPublisher<Int, Error> {
         moviePoster
             .favoritedToggle
@@ -41,5 +41,4 @@ class MoviePosterCell: UICollectionViewCell {
         let imageUrl = URL(string: posterSource)
         moviePoster.posterImage.kf.setImage(with: imageUrl)
     }
-    
 }

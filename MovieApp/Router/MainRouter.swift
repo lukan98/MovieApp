@@ -72,5 +72,4 @@ extension MainRouter: MovieDetailsRouterProtocol {
     func goBack() {
         navigationController.popViewController(animated: true)
     }
-    
 }

@@ -19,11 +19,11 @@ class CrewMemberLabelsView: UIView {
 
         buildViews()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setData(name: String, job: String) {
         nameLabel.text = name
         jobLabel.text = job
