@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class MovieDetailsViewController: UIViewController {
+class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
 
     let spacing: CGFloat = 5
     let noOfCrewRows = 3
@@ -48,6 +48,7 @@ class MovieDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        styleNavigationBar()
         buildViews()
         bindViews()
         setInitialData()
@@ -177,6 +178,17 @@ class MovieDetailsViewController: UIViewController {
         socialLabel.text = "Social"
 
         recommendationLabel.text = "Recommendations"
+    }
+
+    private func styleNavigationBar() {
+        navigationItem.titleView = UIImageView(image: .logo)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: .backImage,
+            style: .plain,
+            target: navigationController,
+            action: #selector(navigationController?.popViewController(animated:)))
+        navigationItem.leftBarButtonItem?.tintColor = .white
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
 }

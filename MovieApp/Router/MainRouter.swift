@@ -58,6 +58,8 @@ class MainRouter: RouterProtocol {
 
         tabBarController.viewControllers = [homeScreen, favorites]
 
+        tabBarController.navigationItem.titleView = UIImageView(image: .logo)
+
         return tabBarController
     }
 
