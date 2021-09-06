@@ -5,7 +5,7 @@ class CategorisedCollectionView: UIView {
 
     let defaultInset: CGFloat = 20
     let defaultSpacing: CGFloat = 10
-    
+
     var titleLabel: UILabel!
     var categoriesView: ButtonBarView!
     var movieCollectionView: UICollectionView!
@@ -43,7 +43,7 @@ class CategorisedCollectionView: UIView {
         buildViews()
         bindViews()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,7 +80,7 @@ class CategorisedCollectionView: UIView {
             }
             .store(in: &disposables)
     }
-    
+
 }
 
 // MARK: UICollectionViewDataSource
@@ -114,7 +114,7 @@ extension CategorisedCollectionView: UICollectionViewDataSource {
                     self?.movieFavoritedSubject.send(movieId)
                 })
             .store(in: &cell.disposables)
-        
+
         return cell
     }
 

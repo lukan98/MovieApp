@@ -15,19 +15,18 @@ class UnderlinedButtonView: UIView {
 
         buildViews()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        
+
         defineLayoutForViews()
     }
 
     func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
         button.addTarget(target, action: action, for: controlEvents)
     }
-    
 }

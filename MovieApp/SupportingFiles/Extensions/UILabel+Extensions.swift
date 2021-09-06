@@ -13,7 +13,7 @@ extension UILabel {
             let attributes = [NSAttributedString.Key.font: font]
             let attributedText = NSAttributedString(
                 string: labelText,
-                attributes: attributes as [NSAttributedString.Key : Any])
+                attributes: attributes as [NSAttributedString.Key: Any])
             let boundingRect = attributedText.boundingRect(
                 with: sizeConstraint,
                 options: .usesLineFragmentOrigin,
@@ -42,7 +42,7 @@ extension UILabel {
                     .boundingRect(
                         with: sizeConstraint,
                         options: .usesLineFragmentOrigin,
-                        attributes: attributes as [NSAttributedString.Key : Any],
+                        attributes: attributes as [NSAttributedString.Key: Any],
                         context: nil)
                     .size
                     .height <= labelHeight
@@ -93,7 +93,7 @@ extension UILabel {
                 attributes: [
                     NSAttributedString.Key.font: appendageFont as Any,
                     NSAttributedString.Key.foregroundColor: appendageColor as Any])
-            
+
             attributedText.append(attributedReadMore)
             self.attributedText = attributedText
         }

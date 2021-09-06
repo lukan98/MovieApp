@@ -1,6 +1,6 @@
 enum TimeWindowClientModel: String {
-    case day = "day"
-    case week = "week"
+    case day
+    case week
 }
 
 // MARK: DataSource model to Client model conversion

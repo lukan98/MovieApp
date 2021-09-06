@@ -55,6 +55,12 @@ class HomeScreenViewController: UIViewController {
     }
 
     private func bindViews() {
+        bindSearchBarView()
+        bindOptionViews()
+        bindMovieCollectionViews()
+    }
+
+    private func bindSearchBarView() {
         searchBarView.searchField
             .rxText
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
@@ -82,7 +88,9 @@ class HomeScreenViewController: UIViewController {
                 self?.searchDidEnd()
             }
             .store(in: &disposables)
+    }
 
+    private func bindOptionViews() {
         presenter
             .genres
             .map { $0.map { OptionViewModel(from: $0) } }
@@ -99,7 +107,9 @@ class HomeScreenViewController: UIViewController {
                         options: options)
                 })
             .store(in: &disposables)
+    }
 
+    private func bindMovieCollectionViews() {
         popularMoviesCollectionView
             .currentlySelectedCategory
             .map { [weak self] optionViewModel -> AnyPublisher<[MovieViewModel], Error> in

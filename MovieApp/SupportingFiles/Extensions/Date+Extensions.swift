@@ -37,5 +37,5 @@ extension Date {
         format.setLocalizedDateFormatFromTemplate(template)
         return format.string(from: self)
     }
-    
+
 }

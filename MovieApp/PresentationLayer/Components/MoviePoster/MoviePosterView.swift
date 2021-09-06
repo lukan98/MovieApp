@@ -24,7 +24,7 @@ class MoviePosterView: UIView {
     }
 
     private let favoritedToggleSubject = PassthroughSubject<Int, Error>()
-    
+
     private var disposables = Set<AnyCancellable>()
 
     init() {

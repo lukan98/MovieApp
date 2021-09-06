@@ -55,9 +55,9 @@ extension CircularRatingView: ConstructViewsProtocol {
         let percentageRange = NSString(string: string).range(of: "%")
         let attributedString = NSMutableAttributedString(
             string: string,
-            attributes: numberAttributes as [NSAttributedString.Key : Any])
+            attributes: numberAttributes as [NSAttributedString.Key: Any])
         attributedString.addAttributes(
-            percentageAttributes as [NSAttributedString.Key : Any],
+            percentageAttributes as [NSAttributedString.Key: Any],
             range: percentageRange)
         ratingLabel.attributedText = attributedString
     }

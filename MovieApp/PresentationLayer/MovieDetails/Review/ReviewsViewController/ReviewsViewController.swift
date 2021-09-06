@@ -69,4 +69,3 @@ extension ReviewsViewController: UIPageViewControllerDataSource {
         return reviewViewControllers[nextIndex]
     }
 }
-

@@ -19,7 +19,7 @@ class FavoritesViewController: UIViewController {
     init(presenter: FavoritesPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
         self.router = router
-        
+
         super.init(nibName: nil, bundle: nil)
     }
 

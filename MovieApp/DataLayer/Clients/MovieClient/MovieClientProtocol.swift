@@ -16,5 +16,5 @@ protocol MovieClientProtocol {
     func recommendations(basedOn movieId: Int) -> AnyPublisher<MovieRecommendationListClientModel, Error>
 
     func searchResults(for query: String) -> AnyPublisher<MovieListClientModel, Error>
-    
+
 }

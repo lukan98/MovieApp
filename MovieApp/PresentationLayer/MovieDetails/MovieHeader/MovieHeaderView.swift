@@ -6,7 +6,7 @@ class MovieHeaderView: UIView {
 
     let spacing = 5
     let buttonSize = CGSize(width: 32, height: 32)
-    
+
     var backgroundPosterView: UIImageView!
     var gradientView: UIView!
     var ratingView: CircularRatingView!

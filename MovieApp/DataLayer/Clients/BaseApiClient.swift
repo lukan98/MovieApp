@@ -69,9 +69,7 @@ class BaseApiClient {
         _ request: URLRequest,
         completionHandler: @escaping (Result<T, RequestError>) -> Void
     ) {
-            URLSession.shared.dataTask(with: request) {
-                (data, response, error) -> Void in
-
+            URLSession.shared.dataTask(with: request) { (data, response, error) -> Void in
                 guard error == nil else {
                     completionHandler(.failure(.clientError))
                     return
