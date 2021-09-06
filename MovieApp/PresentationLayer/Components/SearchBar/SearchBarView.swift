@@ -7,8 +7,6 @@ class SearchBarView: UIView {
     static let defaultSpacing: CGFloat = 20
     static let fontSize: CGFloat = 16
 
-    var disposables = Set<AnyCancellable>()
-
     var stackView: UIStackView!
     var searchField: BaseSearchTextField!
     var cancelButton: UIButton!
@@ -19,6 +17,8 @@ class SearchBarView: UIView {
     }
 
     private let cancelButtonTapSubject = PassthroughSubject<Void, Never>()
+
+    private var disposables = Set<AnyCancellable>()
 
     init() {
         super.init(frame: .zero)
@@ -58,19 +58,17 @@ class SearchBarView: UIView {
         searchField
             .rxText
             .sink { [weak self] query in
-                if query.count != 0 {
-                    self?.searchField.rightView?.isHidden = false
-                } else {
-                    self?.searchField.rightView?.isHidden = true
-                }
+                self?.searchField.rightView?.isHidden =  query.count == 0
             }
             .store(in: &disposables)
 
         searchField.rightView?
             .throttledTapGesture()
             .sink { [weak self] _ in
-                self?.searchField.text = nil
-                self?.searchField.rightView?.isHidden = true
+                guard let self = self else { return }
+
+                self.searchField.text = nil
+                self.searchField.rightView?.isHidden = true
             }
             .store(in: &disposables)
     }
