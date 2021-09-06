@@ -20,7 +20,7 @@ extension DetailedMovieDataSourceModel {
         id = model.id
         about = model.about
         name = model.name
-        posterSource = model.posterSource
+        posterSource = model.posterSource ?? ""
         genres = model.genres.map { GenreDataSourceModel(from: $0) }
         voteAverage = model.voteAverage
         runtime = model.runtime

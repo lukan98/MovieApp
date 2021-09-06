@@ -106,13 +106,11 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
-    func getMovieSearchResults(
-        with query: String,
-        _ completionHandler: @escaping (Result<[MovieRepositoryModel], RequestError>) -> Void
-    ) {
-        networkDataSource.fetchMovieSearchResults(with: query) { result in
-            completionHandler(result.map { $0.map { MovieRepositoryModel(from: $0) } })
-        }
+    func searchResults(for query: String) -> AnyPublisher<[MovieRepositoryModel], Error> {
+        networkDataSource
+            .searchResults(for: query)
+            .map { $0.map { MovieRepositoryModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
 }

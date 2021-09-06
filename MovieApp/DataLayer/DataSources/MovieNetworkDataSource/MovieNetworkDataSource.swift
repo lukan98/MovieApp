@@ -58,13 +58,11 @@ class MovieNetworkDataSource: MovieNetworkDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func fetchMovieSearchResults(
-        with query: String,
-        _ completionHandler: @escaping (Result<[MovieDataSourceModel], RequestError>) -> Void
-    ) {
-        movieClient.fetchMovieSearchResults(with: query) { result in
-            completionHandler(result.map { $0.movies.map { MovieDataSourceModel(from: $0) } })
-        }
+    func searchResults(for query: String) -> AnyPublisher<[MovieDataSourceModel], Error> {
+        movieClient
+            .searchResults(for: query)
+            .map { $0.movies.map { MovieDataSourceModel(from: $0) } }
+            .eraseToAnyPublisher()
     }
 
 }

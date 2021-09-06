@@ -79,6 +79,7 @@ extension FavoritesViewController: UICollectionViewDataSource {
 
         let movie = movies[indexPath.row]
         cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
+
         cell.favoritedToggle
             .sink(
                 receiveCompletion: { _ in },
@@ -87,16 +88,14 @@ extension FavoritesViewController: UICollectionViewDataSource {
                 })
             .store(in: &cell.disposables)
 
+        cell
+            .throttledTapGesture()
+            .sink { [weak self] _ in
+                self?.router.showMovieDetails(for: movie.id)
+            }
+            .store(in: &cell.disposables)
+
         return cell
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        guard let movie = movies.at(indexPath.row) else { return }
-
-        router.showMovieDetails(for: movie.id)
     }
 
 }

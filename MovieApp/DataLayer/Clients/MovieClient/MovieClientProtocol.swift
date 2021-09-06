@@ -15,8 +15,6 @@ protocol MovieClientProtocol {
 
     func recommendations(basedOn movieId: Int) -> AnyPublisher<MovieRecommendationListClientModel, Error>
 
-    func fetchMovieSearchResults(
-        with query: String,
-        _ completionHandler: @escaping (Result<MovieListClientModel, RequestError>) -> Void
-    )
+    func searchResults(for query: String) -> AnyPublisher<MovieListClientModel, Error>
+    
 }
