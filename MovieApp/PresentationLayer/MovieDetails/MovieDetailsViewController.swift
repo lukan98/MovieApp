@@ -26,6 +26,7 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
     var reviewsViewController: ReviewsViewController!
     var recommendationLabel: UILabel!
     var recommendationCollection: UICollectionView!
+    var noRecommendationsLabel: UILabel!
 
     private let movieId: Int
     private let presenter: MovieDetailsPresenter
@@ -38,6 +39,7 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
         self.presenter = presenter
         self.router = router
         self.movieId = movieId
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -166,8 +168,18 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
     }
 
     private func setRecommendationData(for recommendations: [MovieRecommendationViewModel]) {
-        self.recommendations = recommendations
-        recommendationCollection.reloadData()
+        if recommendations.count == 0 {
+            showRecommendationsError(message: "No recommendations available based on this title")
+        } else {
+            self.recommendations = recommendations
+            recommendationCollection.reloadData()
+        }
+    }
+
+    private func showRecommendationsError(message: String) {
+        recommendationCollection.isHidden = true
+        noRecommendationsLabel.text = message
+        noRecommendationsLabel.isHidden = false
     }
 
     private func setInitialData() {
