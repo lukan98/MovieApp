@@ -112,7 +112,7 @@ class HomeScreenViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
-                    self?.popularMoviesCollectionView.setData(movieViewModels, animated: false)
+                    self?.popularMoviesCollectionView.setData(movieViewModels)
                 })
             .store(in: &disposables)
 
@@ -125,7 +125,7 @@ class HomeScreenViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
-                    self?.topRatedMoviesCollectionView.setData(movieViewModels, animated: false)
+                    self?.topRatedMoviesCollectionView.setData(movieViewModels)
                 })
             .store(in: &disposables)
 
@@ -145,7 +145,7 @@ class HomeScreenViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
-                    self?.trendingMoviesCollectionView.setData(movieViewModels, animated: false)
+                    self?.trendingMoviesCollectionView.setData(movieViewModels)
                 })
             .store(in: &disposables)
 

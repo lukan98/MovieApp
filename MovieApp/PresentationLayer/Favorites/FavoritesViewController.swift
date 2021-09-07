@@ -48,6 +48,17 @@ class FavoritesViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
     }
 
+    func makeCollectionView() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(MoviePosterCell.self, forCellWithReuseIdentifier: MoviePosterCell.cellIdentifier)
+        collectionView.delegate = self
+
+        return collectionView
+    }
+
     private func bindViews() {
         presenter.favoriteMovies
             .sink(
@@ -63,18 +74,7 @@ class FavoritesViewController: UIViewController {
             .store(in: &disposables)
     }
 
-    func makeCollectionView() -> UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(MoviePosterCell.self, forCellWithReuseIdentifier: MoviePosterCell.cellIdentifier)
-        collectionView.delegate = self
-
-        return collectionView
-    }
-
-    func makeDataSource() -> DataSource {
+    private func makeDataSource() -> DataSource {
         DataSource(collectionView: movieCollectionView) { (collection, indexPath, movie)
             -> UICollectionViewCell? in
             guard
