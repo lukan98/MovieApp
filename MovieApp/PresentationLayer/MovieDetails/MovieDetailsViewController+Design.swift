@@ -214,28 +214,4 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
         label.textColor = .darkBlue
     }
 
-    private func makeCastCollectionView() -> UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(CastMemberCell.self, forCellWithReuseIdentifier: CastMemberCell.cellIdentifier)
-
-        return collectionView
-    }
-
-    private func makeRecommendationCollectionView() -> UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(MovieBackdropCell.self, forCellWithReuseIdentifier: MovieBackdropCell.cellIdentifier)
-
-        return collectionView
-    }
-
 }

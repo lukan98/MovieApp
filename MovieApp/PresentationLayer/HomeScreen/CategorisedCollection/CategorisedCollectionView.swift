@@ -111,6 +111,12 @@ class CategorisedCollectionView: UIView {
                     })
                 .store(in: &cell.disposables)
 
+            cell.tapGesture()
+                .sink { [weak self] _ in
+                    self?.movieSelectedSubject.send(movieViewModel.id)
+                }
+                .store(in: &cell.disposables)
+
             return cell
         }
     }

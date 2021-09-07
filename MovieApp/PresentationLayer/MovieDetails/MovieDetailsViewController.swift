@@ -3,12 +3,18 @@ import Combine
 
 class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    enum Section {
+        case main
+    }
+
+    typealias CastMemberDataSource = UICollectionViewDiffableDataSource<Section, CastMemberViewModel>
+    typealias RecommendationDataSource = UICollectionViewDiffableDataSource<Section, MovieRecommendationViewModel>
+    typealias CastMemberSnapshot = NSDiffableDataSourceSnapshot<Section, CastMemberViewModel>
+    typealias RecommendationSnapshot = NSDiffableDataSourceSnapshot<Section, MovieRecommendationViewModel>
+
     let spacing: CGFloat = 5
     let noOfCrewRows = 3
     let noOfCrewColumns = 3
-
-    var castMembers: [CastMemberViewModel] = []
-    var recommendations: [MovieRecommendationViewModel] = []
 
     var scrollView: UIScrollView!
     var contentView: UIView!
@@ -35,6 +41,9 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
 
     private weak var router: MovieDetailsRouterProtocol?
 
+    private lazy var castMemberDataSource = makeCastMemberDataSource()
+    private lazy var recommendationDataSource = makeRecommendationDataSource()
+
     init(presenter: MovieDetailsPresenter, router: MovieDetailsRouterProtocol, for movieId: Int) {
         self.presenter = presenter
         self.router = router
@@ -60,6 +69,28 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.barStyle = .black
+    }
+
+    func makeCastCollectionView() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.register(CastMemberCell.self, forCellWithReuseIdentifier: CastMemberCell.cellIdentifier)
+
+        return collectionView
+    }
+
+    func makeRecommendationCollectionView() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.register(MovieBackdropCell.self, forCellWithReuseIdentifier: MovieBackdropCell.cellIdentifier)
+
+        return collectionView
     }
 
     private func bindViews() {
@@ -117,8 +148,11 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
     private func setCreditsData(for credits: CreditsViewModel) {
         setCrewGridData(for: credits.crew)
         hideEmptyCrewLabels()
-        castMembers = credits.cast
-        topBilledCastCollection.reloadData()
+
+        var snapshot = CastMemberSnapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(credits.cast)
+        castMemberDataSource.apply(snapshot)
     }
 
     private func setCrewGridData(for crew: [CrewMemberViewModel]) {
@@ -171,8 +205,10 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
         if recommendations.count == 0 {
             showRecommendationsError(message: "No recommendations available based on this title")
         } else {
-            self.recommendations = recommendations
-            recommendationCollection.reloadData()
+            var snapshot = RecommendationSnapshot()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(recommendations)
+            recommendationDataSource.apply(snapshot)
         }
     }
 
@@ -203,79 +239,46 @@ class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate 
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
-}
+    private func makeCastMemberDataSource() -> CastMemberDataSource {
+        CastMemberDataSource(collectionView: topBilledCastCollection) { (collectionView, indexPath, castMember)
+            -> UICollectionViewCell? in
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CastMemberCell.cellIdentifier,
+                    for: indexPath) as? CastMemberCell
+            else {
+                return UICollectionViewCell()
+            }
 
-// MARK: UICollectionViewDataSource
-extension MovieDetailsViewController: UICollectionViewDataSource {
+            cell.setData(for: castMember)
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        switch collectionView {
-        case topBilledCastCollection:
-            return castMembers.count
-        case recommendationCollection:
-            return recommendations.count
-        default:
-            return .zero
+            return cell
         }
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        guard collectionView == recommendationCollection,
-              let movie = recommendations.at(indexPath.row)
-        else {
-            return
-        }
+    private func makeRecommendationDataSource() -> RecommendationDataSource {
+        RecommendationDataSource(collectionView: recommendationCollection) { (collectionView, indexPath, recommendation)
+        -> UICollectionViewCell in
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: MovieBackdropCell.cellIdentifier,
+                    for: indexPath) as? MovieBackdropCell
+            else {
+                return UICollectionViewCell()
+            }
 
-        router?.showMovieDetails(for: movie.id)
-    }
+            cell.setData(for: recommendation)
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        switch collectionView {
-        case topBilledCastCollection:
-            return topBilledCastCollection(cellForItemAt: indexPath)
-        case recommendationCollection:
-            return recommendationCollection(cellForItemAt: indexPath)
-        default:
-            return UICollectionViewCell()
+            cell.tapGesture()
+                .sink { [weak self] _ in
+                    self?.router?.showMovieDetails(for: recommendation.id)
+                }
+                .store(in: &cell.disposables)
+
+            return cell
         }
     }
 
-    private func topBilledCastCollection(cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = topBilledCastCollection.dequeueReusableCell(
-                withReuseIdentifier: CastMemberCell.cellIdentifier,
-                for: indexPath) as? CastMemberCell,
-            let castMember = castMembers.at(indexPath.item)
-        else {
-            return CastMemberCell()
-        }
-
-        cell.setData(for: castMember)
-        return cell
-    }
-
-    private func recommendationCollection(cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard
-            let cell = recommendationCollection.dequeueReusableCell(
-                withReuseIdentifier: MovieBackdropCell.cellIdentifier,
-                for: indexPath) as? MovieBackdropCell,
-            let recommendation = recommendations.at(indexPath.item)
-        else {
-            return MovieBackdropCell()
-        }
-
-        cell.setData(for: recommendation)
-        return cell
-    }
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
