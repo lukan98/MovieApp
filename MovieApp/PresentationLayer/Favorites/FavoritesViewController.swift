@@ -3,12 +3,12 @@ import Combine
 
 class FavoritesViewController: UIViewController {
 
-    enum Section {
+    private enum Section {
         case main
     }
 
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, DetailedMovieViewModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, DetailedMovieViewModel>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, DetailedMovieViewModel>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, DetailedMovieViewModel>
 
     let spacing: CGFloat = 20
 

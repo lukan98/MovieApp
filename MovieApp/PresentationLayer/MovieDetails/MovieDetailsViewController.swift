@@ -3,14 +3,15 @@ import Combine
 
 class MovieDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
 
-    enum Section {
+    private enum Section {
         case main
     }
 
-    typealias CastMemberDataSource = UICollectionViewDiffableDataSource<Section, CastMemberViewModel>
-    typealias RecommendationDataSource = UICollectionViewDiffableDataSource<Section, MovieRecommendationViewModel>
-    typealias CastMemberSnapshot = NSDiffableDataSourceSnapshot<Section, CastMemberViewModel>
-    typealias RecommendationSnapshot = NSDiffableDataSourceSnapshot<Section, MovieRecommendationViewModel>
+    private typealias CastMemberDataSource = UICollectionViewDiffableDataSource<Section, CastMemberViewModel>
+    private typealias RecommendationDataSource = UICollectionViewDiffableDataSource<Section,
+                                                                                    MovieRecommendationViewModel>
+    private typealias CastMemberSnapshot = NSDiffableDataSourceSnapshot<Section, CastMemberViewModel>
+    private typealias RecommendationSnapshot = NSDiffableDataSourceSnapshot<Section, MovieRecommendationViewModel>
 
     let spacing: CGFloat = 5
     let noOfCrewRows = 3

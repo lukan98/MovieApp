@@ -3,12 +3,12 @@ import Combine
 
 class CategorisedCollectionView: UIView {
 
-    enum Section {
+    private enum Section {
         case main
     }
 
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, MovieViewModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MovieViewModel>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MovieViewModel>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MovieViewModel>
 
     let defaultInset: CGFloat = 20
     let defaultSpacing: CGFloat = 10
