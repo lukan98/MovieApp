@@ -111,6 +111,7 @@
 		FC86A76626D934790099498B /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC86A76526D934790099498B /* UITextField+Combine.swift */; };
 		FC9849DB26E8BC3F0067C740 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FC9849DA26E8BC3F0067C740 /* Realm */; };
 		FC9849DD26E8BC3F0067C740 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FC9849DC26E8BC3F0067C740 /* RealmSwift */; };
+		FC9849DF26E8BE040067C740 /* MovieLocalRepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9849DE26E8BE040067C740 /* MovieLocalRepositoryModel.swift */; };
 		FCB63A37269F0C0500E049A2 /* MovieInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A36269F0C0500E049A2 /* MovieInfoCell.swift */; };
 		FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A38269F0DB300E049A2 /* MovieInfoCell+Design.swift */; };
 		FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A3D269F375A00E049A2 /* MovieViewModel.swift */; };
@@ -262,6 +263,7 @@
 		FC70194426C6B6CC00B01C73 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		FC70194626C6B75F00B01C73 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		FC86A76526D934790099498B /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
+		FC9849DE26E8BE040067C740 /* MovieLocalRepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLocalRepositoryModel.swift; sourceTree = "<group>"; };
 		FCB63A36269F0C0500E049A2 /* MovieInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoCell.swift; sourceTree = "<group>"; };
 		FCB63A38269F0DB300E049A2 /* MovieInfoCell+Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieInfoCell+Design.swift"; sourceTree = "<group>"; };
 		FCB63A3D269F375A00E049A2 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 				FC23B1D726BAD4A5000C603E /* CrewMemberRepositoryModel.swift */,
 				FC6FE60026B833C1003B29B1 /* DetailedMovieRepositoryModel.swift */,
 				FCE5E52626AB09B90015ED14 /* GenreRepositoryModel.swift */,
+				FC9849DE26E8BE040067C740 /* MovieLocalRepositoryModel.swift */,
 				FC70193D26C6A53D00B01C73 /* MovieRecommendationRepositoryModel.swift */,
 				FCB63A8026A577B200E049A2 /* MovieRepositoryModel.swift */,
 				FC70193026C67FAB00B01C73 /* ReviewRepositoryModel.swift */,
@@ -1012,6 +1015,7 @@
 				FC70192726C6670100B01C73 /* ReviewListClientModel.swift in Sources */,
 				FC70192126C54DF400B01C73 /* ReviewsViewController.swift in Sources */,
 				FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */,
+				FC9849DF26E8BE040067C740 /* MovieLocalRepositoryModel.swift in Sources */,
 				FC23B1CE26BACF54000C603E /* CastMemberClientModel.swift in Sources */,
 				FC6FE61E26BA8D84003B29B1 /* TimeComponentsViewModel.swift in Sources */,
 				FC2774A426AE9FA600E157EC /* GenreViewModel.swift in Sources */,
