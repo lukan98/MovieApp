@@ -109,6 +109,8 @@
 		FC70194526C6B6CC00B01C73 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC70194426C6B6CC00B01C73 /* MainRouter.swift */; };
 		FC70194726C6B75F00B01C73 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC70194626C6B75F00B01C73 /* RouterProtocol.swift */; };
 		FC86A76626D934790099498B /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC86A76526D934790099498B /* UITextField+Combine.swift */; };
+		FC9849DB26E8BC3F0067C740 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FC9849DA26E8BC3F0067C740 /* Realm */; };
+		FC9849DD26E8BC3F0067C740 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FC9849DC26E8BC3F0067C740 /* RealmSwift */; };
 		FCB63A37269F0C0500E049A2 /* MovieInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A36269F0C0500E049A2 /* MovieInfoCell.swift */; };
 		FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A38269F0DB300E049A2 /* MovieInfoCell+Design.swift */; };
 		FCB63A3E269F375A00E049A2 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB63A3D269F375A00E049A2 /* MovieViewModel.swift */; };
@@ -313,6 +315,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC9849DD26E8BC3F0067C740 /* RealmSwift in Frameworks */,
+				FC9849DB26E8BC3F0067C740 /* Realm in Frameworks */,
 				FC592E48269DAAA800233EFB /* Kingfisher in Frameworks */,
 				FC592E45269DAA4300233EFB /* SnapKit in Frameworks */,
 			);
@@ -904,6 +908,8 @@
 			packageProductDependencies = (
 				FC592E44269DAA4300233EFB /* SnapKit */,
 				FC592E47269DAAA800233EFB /* Kingfisher */,
+				FC9849DA26E8BC3F0067C740 /* Realm */,
+				FC9849DC26E8BC3F0067C740 /* RealmSwift */,
 			);
 			productName = MovieApp;
 			productReference = FC592E2C269D897C00233EFB /* MovieApp.app */;
@@ -936,6 +942,7 @@
 				FC592E43269DAA4300233EFB /* XCRemoteSwiftPackageReference "SnapKit" */,
 				FC592E46269DAAA800233EFB /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				FCB496EB26DE7FD100546095 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				FC9849D926E8BC3F0067C740 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = FC592E2D269D897C00233EFB /* Products */;
 			projectDirPath = "";
@@ -1339,6 +1346,14 @@
 				minimumVersion = 6.3.0;
 			};
 		};
+		FC9849D926E8BC3F0067C740 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.14.0;
+			};
+		};
 		FCB496EB26DE7FD100546095 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint.git";
@@ -1359,6 +1374,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FC592E46269DAAA800233EFB /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		FC9849DA26E8BC3F0067C740 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC9849D926E8BC3F0067C740 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		FC9849DC26E8BC3F0067C740 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC9849D926E8BC3F0067C740 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
