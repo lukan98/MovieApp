@@ -62,7 +62,6 @@ extension CategorisedCollectionView: ConstructViewsProtocol {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.register(MoviePosterCell.self, forCellWithReuseIdentifier: MoviePosterCell.cellIdentifier)
-        collectionView.dataSource = self
         collectionView.delegate = self
 
         return collectionView

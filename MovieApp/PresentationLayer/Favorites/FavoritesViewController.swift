@@ -3,6 +3,13 @@ import Combine
 
 class FavoritesViewController: UIViewController {
 
+    private enum Section {
+        case main
+    }
+
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, DetailedMovieViewModel>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, DetailedMovieViewModel>
+
     let spacing: CGFloat = 20
 
     var favoritesLabel: UILabel!
@@ -13,8 +20,9 @@ class FavoritesViewController: UIViewController {
     private let presenter: FavoritesPresenter
     private let router: MovieDetailsRouterProtocol
 
-    private var movies: [DetailedMovieViewModel] = []
     private var disposables = Set<AnyCancellable>()
+
+    private lazy var dataSource = makeDataSource()
 
     init(presenter: FavoritesPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -40,66 +48,67 @@ class FavoritesViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
     }
 
+    func makeCollectionView() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(MoviePosterCell.self, forCellWithReuseIdentifier: MoviePosterCell.cellIdentifier)
+        collectionView.delegate = self
+
+        return collectionView
+    }
+
     private func bindViews() {
         presenter.favoriteMovies
             .sink(
                 receiveCompletion: { _ in },
-                receiveValue: { [weak self] value in
+                receiveValue: { [weak self] movieViewModels in
                     guard let self = self else { return }
 
-                    self.movies = value
-                    self.movieCollectionView.reloadData()
+                    var snapshot = Snapshot()
+                    snapshot.appendSections([.main])
+                    snapshot.appendItems(movieViewModels)
+                    self.dataSource.apply(snapshot, animatingDifferences: true)
                 })
             .store(in: &disposables)
     }
 
-}
+    private func makeDataSource() -> DataSource {
+        DataSource(collectionView: movieCollectionView) { (collection, indexPath, movie)
+            -> UICollectionViewCell? in
+            guard
+                let cell = collection.dequeueReusableCell(
+                    withReuseIdentifier: MoviePosterCell.cellIdentifier,
+                    for: indexPath) as? MoviePosterCell
+            else {
+                return UICollectionViewCell()
+            }
 
-extension FavoritesViewController: UICollectionViewDataSource {
+            cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        movies.count
-    }
+            cell.favoritedToggle
+                .sink(
+                    receiveCompletion: { _ in },
+                    receiveValue: { [weak self] movieId in
+                        self?.presenter.toggleFavorited(for: movieId)
+                    })
+                .store(in: &cell.disposables)
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard
-            let cell = movieCollectionView.dequeueReusableCell(
-                withReuseIdentifier: MoviePosterCell.cellIdentifier,
-                for: indexPath) as? MoviePosterCell
-        else {
-            let cell = MoviePosterCell()
+            cell
+                .throttledTapGesture()
+                .sink { [weak self] _ in
+                    self?.router.showMovieDetails(for: movie.id)
+                }
+                .store(in: &cell.disposables)
+
             return cell
         }
-
-        let movie = movies[indexPath.row]
-        cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
-
-        cell.favoritedToggle
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] movieId in
-                    self?.presenter.toggleFavorited(for: movieId)
-                })
-            .store(in: &cell.disposables)
-
-        cell
-            .throttledTapGesture()
-            .sink { [weak self] _ in
-                self?.router.showMovieDetails(for: movie.id)
-            }
-            .store(in: &cell.disposables)
-
-        return cell
     }
 
 }
 
+// MARK: UICollectionViewDelegateFlowLayout
 extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(

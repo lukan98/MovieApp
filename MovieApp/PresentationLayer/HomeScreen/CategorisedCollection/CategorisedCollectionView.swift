@@ -3,6 +3,13 @@ import Combine
 
 class CategorisedCollectionView: UIView {
 
+    private enum Section {
+        case main
+    }
+
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, MovieViewModel>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MovieViewModel>
+
     let defaultInset: CGFloat = 20
     let defaultSpacing: CGFloat = 10
 
@@ -34,8 +41,9 @@ class CategorisedCollectionView: UIView {
     private let currentlySelectedCategorySubject = CurrentValueSubject<OptionViewModel?, Never>(nil)
 
     private var categories: [OptionViewModel] = []
-    private var movies: [MovieViewModel] = []
     private var disposables = Set<AnyCancellable>()
+
+    private lazy var dataSource = makeDataSource()
 
     init() {
         super.init(frame: .zero)
@@ -60,13 +68,11 @@ class CategorisedCollectionView: UIView {
         categoriesView.setData(optionTitles: options.map { $0.name })
     }
 
-    func setData(_ data: [MovieViewModel], animated: Bool) {
-        self.movies = data
-        if animated {
-            animatedDataReload()
-        } else {
-            movieCollectionView.reloadData()
-        }
+    func setData(_ data: [MovieViewModel]) {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(data)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 
     private func bindViews() {
@@ -81,50 +87,38 @@ class CategorisedCollectionView: UIView {
             .store(in: &disposables)
     }
 
-}
+    private func makeDataSource() -> DataSource {
+        DataSource(collectionView: movieCollectionView) { (collectionView, indexPath, movieViewModel)
+            -> UICollectionViewCell? in
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: MoviePosterCell.cellIdentifier,
+                    for: indexPath) as? MoviePosterCell
+            else {
+                return UICollectionViewCell()
+            }
 
-// MARK: UICollectionViewDataSource
-extension CategorisedCollectionView: UICollectionViewDataSource {
+            cell.setData(
+                id: movieViewModel.id,
+                isFavorited: movieViewModel.isFavorited,
+                posterSource: movieViewModel.posterSource)
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        movies.count
-    }
+            cell.favoritedToggle
+                .sink(
+                    receiveCompletion: { _ in },
+                    receiveValue: { [weak self] movieId in
+                        self?.movieFavoritedSubject.send(movieId)
+                    })
+                .store(in: &cell.disposables)
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard
-            let cell = movieCollectionView.dequeueReusableCell(
-                withReuseIdentifier: MoviePosterCell.cellIdentifier,
-                for: indexPath) as? MoviePosterCell,
-            let movie = movies.at(indexPath.row)
-        else {
-            return UICollectionViewCell()
+            cell.tapGesture()
+                .sink { [weak self] _ in
+                    self?.movieSelectedSubject.send(movieViewModel.id)
+                }
+                .store(in: &cell.disposables)
+
+            return cell
         }
-
-        cell.setData(id: movie.id, isFavorited: movie.isFavorited, posterSource: movie.posterSource)
-        cell.favoritedToggle
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] movieId in
-                    self?.movieFavoritedSubject.send(movieId)
-                })
-            .store(in: &cell.disposables)
-
-        return cell
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        guard let movie = movies.at(indexPath.row) else { return }
-
-        movieSelectedSubject.send(movie.id)
     }
 
 }

@@ -28,14 +28,6 @@ class MovieInfoCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setData(for movie: MovieViewModel) {
-        poster.kf.setImage(with: URL(string: movie.posterSource))
-
-        nameLabel.text = movie.name
-
-        aboutLabel.text = movie.about
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -50,6 +42,14 @@ class MovieInfoCell: UICollectionViewCell {
         super.prepareForReuse()
 
         disposables = []
+    }
+
+    func setData(for movie: MovieViewModel) {
+        poster.kf.setImage(with: URL(string: movie.posterSource))
+
+        nameLabel.text = movie.name
+
+        aboutLabel.text = movie.about
     }
 
 }

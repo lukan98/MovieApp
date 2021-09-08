@@ -72,6 +72,10 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         recommendationCollection = makeRecommendationCollectionView()
         contentView.addSubview(recommendationCollection)
+
+        noRecommendationsLabel = UILabel()
+        contentView.addSubview(noRecommendationsLabel)
+        noRecommendationsLabel.isHidden = true
     }
 
     func styleViews() {
@@ -111,6 +115,10 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
 
         recommendationCollection.backgroundColor = .white
         recommendationCollection.showsHorizontalScrollIndicator = false
+
+        noRecommendationsLabel.font = ProximaNova.medium.of(size: 12)
+        noRecommendationsLabel.textColor = .gray3
+        noRecommendationsLabel.textAlignment = .center
     }
 
     func defineLayoutForViews() {
@@ -193,35 +201,17 @@ extension MovieDetailsViewController: ConstructViewsProtocol {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(140)
         }
+
+        noRecommendationsLabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(recommendationLabel.snp.bottom).offset(2 * spacing)
+            $0.bottom.equalToSuperview().inset(2 * spacing)
+        }
     }
 
     private func styleHeadingLabel(_ label: UILabel) {
         label.font = ProximaNova.bold.of(size: 20)
         label.textColor = .darkBlue
-    }
-
-    private func makeCastCollectionView() -> UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(CastMemberCell.self, forCellWithReuseIdentifier: CastMemberCell.cellIdentifier)
-
-        return collectionView
-    }
-
-    private func makeRecommendationCollectionView() -> UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(MovieBackdropCell.self, forCellWithReuseIdentifier: MovieBackdropCell.cellIdentifier)
-
-        return collectionView
     }
 
 }

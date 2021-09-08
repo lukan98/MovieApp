@@ -1,9 +1,12 @@
 import UIKit
 import Kingfisher
+import Combine
 
 class MovieBackdropCell: UICollectionViewCell {
 
     static let cellIdentifier = String(describing: MovieBackdropCell.self)
+
+    var disposables = Set<AnyCancellable>()
 
     var backdropImageView: UIImageView!
     var titleLabel: UILabel!
@@ -16,6 +19,12 @@ class MovieBackdropCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForReuse() {
+        self.prepareForReuse()
+
+        disposables = []
     }
 
     func setData(for movie: MovieRecommendationViewModel) {

@@ -3,6 +3,13 @@ import Combine
 
 class HomeScreenViewController: UIViewController {
 
+    enum Section {
+        case main
+    }
+
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, MovieViewModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, MovieViewModel>
+
     var searchBarView: SearchBarView!
     var searchedMoviesCollectionView: UICollectionView!
     var scrollView: UIScrollView!
@@ -17,8 +24,9 @@ class HomeScreenViewController: UIViewController {
     private let presenter: HomeScreenPresenter
     private let router: MovieDetailsRouterProtocol
 
-    private var searchedMovies: [MovieViewModel] = []
     private var disposables = Set<AnyCancellable>()
+
+    private lazy var dataSource = makeDataSource()
 
     init(presenter: HomeScreenPresenter, router: MovieDetailsRouterProtocol) {
         self.presenter = presenter
@@ -37,6 +45,17 @@ class HomeScreenViewController: UIViewController {
         buildViews()
         bindViews()
         setTrendingOptions()
+    }
+
+    func makeCollectionView() -> UICollectionView {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.register(MovieInfoCell.self, forCellWithReuseIdentifier: MovieInfoCell.cellIdentifier)
+
+        return collectionView
     }
 
     private func setTrendingOptions() {
@@ -112,7 +131,7 @@ class HomeScreenViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
-                    self?.popularMoviesCollectionView.setData(movieViewModels, animated: false)
+                    self?.popularMoviesCollectionView.setData(movieViewModels)
                 })
             .store(in: &disposables)
 
@@ -125,7 +144,7 @@ class HomeScreenViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
-                    self?.topRatedMoviesCollectionView.setData(movieViewModels, animated: false)
+                    self?.topRatedMoviesCollectionView.setData(movieViewModels)
                 })
             .store(in: &disposables)
 
@@ -145,7 +164,7 @@ class HomeScreenViewController: UIViewController {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] movieViewModels in
-                    self?.trendingMoviesCollectionView.setData(movieViewModels, animated: false)
+                    self?.trendingMoviesCollectionView.setData(movieViewModels)
                 })
             .store(in: &disposables)
 
@@ -179,51 +198,44 @@ class HomeScreenViewController: UIViewController {
 
     private func searchDidEnd() {
         searchedMoviesCollectionView.isHidden = true
-        searchedMovies = []
-        searchedMoviesCollectionView.reloadData()
+
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems([])
+        dataSource.apply(snapshot, animatingDifferences: false)
+
         scrollView.isHidden = false
     }
 
     private func searchDidUpdate(with movies: [MovieViewModel]) {
-        searchedMovies = movies
-        searchedMoviesCollectionView.reloadData()
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(movies)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 
-}
-
-// MARK: CollectionViewDataSource
-extension HomeScreenViewController: UICollectionViewDataSource {
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        searchedMovies.count
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard
-            let cell = searchedMoviesCollectionView.dequeueReusableCell(
-                withReuseIdentifier: MovieInfoCell.cellIdentifier,
-                for: indexPath) as? MovieInfoCell,
-            let movie = searchedMovies.at(indexPath.row)
-        else {
-            return MovieInfoCell()
-        }
-
-        cell.setData(for: movie)
-
-        cell
-            .throttledTapGesture()
-            .sink { [weak self] _ in
-                self?.router.showMovieDetails(for: movie.id)
+    private func makeDataSource() -> DataSource {
+        DataSource(collectionView: searchedMoviesCollectionView) { (collectionView, indexPath, movie)
+            -> UICollectionViewCell? in
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: MovieInfoCell.cellIdentifier,
+                    for: indexPath) as? MovieInfoCell
+            else {
+                return UICollectionViewCell()
             }
-            .store(in: &cell.disposables)
 
-        return cell
+            cell.setData(for: movie)
+
+            cell
+                .throttledTapGesture()
+                .sink { [weak self] _ in
+                    self?.router.showMovieDetails(for: movie.id)
+                }
+                .store(in: &cell.disposables)
+
+            return cell
+        }
     }
 
 }

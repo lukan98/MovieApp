@@ -22,3 +22,16 @@ extension MovieViewModel {
     }
 
 }
+
+// MARK: Hashable
+extension MovieViewModel: Hashable {
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: MovieViewModel, rhs: MovieViewModel) -> Bool {
+        lhs.id == rhs.id && lhs.isFavorited == rhs.isFavorited
+    }
+
+}
