@@ -2,7 +2,6 @@ import RealmSwift
 
 class AppDependencies {
 
-    lazy var realm = try? Realm()
     lazy var baseApiClient = BaseApiClient(baseUrl: "https://api.themoviedb.org/3")
     lazy var movieClient: MovieClientProtocol = {
         MovieClient(baseApiClient: baseApiClient)

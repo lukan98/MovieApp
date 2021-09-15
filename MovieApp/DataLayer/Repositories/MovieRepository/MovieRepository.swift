@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import RealmSwift
 
 class MovieRepository: MovieRepositoryProtocol {
 
@@ -28,6 +29,9 @@ class MovieRepository: MovieRepositoryProtocol {
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.saveLocally(movies: movies, with: .popular)
+            })
             .eraseToAnyPublisher()
     }
 
@@ -38,6 +42,9 @@ class MovieRepository: MovieRepositoryProtocol {
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.saveLocally(movies: movies, with: .topRated)
+            })
             .eraseToAnyPublisher()
     }
 
@@ -68,6 +75,9 @@ class MovieRepository: MovieRepositoryProtocol {
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.saveLocally(movies: movies, with: CategoryRepositoryModel(from: timeWindow))
+            })
             .eraseToAnyPublisher()
     }
 
@@ -113,4 +123,30 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
+    private func saveLocally(movies: [MovieRepositoryModel], with category: CategoryRepositoryModel) {
+        guard let realm = try? Realm()
+        else {
+            print("Couldn't create realm")
+            return
+        }
+
+        do {
+            try realm.write {
+                movies.forEach { movie in
+                    if let localMovieModel = realm.object(
+                        ofType: MovieLocalRepositoryModel.self,
+                        forPrimaryKey: movie.id) {
+                        localMovieModel.categories.insert(category)
+                        realm.add(localMovieModel, update: .modified)
+                    } else {
+                        realm.add(
+                            MovieLocalRepositoryModel(from: movie, category: category),
+                            update: .modified)
+                    }
+                }
+            }
+        } catch {
+            print("An error ocurred while writing to the realm")
+        }
+    }
 }

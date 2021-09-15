@@ -33,6 +33,7 @@ class CategorisedCollectionView: UIView {
     }
     var movieFavorited: AnyPublisher<Int, Error> {
         movieFavoritedSubject
+            .receiveOnBackground()
             .eraseToAnyPublisher()
     }
 
