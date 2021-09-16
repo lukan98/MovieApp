@@ -1,6 +1,6 @@
 import RealmSwift
 
-enum CategoryRepositoryModel: Int, RealmCollectionValue, PersistableEnum {
+enum CategoryDataSourceModel: Int, RealmCollectionValue, PersistableEnum {
     case popular
     case topRated
     case trendingDaily
@@ -8,7 +8,7 @@ enum CategoryRepositoryModel: Int, RealmCollectionValue, PersistableEnum {
 }
 
 // MARK: Conversion from TimeWindowModel
-extension CategoryRepositoryModel {
+extension CategoryDataSourceModel {
 
     init(from model: TimeWindowRepositoryModel) {
         switch model {

@@ -15,12 +15,16 @@ class AppDependencies {
     lazy var movieNetworkDataSource: MovieNetworkDataSourceProtocol = {
         MovieNetworkDataSource(movieClient: movieClient)
     }()
+    lazy var movieLocalDataSource: MovieLocalDataSourceProtocol = {
+        MovieLocalDataSource()
+    }()
     lazy var movieUserDefaultsDataSource: MovieLocalMetadataSourceProtocol = {
         MovieUserDefaultsDataSource()
     }()
     lazy var movieRepository: MovieRepositoryProtocol = {
         MovieRepository(
             networkDataSource: movieNetworkDataSource,
+            localDataSource: movieLocalDataSource,
             localMetadataSource: movieUserDefaultsDataSource)
     }()
     lazy var genreRepository: GenreRepositoryProtocol = {

@@ -31,4 +31,12 @@ extension MovieRepositoryModel {
         self.isFavorited = isFavorited
     }
 
+    func toDataSourceModel() -> MovieDataSourceModel {
+        MovieDataSourceModel(id: id,
+                             about: about,
+                             name: name,
+                             posterSource: posterSource,
+                             genres: genres)
+    }
+
 }
