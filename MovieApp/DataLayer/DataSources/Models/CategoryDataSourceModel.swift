@@ -10,7 +10,7 @@ enum CategoryDataSourceModel: Int, RealmCollectionValue, PersistableEnum {
 // MARK: Conversion from TimeWindowModel
 extension CategoryDataSourceModel {
 
-    init(from model: TimeWindowRepositoryModel) {
+    init(from model: TimeWindowDataSourceModel) {
         switch model {
         case .day:
             self = .trendingDaily

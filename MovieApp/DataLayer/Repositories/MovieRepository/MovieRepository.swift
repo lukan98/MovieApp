@@ -31,8 +31,9 @@ class MovieRepository: MovieRepositoryProtocol {
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
             .handleEvents(receiveOutput: { [weak self] movies in
-                let movieDataSourceModels = movies.map { $0.toDataSourceModel() }
-                self?.localDataSource.save(movieDataSourceModels, with: .popular)
+                self?.localDataSource.save(
+                    movies.map { $0.toDataSourceModel() },
+                    with: .popular)
             })
             .eraseToAnyPublisher()
     }
@@ -45,8 +46,9 @@ class MovieRepository: MovieRepositoryProtocol {
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
             .handleEvents(receiveOutput: { [weak self] movies in
-                let movieDataSourceModels = movies.map { $0.toDataSourceModel() }
-                self?.localDataSource.save(movieDataSourceModels, with: .topRated)
+                self?.localDataSource.save(
+                    movies.map { $0.toDataSourceModel() },
+                    with: .topRated)
             })
             .eraseToAnyPublisher()
     }
@@ -81,10 +83,9 @@ class MovieRepository: MovieRepositoryProtocol {
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
             .handleEvents(receiveOutput: { [weak self] movies in
-                let movieDataSourceModels = movies.map { $0.toDataSourceModel() }
                 self?.localDataSource.save(
-                    movieDataSourceModels,
-                    with: CategoryDataSourceModel(from: timeWindow))
+                    movies.map { $0.toDataSourceModel() },
+                    with: CategoryDataSourceModel(from: timeWindow.toDataSourceModel()))
             })
             .eraseToAnyPublisher()
     }

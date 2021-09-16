@@ -7,12 +7,11 @@ class MovieLocalDataSourceModel: Object {
     @Persisted var about: String
     @Persisted var posterSource: String
     @Persisted var genres: MutableSet<Int>
-    @Persisted var isFavorited: Bool
     @Persisted var categories: MutableSet<CategoryDataSourceModel>
 
 }
 
-// MARK: Conversion from MovieRepositoryModel
+// MARK: Conversion from and to DataSourceModel
 extension MovieLocalDataSourceModel {
 
     convenience init(from model: MovieDataSourceModel, category: CategoryDataSourceModel) {
@@ -24,6 +23,15 @@ extension MovieLocalDataSourceModel {
         posterSource = model.posterSource
         model.genres.forEach { genres.insert($0) }
         categories.insert(category)
+    }
+
+    func toDataSourceModel() -> MovieDataSourceModel {
+        MovieDataSourceModel(
+            id: id,
+            about: about,
+            name: name,
+            posterSource: posterSource,
+            genres: genres.map { $0 })
     }
 
 }

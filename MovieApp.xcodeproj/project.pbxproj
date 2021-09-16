@@ -161,6 +161,7 @@
 		FCE85FA326F1E0C100B644B8 /* CategoryDataSourceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE85FA226F1E0C100B644B8 /* CategoryDataSourceModel.swift */; };
 		FCE85FA626F2373600B644B8 /* MovieLocalDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE85FA526F2373600B644B8 /* MovieLocalDataSourceProtocol.swift */; };
 		FCE85FA826F2374200B644B8 /* MovieLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE85FA726F2374200B644B8 /* MovieLocalDataSource.swift */; };
+		FCE85FAA26F3736A00B644B8 /* CategoryRepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE85FA926F3736A00B644B8 /* CategoryRepositoryModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -316,6 +317,7 @@
 		FCE85FA226F1E0C100B644B8 /* CategoryDataSourceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataSourceModel.swift; sourceTree = "<group>"; };
 		FCE85FA526F2373600B644B8 /* MovieLocalDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLocalDataSourceProtocol.swift; sourceTree = "<group>"; };
 		FCE85FA726F2374200B644B8 /* MovieLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLocalDataSource.swift; sourceTree = "<group>"; };
+		FCE85FA926F3736A00B644B8 /* CategoryRepositoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepositoryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -742,6 +744,7 @@
 				FCB63A8026A577B200E049A2 /* MovieRepositoryModel.swift */,
 				FC70193026C67FAB00B01C73 /* ReviewRepositoryModel.swift */,
 				FC2774C526B2927D00E157EC /* TimeWindowRepositoryModel.swift */,
+				FCE85FA926F3736A00B644B8 /* CategoryRepositoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1059,6 +1062,7 @@
 				FC23B1E026BAD6A3000C603E /* CastMemberViewModel.swift in Sources */,
 				FC23B1F526C3B7F2000C603E /* ReviewView.swift in Sources */,
 				FCB63A39269F0DB300E049A2 /* MovieInfoCell+Design.swift in Sources */,
+				FCE85FAA26F3736A00B644B8 /* CategoryRepositoryModel.swift in Sources */,
 				FC2774AC26B1477600E157EC /* GenreClientProtocol.swift in Sources */,
 				FCE5E52126AAEAE00015ED14 /* HomeScreenPresenter.swift in Sources */,
 				FCB63A8826A581B000E049A2 /* MovieModel.swift in Sources */,
