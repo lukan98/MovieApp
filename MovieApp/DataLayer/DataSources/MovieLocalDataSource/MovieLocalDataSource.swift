@@ -33,16 +33,6 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    init() {
-        movies
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { movies in
-                    movies.forEach { print("\($0.name), \($0.categories.count)") }
-                })
-            .store(in: &disposables)
-    }
-
     func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error> {
         movies
             .map { $0.filter { $0.categories.contains(CategoryDataSourceModel(from: timeWindow)) } }

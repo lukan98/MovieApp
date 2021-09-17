@@ -24,32 +24,23 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
+    private var disposables = Set<AnyCancellable>()
+
     private var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
         Publishers
-            .CombineLatest(networkDataSource.popularMovies, localMetadataSource.favorites)
+            .CombineLatest(localDataSource.popularMovies, localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
-            .handleEvents(receiveOutput: { [weak self] movies in
-                self?.localDataSource.save(
-                    movies.map { $0.toDataSourceModel() },
-                    with: .popular)
-            })
             .eraseToAnyPublisher()
     }
 
     private var topRatedMovies: AnyPublisher<[MovieRepositoryModel], Error> {
-        networkDataSource
-            .topRatedMovies
-            .combineLatest(localMetadataSource.favorites)
+        Publishers
+            .CombineLatest(localDataSource.topRatedMovies, localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
-            .handleEvents(receiveOutput: { [weak self] movies in
-                self?.localDataSource.save(
-                    movies.map { $0.toDataSourceModel() },
-                    with: .topRated)
-            })
             .eraseToAnyPublisher()
     }
 
@@ -61,6 +52,8 @@ class MovieRepository: MovieRepositoryProtocol {
         self.networkDataSource = networkDataSource
         self.localDataSource = localDataSource
         self.localMetadataSource = localMetadataSource
+
+        bindSources()
     }
 
     func popularMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error> {
@@ -76,17 +69,13 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     func trendingMovies(for timeWindow: TimeWindowRepositoryModel) -> AnyPublisher<[MovieRepositoryModel], Error> {
-        networkDataSource
-            .trendingMovies(for: timeWindow.toDataSourceModel())
-            .combineLatest(localMetadataSource.favorites)
+        Publishers
+            .CombineLatest(
+                localDataSource.trendingMovies(for: timeWindow.toDataSourceModel()),
+                localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
-            .handleEvents(receiveOutput: { [weak self] movies in
-                self?.localDataSource.save(
-                    movies.map { $0.toDataSourceModel() },
-                    with: CategoryDataSourceModel(from: timeWindow.toDataSourceModel()))
-            })
             .eraseToAnyPublisher()
     }
 
@@ -130,6 +119,44 @@ class MovieRepository: MovieRepositoryProtocol {
             .searchResults(for: query)
             .map { $0.map { MovieRepositoryModel(from: $0) } }
             .eraseToAnyPublisher()
+    }
+
+    private func bindSources() {
+        networkDataSource
+            .popularMovies
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movies in
+                    self?.localDataSource.save(movies, with: .popular)
+                })
+            .store(in: &disposables)
+
+        networkDataSource
+            .topRatedMovies
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movies in
+                    self?.localDataSource.save(movies, with: .topRated)
+                })
+            .store(in: &disposables)
+
+        networkDataSource
+            .trendingMovies(for: .day)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movies in
+                    self?.localDataSource.save(movies, with: .trendingDaily)
+                })
+            .store(in: &disposables)
+
+        networkDataSource
+            .trendingMovies(for: .week)
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] movies in
+                    self?.localDataSource.save(movies, with: .trendingWeekly)
+                })
+            .store(in: &disposables)
     }
 
 }
