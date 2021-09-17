@@ -34,7 +34,6 @@ class CategorisedCollectionView: UIView {
     var movieFavorited: AnyPublisher<Int, Error> {
         movieFavoritedSubject
             .receiveOnBackground()
-            .eraseToAnyPublisher()
     }
 
     private let movieSelectedSubject = PassthroughSubject<Int, Error>()

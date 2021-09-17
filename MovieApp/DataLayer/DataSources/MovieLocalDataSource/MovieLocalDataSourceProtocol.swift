@@ -3,6 +3,7 @@ import Combine
 protocol MovieLocalDataSourceProtocol {
 
     var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> { get }
+
     var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> { get }
 
     func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error>
