@@ -751,6 +751,7 @@
 				FCB63A8026A577B200E049A2 /* MovieRepositoryModel.swift */,
 				FC70193026C67FAB00B01C73 /* ReviewRepositoryModel.swift */,
 				FC2774C526B2927D00E157EC /* TimeWindowRepositoryModel.swift */,
+				FCE85FA926F3736A00B644B8 /* CategoryRepositoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

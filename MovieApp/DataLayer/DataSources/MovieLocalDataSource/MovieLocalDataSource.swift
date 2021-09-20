@@ -20,8 +20,7 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
     private var disposables = Set<AnyCancellable>()
 
     private var movies: AnyPublisher<[MovieLocalDataSourceModel], Error> {
-        guard let realm = try? Realm()
-        else {
+        guard let realm = try? Realm() else {
             print("Couldn't create realm")
             return .never()
         }
@@ -33,22 +32,6 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
-    func details(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error> {
-        guard let realm = try? Realm()
-        else {
-            print("Couldn't create realm")
-            return .never()
-        }
-
-        return realm
-            .objects(DetailedMovieLocalDataSourceModel.self)
-            .filter { $0.id == movieId }
-            .publisher
-            .map { $0.toDataSourceModel() }
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
-    }
-
     func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error> {
         movies
             .map { $0.filter { $0.categories.contains(CategoryDataSourceModel(from: timeWindow)) } }
@@ -57,8 +40,7 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
     }
 
     func save(_ movies: [MovieDataSourceModel], with category: CategoryDataSourceModel) {
-        guard let realm = try? Realm()
-        else {
+        guard let realm = try? Realm() else {
             print("Couldn't create realm")
             return
         }

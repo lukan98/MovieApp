@@ -27,8 +27,15 @@ class MovieRepository: MovieRepositoryProtocol {
     private var disposables = Set<AnyCancellable>()
 
     private var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
-        Publishers
-            .CombineLatest(localDataSource.popularMovies, localMetadataSource.favorites)
+        networkDataSource
+            .popularMovies
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.localDataSource.save(movies, with: .popular)
+            })
+            .catch { [weak self] _ in
+                self?.localDataSource.popularMovies ?? .never()
+            }
+            .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
@@ -36,8 +43,15 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     private var topRatedMovies: AnyPublisher<[MovieRepositoryModel], Error> {
-        Publishers
-            .CombineLatest(localDataSource.topRatedMovies, localMetadataSource.favorites)
+        networkDataSource
+            .topRatedMovies
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.localDataSource.save(movies, with: .topRated)
+            })
+            .catch { [weak self] _ in
+                self?.localDataSource.topRatedMovies ?? .never()
+            }
+            .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
@@ -69,10 +83,17 @@ class MovieRepository: MovieRepositoryProtocol {
     }
 
     func trendingMovies(for timeWindow: TimeWindowRepositoryModel) -> AnyPublisher<[MovieRepositoryModel], Error> {
-        Publishers
-            .CombineLatest(
-                localDataSource.trendingMovies(for: timeWindow.toDataSourceModel()),
-                localMetadataSource.favorites)
+        networkDataSource
+            .trendingMovies(for: timeWindow.toDataSourceModel())
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.localDataSource.save(
+                    movies,
+                    with: CategoryDataSourceModel(from: timeWindow.toDataSourceModel()))
+            })
+            .catch { [weak self] _ in
+                self?.localDataSource.trendingMovies(for: timeWindow.toDataSourceModel()) ?? .never()
+            }
+            .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
