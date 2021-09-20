@@ -55,8 +55,9 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
         }
 
         return realm
-            .objects(DetailedMovieLocalDataSourceModel.self)
-            .filter { $0.id == movieId }.first
+            .object(
+                ofType: DetailedMovieLocalDataSourceModel.self,
+                forPrimaryKey: movieId)
             .publisher
             .map { $0.toDataSourceModel() }
             .setFailureType(to: Error.self)
