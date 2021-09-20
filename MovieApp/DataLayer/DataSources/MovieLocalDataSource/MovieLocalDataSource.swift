@@ -1,25 +1,10 @@
 import RealmSwift
 import Combine
+import Foundation
 
 class MovieLocalDataSource: MovieLocalDataSourceProtocol {
 
     var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> {
-        movies
-            .map { $0.filter { $0.categories.contains(.popular) } }
-            .map { $0.map { $0.toDataSourceModel() } }
-            .eraseToAnyPublisher()
-    }
-
-    var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> {
-        movies
-            .map { $0.filter { $0.categories.contains(.topRated) } }
-            .map { $0.map { $0.toDataSourceModel() } }
-            .eraseToAnyPublisher()
-    }
-
-    private var disposables = Set<AnyCancellable>()
-
-    private var movies: AnyPublisher<[MovieLocalDataSourceModel], Error> {
         guard let realm = try? Realm() else {
             print("Couldn't create realm")
             return .never()
@@ -27,14 +12,38 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
 
         return realm
             .objects(MovieLocalDataSourceModel.self)
+            .filter(NSPredicate(format: "type == %d", CategoryDataSourceModel.popular.rawValue))
             .collectionPublisher
-            .map { $0.map { $0 } }
+            .map { $0.map { $0.toDataSourceModel() } }
             .eraseToAnyPublisher()
     }
 
+    var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> {
+        guard let realm = try? Realm() else {
+            print("Couldn't create realm")
+            return .never()
+        }
+
+        return realm
+            .objects(MovieLocalDataSourceModel.self)
+            .filter(NSPredicate(format: "type == %d", CategoryDataSourceModel.topRated.rawValue))
+            .collectionPublisher
+            .map { $0.map { $0.toDataSourceModel() } }
+            .eraseToAnyPublisher()
+    }
+
+    private var disposables = Set<AnyCancellable>()
+
     func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error> {
-        movies
-            .map { $0.filter { $0.categories.contains(CategoryDataSourceModel(from: timeWindow)) } }
+        guard let realm = try? Realm() else {
+            print("Couldn't create realm")
+            return .never()
+        }
+
+        return realm
+            .objects(MovieLocalDataSourceModel.self)
+            .filter(NSPredicate(format: "type == %d", CategoryDataSourceModel(from: timeWindow).rawValue))
+            .collectionPublisher
             .map { $0.map { $0.toDataSourceModel() } }
             .eraseToAnyPublisher()
     }
