@@ -3,7 +3,7 @@ import Foundation
 
 class DetailedMovieLocalDataSourceModel: Object {
 
-    @Persisted var id: Int
+    @Persisted(primaryKey: true) var id: Int
     @Persisted var about: String
     @Persisted var name: String
     @Persisted var posterSource: String
