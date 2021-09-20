@@ -1,9 +1,11 @@
 import Combine
 import Foundation
+import RealmSwift
 
 class MovieRepository: MovieRepositoryProtocol {
 
     private let networkDataSource: MovieNetworkDataSourceProtocol
+    private let localDataSource: MovieLocalDataSourceProtocol
     private let localMetadataSource: MovieLocalMetadataSourceProtocol
 
     var favoriteMovies: AnyPublisher<[DetailedMovieRepositoryModel], Error> {
@@ -22,9 +24,18 @@ class MovieRepository: MovieRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
+    private var disposables = Set<AnyCancellable>()
+
     private var popularMovies: AnyPublisher<[MovieRepositoryModel], Error> {
-        Publishers
-            .CombineLatest(networkDataSource.popularMovies, localMetadataSource.favorites)
+        networkDataSource
+            .popularMovies
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.localDataSource.save(movies, with: .popular)
+            })
+            .catch { [weak self] _ in
+                self?.localDataSource.popularMovies ?? .never()
+            }
+            .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
             }
@@ -34,6 +45,12 @@ class MovieRepository: MovieRepositoryProtocol {
     private var topRatedMovies: AnyPublisher<[MovieRepositoryModel], Error> {
         networkDataSource
             .topRatedMovies
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.localDataSource.save(movies, with: .topRated)
+            })
+            .catch { [weak self] _ in
+                self?.localDataSource.topRatedMovies ?? .never()
+            }
             .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }
@@ -43,9 +60,11 @@ class MovieRepository: MovieRepositoryProtocol {
 
     init(
         networkDataSource: MovieNetworkDataSourceProtocol,
+        localDataSource: MovieLocalDataSourceProtocol,
         localMetadataSource: MovieLocalMetadataSourceProtocol
     ) {
         self.networkDataSource = networkDataSource
+        self.localDataSource = localDataSource
         self.localMetadataSource = localMetadataSource
     }
 
@@ -64,6 +83,14 @@ class MovieRepository: MovieRepositoryProtocol {
     func trendingMovies(for timeWindow: TimeWindowRepositoryModel) -> AnyPublisher<[MovieRepositoryModel], Error> {
         networkDataSource
             .trendingMovies(for: timeWindow.toDataSourceModel())
+            .handleEvents(receiveOutput: { [weak self] movies in
+                self?.localDataSource.save(
+                    movies,
+                    with: CategoryDataSourceModel(from: timeWindow.toDataSourceModel()))
+            })
+            .catch { [weak self] _ in
+                self?.localDataSource.trendingMovies(for: timeWindow.toDataSourceModel()) ?? .never()
+            }
             .combineLatest(localMetadataSource.favorites)
             .map { movies, favorites in
                 movies.map { MovieRepositoryModel(from: $0, isFavorited: favorites.contains($0.id)) }

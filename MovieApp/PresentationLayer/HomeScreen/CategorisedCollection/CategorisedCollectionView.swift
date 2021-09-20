@@ -33,7 +33,7 @@ class CategorisedCollectionView: UIView {
     }
     var movieFavorited: AnyPublisher<Int, Error> {
         movieFavoritedSubject
-            .eraseToAnyPublisher()
+            .receiveOnBackground()
     }
 
     private let movieSelectedSubject = PassthroughSubject<Int, Error>()
