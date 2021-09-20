@@ -66,8 +66,6 @@ class MovieRepository: MovieRepositoryProtocol {
         self.networkDataSource = networkDataSource
         self.localDataSource = localDataSource
         self.localMetadataSource = localMetadataSource
-
-        bindSources()
     }
 
     func popularMovies(for genreId: Int) -> AnyPublisher<[MovieRepositoryModel], Error> {
@@ -140,44 +138,6 @@ class MovieRepository: MovieRepositoryProtocol {
             .searchResults(for: query)
             .map { $0.map { MovieRepositoryModel(from: $0) } }
             .eraseToAnyPublisher()
-    }
-
-    private func bindSources() {
-        networkDataSource
-            .popularMovies
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] movies in
-                    self?.localDataSource.save(movies, with: .popular)
-                })
-            .store(in: &disposables)
-
-        networkDataSource
-            .topRatedMovies
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] movies in
-                    self?.localDataSource.save(movies, with: .topRated)
-                })
-            .store(in: &disposables)
-
-        networkDataSource
-            .trendingMovies(for: .day)
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] movies in
-                    self?.localDataSource.save(movies, with: .trendingDaily)
-                })
-            .store(in: &disposables)
-
-        networkDataSource
-            .trendingMovies(for: .week)
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] movies in
-                    self?.localDataSource.save(movies, with: .trendingWeekly)
-                })
-            .store(in: &disposables)
     }
 
 }

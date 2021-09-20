@@ -39,6 +39,21 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
             .eraseToAnyPublisher()
     }
 
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error> {
+        guard let realm = try? Realm() else {
+            print("Couldn't create realm")
+            return .never()
+        }
+
+        return realm
+            .objects(DetailedMovieLocalDataSourceModel.self)
+            .filter { $0.id == movieId }.first
+            .publisher
+            .map { $0.toDataSourceModel() }
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
     func save(_ movies: [MovieDataSourceModel], with category: CategoryDataSourceModel) {
         guard let realm = try? Realm() else {
             print("Couldn't create realm")
