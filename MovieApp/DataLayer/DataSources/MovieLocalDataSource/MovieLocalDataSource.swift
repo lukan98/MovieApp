@@ -1,25 +1,10 @@
 import RealmSwift
 import Combine
+import Foundation
 
 class MovieLocalDataSource: MovieLocalDataSourceProtocol {
 
     var popularMovies: AnyPublisher<[MovieDataSourceModel], Error> {
-        movies
-            .map { $0.filter { $0.categories.contains(.popular) } }
-            .map { $0.map { $0.toDataSourceModel() } }
-            .eraseToAnyPublisher()
-    }
-
-    var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> {
-        movies
-            .map { $0.filter { $0.categories.contains(.topRated) } }
-            .map { $0.map { $0.toDataSourceModel() } }
-            .eraseToAnyPublisher()
-    }
-
-    private var disposables = Set<AnyCancellable>()
-
-    private var movies: AnyPublisher<[MovieLocalDataSourceModel], Error> {
         guard let realm = try? Realm() else {
             print("Couldn't create realm")
             return .never()
@@ -27,15 +12,55 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
 
         return realm
             .objects(MovieLocalDataSourceModel.self)
+            .filter(NSPredicate(format: "type == %d", CategoryDataSourceModel.popular.rawValue))
             .collectionPublisher
-            .map { $0.map { $0 } }
+            .map { $0.map { $0.toDataSourceModel() } }
             .eraseToAnyPublisher()
     }
 
-    func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error> {
-        movies
-            .map { $0.filter { $0.categories.contains(CategoryDataSourceModel(from: timeWindow)) } }
+    var topRatedMovies: AnyPublisher<[MovieDataSourceModel], Error> {
+        guard let realm = try? Realm() else {
+            print("Couldn't create realm")
+            return .never()
+        }
+
+        return realm
+            .objects(MovieLocalDataSourceModel.self)
+            .filter(NSPredicate(format: "type == %d", CategoryDataSourceModel.topRated.rawValue))
+            .collectionPublisher
             .map { $0.map { $0.toDataSourceModel() } }
+            .eraseToAnyPublisher()
+    }
+
+    private var disposables = Set<AnyCancellable>()
+
+    func trendingMovies(for timeWindow: TimeWindowDataSourceModel) -> AnyPublisher<[MovieDataSourceModel], Error> {
+        guard let realm = try? Realm() else {
+            print("Couldn't create realm")
+            return .never()
+        }
+
+        return realm
+            .objects(MovieLocalDataSourceModel.self)
+            .filter(NSPredicate(format: "type == %d", CategoryDataSourceModel(from: timeWindow).rawValue))
+            .collectionPublisher
+            .map { $0.map { $0.toDataSourceModel() } }
+            .eraseToAnyPublisher()
+    }
+
+    func details(for movieId: Int) -> AnyPublisher<DetailedMovieDataSourceModel, Error> {
+        guard let realm = try? Realm() else {
+            print("Couldn't create realm")
+            return .never()
+        }
+
+        return realm
+            .object(
+                ofType: DetailedMovieLocalDataSourceModel.self,
+                forPrimaryKey: movieId)
+            .publisher
+            .map { $0.toDataSourceModel() }
+            .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
@@ -59,6 +84,24 @@ class MovieLocalDataSource: MovieLocalDataSourceProtocol {
                             update: .modified)
                     }
                 }
+            }
+        } catch {
+            print("An error ocurred while writing to the realm")
+        }
+    }
+
+    func save(_ movie: DetailedMovieDataSourceModel) {
+        guard let realm = try? Realm()
+        else {
+            print("Couldn't create realm")
+            return
+        }
+
+        do {
+            try realm.write {
+                realm.add(
+                    DetailedMovieLocalDataSourceModel(from: movie),
+                    update: .modified)
             }
         } catch {
             print("An error ocurred while writing to the realm")

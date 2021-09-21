@@ -105,6 +105,12 @@ class MovieRepository: MovieRepositoryProtocol {
     func details(for movieId: Int) -> AnyPublisher<DetailedMovieRepositoryModel, Error> {
         networkDataSource
             .details(for: movieId)
+            .handleEvents(receiveOutput: { [weak self] movie in
+                self?.localDataSource.save(movie)
+            })
+            .catch { [weak self] _ in
+                self?.localDataSource.details(for: movieId) ?? .never()
+            }
             .combineLatest(localMetadataSource.favorites)
             .map { movie, favorites in
                 DetailedMovieRepositoryModel(from: movie, isFavorited: favorites.contains(movie.id))
