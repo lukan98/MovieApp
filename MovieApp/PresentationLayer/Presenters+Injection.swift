@@ -3,7 +3,6 @@ import Resolver
 extension Resolver {
 
     public static func registerPresenters() {
-
         register { FavoritesPresenter(useCase: resolve()) }
             .scope(.unique)
 
@@ -11,11 +10,11 @@ extension Resolver {
             HomeScreenPresenter(
                 movieUseCase: resolve(),
                 genreUseCase: resolve())
-        }.scope(.unique)
+        }
+        .scope(.unique)
 
         register { MovieDetailsPresenter(useCase: resolve()) }
             .scope(.unique)
-
     }
 
 }
