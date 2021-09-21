@@ -771,6 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				FC23B1D526BAD485000C603E /* CastMemberRepositoryModel.swift */,
+				FCE85FA926F3736A00B644B8 /* CategoryRepositoryModel.swift */,
 				FC23B1E326BADA66000C603E /* CreditsRepositoryModel.swift */,
 				FC23B1D726BAD4A5000C603E /* CrewMemberRepositoryModel.swift */,
 				FC6FE60026B833C1003B29B1 /* DetailedMovieRepositoryModel.swift */,
