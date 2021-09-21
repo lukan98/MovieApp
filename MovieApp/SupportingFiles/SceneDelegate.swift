@@ -2,8 +2,6 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    let appDependencies = AppDependencies()
-
     var window: UIWindow?
     var router: RouterProtocol?
 
