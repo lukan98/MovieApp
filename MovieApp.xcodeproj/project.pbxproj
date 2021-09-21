@@ -74,6 +74,10 @@
 		FC66571326CAAF2000440C6D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC66571226CAAF2000440C6D /* UIImage+Extensions.swift */; };
 		FC68D48026F4B53000C53811 /* DetailedMovieLocalDataSourceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC68D47F26F4B53000C53811 /* DetailedMovieLocalDataSourceModel.swift */; };
 		FC68D48226F4B62A00C53811 /* GenreLocalDataSourceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC68D48126F4B62A00C53811 /* GenreLocalDataSourceModel.swift */; };
+		FC68D48526F9DB0800C53811 /* Resolver-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FC68D48426F9DB0800C53811 /* Resolver-Dynamic */; };
+		FC68D48626F9DB0800C53811 /* Resolver-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = FC68D48426F9DB0800C53811 /* Resolver-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		FC68D48826F9DB0800C53811 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = FC68D48726F9DB0800C53811 /* Resolver */; };
+		FC68D48A26F9DB0800C53811 /* Resolver-Static in Frameworks */ = {isa = PBXBuildFile; productRef = FC68D48926F9DB0800C53811 /* Resolver-Static */; };
 		FC6FE5F926B7DD73003B29B1 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE5F826B7DD73003B29B1 /* Array+Extensions.swift */; };
 		FC6FE5FB26B80D26003B29B1 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE5FA26B80D26003B29B1 /* FavoritesPresenter.swift */; };
 		FC6FE5FD26B824EB003B29B1 /* DetailedMovieClientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6FE5FC26B824EB003B29B1 /* DetailedMovieClientModel.swift */; };
@@ -165,6 +169,20 @@
 		FCE85FA826F2374200B644B8 /* MovieLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE85FA726F2374200B644B8 /* MovieLocalDataSource.swift */; };
 		FCE85FAA26F3736A00B644B8 /* CategoryRepositoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE85FA926F3736A00B644B8 /* CategoryRepositoryModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FC68D48B26F9DB0900C53811 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FC68D48626F9DB0800C53811 /* Resolver-Dynamic in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FC23B1CB26BACF41000C603E /* CrewMemberClientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMemberClientModel.swift; sourceTree = "<group>"; };
@@ -329,8 +347,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC68D48826F9DB0800C53811 /* Resolver in Frameworks */,
+				FC68D48526F9DB0800C53811 /* Resolver-Dynamic in Frameworks */,
 				FC9849DD26E8BC3F0067C740 /* RealmSwift in Frameworks */,
 				FC9849DB26E8BC3F0067C740 /* Realm in Frameworks */,
+				FC68D48A26F9DB0800C53811 /* Resolver-Static in Frameworks */,
 				FC592E48269DAAA800233EFB /* Kingfisher in Frameworks */,
 				FC592E45269DAA4300233EFB /* SnapKit in Frameworks */,
 			);
@@ -742,7 +763,6 @@
 			isa = PBXGroup;
 			children = (
 				FC23B1D526BAD485000C603E /* CastMemberRepositoryModel.swift */,
-				FCE85FA926F3736A00B644B8 /* CategoryRepositoryModel.swift */,
 				FC23B1E326BADA66000C603E /* CreditsRepositoryModel.swift */,
 				FC23B1D726BAD4A5000C603E /* CrewMemberRepositoryModel.swift */,
 				FC6FE60026B833C1003B29B1 /* DetailedMovieRepositoryModel.swift */,
@@ -929,6 +949,7 @@
 				FC592E28269D897C00233EFB /* Sources */,
 				FC592E29269D897C00233EFB /* Frameworks */,
 				FC592E2A269D897C00233EFB /* Resources */,
+				FC68D48B26F9DB0900C53811 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -940,6 +961,9 @@
 				FC592E47269DAAA800233EFB /* Kingfisher */,
 				FC9849DA26E8BC3F0067C740 /* Realm */,
 				FC9849DC26E8BC3F0067C740 /* RealmSwift */,
+				FC68D48426F9DB0800C53811 /* Resolver-Dynamic */,
+				FC68D48726F9DB0800C53811 /* Resolver */,
+				FC68D48926F9DB0800C53811 /* Resolver-Static */,
 			);
 			productName = MovieApp;
 			productReference = FC592E2C269D897C00233EFB /* MovieApp.app */;
@@ -973,6 +997,7 @@
 				FC592E46269DAAA800233EFB /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				FCB496EB26DE7FD100546095 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				FC9849D926E8BC3F0067C740 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				FC68D48326F9DB0800C53811 /* XCRemoteSwiftPackageReference "Resolver" */,
 			);
 			productRefGroup = FC592E2D269D897C00233EFB /* Products */;
 			projectDirPath = "";
@@ -1383,6 +1408,14 @@
 				minimumVersion = 6.3.0;
 			};
 		};
+		FC68D48326F9DB0800C53811 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.4;
+			};
+		};
 		FC9849D926E8BC3F0067C740 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa.git";
@@ -1411,6 +1444,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FC592E46269DAAA800233EFB /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		FC68D48426F9DB0800C53811 /* Resolver-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC68D48326F9DB0800C53811 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = "Resolver-Dynamic";
+		};
+		FC68D48726F9DB0800C53811 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC68D48326F9DB0800C53811 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
+		};
+		FC68D48926F9DB0800C53811 /* Resolver-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC68D48326F9DB0800C53811 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = "Resolver-Static";
 		};
 		FC9849DA26E8BC3F0067C740 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
