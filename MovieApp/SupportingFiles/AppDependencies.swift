@@ -1,4 +1,14 @@
-import RealmSwift
+import Resolver
+
+extension Resolver: ResolverRegistering {
+
+    public static func registerAllServices() {
+        registerClients()
+        registerDataSources()
+        registerRepositories()
+    }
+
+}
 
 class AppDependencies {
 
