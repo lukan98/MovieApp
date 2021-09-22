@@ -1,8 +1,7 @@
 import UIKit
+import Resolver
 
-class MainRouter: RouterProtocol {
-
-    private let appDependencies = AppDependencies()
+class MainRouter: RouterProtocol, Resolving {
 
     private let navigationController: UINavigationController
 
@@ -37,9 +36,7 @@ class MainRouter: RouterProtocol {
         let styledFont = ProximaNova.medium.of(size: 10)
 
         let homeScreen = HomeScreenViewController(
-            presenter: HomeScreenPresenter(
-                movieUseCase: appDependencies.movieUseCase,
-                genreUseCase: appDependencies.genreUseCase),
+            presenter: resolver.resolve(),
             router: self)
         homeScreen.styleForTabBar(
             title: "Home",
@@ -48,7 +45,7 @@ class MainRouter: RouterProtocol {
             font: styledFont)
 
         let favorites = FavoritesViewController(
-            presenter: FavoritesPresenter(useCase: appDependencies.movieUseCase),
+            presenter: resolver.resolve(),
             router: self)
         favorites.styleForTabBar(
             title: "Favorites",
@@ -69,9 +66,8 @@ class MainRouter: RouterProtocol {
 extension MainRouter: MovieDetailsRouterProtocol {
 
     func showMovieDetails(for movieId: Int) {
-        let movieDetailsPresenter = MovieDetailsPresenter(useCase: appDependencies.movieUseCase)
         let movieDetailsViewController = MovieDetailsViewController(
-            presenter: movieDetailsPresenter,
+            presenter: resolver.resolve(),
             router: self,
             for: movieId)
 
